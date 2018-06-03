@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- =============================================================== -->
+    <!-- Project -->
+    <!-- =============================================================== -->
+    <!-- Maven configuration -->
+    <groupId>com.antazri</groupId>
+    <artifactId>climbingclub</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0-SNAPSHOT</version>
+
+    <!-- Project information -->
+    <name>ClimbingClub OCR P6</name>
+    <url>http://www.antazri.xyz</url>
+
+    <!-- =============================================================== -->
+    <!-- Properties -->
+    <!-- =============================================================== -->
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <!-- =============================================================== -->
+    <!-- Modules Management -->
+    <!-- =============================================================== -->
+    <modules>
+        <module>climbingclub-model</module>
+        <module>climbingclub-technical</module>
+        <module>climbingclub-security</module>
+        <module>climbingclub-consumer</module>
+        <module>climbingclub-business</module>
+        <module>climbingclub-batch</module>
+        <module>climbingclub-webapp</module>
+    </modules>
+
+    <!-- =============================================================== -->
+    <!-- Dependencies Management -->
+    <!-- =============================================================== -->
+    <dependencyManagement>
+        <dependencies>
+            <!-- Modules dependencies -->
+            <dependency>
+                <groupId>com.antazri</groupId>
+                <artifactId>climbingclub-model</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.antazri</groupId>
+                <artifactId>climbingclub-technical</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.antazri</groupId>
+                <artifactId>climbingclub-security</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.antazri</groupId>
+                <artifactId>climbingclub-consumer</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.antazri</groupId>
+                <artifactId>climbingclub-business</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.antazri</groupId>
+                <artifactId>climbingclub-batch</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.antazri</groupId>
+                <artifactId>climbingclub-webapp</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+
+            <!-- Spring dependencies -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>5.0.6.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-web</artifactId>
+                <version>5.0.6.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-jdbc</artifactId>
+                <version>5.0.6.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-tx</artifactId>
+                <version>5.0.6.RELEASE</version>
+            </dependency>
+
+            <!-- PostgreSQL -->
+            <dependency>
+                <groupId>org.postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>42.2.2</version>
+            </dependency>
+
+            <!-- JSR 330 -->
+            <dependency>
+                <groupId>javax.annotation</groupId>
+                <artifactId>javax.annotation-api</artifactId>
+                <version>1.3.2</version>
+            </dependency>
+
+            <!-- JSR 250 -->
+            <dependency>
+                <groupId>javax.inject</groupId>
+                <artifactId>javax.inject</artifactId>
+                <version>1</version>
+            </dependency>
+
+            <!-- Apache Commons dependencies -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-dbcp2</artifactId>
+                <version>2.3.0</version>
+            </dependency>
+
+            <!-- Log4J2 dependencies -->
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-api</artifactId>
+                <version>2.11.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-core</artifactId>
+                <version>2.11.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-jcl</artifactId>
+                <version>2.11.0</version>
+            </dependency>
+
+            <!-- Java Servlet API dependencies -->
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>javax.servlet-api</artifactId>
+                <version>3.1.0</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <!-- JUnit dependency -->
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.11</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <!-- =============================================================== -->
+    <!-- Build Management -->
+    <!-- =============================================================== -->
+    <build>
+        <pluginManagement>
+            <plugins>
+                <!-- Packaging JAR -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>3.0.2</version>
+                </plugin>
+
+                <!-- Compilation des sources Java -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.1</version>
+                    <configuration>
+                        <showDeprecation>true</showDeprecation>
+                        <showWarnings>true</showWarnings>
+                    </configuration>
+                </plugin>
+
+                <!-- Packaging WAR -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-war-plugin</artifactId>
+                    <version>3.0.0</version>
+                </plugin>
+
+                <!-- Assemblage -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-assembly-plugin</artifactId>
+                    <version>3.0.0</version>
+                </plugin>
+
+                <!-- Site -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>3.6</version>
+                    <configuration>
+                        <locales>fr</locales>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <!--  <pluginManagement>lock down plugins versions to avoid using Maven defaults (may be moved to parent pom)
+          <plugins>
+            <plugin>
+              <artifactId>maven-clean-plugin</artifactId>
+              <version>3.0.0</version>
+            </plugin>
+            <plugin>
+              <artifactId>maven-resources-plugin</artifactId>
+              <version>3.0.2</version>
+            </plugin>
+            <plugin>
+              <artifactId>maven-compiler-plugin</artifactId>
+              <version>3.7.0</version>
+            </plugin>
+            <plugin>
+              <artifactId>maven-surefire-plugin</artifactId>
+              <version>2.20.1</version>
+            </plugin>
+            <plugin>
+              <artifactId>maven-jar-plugin</artifactId>
+              <version>3.0.2</version>
+            </plugin>
+            <plugin>
+              <artifactId>maven-install-plugin</artifactId>
+              <version>2.5.2</version>
+            </plugin>
+            <plugin>
+              <artifactId>maven-deploy-plugin</artifactId>
+              <version>2.8.2</version>
+            </plugin>
+          </plugins>
+        </pluginManagement> -->
+    </build>
+
+    <!-- =============================================================== -->
+    <!-- Reporting Management -->
+    <!-- =============================================================== -->
+    <reporting>
+
+    </reporting>
+</project>

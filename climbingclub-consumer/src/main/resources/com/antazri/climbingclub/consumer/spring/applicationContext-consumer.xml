@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <bean id="commentaireDao" class="com.antazri.climbingclub.consumer.impl.CommentaireDao" />
+    <bean id="cotationDao" class="com.antazri.climbingclub.consumer.impl.CotationDao" />
+    <bean id="regionDao" class="com.antazri.climbingclub.consumer.impl.RegionDao" />
+    <bean id="secteurDao" class="com.antazri.climbingclub.consumer.impl.SecteurDao" />
+    <bean id="spotDao" class="com.antazri.climbingclub.consumer.impl.SpotDao" />
+    <bean id="statutDao" class="com.antazri.climbingclub.consumer.impl.StatutDao" />
+    <bean id="topoDao" class="com.antazri.climbingclub.consumer.impl.TopoDao" />
+    <bean id="utilisateurDao" class="com.antazri.climbingclub.consumer.impl.UtilisateurDao" />
+    <bean id="voieDao" class="com.antazri.climbingclub.consumer.impl.VoieDao" />
+
+</beans>

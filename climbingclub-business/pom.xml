@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- =============================================================== -->
+    <!-- Project -->
+    <!-- =============================================================== -->
+    <!-- Parent configuration -->
+    <parent>
+        <artifactId>climbingclub</artifactId>
+        <groupId>com.antazri</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <!-- Maven configuration -->
+    <artifactId>climbingclub-business</artifactId>
+
+    <!-- Global information -->
+    <name>climbingclub-business</name>
+    <url>http://www.antazri.xyz</url>
+
+    <!-- =============================================================== -->
+    <!-- Properties -->
+    <!-- =============================================================== -->
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <!-- =============================================================== -->
+    <!-- Dependencies Management -->
+    <!-- =============================================================== -->
+    <dependencies>
+        <!-- Modules dependencies -->
+        <dependency>
+            <groupId>com.antazri</groupId>
+            <artifactId>climbingclub-model</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.antazri</groupId>
+            <artifactId>climbingclub-technical</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.antazri</groupId>
+            <artifactId>climbingclub-consumer</artifactId>
+        </dependency>
+
+        <!-- Spring dependencies -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+        </dependency>
+
+        <!-- JSR 330 -->
+        <dependency>
+            <groupId>javax.annotation</groupId>
+            <artifactId>javax.annotation-api</artifactId>
+        </dependency>
+
+        <!-- JSR 250 -->
+        <dependency>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
+        </dependency>
+
+        <!-- JUnit dependency -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+    </dependencies>
+</project>
