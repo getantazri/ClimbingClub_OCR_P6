@@ -7,10 +7,10 @@ import java.util.List;
 
 public interface ISecteurDao {
 
-    public Secteur findById(int pId);
-    public List<Secteur> findBySpot(Spot pSpot);
-    public List<Secteur> findAll();
-    public Secteur create(Secteur pSecteur);
-    public Secteur update(Secteur pSecteur);
-    public void delete(Secteur pSecteur);
+    Secteur findById(int pId);
+    List<Secteur> findBySpot(Spot pSpot);
+    List<Secteur> findAll();
+    Secteur create(Secteur pSecteur);
+    Secteur update(Secteur pSecteur);
+    void delete(Secteur pSecteur);
 }

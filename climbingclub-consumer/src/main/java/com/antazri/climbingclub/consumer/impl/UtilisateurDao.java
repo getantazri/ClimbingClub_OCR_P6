@@ -4,6 +4,7 @@ import com.antazri.climbingclub.consumer.contract.IUtilisateurDao;
 import com.antazri.climbingclub.model.beans.Statut;
 import com.antazri.climbingclub.model.beans.Utilisateur;
 
+import javax.sql.DataSource;
 import java.util.List;
 
 public class UtilisateurDao extends AbstractDao implements IUtilisateurDao {

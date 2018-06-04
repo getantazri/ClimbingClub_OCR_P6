@@ -3,6 +3,7 @@ package com.antazri.climbingclub.consumer.impl;
 import com.antazri.climbingclub.consumer.contract.IStatutDao;
 import com.antazri.climbingclub.model.beans.Statut;
 
+import javax.sql.DataSource;
 import java.util.List;
 
 public class StatutDao extends AbstractDao implements IStatutDao {

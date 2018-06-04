@@ -5,6 +5,7 @@ import com.antazri.climbingclub.model.beans.Commentaire;
 import com.antazri.climbingclub.model.beans.Spot;
 import com.antazri.climbingclub.model.beans.Topo;
 
+import javax.sql.DataSource;
 import java.util.List;
 
 public class CommentaireDao extends AbstractDao implements ICommentaireDao {

@@ -1,5 +1,11 @@
+
+<!DOCTYPE html>
 <html>
+<head>
+    <title>ClimbingClub - Homepage</title>
+
+</head>
 <body>
-<h2>Hello World!</h2>
+<h1>Hello world from ClimbingClub Homepage</h1>
 </body>
 </html>

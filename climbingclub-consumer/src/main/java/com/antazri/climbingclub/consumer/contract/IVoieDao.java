@@ -8,11 +8,11 @@ import java.util.List;
 
 public interface IVoieDao {
 
-    public Voie findById(int pId);
-    public List<Voie> findBySecteur(Secteur pSecteur);
-    public List<Voie> findByCotation(Cotation pCotation);
-    public List<Voie> findAll();
-    public Voie create(Voie pSpot);
-    public Voie update(Voie pSpot);
-    public void delete(Voie pSpot);
+    Voie findById(int pId);
+    List<Voie> findBySecteur(Secteur pSecteur);
+    List<Voie> findByCotation(Cotation pCotation);
+    List<Voie> findAll();
+    Voie create(Voie pSpot);
+    Voie update(Voie pSpot);
+    void delete(Voie pSpot);
 }

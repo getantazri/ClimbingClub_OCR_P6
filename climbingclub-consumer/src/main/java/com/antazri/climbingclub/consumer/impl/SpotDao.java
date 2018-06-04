@@ -4,6 +4,7 @@ import com.antazri.climbingclub.consumer.contract.ISpotDao;
 import com.antazri.climbingclub.model.beans.Spot;
 import com.antazri.climbingclub.model.beans.Topo;
 
+import javax.sql.DataSource;
 import java.util.List;
 
 public class SpotDao extends AbstractDao implements ISpotDao {

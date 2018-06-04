@@ -8,12 +8,12 @@ import java.util.List;
 
 public interface ICommentaireDao {
 
-    public Commentaire findById(int pId);
-    public List<Commentaire> findByParentId(int pId);
-    public List<Commentaire> findBySpot(Spot pSpot);
-    public List<Commentaire> findByTopo(Topo pTopo);
-    public List<Commentaire> findAll();
-    public Commentaire create(Commentaire pCommentaire);
-    public Commentaire update(Commentaire pCommentaire);
-    public void delete(Commentaire pCommentaire);
+    Commentaire findById(int pId);
+    List<Commentaire> findByParentId(int pId);
+    List<Commentaire> findBySpot(Spot pSpot);
+    List<Commentaire> findByTopo(Topo pTopo);
+    List<Commentaire> findAll();
+    Commentaire create(Commentaire pCommentaire);
+    Commentaire update(Commentaire pCommentaire);
+    void delete(Commentaire pCommentaire);
 }

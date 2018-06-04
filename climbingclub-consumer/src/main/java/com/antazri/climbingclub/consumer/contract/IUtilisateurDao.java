@@ -7,11 +7,11 @@ import java.util.List;
 
 public interface IUtilisateurDao {
 
-    public Utilisateur findById(int pId);
-    public List<Utilisateur> findByStatut(Statut pStatut);
-    public List<Utilisateur> findByName(String pName);
-    public List<Utilisateur> findAll();
-    public Utilisateur create(Utilisateur pTopUtilisateurpo);
-    public Utilisateur update(Utilisateur pUtilisateur);
-    public void delete(Utilisateur pUtilisateur);
+    Utilisateur findById(int pId);
+    List<Utilisateur> findByStatut(Statut pStatut);
+    List<Utilisateur> findByName(String pName);
+    List<Utilisateur> findAll();
+    Utilisateur create(Utilisateur pTopUtilisateurpo);
+    Utilisateur update(Utilisateur pUtilisateur);
+    void delete(Utilisateur pUtilisateur);
 }

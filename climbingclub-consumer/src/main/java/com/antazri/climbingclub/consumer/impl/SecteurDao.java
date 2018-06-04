@@ -4,6 +4,7 @@ import com.antazri.climbingclub.consumer.contract.ISecteurDao;
 import com.antazri.climbingclub.model.beans.Secteur;
 import com.antazri.climbingclub.model.beans.Spot;
 
+import javax.sql.DataSource;
 import java.util.List;
 
 public class SecteurDao extends AbstractDao implements ISecteurDao {

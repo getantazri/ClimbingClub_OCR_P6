@@ -1,0 +1,29 @@
+<component name="libraryTable">
+  <library name="org.springframework:spring-context:5.0.6.RELEASE" type="repository">
+    <properties maven-id="org.springframework:spring-context:5.0.6.RELEASE" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/climbingclub-webapp/src/main/webapp/WEB-INF/lib/spring-context-5.0.6.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/climbingclub-webapp/src/main/webapp/WEB-INF/lib/spring-aop-5.0.6.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/climbingclub-webapp/src/main/webapp/WEB-INF/lib/spring-beans-5.0.6.RELEASE1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/climbingclub-webapp/src/main/webapp/WEB-INF/lib/spring-core-5.0.6.RELEASE1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/climbingclub-webapp/src/main/webapp/WEB-INF/lib/spring-jcl-5.0.6.RELEASE1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/climbingclub-webapp/src/main/webapp/WEB-INF/lib/spring-expression-5.0.6.RELEASE.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/climbingclub-webapp/src/main/webapp/WEB-INF/lib/spring-context-5.0.6.RELEASE-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/climbingclub-webapp/src/main/webapp/WEB-INF/lib/spring-aop-5.0.6.RELEASE-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/climbingclub-webapp/src/main/webapp/WEB-INF/lib/spring-beans-5.0.6.RELEASE-javadoc1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/climbingclub-webapp/src/main/webapp/WEB-INF/lib/spring-core-5.0.6.RELEASE-javadoc1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/climbingclub-webapp/src/main/webapp/WEB-INF/lib/spring-jcl-5.0.6.RELEASE-javadoc1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/climbingclub-webapp/src/main/webapp/WEB-INF/lib/spring-expression-5.0.6.RELEASE-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/climbingclub-webapp/src/main/webapp/WEB-INF/lib/spring-context-5.0.6.RELEASE-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/climbingclub-webapp/src/main/webapp/WEB-INF/lib/spring-aop-5.0.6.RELEASE-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/climbingclub-webapp/src/main/webapp/WEB-INF/lib/spring-beans-5.0.6.RELEASE-sources1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/climbingclub-webapp/src/main/webapp/WEB-INF/lib/spring-core-5.0.6.RELEASE-sources1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/climbingclub-webapp/src/main/webapp/WEB-INF/lib/spring-jcl-5.0.6.RELEASE-sources1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/climbingclub-webapp/src/main/webapp/WEB-INF/lib/spring-expression-5.0.6.RELEASE-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

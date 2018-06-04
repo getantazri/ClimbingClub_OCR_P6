@@ -3,6 +3,7 @@ package com.antazri.climbingclub.consumer.impl;
 import com.antazri.climbingclub.consumer.contract.ICotationDao;
 import com.antazri.climbingclub.model.beans.Cotation;
 
+import javax.sql.DataSource;
 import java.util.List;
 
 public class CotationDao extends AbstractDao implements ICotationDao {

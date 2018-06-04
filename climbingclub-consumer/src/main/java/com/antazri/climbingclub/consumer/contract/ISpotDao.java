@@ -7,10 +7,10 @@ import java.util.List;
 
 public interface ISpotDao {
 
-    public Spot findById(int pId);
-    public List<Spot> findBySpot(Topo pTopo);
-    public List<Spot> findAll();
-    public Spot create(Spot pSpot);
-    public Spot update(Spot pSpot);
-    public void delete(Spot pSpot);
+    Spot findById(int pId);
+    List<Spot> findBySpot(Topo pTopo);
+    List<Spot> findAll();
+    Spot create(Spot pSpot);
+    Spot update(Spot pSpot);
+    void delete(Spot pSpot);
 }

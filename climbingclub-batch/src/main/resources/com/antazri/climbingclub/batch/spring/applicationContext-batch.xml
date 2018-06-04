@@ -9,13 +9,15 @@
 
     <context:annotation-config />
 
-    <context:property-placeholder location="classpath:/**/db/db.properties" />
-
-    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
-        <property name="driverClassName" value="${database.driverClassName}" />
-        <property name="url" value="${database.url}" />
-        <property name="username" value="${database.username}" />
-        <property name="password" value="${database.password" />
+    <bean id="dataSourceConfig" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="properties" value="classpath:/**/db/db.properties" />
     </bean>
+
+    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSourceFactory"
+          factory-method="createDataSource"
+          destroy-method="close">
+        <constructor-arg ref="dataSourceConfig" />
+    </bean>
+
 
 </beans>

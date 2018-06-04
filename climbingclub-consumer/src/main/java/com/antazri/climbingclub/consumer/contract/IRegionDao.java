@@ -6,10 +6,10 @@ import java.util.List;
 
 public interface IRegionDao {
 
-    public Region findById(int pId);
-    public Region findByName(String pName);
-    public List<Region> findAll();
-    public Region create(Region pRegion);
-    public Region update(Region pRegion);
-    public void delete(Region pRegion);
+    Region findById(int pId);
+    Region findByName(String pName);
+    List<Region> findAll();
+    Region create(Region pRegion);
+    Region update(Region pRegion);
+    void delete(Region pRegion);
 }

@@ -6,10 +6,10 @@ import java.util.List;
 
 public interface IStatutDao {
 
-    public Statut findById(int pId);
-    public Statut findByName(String pName);
-    public List<Statut> findAll();
-    public Statut create(Statut pStatut);
-    public Statut update(Statut pStatut);
-    public void delete(Statut pStatut);
+    Statut findById(int pId);
+    Statut findByName(String pName);
+    List<Statut> findAll();
+    Statut create(Statut pStatut);
+    Statut update(Statut pStatut);
+    void delete(Statut pStatut);
 }

@@ -6,10 +6,10 @@ import java.util.List;
 
 public interface ICotationDao {
 
-    public Cotation findById(int pId);
-    public Cotation findByName(String pName);
-    public List<Cotation> findAll();
-    public Cotation create(Cotation pCotation);
-    public Cotation update(Cotation pCotation);
-    public void delete(Cotation pCotation);
+    Cotation findById(int pId);
+    Cotation findByName(String pName);
+    List<Cotation> findAll();
+    Cotation create(Cotation pCotation);
+    Cotation update(Cotation pCotation);
+    void delete(Cotation pCotation);
 }
