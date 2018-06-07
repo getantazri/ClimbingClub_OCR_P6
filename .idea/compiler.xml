@@ -6,6 +6,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="climbingclub-batch" />
+        <module name="climbingclub-business" />
+        <module name="climbingclub-consumer" />
+        <module name="climbingclub-model" />
+        <module name="climbingclub-security" />
+        <module name="climbingclub-technical" />
+        <module name="climbingclub-webapp" />
         <module name="climbingclubbatch" />
         <module name="climbingclubbusiness" />
         <module name="climbingclubconsumer" />

@@ -5,11 +5,11 @@ import com.antazri.climbingclub.model.beans.Region;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Component("regionDao")
+@Repository
 public class RegionDao extends AbstractDao implements IRegionDao {
 
     public Region findById(int pId) {

@@ -3,10 +3,11 @@ package com.antazri.climbingclub.consumer.impl;
 import com.antazri.climbingclub.consumer.contract.IUtilisateurDao;
 import com.antazri.climbingclub.model.beans.Statut;
 import com.antazri.climbingclub.model.beans.Utilisateur;
+import org.springframework.stereotype.Repository;
 
-import javax.sql.DataSource;
 import java.util.List;
 
+@Repository
 public class UtilisateurDao extends AbstractDao implements IUtilisateurDao {
 
     public Utilisateur findById(int pId) {

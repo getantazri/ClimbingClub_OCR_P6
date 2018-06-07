@@ -4,10 +4,11 @@ import com.antazri.climbingclub.consumer.contract.IVoieDao;
 import com.antazri.climbingclub.model.beans.Cotation;
 import com.antazri.climbingclub.model.beans.Secteur;
 import com.antazri.climbingclub.model.beans.Voie;
+import org.springframework.stereotype.Repository;
 
-import javax.sql.DataSource;
 import java.util.List;
 
+@Repository
 public class VoieDao extends AbstractDao implements IVoieDao {
 
     public Voie findById(int pId) {

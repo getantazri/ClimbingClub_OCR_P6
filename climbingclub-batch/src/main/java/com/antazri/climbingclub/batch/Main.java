@@ -11,11 +11,9 @@ public class Main {
 
         ApplicationContext vApplicationContext = new ClassPathXmlApplicationContext("classpath:/**/batch/spring/applicationContext-bootstrap.xml");
 
-        Region region;
-
         RegionDao regionDao = new RegionDao();
 
-        region = regionDao.findById(1);
+        Region region = regionDao.findById(1);
 
         System.out.println(region.getNom());
 

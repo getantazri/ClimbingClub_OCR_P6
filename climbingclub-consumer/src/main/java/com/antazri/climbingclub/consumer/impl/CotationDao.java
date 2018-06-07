@@ -2,10 +2,11 @@ package com.antazri.climbingclub.consumer.impl;
 
 import com.antazri.climbingclub.consumer.contract.ICotationDao;
 import com.antazri.climbingclub.model.beans.Cotation;
+import org.springframework.stereotype.Repository;
 
-import javax.sql.DataSource;
 import java.util.List;
 
+@Repository
 public class CotationDao extends AbstractDao implements ICotationDao {
 
     public Cotation findById(int pId) {

@@ -3,10 +3,11 @@ package com.antazri.climbingclub.consumer.impl;
 import com.antazri.climbingclub.consumer.contract.ITopoDao;
 import com.antazri.climbingclub.model.beans.Topo;
 import com.antazri.climbingclub.model.beans.Utilisateur;
+import org.springframework.stereotype.Repository;
 
-import javax.sql.DataSource;
 import java.util.List;
 
+@Repository
 public class TopoDao extends AbstractDao implements ITopoDao {
 
     public Topo findById(int pId) {

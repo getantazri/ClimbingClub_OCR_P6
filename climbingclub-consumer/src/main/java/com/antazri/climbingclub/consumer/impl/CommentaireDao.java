@@ -4,10 +4,11 @@ import com.antazri.climbingclub.consumer.contract.ICommentaireDao;
 import com.antazri.climbingclub.model.beans.Commentaire;
 import com.antazri.climbingclub.model.beans.Spot;
 import com.antazri.climbingclub.model.beans.Topo;
+import org.springframework.stereotype.Repository;
 
-import javax.sql.DataSource;
 import java.util.List;
 
+@Repository
 public class CommentaireDao extends AbstractDao implements ICommentaireDao {
 
     public Commentaire findById(int pId) {

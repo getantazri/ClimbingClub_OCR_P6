@@ -8,7 +8,7 @@ import java.util.List;
 public interface ISpotDao {
 
     Spot findById(int pId);
-    List<Spot> findBySpot(Topo pTopo);
+    List<Spot> findByTopo(Topo pTopo);
     List<Spot> findAll();
     Spot create(Spot pSpot);
     Spot update(Spot pSpot);

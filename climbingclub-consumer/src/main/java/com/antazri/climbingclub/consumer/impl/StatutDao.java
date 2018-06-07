@@ -2,10 +2,11 @@ package com.antazri.climbingclub.consumer.impl;
 
 import com.antazri.climbingclub.consumer.contract.IStatutDao;
 import com.antazri.climbingclub.model.beans.Statut;
+import org.springframework.stereotype.Repository;
 
-import javax.sql.DataSource;
 import java.util.List;
 
+@Repository
 public class StatutDao extends AbstractDao implements IStatutDao {
 
     public Statut findById(int pId) {

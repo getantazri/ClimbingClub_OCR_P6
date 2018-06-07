@@ -3,10 +3,11 @@ package com.antazri.climbingclub.consumer.impl;
 import com.antazri.climbingclub.consumer.contract.ISecteurDao;
 import com.antazri.climbingclub.model.beans.Secteur;
 import com.antazri.climbingclub.model.beans.Spot;
+import org.springframework.stereotype.Repository;
 
-import javax.sql.DataSource;
 import java.util.List;
 
+@Repository
 public class SecteurDao extends AbstractDao implements ISecteurDao {
 
     public Secteur findById(int pId) {
