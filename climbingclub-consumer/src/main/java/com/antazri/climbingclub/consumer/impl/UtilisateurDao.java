@@ -3,6 +3,9 @@ package com.antazri.climbingclub.consumer.impl;
 import com.antazri.climbingclub.consumer.contract.IUtilisateurDao;
 import com.antazri.climbingclub.model.beans.Statut;
 import com.antazri.climbingclub.model.beans.Utilisateur;
+import com.antazri.climbingclub.model.beans.Voie;
+
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -11,30 +14,89 @@ import java.util.List;
 public class UtilisateurDao extends AbstractDao implements IUtilisateurDao {
 
     public Utilisateur findById(int pId) {
-        return null;
+        // Requête SQL
+        String vSql = "SELECT * FROM public.utilisateur WHERE utilisateur.utilisateur_id = :id";
+
+        // Définition des paramètres de la requêtes
+        MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
+        vSqlParameters.addValue("id", pId);
+
+        return namedParameterJdbcTemplate.queryForObject(vSql, vSqlParameters, Utilisateur.class);
     }
 
     public List<Utilisateur> findByStatut(Statut pStatut) {
-        return null;
+        // Requête SQL
+        String vSql = "SELECT * FROM public.utilisateur WHERE utilisateur.statut_id = :id";
+
+        // Définition des paramètres de la requêtes
+        MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
+        vSqlParameters.addValue("id", pStatut.getStatut_id());
+
+        return namedParameterJdbcTemplate.queryForList(vSql, vSqlParameters, Utilisateur.class);
     }
 
-    public List<Utilisateur> findByName(String pName) {
-        return null;
+    public Utilisateur findByName(String pName) {
+        // Requête SQL
+        String vSql = "SELECT * FROM public.utilisateur WHERE utilisateur.nom = :nom";
+
+        // Définition des paramètres de la requêtes
+        MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
+        vSqlParameters.addValue("nom", pName);
+
+        return namedParameterJdbcTemplate.queryForObject(vSql, vSqlParameters, Utilisateur.class);
     }
 
     public List<Utilisateur> findAll() {
-        return null;
+        // Requête SQL
+        String vSql = "SELECT * FROM public.utilisateur";
+
+        return jdbcTemplate.queryForList(vSql, Utilisateur.class);
     }
 
-    public Utilisateur create(Utilisateur pTopUtilisateurpo) {
-        return null;
+    public Utilisateur create(Utilisateur pUtilisateur) {
+        // Requête SQL
+        String vSql = "INSERT INTO public.utilisateur (nom, prenom, pseudo, email, telephone, statut_id) "
+                + "VALUES (?, ?, ?, ?, ?, ?)";
+
+        jdbcTemplate.update(vSql, pUtilisateur.getNom(), pUtilisateur.getPrenom(), pUtilisateur.getPseudo(), pUtilisateur.getEmail(), pUtilisateur.getTelephone(), pUtilisateur.getStatut().getStatut_id());
+        return pUtilisateur;
     }
 
     public Utilisateur update(Utilisateur pUtilisateur) {
-        return null;
+        //Requête SQL
+        String vSql = "UPDATE public.utilisateur "
+                + "SET utilisateur.nom =  = :nom, "
+                + "utilisateur.prenom = :prenom, "
+                + "utilisateur.pseudo = :pseudo, "
+                + "utilisateur.email = :email, "
+                + "utilisateur.telephone = :telephone, "
+                + "utilisateur.statut_id = :statutId "
+                + "WHERE utilisateur.utilisateur_id = :id";
+
+        // Définition des paramètres de la requête
+        MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
+        vSqlParameters.addValue("nom", pUtilisateur.getNom());
+        vSqlParameters.addValue("prenom", pUtilisateur.getPrenom());
+        vSqlParameters.addValue("pseudo", pUtilisateur.getPseudo());
+        vSqlParameters.addValue("email", pUtilisateur.getEmail());
+        vSqlParameters.addValue("telephone", pUtilisateur.getTelephone());
+        vSqlParameters.addValue("statutId", pUtilisateur.getStatut().getStatut_id());
+        vSqlParameters.addValue("id", pUtilisateur.getUtilisateur_id());
+
+        // Mise à jour de l'objet dans la base de données
+        namedParameterJdbcTemplate.update(vSql, vSqlParameters);
+
+        return pUtilisateur;
     }
 
     public void delete(Utilisateur pUtilisateur) {
+        // Requête SQL
+        String vSql = "DELETE FROM public.utilisateur WHERE utilisateur.utilisateur_id = :id";
 
+        // Définition des paramètres de la requête
+        MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
+        vSqlParameters.addValue("id", pUtilisateur.getUtilisateur_id());
+
+        namedParameterJdbcTemplate.update(vSql, vSqlParameters);
     }
 }

@@ -9,22 +9,17 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
 public class RegionDao extends AbstractDao implements IRegionDao {
 
     public Region findById(int pId) {
         // Requête SQL
         String vSql = "SELECT * FROM public.region WHERE region.region_id = :id";
 
-        // Initialisation du template avec la DataSource en paramètre
-        NamedParameterJdbcTemplate vJdbcTemplate;
-        vJdbcTemplate = new NamedParameterJdbcTemplate(this.getDataSource());
-
         // Définition des paramètres de la requêtes
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
         vSqlParameters.addValue("id", pId);
 
-        return vJdbcTemplate.queryForObject(vSql, vSqlParameters, Region.class);
+        return namedParameterJdbcTemplate.queryForObject(vSql, vSqlParameters, Region.class);
     }
 
     public Region findByName(String pName) {
@@ -49,7 +44,7 @@ public class RegionDao extends AbstractDao implements IRegionDao {
         // Initialisation du template avec la DataSource en paramètre
         JdbcTemplate vJdbcTemplate = new JdbcTemplate(this.getDataSource());
 
-        // Retourne une List<Region> contenant toutes régions
+        // Retourne une List<Region> contenant toutes les régions
         return vJdbcTemplate.queryForList(vSql, Region.class);
     }
 
@@ -74,12 +69,12 @@ public class RegionDao extends AbstractDao implements IRegionDao {
         NamedParameterJdbcTemplate vJdbcTemplate;
         vJdbcTemplate = new NamedParameterJdbcTemplate(this.getDataSource());
 
-        // Définition des paramètres de la requêtes
+        // Définition des paramètres de la requête
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
         vSqlParameters.addValue("id", pRegion.getRegion_id());
         vSqlParameters.addValue("nom", pRegion.getNom());
 
-        // Création de l'objet dans la base de données
+        // Mise à jour de l'objet dans la base de données
         vJdbcTemplate.update(vSql, vSqlParameters);
 
         return pRegion;
@@ -94,11 +89,11 @@ public class RegionDao extends AbstractDao implements IRegionDao {
         NamedParameterJdbcTemplate vJdbcTemplate;
         vJdbcTemplate = new NamedParameterJdbcTemplate(this.getDataSource());
 
-        // Définition des paramètres de la requêtes
+        // Définition des paramètres de la requête
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
         vSqlParameters.addValue("id", pRegion.getRegion_id());
 
-        // Création de l'objet dans la base de données
+        // Suppression de l'objet dans la base de données
         vJdbcTemplate.update(vSql, vSqlParameters);
     }
 }

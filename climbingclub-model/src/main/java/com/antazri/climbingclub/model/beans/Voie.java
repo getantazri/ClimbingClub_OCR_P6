@@ -3,6 +3,7 @@ package com.antazri.climbingclub.model.beans;
 public class Voie {
 
     private int voie_id;
+    private String nom;
     private Secteur secteur;
     private int nombrePoints;
     private String description;
@@ -14,6 +15,14 @@ public class Voie {
 
     public void setVoie_id(int voie_id) {
         this.voie_id = voie_id;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
     public Secteur getSecteur() {

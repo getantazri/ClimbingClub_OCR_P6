@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Context>
+<Context path="/climbingclub" docBase="climbingclub" crossContext="true" reloadable="true" debug="1">
     <Resource name="jdbc/DB_CCLUB"
               auth="Container"
               type="javax.sql.DataSource"

@@ -7,22 +7,46 @@
     http://www.springframework.org/schema/context
     http://www.springframework.org/schema/context/spring-context.xsd">
 
+    <!-- Configuration du bean AbstractDao -->
     <bean id="abstractDao" abstract="true">
         <property name="dataSource" ref="dataSource" />
+        <property name="namedParameterJdbcTemplate"
+                  ref="namedParameterJdbcTemplate" />
+        <property name="jdbcTemplate" ref="jdbcTemplate" />
+    </bean>
+
+    <bean id="namedParameterJdbcTemplate"
+          class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+        <constructor-arg ref="dataSource" />
+    </bean>
+
+    <bean id="jdbcTemplate"
+          class="org.springframework.jdbc.core.JdbcTemplate">
+        <constructor-arg ref="dataSource" />
     </bean>
 
     <!-- Déclaration des beans Dao -->
-    <bean id="commentaireDao" class="com.antazri.climbingclub.consumer.impl.CommentaireDao" parent="abstractDao" />
-    <bean id="cotationDao" class="com.antazri.climbingclub.consumer.impl.CotationDao" parent="abstractDao" />
-    <bean id="regionDao" class="com.antazri.climbingclub.consumer.impl.RegionDao" parent="abstractDao" />
-    <bean id="secteurDao" class="com.antazri.climbingclub.consumer.impl.SecteurDao" parent="abstractDao" />
-    <bean id="spotDao" class="com.antazri.climbingclub.consumer.impl.SpotDao" parent="abstractDao" />
-    <bean id="statutDao" class="com.antazri.climbingclub.consumer.impl.StatutDao" parent="abstractDao" />
-    <bean id="topoDao" class="com.antazri.climbingclub.consumer.impl.TopoDao" parent="abstractDao" />
-    <bean id="utilisateurDao" class="com.antazri.climbingclub.consumer.impl.UtilisateurDao" parent="abstractDao" />
-    <bean id="voieDao" class="com.antazri.climbingclub.consumer.impl.VoieDao" parent="abstractDao" />
+    <bean id="commentaireDao"
+          class="com.antazri.climbingclub.consumer.impl.CommentaireDao" />
+    <bean id="cotationDao"
+          class="com.antazri.climbingclub.consumer.impl.CotationDao" />
+    <bean id="regionDao"
+          class="com.antazri.climbingclub.consumer.impl.RegionDao" parent="abstractDao"/>
+    <bean id="secteurDao"
+          class="com.antazri.climbingclub.consumer.impl.SecteurDao" />
+    <bean id="spotDao"
+          class="com.antazri.climbingclub.consumer.impl.SpotDao" />
+    <bean id="statutDao"
+          class="com.antazri.climbingclub.consumer.impl.StatutDao" />
+    <bean id="topoDao"
+          class="com.antazri.climbingclub.consumer.impl.TopoDao" />
+    <bean id="utilisateurDao"
+          class="com.antazri.climbingclub.consumer.impl.UtilisateurDao" />
+    <bean id="voieDao"
+          class="com.antazri.climbingclub.consumer.impl.VoieDao" />
 
     <!-- Déclaration des beans RowMapper -->
-    <bean id="regionRm" class="com.antazri.climbingclub.consumer.rowmapper.RegionRM" />
+    <bean id="regionRm"
+          class="com.antazri.climbingclub.consumer.rowmapper.RegionRM" />
 
 </beans>

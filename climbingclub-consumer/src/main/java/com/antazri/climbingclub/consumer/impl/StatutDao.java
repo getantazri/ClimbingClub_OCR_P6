@@ -2,6 +2,9 @@ package com.antazri.climbingclub.consumer.impl;
 
 import com.antazri.climbingclub.consumer.contract.IStatutDao;
 import com.antazri.climbingclub.model.beans.Statut;
+import com.antazri.climbingclub.model.beans.Topo;
+
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -10,26 +13,68 @@ import java.util.List;
 public class StatutDao extends AbstractDao implements IStatutDao {
 
     public Statut findById(int pId) {
-        return null;
+        // Requête SQL
+        String vSql = "SELECT * FROM public.statut WHERE statut.statut_id = :id";
+
+        // Définition des paramètres de la requêtes
+        MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
+        vSqlParameters.addValue("id", pId);
+
+        return namedParameterJdbcTemplate.queryForObject(vSql, vSqlParameters, Statut.class);
     }
 
     public Statut findByName(String pName) {
-        return null;
+        // Requête SQL
+        String vSql = "SELECT * FROM public.statut WHERE statut.nom = :nom";
+
+        // Définition des paramètres de la requêtes
+        MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
+        vSqlParameters.addValue("nom", pName);
+
+        return namedParameterJdbcTemplate.queryForObject(vSql, vSqlParameters, Statut.class);
     }
 
     public List<Statut> findAll() {
-        return null;
+        // Requête SQL
+        String vSql = "SELECT * FROM public.statut";
+
+        return jdbcTemplate.queryForList(vSql, Statut.class);
     }
 
     public Statut create(Statut pStatut) {
-        return null;
+        // Requête SQL
+        String vSql = "INSERT INTO public.topo (nom) VALUES (?)";
+
+        jdbcTemplate.update(vSql, pStatut.getNom());
+
+        return pStatut;
     }
 
     public Statut update(Statut pStatut) {
-        return null;
+        // Requête SQL
+        String vSql = "UPDATE public.statut "
+                + "SET statut.nom = :nom "
+                + "WHERE statut.statut_id = :id";
+
+        // Définition des paramètres de la requête
+        MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
+        vSqlParameters.addValue("nom", pStatut.getNom());
+        vSqlParameters.addValue("id", pStatut.getStatut_id());
+
+        namedParameterJdbcTemplate.update(vSql, vSqlParameters);
+
+        return pStatut;
     }
 
     public void delete(Statut pStatut) {
+        //Requête SQL
+        String vSql = "DELETE FROM public.statut WHERE statut.statut_id = :id";
 
+        // Définition des paramètres de la requête
+        MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
+        vSqlParameters.addValue("id", pStatut.getStatut_id());
+
+        // Suppression de l'objet dans la base de données
+        namedParameterJdbcTemplate.update(vSql, vSqlParameters);
     }
 }

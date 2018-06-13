@@ -10,7 +10,7 @@
     <context:annotation-config />
 
     <bean id="dataSourceConfig" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
-        <property name="properties" value="classpath:/**/db/db.properties" />
+        <property name="location" value="classpath:/com/antazri/climbingclub/batch/db/db.properties" />
     </bean>
 
     <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSourceFactory"
@@ -18,6 +18,5 @@
           destroy-method="close">
         <constructor-arg ref="dataSourceConfig" />
     </bean>
-
 
 </beans>
