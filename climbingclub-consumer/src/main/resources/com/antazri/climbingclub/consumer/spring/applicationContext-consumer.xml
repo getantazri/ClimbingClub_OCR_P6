@@ -23,41 +23,23 @@
     </bean>
 
     <!-- Déclaration des beans Dao -->
-    <bean id="commentaireDao"
-          class="com.antazri.climbingclub.consumer.impl.CommentaireDao" parent="abstractDao">
-        <property name="dataSource" ref="dataSource" />
+    <bean id="commentaireDao" class="com.antazri.climbingclub.consumer.impl.CommentaireDao">
     </bean>
-    <bean id="cotationDao"
-          class="com.antazri.climbingclub.consumer.impl.CotationDao" parent="abstractDao">
-        <property name="dataSource" ref="dataSource" />
+    <bean id="cotationDao" class="com.antazri.climbingclub.consumer.impl.CotationDao">
     </bean>
-    <bean id="regionDao"
-          class="com.antazri.climbingclub.consumer.impl.RegionDao" parent="abstractDao">
-        <property name="dataSource" ref="dataSource" />
+    <bean id="regionDao" class="com.antazri.climbingclub.consumer.impl.RegionDao">
     </bean>
-    <bean id="secteurDao"
-          class="com.antazri.climbingclub.consumer.impl.SecteurDao" parent="abstractDao">
-        <property name="dataSource" ref="dataSource" />
+    <bean id="secteurDao" class="com.antazri.climbingclub.consumer.impl.SecteurDao">
     </bean>
-    <bean id="spotDao"
-          class="com.antazri.climbingclub.consumer.impl.SpotDao" parent="abstractDao">
-        <property name="dataSource" ref="dataSource" />
+    <bean id="spotDao" class="com.antazri.climbingclub.consumer.impl.SpotDao">
     </bean>
-    <bean id="statutDao"
-          class="com.antazri.climbingclub.consumer.impl.StatutDao" parent="abstractDao">
-        <property name="dataSource" ref="dataSource" />
+    <bean id="statutDao" class="com.antazri.climbingclub.consumer.impl.StatutDao">
     </bean>
-    <bean id="topoDao"
-          class="com.antazri.climbingclub.consumer.impl.TopoDao" parent="abstractDao">
-        <property name="dataSource" ref="dataSource" />
+    <bean id="topoDao" class="com.antazri.climbingclub.consumer.impl.TopoDao">
     </bean>
-    <bean id="utilisateurDao"
-          class="com.antazri.climbingclub.consumer.impl.UtilisateurDao" parent="abstractDao">
-        <property name="dataSource" ref="dataSource" />
+    <bean id="utilisateurDao" class="com.antazri.climbingclub.consumer.impl.UtilisateurDao">
     </bean>
-    <bean id="voieDao"
-          class="com.antazri.climbingclub.consumer.impl.VoieDao" parent="abstractDao">
-        <property name="dataSource" ref="dataSource" />
+    <bean id="voieDao" class="com.antazri.climbingclub.consumer.impl.VoieDao">
     </bean>
 
     <!-- Déclaration des beans RowMapper
