@@ -2,8 +2,6 @@ package com.antazri.climbingclub.consumer.impl;
 
 import com.antazri.climbingclub.consumer.contract.IStatutDao;
 import com.antazri.climbingclub.model.beans.Statut;
-import com.antazri.climbingclub.model.beans.Topo;
-
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
 
@@ -20,7 +18,7 @@ public class StatutDao extends AbstractDao implements IStatutDao {
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
         vSqlParameters.addValue("id", pId);
 
-        return namedParameterJdbcTemplate.queryForObject(vSql, vSqlParameters, Statut.class);
+        return getNamedParameterJdbcTemplate().queryForObject(vSql, vSqlParameters, Statut.class);
     }
 
     public Statut findByName(String pName) {
@@ -31,21 +29,21 @@ public class StatutDao extends AbstractDao implements IStatutDao {
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
         vSqlParameters.addValue("nom", pName);
 
-        return namedParameterJdbcTemplate.queryForObject(vSql, vSqlParameters, Statut.class);
+        return getNamedParameterJdbcTemplate().queryForObject(vSql, vSqlParameters, Statut.class);
     }
 
     public List<Statut> findAll() {
         // Requête SQL
         String vSql = "SELECT * FROM public.statut";
 
-        return jdbcTemplate.queryForList(vSql, Statut.class);
+        return getJdbcTemplate().queryForList(vSql, Statut.class);
     }
 
     public Statut create(Statut pStatut) {
         // Requête SQL
         String vSql = "INSERT INTO public.topo (nom) VALUES (?)";
 
-        jdbcTemplate.update(vSql, pStatut.getNom());
+        getJdbcTemplate().update(vSql, pStatut.getNom());
 
         return pStatut;
     }
@@ -61,7 +59,7 @@ public class StatutDao extends AbstractDao implements IStatutDao {
         vSqlParameters.addValue("nom", pStatut.getNom());
         vSqlParameters.addValue("id", pStatut.getStatut_id());
 
-        namedParameterJdbcTemplate.update(vSql, vSqlParameters);
+        getNamedParameterJdbcTemplate().update(vSql, vSqlParameters);
 
         return pStatut;
     }
@@ -75,6 +73,6 @@ public class StatutDao extends AbstractDao implements IStatutDao {
         vSqlParameters.addValue("id", pStatut.getStatut_id());
 
         // Suppression de l'objet dans la base de données
-        namedParameterJdbcTemplate.update(vSql, vSqlParameters);
+        getNamedParameterJdbcTemplate().update(vSql, vSqlParameters);
     }
 }

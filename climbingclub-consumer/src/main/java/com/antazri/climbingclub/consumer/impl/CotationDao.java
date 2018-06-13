@@ -2,8 +2,6 @@ package com.antazri.climbingclub.consumer.impl;
 
 import com.antazri.climbingclub.consumer.contract.ICotationDao;
 import com.antazri.climbingclub.model.beans.Cotation;
-import com.antazri.climbingclub.model.beans.Secteur;
-
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
 
@@ -20,7 +18,7 @@ public class CotationDao extends AbstractDao implements ICotationDao {
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
         vSqlParameters.addValue("id", pId);
 
-        return namedParameterJdbcTemplate.queryForObject(vSql, vSqlParameters, Cotation.class);
+        return getNamedParameterJdbcTemplate().queryForObject(vSql, vSqlParameters, Cotation.class);
     }
 
     public Cotation findByName(String pName) {
@@ -31,21 +29,21 @@ public class CotationDao extends AbstractDao implements ICotationDao {
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
         vSqlParameters.addValue("nom", pName);
 
-        return namedParameterJdbcTemplate.queryForObject(vSql, vSqlParameters, Cotation.class);
+        return getNamedParameterJdbcTemplate().queryForObject(vSql, vSqlParameters, Cotation.class);
     }
 
     public List<Cotation> findAll() {
         // Requête SQL
         String vSql = "SELECT * FROM public.cotation";
 
-        return jdbcTemplate.queryForList(vSql, Cotation.class);
+        return getJdbcTemplate().queryForList(vSql, Cotation.class);
     }
 
     public Cotation create(Cotation pCotation) {
         // Requête SQL
         String vSql = "INSERT INTO public.cotation (nom) VALUES (?)";
 
-        jdbcTemplate.update(vSql, pCotation.getNom());
+        getJdbcTemplate().update(vSql, pCotation.getNom());
 
         return pCotation;
     }
@@ -59,6 +57,8 @@ public class CotationDao extends AbstractDao implements ICotationDao {
         vSqlParameters.addValue("nom", pCotation.getNom());
         vSqlParameters.addValue("id", pCotation.getCotation_id());
 
+        getNamedParameterJdbcTemplate().update(vSql, vSqlParameters);
+
         return pCotation;
     }
 
@@ -71,6 +71,6 @@ public class CotationDao extends AbstractDao implements ICotationDao {
         vSqlParameters.addValue("id", pCotation.getCotation_id());
 
         // Mise à jour de l'objet dans la base de données
-        namedParameterJdbcTemplate.update(vSql, vSqlParameters);
+        getNamedParameterJdbcTemplate().update(vSql, vSqlParameters);
     }
 }

@@ -2,10 +2,8 @@ package com.antazri.climbingclub.consumer.impl;
 
 import com.antazri.climbingclub.consumer.contract.IVoieDao;
 import com.antazri.climbingclub.model.beans.Cotation;
-import com.antazri.climbingclub.model.beans.Region;
 import com.antazri.climbingclub.model.beans.Secteur;
 import com.antazri.climbingclub.model.beans.Voie;
-
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
 
@@ -22,7 +20,7 @@ public class VoieDao extends AbstractDao implements IVoieDao {
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
         vSqlParameters.addValue("id", pId);
 
-        return namedParameterJdbcTemplate.queryForObject(vSql, vSqlParameters, Voie.class);
+        return getNamedParameterJdbcTemplate().queryForObject(vSql, vSqlParameters, Voie.class);
     }
 
     public List<Voie> findBySecteur(Secteur pSecteur) {
@@ -33,7 +31,7 @@ public class VoieDao extends AbstractDao implements IVoieDao {
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
         vSqlParameters.addValue("id", pSecteur.getSecteur_id());
 
-        return namedParameterJdbcTemplate.queryForList(vSql, vSqlParameters, Voie.class);
+        return getNamedParameterJdbcTemplate().queryForList(vSql, vSqlParameters, Voie.class);
     }
 
     public List<Voie> findByCotation(Cotation pCotation) {
@@ -44,22 +42,22 @@ public class VoieDao extends AbstractDao implements IVoieDao {
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
         vSqlParameters.addValue("id", pCotation.getCotation_id());
 
-        return namedParameterJdbcTemplate.queryForList(vSql, vSqlParameters, Voie.class);
+        return getNamedParameterJdbcTemplate().queryForList(vSql, vSqlParameters, Voie.class);
     }
 
     public List<Voie> findAll() {
         // Requête SQL
         String vSql = "SELECT * FROM public.voie";
 
-        return jdbcTemplate.queryForList(vSql, Voie.class);
+        return getJdbcTemplate().queryForList(vSql, Voie.class);
     }
 
-    public Voie create(Voie pVoie)  {
+    public Voie create(Voie pVoie) {
         // Requête SQL
         String vSql = "INSERT INTO public.voie (nom, nombre_points, description, secteur_id, cotation_id) "
                 + "VALUES (?, ?, ?, ?, ?)";
 
-        jdbcTemplate.update(vSql, pVoie.getNom(), pVoie.getNombrePoints(), pVoie.getDescription(), pVoie.getSecteur().getSecteur_id(), pVoie.getCotation().getCotation_id());
+        getJdbcTemplate().update(vSql, pVoie.getNom(), pVoie.getNombrePoints(), pVoie.getDescription(), pVoie.getSecteur().getSecteur_id(), pVoie.getCotation().getCotation_id());
 
         return pVoie;
     }
@@ -84,7 +82,7 @@ public class VoieDao extends AbstractDao implements IVoieDao {
         vSqlParameters.addValue("id", pVoie.getVoie_id());
 
         // Mise à jour de l'objet dans la base de données
-        namedParameterJdbcTemplate.update(vSql, vSqlParameters);
+        getNamedParameterJdbcTemplate().update(vSql, vSqlParameters);
 
         return pVoie;
     }
@@ -98,6 +96,6 @@ public class VoieDao extends AbstractDao implements IVoieDao {
         vSqlParameters.addValue("id", pVoie.getVoie_id());
 
         // Suppression de l'objet dans la base de données
-        namedParameterJdbcTemplate.update(vSql, vSqlParameters);
+        getNamedParameterJdbcTemplate().update(vSql, vSqlParameters);
     }
 }

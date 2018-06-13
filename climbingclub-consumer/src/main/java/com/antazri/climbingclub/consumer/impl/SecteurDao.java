@@ -3,8 +3,6 @@ package com.antazri.climbingclub.consumer.impl;
 import com.antazri.climbingclub.consumer.contract.ISecteurDao;
 import com.antazri.climbingclub.model.beans.Secteur;
 import com.antazri.climbingclub.model.beans.Spot;
-import com.antazri.climbingclub.model.beans.Voie;
-
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
 
@@ -21,7 +19,7 @@ public class SecteurDao extends AbstractDao implements ISecteurDao {
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
         vSqlParameters.addValue("id", pId);
 
-        return namedParameterJdbcTemplate.queryForObject(vSql, vSqlParameters, Secteur.class);
+        return getNamedParameterJdbcTemplate().queryForObject(vSql, vSqlParameters, Secteur.class);
     }
 
     public List<Secteur> findBySpot(Spot pSpot) {
@@ -32,14 +30,14 @@ public class SecteurDao extends AbstractDao implements ISecteurDao {
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
         vSqlParameters.addValue("id", pSpot.getSpot_id());
 
-        return namedParameterJdbcTemplate.queryForList(vSql, vSqlParameters, Secteur.class);
+        return getNamedParameterJdbcTemplate().queryForList(vSql, vSqlParameters, Secteur.class);
     }
 
     public List<Secteur> findAll() {
         // Requête SQL
         String vSql = "SELECT * FROM public.secteur";
 
-        return jdbcTemplate.queryForList(vSql, Secteur.class);
+        return getJdbcTemplate().queryForList(vSql, Secteur.class);
     }
 
     public Secteur create(Secteur pSecteur) {
@@ -47,7 +45,7 @@ public class SecteurDao extends AbstractDao implements ISecteurDao {
         String vSql = "INSERT INTO public.secteur (nom, spot_id) "
                 + "VALUES (?, ?)";
 
-        jdbcTemplate.update(vSql, pSecteur.getNom(), pSecteur.getSpot().getSpot_id());
+        getJdbcTemplate().update(vSql, pSecteur.getNom(), pSecteur.getSpot().getSpot_id());
 
         return pSecteur;
     }
@@ -66,7 +64,7 @@ public class SecteurDao extends AbstractDao implements ISecteurDao {
         vSqlParameters.addValue("id", pSecteur.getSecteur_id());
 
         // Mise à jour de l'objet dans la base de données
-        namedParameterJdbcTemplate.update(vSql, vSqlParameters);
+        getNamedParameterJdbcTemplate().update(vSql, vSqlParameters);
 
         return pSecteur;
     }
@@ -80,6 +78,6 @@ public class SecteurDao extends AbstractDao implements ISecteurDao {
         vSqlParameters.addValue("id", pSecteur.getSecteur_id());
 
         // Mise à jour de l'objet dans la base de données
-        namedParameterJdbcTemplate.update(vSql, vSqlParameters);
+        getNamedParameterJdbcTemplate().update(vSql, vSqlParameters);
     }
 }

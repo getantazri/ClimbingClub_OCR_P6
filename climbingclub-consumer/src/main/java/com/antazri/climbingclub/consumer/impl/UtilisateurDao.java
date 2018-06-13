@@ -3,8 +3,6 @@ package com.antazri.climbingclub.consumer.impl;
 import com.antazri.climbingclub.consumer.contract.IUtilisateurDao;
 import com.antazri.climbingclub.model.beans.Statut;
 import com.antazri.climbingclub.model.beans.Utilisateur;
-import com.antazri.climbingclub.model.beans.Voie;
-
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
 
@@ -21,7 +19,7 @@ public class UtilisateurDao extends AbstractDao implements IUtilisateurDao {
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
         vSqlParameters.addValue("id", pId);
 
-        return namedParameterJdbcTemplate.queryForObject(vSql, vSqlParameters, Utilisateur.class);
+        return getNamedParameterJdbcTemplate().queryForObject(vSql, vSqlParameters, Utilisateur.class);
     }
 
     public List<Utilisateur> findByStatut(Statut pStatut) {
@@ -32,7 +30,7 @@ public class UtilisateurDao extends AbstractDao implements IUtilisateurDao {
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
         vSqlParameters.addValue("id", pStatut.getStatut_id());
 
-        return namedParameterJdbcTemplate.queryForList(vSql, vSqlParameters, Utilisateur.class);
+        return getNamedParameterJdbcTemplate().queryForList(vSql, vSqlParameters, Utilisateur.class);
     }
 
     public Utilisateur findByName(String pName) {
@@ -43,14 +41,14 @@ public class UtilisateurDao extends AbstractDao implements IUtilisateurDao {
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
         vSqlParameters.addValue("nom", pName);
 
-        return namedParameterJdbcTemplate.queryForObject(vSql, vSqlParameters, Utilisateur.class);
+        return getNamedParameterJdbcTemplate().queryForObject(vSql, vSqlParameters, Utilisateur.class);
     }
 
     public List<Utilisateur> findAll() {
         // Requête SQL
         String vSql = "SELECT * FROM public.utilisateur";
 
-        return jdbcTemplate.queryForList(vSql, Utilisateur.class);
+        return getJdbcTemplate().queryForList(vSql, Utilisateur.class);
     }
 
     public Utilisateur create(Utilisateur pUtilisateur) {
@@ -58,7 +56,7 @@ public class UtilisateurDao extends AbstractDao implements IUtilisateurDao {
         String vSql = "INSERT INTO public.utilisateur (nom, prenom, pseudo, email, telephone, statut_id) "
                 + "VALUES (?, ?, ?, ?, ?, ?)";
 
-        jdbcTemplate.update(vSql, pUtilisateur.getNom(), pUtilisateur.getPrenom(), pUtilisateur.getPseudo(), pUtilisateur.getEmail(), pUtilisateur.getTelephone(), pUtilisateur.getStatut().getStatut_id());
+        getJdbcTemplate().update(vSql, pUtilisateur.getNom(), pUtilisateur.getPrenom(), pUtilisateur.getPseudo(), pUtilisateur.getEmail(), pUtilisateur.getTelephone(), pUtilisateur.getStatut().getStatut_id());
         return pUtilisateur;
     }
 
@@ -84,7 +82,7 @@ public class UtilisateurDao extends AbstractDao implements IUtilisateurDao {
         vSqlParameters.addValue("id", pUtilisateur.getUtilisateur_id());
 
         // Mise à jour de l'objet dans la base de données
-        namedParameterJdbcTemplate.update(vSql, vSqlParameters);
+        getNamedParameterJdbcTemplate().update(vSql, vSqlParameters);
 
         return pUtilisateur;
     }
@@ -97,6 +95,6 @@ public class UtilisateurDao extends AbstractDao implements IUtilisateurDao {
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
         vSqlParameters.addValue("id", pUtilisateur.getUtilisateur_id());
 
-        namedParameterJdbcTemplate.update(vSql, vSqlParameters);
+        getNamedParameterJdbcTemplate().update(vSql, vSqlParameters);
     }
 }

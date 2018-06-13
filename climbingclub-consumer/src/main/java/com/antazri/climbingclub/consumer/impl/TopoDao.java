@@ -3,7 +3,6 @@ package com.antazri.climbingclub.consumer.impl;
 import com.antazri.climbingclub.consumer.contract.ITopoDao;
 import com.antazri.climbingclub.model.beans.Topo;
 import com.antazri.climbingclub.model.beans.Utilisateur;
-
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
 
@@ -20,7 +19,7 @@ public class TopoDao extends AbstractDao implements ITopoDao {
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
         vSqlParameters.addValue("id", pId);
 
-        return namedParameterJdbcTemplate.queryForObject(vSql, vSqlParameters, Topo.class);
+        return getNamedParameterJdbcTemplate().queryForObject(vSql, vSqlParameters, Topo.class);
     }
 
     public List<Topo> findByUser(Utilisateur pUtilisateur) {
@@ -31,7 +30,7 @@ public class TopoDao extends AbstractDao implements ITopoDao {
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
         vSqlParameters.addValue("id", pUtilisateur.getUtilisateur_id());
 
-        return namedParameterJdbcTemplate.queryForList(vSql, vSqlParameters, Topo.class);
+        return getNamedParameterJdbcTemplate().queryForList(vSql, vSqlParameters, Topo.class);
     }
 
     public List<Topo> findByName(String pName) {
@@ -42,21 +41,21 @@ public class TopoDao extends AbstractDao implements ITopoDao {
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
         vSqlParameters.addValue("nom", pName);
 
-        return namedParameterJdbcTemplate.queryForList(vSql, vSqlParameters, Topo.class);
+        return getNamedParameterJdbcTemplate().queryForList(vSql, vSqlParameters, Topo.class);
     }
 
     public List<Topo> findAll() {
         // Requête SQL
         String vSql = "SELECT * FROM public.topo";
 
-        return jdbcTemplate.queryForList(vSql, Topo.class);
+        return getJdbcTemplate().queryForList(vSql, Topo.class);
     }
 
     public Topo create(Topo pTopo) {
         // Requête SQL
         String vSql = "INSERT INTO public.topo (utilisateur_id, nom, disponible) VALUES(?, ?, ?)";
 
-        jdbcTemplate.update(vSql, pTopo.getNom(), pTopo.getProprietaire().getUtilisateur_id(), pTopo.isDisponible());
+        getJdbcTemplate().update(vSql, pTopo.getNom(), pTopo.getProprietaire().getUtilisateur_id(), pTopo.isDisponible());
 
         return pTopo;
     }
@@ -76,7 +75,7 @@ public class TopoDao extends AbstractDao implements ITopoDao {
         vSqlParameters.addValue("disponible", pTopo.getTopo_id());
         vSqlParameters.addValue("id", pTopo.getTopo_id());
 
-        namedParameterJdbcTemplate.update(vSql, vSqlParameters);
+        getNamedParameterJdbcTemplate().update(vSql, vSqlParameters);
 
         return pTopo;
     }
@@ -89,6 +88,6 @@ public class TopoDao extends AbstractDao implements ITopoDao {
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
         vSqlParameters.addValue("id", pTopo.getTopo_id());
 
-        namedParameterJdbcTemplate.update(vSql, vSqlParameters);
+        getNamedParameterJdbcTemplate().update(vSql, vSqlParameters);
     }
 }

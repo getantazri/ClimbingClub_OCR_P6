@@ -2,10 +2,8 @@ package com.antazri.climbingclub.consumer.impl;
 
 import com.antazri.climbingclub.consumer.contract.ICommentaireDao;
 import com.antazri.climbingclub.model.beans.Commentaire;
-import com.antazri.climbingclub.model.beans.Cotation;
 import com.antazri.climbingclub.model.beans.Spot;
 import com.antazri.climbingclub.model.beans.Topo;
-
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
 
@@ -22,7 +20,7 @@ public class CommentaireDao extends AbstractDao implements ICommentaireDao {
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
         vSqlParameters.addValue("id", pId);
 
-        return namedParameterJdbcTemplate.queryForObject(vSql, vSqlParameters, Commentaire.class);
+        return getNamedParameterJdbcTemplate().queryForObject(vSql, vSqlParameters, Commentaire.class);
     }
 
     public List<Commentaire> findByParentId(int pId) {
@@ -33,7 +31,7 @@ public class CommentaireDao extends AbstractDao implements ICommentaireDao {
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
         vSqlParameters.addValue("id", pId);
 
-        return namedParameterJdbcTemplate.queryForList(vSql, vSqlParameters, Commentaire.class);
+        return getNamedParameterJdbcTemplate().queryForList(vSql, vSqlParameters, Commentaire.class);
     }
 
     public List<Commentaire> findBySpot(Spot pSpot) {
@@ -44,7 +42,7 @@ public class CommentaireDao extends AbstractDao implements ICommentaireDao {
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
         vSqlParameters.addValue("id", pSpot.getSpot_id());
 
-        return namedParameterJdbcTemplate.queryForList(vSql, vSqlParameters, Commentaire.class);
+        return getNamedParameterJdbcTemplate().queryForList(vSql, vSqlParameters, Commentaire.class);
     }
 
     public List<Commentaire> findByTopo(Topo pTopo) {
@@ -55,14 +53,14 @@ public class CommentaireDao extends AbstractDao implements ICommentaireDao {
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
         vSqlParameters.addValue("id", pTopo.getTopo_id());
 
-        return namedParameterJdbcTemplate.queryForList(vSql, vSqlParameters, Commentaire.class);
+        return getNamedParameterJdbcTemplate().queryForList(vSql, vSqlParameters, Commentaire.class);
     }
 
     public List<Commentaire> findAll() {
         // Requête SQL
         String vSql = "SELECT * FROM public.commentaire";
 
-        return jdbcTemplate.queryForList(vSql, Commentaire.class);
+        return getJdbcTemplate().queryForList(vSql, Commentaire.class);
     }
 
     public Commentaire create(Commentaire pCommentaire) {
@@ -70,7 +68,7 @@ public class CommentaireDao extends AbstractDao implements ICommentaireDao {
         String vSql = "INSERT INTO public.commentaire (contenu, parent_commentaire_id, utilisateur_id, spot_id, topo_id) "
                 + "VALUES (?, ?, ?, ?, ?)";
 
-        jdbcTemplate.update(vSql, pCommentaire.getContenu(), pCommentaire.getCommentaireParent().getCommentaire_id(), pCommentaire.getUtilisateur().getUtilisateur_id(), pCommentaire.getSpot().getSpot_id(), pCommentaire.getTopo().getTopo_id());
+        getJdbcTemplate().update(vSql, pCommentaire.getContenu(), pCommentaire.getCommentaireParent().getCommentaire_id(), pCommentaire.getUtilisateur().getUtilisateur_id(), pCommentaire.getSpot().getSpot_id(), pCommentaire.getTopo().getTopo_id());
 
         return pCommentaire;
     }
@@ -94,6 +92,8 @@ public class CommentaireDao extends AbstractDao implements ICommentaireDao {
         vSqlParameters.addValue("topoId", pCommentaire.getTopo().getTopo_id());
         vSqlParameters.addValue("id", pCommentaire.getCommentaire_id());
 
+        getNamedParameterJdbcTemplate().update(vSql, vSqlParameters);
+
         return pCommentaire;
     }
 
@@ -105,6 +105,6 @@ public class CommentaireDao extends AbstractDao implements ICommentaireDao {
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
         vSqlParameters.addValue("id", pCommentaire.getCommentaire_id());
 
-        namedParameterJdbcTemplate.update(vSql, vSqlParameters);
+        getNamedParameterJdbcTemplate().update(vSql, vSqlParameters);
     }
 }
