@@ -1,6 +1,7 @@
 package com.antazri.climbingclub.consumer.impl;
 
 import com.antazri.climbingclub.consumer.contract.IRegionDao;
+import com.antazri.climbingclub.consumer.rowmapper.RegionRM;
 import com.antazri.climbingclub.model.beans.Region;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
@@ -18,7 +19,7 @@ public class RegionDao extends AbstractDao implements IRegionDao {
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
         vSqlParameters.addValue("id", pId);
 
-        return getNamedParameterJdbcTemplate().queryForObject(vSql, vSqlParameters, Region.class);
+        return (Region) getNamedParameterJdbcTemplate().queryForObject(vSql, vSqlParameters, new RegionRM());
     }
 
     public Region findByName(String pName) {

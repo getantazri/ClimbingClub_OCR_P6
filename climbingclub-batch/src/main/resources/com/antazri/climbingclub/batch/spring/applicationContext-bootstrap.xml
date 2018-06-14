@@ -7,9 +7,11 @@
     http://www.springframework.org/schema/context
     http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <import resource="classpath:*/**/spring/applicationContext-web.xml" />
-    <import resource="classpath:*/**/spring/applicationContext-batch.xml" />
-    <import resource="classpath:*/**/spring/applicationContext-consumer.xml" />
-    <import resource="classpath:*/**/spring/applicationContext-business.xml" />
+    <context:annotation-config />
+
+    <import resource="classpath*:/**/spring/applicationContext-web.xml" />
+    <import resource="classpath*:/**/spring/applicationContext-batch.xml" />
+    <import resource="classpath*:/**/spring/applicationContext-consumer.xml" />
+    <import resource="classpath*:/**/spring/applicationContext-business.xml" />
 
 </beans>
