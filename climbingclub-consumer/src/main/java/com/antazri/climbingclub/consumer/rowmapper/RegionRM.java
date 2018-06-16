@@ -6,6 +6,11 @@ import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Implémentation de RowMapper pour la création d'un objet Region lors de la récupération des éléments depuis la base de données
+ *
+ * @return une instance de Region paramétrée avec les informations issues de la base de données
+ */
 public class RegionRM implements RowMapper {
 
     public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
