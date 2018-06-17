@@ -1,6 +1,7 @@
 package com.antazri.climbingclub.consumer.impl;
 
 import com.antazri.climbingclub.consumer.contract.ISpotDao;
+import com.antazri.climbingclub.consumer.rowmapper.SpotRM;
 import com.antazri.climbingclub.model.beans.Spot;
 import com.antazri.climbingclub.model.beans.Topo;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -19,7 +20,7 @@ public class SpotDao extends AbstractDao implements ISpotDao {
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
         vSqlParameters.addValue("id", pId);
 
-        return getNamedParameterJdbcTemplate().queryForObject(vSql, vSqlParameters, Spot.class);
+        return (Spot) getNamedParameterJdbcTemplate().queryForObject(vSql, vSqlParameters, new SpotRM());
     }
 
     public List<Spot> findByTopo(Topo pTopo) {
@@ -30,14 +31,14 @@ public class SpotDao extends AbstractDao implements ISpotDao {
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
         vSqlParameters.addValue("id", pTopo.getTopo_id());
 
-        return getNamedParameterJdbcTemplate().queryForList(vSql, vSqlParameters, Spot.class);
+        return getNamedParameterJdbcTemplate().query(vSql, vSqlParameters, new SpotRM());
     }
 
     public List<Spot> findAll() {
         // Requête SQL
         String vSql = "SELECT * FROM public.spot";
 
-        return getJdbcTemplate().queryForList(vSql, Spot.class);
+        return getJdbcTemplate().query(vSql, new SpotRM());
     }
 
     public Spot create(Spot pSpot) {

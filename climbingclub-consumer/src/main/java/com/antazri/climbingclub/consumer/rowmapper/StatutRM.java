@@ -13,7 +13,7 @@ import java.sql.SQLException;
  */
 public class StatutRM implements RowMapper {
 
-    public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+    public Statut mapRow(ResultSet rs, int rowNum) throws SQLException {
         Statut statut = new Statut();
 
         statut.setStatut_id(rs.getInt("statut_id"));

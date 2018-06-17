@@ -13,7 +13,7 @@ public class TopoRM implements RowMapper {
     @Autowired
     private IUtilisateurDao utilisateurDao;
 
-    public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+    public Topo mapRow(ResultSet rs, int rowNum) throws SQLException {
         Topo topo = new Topo();
 
         topo.setTopo_id(rs.getInt("topo_id"));

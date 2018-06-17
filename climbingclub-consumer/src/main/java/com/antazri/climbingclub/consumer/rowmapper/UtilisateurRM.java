@@ -18,7 +18,7 @@ public class UtilisateurRM implements RowMapper {
     @Autowired
     private IStatutDao statutDao;
 
-    public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+    public Utilisateur mapRow(ResultSet rs, int rowNum) throws SQLException {
         Utilisateur utilisateur = new Utilisateur();
 
         utilisateur.setUtilisateur_id(rs.getInt("utilisateur_id"));

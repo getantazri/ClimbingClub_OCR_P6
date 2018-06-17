@@ -18,7 +18,7 @@ public class VoieRM implements RowMapper {
     @Autowired
     private ICotationDao cotationDao;
 
-    public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+    public Voie mapRow(ResultSet rs, int rowNum) throws SQLException {
         Voie voie = new Voie();
 
         voie.setVoie_id(rs.getInt("voie_id"));

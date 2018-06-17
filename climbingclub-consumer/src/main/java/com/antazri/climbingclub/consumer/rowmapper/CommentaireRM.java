@@ -27,7 +27,7 @@ public class CommentaireRM implements RowMapper {
     @Autowired
     ICommentaireDao commentaireDao;
 
-    public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+    public Commentaire mapRow(ResultSet rs, int rowNum) throws SQLException {
         Commentaire commentaire = new Commentaire();
 
         commentaire.setCommentaire_id(rs.getInt("commentaire_id"));

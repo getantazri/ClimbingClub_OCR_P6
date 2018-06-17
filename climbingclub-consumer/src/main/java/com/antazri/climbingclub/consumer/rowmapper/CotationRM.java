@@ -13,7 +13,7 @@ import java.sql.SQLException;
  */
 public class CotationRM implements RowMapper {
 
-    public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+    public Cotation mapRow(ResultSet rs, int rowNum) throws SQLException {
         Cotation cotation = new Cotation();
 
         cotation.setCotation_id(rs.getInt("cotation_id"));

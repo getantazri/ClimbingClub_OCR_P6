@@ -1,6 +1,7 @@
 package com.antazri.climbingclub.consumer.impl;
 
 import com.antazri.climbingclub.consumer.contract.ICommentaireDao;
+import com.antazri.climbingclub.consumer.rowmapper.CommentaireRM;
 import com.antazri.climbingclub.model.beans.Commentaire;
 import com.antazri.climbingclub.model.beans.Spot;
 import com.antazri.climbingclub.model.beans.Topo;
@@ -20,7 +21,7 @@ public class CommentaireDao extends AbstractDao implements ICommentaireDao {
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
         vSqlParameters.addValue("id", pId);
 
-        return getNamedParameterJdbcTemplate().queryForObject(vSql, vSqlParameters, Commentaire.class);
+        return (Commentaire) getNamedParameterJdbcTemplate().queryForObject(vSql, vSqlParameters, new CommentaireRM());
     }
 
     public List<Commentaire> findByParentId(int pId) {
@@ -31,7 +32,7 @@ public class CommentaireDao extends AbstractDao implements ICommentaireDao {
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
         vSqlParameters.addValue("id", pId);
 
-        return getNamedParameterJdbcTemplate().queryForList(vSql, vSqlParameters, Commentaire.class);
+        return getNamedParameterJdbcTemplate().query(vSql, vSqlParameters, new CommentaireRM());
     }
 
     public List<Commentaire> findBySpot(Spot pSpot) {
@@ -42,7 +43,7 @@ public class CommentaireDao extends AbstractDao implements ICommentaireDao {
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
         vSqlParameters.addValue("id", pSpot.getSpot_id());
 
-        return getNamedParameterJdbcTemplate().queryForList(vSql, vSqlParameters, Commentaire.class);
+        return getNamedParameterJdbcTemplate().query(vSql, vSqlParameters, new CommentaireRM());
     }
 
     public List<Commentaire> findByTopo(Topo pTopo) {
@@ -53,14 +54,14 @@ public class CommentaireDao extends AbstractDao implements ICommentaireDao {
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
         vSqlParameters.addValue("id", pTopo.getTopo_id());
 
-        return getNamedParameterJdbcTemplate().queryForList(vSql, vSqlParameters, Commentaire.class);
+        return getNamedParameterJdbcTemplate().query(vSql, vSqlParameters, new CommentaireRM());
     }
 
     public List<Commentaire> findAll() {
         // Requête SQL
         String vSql = "SELECT * FROM public.commentaire";
 
-        return getJdbcTemplate().queryForList(vSql, Commentaire.class);
+        return getJdbcTemplate().query(vSql, new CommentaireRM());
     }
 
     public Commentaire create(Commentaire pCommentaire) {

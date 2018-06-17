@@ -1,6 +1,7 @@
 package com.antazri.climbingclub.consumer.impl;
 
 import com.antazri.climbingclub.consumer.contract.IVoieDao;
+import com.antazri.climbingclub.consumer.rowmapper.VoieRM;
 import com.antazri.climbingclub.model.beans.Cotation;
 import com.antazri.climbingclub.model.beans.Secteur;
 import com.antazri.climbingclub.model.beans.Voie;
@@ -20,7 +21,7 @@ public class VoieDao extends AbstractDao implements IVoieDao {
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
         vSqlParameters.addValue("id", pId);
 
-        return getNamedParameterJdbcTemplate().queryForObject(vSql, vSqlParameters, Voie.class);
+        return (Voie) getNamedParameterJdbcTemplate().queryForObject(vSql, vSqlParameters, new VoieRM());
     }
 
     public List<Voie> findBySecteur(Secteur pSecteur) {
@@ -31,7 +32,7 @@ public class VoieDao extends AbstractDao implements IVoieDao {
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
         vSqlParameters.addValue("id", pSecteur.getSecteur_id());
 
-        return getNamedParameterJdbcTemplate().queryForList(vSql, vSqlParameters, Voie.class);
+        return getNamedParameterJdbcTemplate().query(vSql, vSqlParameters, new VoieRM());
     }
 
     public List<Voie> findByCotation(Cotation pCotation) {
@@ -42,14 +43,14 @@ public class VoieDao extends AbstractDao implements IVoieDao {
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
         vSqlParameters.addValue("id", pCotation.getCotation_id());
 
-        return getNamedParameterJdbcTemplate().queryForList(vSql, vSqlParameters, Voie.class);
+        return getNamedParameterJdbcTemplate().query(vSql, vSqlParameters, new VoieRM());
     }
 
     public List<Voie> findAll() {
         // Requête SQL
         String vSql = "SELECT * FROM public.voie";
 
-        return getJdbcTemplate().queryForList(vSql, Voie.class);
+        return getJdbcTemplate().query(vSql, new VoieRM());
     }
 
     public Voie create(Voie pVoie) {

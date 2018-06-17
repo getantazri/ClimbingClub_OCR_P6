@@ -1,6 +1,7 @@
 package com.antazri.climbingclub.consumer.impl;
 
 import com.antazri.climbingclub.consumer.contract.IUtilisateurDao;
+import com.antazri.climbingclub.consumer.rowmapper.UtilisateurRM;
 import com.antazri.climbingclub.model.beans.Statut;
 import com.antazri.climbingclub.model.beans.Utilisateur;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -19,7 +20,7 @@ public class UtilisateurDao extends AbstractDao implements IUtilisateurDao {
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
         vSqlParameters.addValue("id", pId);
 
-        return getNamedParameterJdbcTemplate().queryForObject(vSql, vSqlParameters, Utilisateur.class);
+        return (Utilisateur) getNamedParameterJdbcTemplate().queryForObject(vSql, vSqlParameters, new UtilisateurRM());
     }
 
     public List<Utilisateur> findByStatut(Statut pStatut) {
@@ -30,7 +31,7 @@ public class UtilisateurDao extends AbstractDao implements IUtilisateurDao {
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
         vSqlParameters.addValue("id", pStatut.getStatut_id());
 
-        return getNamedParameterJdbcTemplate().queryForList(vSql, vSqlParameters, Utilisateur.class);
+        return getNamedParameterJdbcTemplate().query(vSql, vSqlParameters, new UtilisateurRM());
     }
 
     public Utilisateur findByName(String pName) {
@@ -41,14 +42,14 @@ public class UtilisateurDao extends AbstractDao implements IUtilisateurDao {
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
         vSqlParameters.addValue("nom", pName);
 
-        return getNamedParameterJdbcTemplate().queryForObject(vSql, vSqlParameters, Utilisateur.class);
+        return (Utilisateur) getNamedParameterJdbcTemplate().queryForObject(vSql, vSqlParameters, new UtilisateurRM());
     }
 
     public List<Utilisateur> findAll() {
         // Requête SQL
         String vSql = "SELECT * FROM public.utilisateur";
 
-        return getJdbcTemplate().queryForList(vSql, Utilisateur.class);
+        return getJdbcTemplate().query(vSql, new UtilisateurRM());
     }
 
     public Utilisateur create(Utilisateur pUtilisateur) {

@@ -1,6 +1,7 @@
 package com.antazri.climbingclub.consumer.impl;
 
 import com.antazri.climbingclub.consumer.contract.IStatutDao;
+import com.antazri.climbingclub.consumer.rowmapper.StatutRM;
 import com.antazri.climbingclub.model.beans.Statut;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
@@ -18,7 +19,7 @@ public class StatutDao extends AbstractDao implements IStatutDao {
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
         vSqlParameters.addValue("id", pId);
 
-        return getNamedParameterJdbcTemplate().queryForObject(vSql, vSqlParameters, Statut.class);
+        return (Statut) getNamedParameterJdbcTemplate().queryForObject(vSql, vSqlParameters, new StatutRM());
     }
 
     public Statut findByName(String pName) {
@@ -29,14 +30,14 @@ public class StatutDao extends AbstractDao implements IStatutDao {
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
         vSqlParameters.addValue("nom", pName);
 
-        return getNamedParameterJdbcTemplate().queryForObject(vSql, vSqlParameters, Statut.class);
+        return (Statut) getNamedParameterJdbcTemplate().queryForObject(vSql, vSqlParameters, new StatutRM());
     }
 
     public List<Statut> findAll() {
         // Requête SQL
         String vSql = "SELECT * FROM public.statut";
 
-        return getJdbcTemplate().queryForList(vSql, Statut.class);
+        return getJdbcTemplate().query(vSql, new StatutRM());
     }
 
     public Statut create(Statut pStatut) {

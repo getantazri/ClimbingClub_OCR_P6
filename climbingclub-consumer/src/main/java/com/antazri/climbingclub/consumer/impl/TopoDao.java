@@ -1,6 +1,7 @@
 package com.antazri.climbingclub.consumer.impl;
 
 import com.antazri.climbingclub.consumer.contract.ITopoDao;
+import com.antazri.climbingclub.consumer.rowmapper.TopoRM;
 import com.antazri.climbingclub.model.beans.Topo;
 import com.antazri.climbingclub.model.beans.Utilisateur;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -19,7 +20,7 @@ public class TopoDao extends AbstractDao implements ITopoDao {
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
         vSqlParameters.addValue("id", pId);
 
-        return getNamedParameterJdbcTemplate().queryForObject(vSql, vSqlParameters, Topo.class);
+        return (Topo) getNamedParameterJdbcTemplate().queryForObject(vSql, vSqlParameters, new TopoRM());
     }
 
     public List<Topo> findByUser(Utilisateur pUtilisateur) {
@@ -30,7 +31,7 @@ public class TopoDao extends AbstractDao implements ITopoDao {
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
         vSqlParameters.addValue("id", pUtilisateur.getUtilisateur_id());
 
-        return getNamedParameterJdbcTemplate().queryForList(vSql, vSqlParameters, Topo.class);
+        return getNamedParameterJdbcTemplate().query(vSql, vSqlParameters, new TopoRM());
     }
 
     public List<Topo> findByName(String pName) {
@@ -41,14 +42,14 @@ public class TopoDao extends AbstractDao implements ITopoDao {
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
         vSqlParameters.addValue("nom", pName);
 
-        return getNamedParameterJdbcTemplate().queryForList(vSql, vSqlParameters, Topo.class);
+        return getNamedParameterJdbcTemplate().query(vSql, vSqlParameters, new TopoRM());
     }
 
     public List<Topo> findAll() {
         // Requête SQL
         String vSql = "SELECT * FROM public.topo";
 
-        return getJdbcTemplate().queryForList(vSql, Topo.class);
+        return getJdbcTemplate().query(vSql, new TopoRM());
     }
 
     public Topo create(Topo pTopo) {

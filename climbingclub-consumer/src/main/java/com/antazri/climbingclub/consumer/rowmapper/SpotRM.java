@@ -22,7 +22,7 @@ public class SpotRM implements RowMapper {
     @Autowired
     IRegionDao regionDao;
 
-    public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+    public Spot mapRow(ResultSet rs, int rowNum) throws SQLException {
         Spot spot = new Spot();
 
         spot.setSpot_id(rs.getInt("spot_id"));

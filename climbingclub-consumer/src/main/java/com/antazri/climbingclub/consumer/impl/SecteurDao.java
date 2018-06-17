@@ -1,6 +1,7 @@
 package com.antazri.climbingclub.consumer.impl;
 
 import com.antazri.climbingclub.consumer.contract.ISecteurDao;
+import com.antazri.climbingclub.consumer.rowmapper.SecteurRM;
 import com.antazri.climbingclub.model.beans.Secteur;
 import com.antazri.climbingclub.model.beans.Spot;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -19,7 +20,7 @@ public class SecteurDao extends AbstractDao implements ISecteurDao {
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
         vSqlParameters.addValue("id", pId);
 
-        return getNamedParameterJdbcTemplate().queryForObject(vSql, vSqlParameters, Secteur.class);
+        return (Secteur) getNamedParameterJdbcTemplate().queryForObject(vSql, vSqlParameters, new SecteurRM());
     }
 
     public List<Secteur> findBySpot(Spot pSpot) {
@@ -30,14 +31,14 @@ public class SecteurDao extends AbstractDao implements ISecteurDao {
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
         vSqlParameters.addValue("id", pSpot.getSpot_id());
 
-        return getNamedParameterJdbcTemplate().queryForList(vSql, vSqlParameters, Secteur.class);
+        return getNamedParameterJdbcTemplate().query(vSql, vSqlParameters, new SecteurRM());
     }
 
     public List<Secteur> findAll() {
         // Requête SQL
         String vSql = "SELECT * FROM public.secteur";
 
-        return getJdbcTemplate().queryForList(vSql, Secteur.class);
+        return getJdbcTemplate().query(vSql, new SecteurRM());
     }
 
     public Secteur create(Secteur pSecteur) {

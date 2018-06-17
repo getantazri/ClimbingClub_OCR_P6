@@ -13,7 +13,7 @@ public class SecteurRM implements RowMapper {
     @Autowired
     ISpotDao spotDao;
 
-    public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+    public Secteur mapRow(ResultSet rs, int rowNum) throws SQLException {
         Secteur secteur = new Secteur();
 
         secteur.setSecteur_id(rs.getInt("secteur_id"));

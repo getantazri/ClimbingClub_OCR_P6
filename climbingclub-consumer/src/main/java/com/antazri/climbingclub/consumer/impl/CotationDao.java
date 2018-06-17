@@ -1,6 +1,7 @@
 package com.antazri.climbingclub.consumer.impl;
 
 import com.antazri.climbingclub.consumer.contract.ICotationDao;
+import com.antazri.climbingclub.consumer.rowmapper.CotationRM;
 import com.antazri.climbingclub.model.beans.Cotation;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
@@ -18,7 +19,7 @@ public class CotationDao extends AbstractDao implements ICotationDao {
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
         vSqlParameters.addValue("id", pId);
 
-        return getNamedParameterJdbcTemplate().queryForObject(vSql, vSqlParameters, Cotation.class);
+        return (Cotation) getNamedParameterJdbcTemplate().queryForObject(vSql, vSqlParameters, new CotationRM());
     }
 
     public Cotation findByName(String pName) {
@@ -29,14 +30,14 @@ public class CotationDao extends AbstractDao implements ICotationDao {
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
         vSqlParameters.addValue("nom", pName);
 
-        return getNamedParameterJdbcTemplate().queryForObject(vSql, vSqlParameters, Cotation.class);
+        return (Cotation) getNamedParameterJdbcTemplate().queryForObject(vSql, vSqlParameters, new CotationRM());
     }
 
     public List<Cotation> findAll() {
         // Requête SQL
         String vSql = "SELECT * FROM public.cotation";
 
-        return getJdbcTemplate().queryForList(vSql, Cotation.class);
+        return getJdbcTemplate().query(vSql, new CotationRM());
     }
 
     public Cotation create(Cotation pCotation) {
