@@ -43,13 +43,10 @@ public class RegionDao extends AbstractDao implements IRegionDao {
 
     public Region create(Region pRegion) {
         //Requête SQL
-        String vSql = "INSERT INTO public.region (nom) VALUES (?);";
-
-        //Prepared Statement
-
+        String vSql = "INSERT INTO public.region (region_id, nom) VALUES (?, ?);";
 
         // Création de l'objet dans la base de données
-        getJdbcTemplate().update(vSql, new Object[] { pRegion.getNom() });
+        getJdbcTemplate().update(vSql, pRegion.getRegionId(), pRegion.getNom());
 
         return pRegion;
     }
@@ -60,7 +57,7 @@ public class RegionDao extends AbstractDao implements IRegionDao {
 
         // Définition des paramètres de la requête
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
-        vSqlParameters.addValue("id", pRegion.getRegion_id());
+        vSqlParameters.addValue("id", pRegion.getRegionId());
         vSqlParameters.addValue("nom", pRegion.getNom());
 
         // Mise à jour de l'objet dans la base de données
@@ -76,7 +73,7 @@ public class RegionDao extends AbstractDao implements IRegionDao {
 
         // Définition des paramètres de la requête
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
-        vSqlParameters.addValue("id", pRegion.getRegion_id());
+        vSqlParameters.addValue("id", pRegion.getRegionId());
 
         // Suppression de l'objet dans la base de données
         getNamedParameterJdbcTemplate().update(vSql, vSqlParameters);

@@ -29,7 +29,7 @@ public class SecteurDao extends AbstractDao implements ISecteurDao {
 
         // Définition des paramètres de la requêtes
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
-        vSqlParameters.addValue("id", pSpot.getSpot_id());
+        vSqlParameters.addValue("id", pSpot.getSpotId());
 
         return getNamedParameterJdbcTemplate().query(vSql, vSqlParameters, new SecteurRM());
     }
@@ -46,7 +46,7 @@ public class SecteurDao extends AbstractDao implements ISecteurDao {
         String vSql = "INSERT INTO public.secteur (nom, spot_id) "
                 + "VALUES (?, ?)";
 
-        getJdbcTemplate().update(vSql, pSecteur.getNom(), pSecteur.getSpot().getSpot_id());
+        getJdbcTemplate().update(vSql, pSecteur.getNom(), pSecteur.getSpot().getSpotId());
 
         return pSecteur;
     }
@@ -61,8 +61,8 @@ public class SecteurDao extends AbstractDao implements ISecteurDao {
         // Définition des paramètres de la requête
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
         vSqlParameters.addValue("nom", pSecteur.getNom());
-        vSqlParameters.addValue("spotId", pSecteur.getSpot().getSpot_id());
-        vSqlParameters.addValue("id", pSecteur.getSecteur_id());
+        vSqlParameters.addValue("spotId", pSecteur.getSpot().getSpotId());
+        vSqlParameters.addValue("id", pSecteur.getSecteurId());
 
         // Mise à jour de l'objet dans la base de données
         getNamedParameterJdbcTemplate().update(vSql, vSqlParameters);
@@ -76,7 +76,7 @@ public class SecteurDao extends AbstractDao implements ISecteurDao {
 
         // Définition des paramètres de la requête
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
-        vSqlParameters.addValue("id", pSecteur.getSecteur_id());
+        vSqlParameters.addValue("id", pSecteur.getSecteurId());
 
         // Mise à jour de l'objet dans la base de données
         getNamedParameterJdbcTemplate().update(vSql, vSqlParameters);

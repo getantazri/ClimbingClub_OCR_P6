@@ -1,7 +1,7 @@
 package com.antazri.climbingclub.batch;
 
-import com.antazri.climbingclub.consumer.impl.RegionDao;
-import com.antazri.climbingclub.model.beans.Region;
+import com.antazri.climbingclub.consumer.impl.*;
+import com.antazri.climbingclub.model.beans.*;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -11,49 +11,18 @@ public class Main {
 
     public static void main(String[] args) {
 
-        ApplicationContext vApplicationContext = new ClassPathXmlApplicationContext("classpath:/**/batch/spring/applicationContext-bootstrap.xml");
+        ApplicationContext vApplicationContext = new ClassPathXmlApplicationContext("classpath*:/**/batch/spring/applicationContext-bootstrap.xml");
 
-        RegionDao regionDao = (RegionDao) vApplicationContext.getBean("regionDao");
+        VoieDao voieDao = (VoieDao) vApplicationContext.getBean("voieDao");
+        CotationDao cotationDao = (CotationDao) vApplicationContext.getBean("cotationDao");
 
-        System.out.println("====================");
-
-        Region findById = regionDao.findById(21);
-        System.out.println("Région trouvée par le ID : " + findById.getNom() + "(" + findById.getRegion_id() + ")");
-
-        System.out.println("====================");
-
-        Region findByName = regionDao.findByName("Occitanie");
-        System.out.println("Région trouvée par le nom : " + findByName.getNom() + "(" + findByName.getRegion_id() + ")");
+        Cotation cotation = cotationDao.findById(2);
 
 
-        System.out.println("====================");
+        List<Voie> voies = voieDao.findByCotation(cotation);
 
-        Region hautDeFrance = new Region();
-        hautDeFrance.setRegion_id(0);
-        hautDeFrance.setNom("Haut-de-France");
-
-        Region regionAdd = regionDao.create(hautDeFrance);
-        System.out.println("Région ajoutée : " + regionAdd.getNom());
-
-        System.out.println("====================");
-
-
-        Region paca = new Region();
-        hautDeFrance.setRegion_id(3);
-        hautDeFrance.setNom("PACA");
-
-        //Region addPaca = regionDao.update(paca);
-        System.out.println("Région modifié : " + paca.getNom());
-
-        System.out.println("====================");
-
-        List<Region> regions = regionDao.findAll();
-
-        System.out.println("Toutes les régions :");
-
-        for(Region region : regions) {
-            System.out.println(region.getNom() + " (" + region.getRegion_id() + ")");
+        for (Voie voie : voies) {
+            System.out.println(voie.getNom());
         }
-        System.out.println("====================");
     }
 }

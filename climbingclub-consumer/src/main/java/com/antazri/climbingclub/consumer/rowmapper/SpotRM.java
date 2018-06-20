@@ -25,7 +25,7 @@ public class SpotRM implements RowMapper {
     public Spot mapRow(ResultSet rs, int rowNum) throws SQLException {
         Spot spot = new Spot();
 
-        spot.setSpot_id(rs.getInt("spot_id"));
+        spot.setSpotId(rs.getInt("spot_id"));
 
         // Affectation d'un Topo avec la méthode findById de l'attribut topoDao qui retourne une
         // instance de l'objet Topo avec son id, récupéré dans le ResultSet, en paramètre

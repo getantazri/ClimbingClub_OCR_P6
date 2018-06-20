@@ -1,28 +1,23 @@
 package com.antazri.climbingclub.model.beans;
 
+import java.util.List;
+
 public class Spot {
 
-    private int spot_id;
-    private Topo topo;
+    private int spotId;
     private Region region;
     private String nom;
     private String description;
     private String hauteur;
+    private List<Secteur> secteurs;
+    private List<Commentaire> commentaires;
 
-    public int getSpot_id() {
-        return spot_id;
+    public int getSpotId() {
+        return spotId;
     }
 
-    public void setSpot_id(int spot_id) {
-        this.spot_id = spot_id;
-    }
-
-    public Topo getTopo() {
-        return topo;
-    }
-
-    public void setTopo(Topo topo) {
-        this.topo = topo;
+    public void setSpotId(int spotId) {
+        this.spotId = spotId;
     }
 
     public Region getRegion() {
@@ -55,5 +50,21 @@ public class Spot {
 
     public void setHauteur(String hauteur) {
         this.hauteur = hauteur;
+    }
+
+    public List<Secteur> getSecteurs() {
+        return secteurs;
+    }
+
+    public void setSecteurs(List<Secteur> secteurs) {
+        this.secteurs = secteurs;
+    }
+
+    public List<Commentaire> getCommentaires() {
+        return commentaires;
+    }
+
+    public void setCommentaires(List<Commentaire> commentaires) {
+        this.commentaires = commentaires;
     }
 }

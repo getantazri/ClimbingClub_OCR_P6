@@ -16,7 +16,7 @@ public class RegionRM implements RowMapper {
     public Region mapRow(ResultSet rs, int rowNum) throws SQLException {
         Region region = new Region();
 
-        region.setRegion_id(rs.getInt("region_id"));
+        region.setRegionId(rs.getInt("region_id"));
         region.setNom(rs.getString("nom"));
 
         return region;

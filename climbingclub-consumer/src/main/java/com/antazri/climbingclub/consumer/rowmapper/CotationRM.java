@@ -16,8 +16,8 @@ public class CotationRM implements RowMapper {
     public Cotation mapRow(ResultSet rs, int rowNum) throws SQLException {
         Cotation cotation = new Cotation();
 
-        cotation.setCotation_id(rs.getInt("cotation_id"));
-        cotation.setNom(rs.getString("nom"));
+        cotation.setCotationId(rs.getInt("cotation_id"));
+        cotation.setNom(rs.getString("cotation_nom"));
 
         return cotation;
     }

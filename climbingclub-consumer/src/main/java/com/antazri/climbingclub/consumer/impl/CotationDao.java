@@ -56,7 +56,7 @@ public class CotationDao extends AbstractDao implements ICotationDao {
         // Définition des paramètres de la requêtes
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
         vSqlParameters.addValue("nom", pCotation.getNom());
-        vSqlParameters.addValue("id", pCotation.getCotation_id());
+        vSqlParameters.addValue("id", pCotation.getCotationId());
 
         getNamedParameterJdbcTemplate().update(vSql, vSqlParameters);
 
@@ -69,7 +69,7 @@ public class CotationDao extends AbstractDao implements ICotationDao {
 
         // Définition des paramètres de la requête
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
-        vSqlParameters.addValue("id", pCotation.getCotation_id());
+        vSqlParameters.addValue("id", pCotation.getCotationId());
 
         // Mise à jour de l'objet dans la base de données
         getNamedParameterJdbcTemplate().update(vSql, vSqlParameters);

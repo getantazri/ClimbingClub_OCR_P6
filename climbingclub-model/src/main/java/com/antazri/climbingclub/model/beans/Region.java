@@ -2,15 +2,15 @@ package com.antazri.climbingclub.model.beans;
 
 public class Region {
 
-    private int region_id;
+    private int regionId;
     private String nom;
 
-    public int getRegion_id() {
-        return region_id;
+    public int getRegionId() {
+        return regionId;
     }
 
-    public void setRegion_id(int region_id) {
-        this.region_id = region_id;
+    public void setRegionId(int regionId) {
+        this.regionId = regionId;
     }
 
     public String getNom() {

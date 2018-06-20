@@ -2,15 +2,15 @@ package com.antazri.climbingclub.model.beans;
 
 public class Statut {
 
-    private int statut_id;
+    private int statutId;
     private String nom;
 
-    public int getStatut_id() {
-        return statut_id;
+    public int getStatutId() {
+        return statutId;
     }
 
-    public void setStatut_id(int statut_id) {
-        this.statut_id = statut_id;
+    public void setStatutId(int statutId) {
+        this.statutId = statutId;
     }
 
     public String getNom() {

@@ -1,8 +1,7 @@
 package com.antazri.climbingclub.consumer.rowmapper;
 
-import com.antazri.climbingclub.consumer.contract.ICotationDao;
+import com.antazri.climbingclub.model.beans.Cotation;
 import com.antazri.climbingclub.model.beans.Voie;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
@@ -15,20 +14,20 @@ import java.sql.SQLException;
  */
 public class VoieRM implements RowMapper {
 
-    @Autowired
-    private ICotationDao cotationDao;
-
     public Voie mapRow(ResultSet rs, int rowNum) throws SQLException {
         Voie voie = new Voie();
 
-        voie.setVoie_id(rs.getInt("voie_id"));
-        voie.setNom(rs.getString("nom"));
+        voie.setVoieId(rs.getInt("voie_id"));
+        voie.setNom(rs.getString("voie_nom"));
         voie.setNombrePoints(rs.getInt("nombre_points"));
-        voie.setDescription(rs.getString("description"));
+        voie.setDescription(rs.getString("voie_description"));
 
-        // Récupération d'un objet Cotation avec la méthode findById de l'attribut cotation qui aura la
-        // colonne "cotation_id" du ResultSet en tant que paramètre
-        voie.setCotation(cotationDao.findById(rs.getInt("cotation_id")));
+        // Création de l'objet Cotation pour l'objet Voie
+        Cotation cotation = new Cotation();
+        cotation.setCotationId(rs.getInt("cotation_id"));
+        cotation.setNom(rs.getString("cotation_nom"));
+
+        voie.setCotation(cotation);
 
         return voie;
     }

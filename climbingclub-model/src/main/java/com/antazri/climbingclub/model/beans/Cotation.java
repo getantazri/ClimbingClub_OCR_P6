@@ -2,15 +2,15 @@ package com.antazri.climbingclub.model.beans;
 
 public class Cotation {
 
-    private int cotation_id;
+    private int cotationId;
     private String nom;
 
-    public int getCotation_id() {
-        return cotation_id;
+    public int getCotationId() {
+        return cotationId;
     }
 
-    public void setCotation_id(int cotation_id) {
-        this.cotation_id = cotation_id;
+    public void setCotationId(int cotationId) {
+        this.cotationId = cotationId;
     }
 
     public String getNom() {

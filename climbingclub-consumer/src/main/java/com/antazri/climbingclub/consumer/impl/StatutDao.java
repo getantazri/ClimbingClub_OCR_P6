@@ -58,7 +58,7 @@ public class StatutDao extends AbstractDao implements IStatutDao {
         // Définition des paramètres de la requête
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
         vSqlParameters.addValue("nom", pStatut.getNom());
-        vSqlParameters.addValue("id", pStatut.getStatut_id());
+        vSqlParameters.addValue("id", pStatut.getStatutId());
 
         getNamedParameterJdbcTemplate().update(vSql, vSqlParameters);
 
@@ -71,7 +71,7 @@ public class StatutDao extends AbstractDao implements IStatutDao {
 
         // Définition des paramètres de la requête
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
-        vSqlParameters.addValue("id", pStatut.getStatut_id());
+        vSqlParameters.addValue("id", pStatut.getStatutId());
 
         // Suppression de l'objet dans la base de données
         getNamedParameterJdbcTemplate().update(vSql, vSqlParameters);

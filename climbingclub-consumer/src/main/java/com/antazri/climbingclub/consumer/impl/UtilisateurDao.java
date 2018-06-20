@@ -14,7 +14,8 @@ public class UtilisateurDao extends AbstractDao implements IUtilisateurDao {
 
     public Utilisateur findById(int pId) {
         // Requête SQL
-        String vSql = "SELECT * FROM public.utilisateur WHERE utilisateur.utilisateur_id = :id";
+        String vSql = "SELECT * FROM public.utilisateur INNER JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
+                "WHERE utilisateur.utilisateur_id = :id";
 
         // Définition des paramètres de la requêtes
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
@@ -25,18 +26,20 @@ public class UtilisateurDao extends AbstractDao implements IUtilisateurDao {
 
     public List<Utilisateur> findByStatut(Statut pStatut) {
         // Requête SQL
-        String vSql = "SELECT * FROM public.utilisateur WHERE utilisateur.statut_id = :id";
+        String vSql = "SELECT * FROM public.utilisateur INNER JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
+                "WHERE utilisateur.statut_id = :id";
 
         // Définition des paramètres de la requêtes
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
-        vSqlParameters.addValue("id", pStatut.getStatut_id());
+        vSqlParameters.addValue("id", pStatut.getStatutId());
 
         return getNamedParameterJdbcTemplate().query(vSql, vSqlParameters, new UtilisateurRM());
     }
 
     public Utilisateur findByName(String pName) {
         // Requête SQL
-        String vSql = "SELECT * FROM public.utilisateur WHERE utilisateur.nom = :nom";
+        String vSql = "SELECT * FROM public.utilisateur INNER JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
+                "WHERE utilisateur.nom = :nom";
 
         // Définition des paramètres de la requêtes
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
@@ -57,7 +60,12 @@ public class UtilisateurDao extends AbstractDao implements IUtilisateurDao {
         String vSql = "INSERT INTO public.utilisateur (nom, prenom, pseudo, email, telephone, statut_id) "
                 + "VALUES (?, ?, ?, ?, ?, ?)";
 
-        getJdbcTemplate().update(vSql, pUtilisateur.getNom(), pUtilisateur.getPrenom(), pUtilisateur.getPseudo(), pUtilisateur.getEmail(), pUtilisateur.getTelephone(), pUtilisateur.getStatut().getStatut_id());
+        getJdbcTemplate().update(vSql, pUtilisateur.getNom(),
+                                        pUtilisateur.getPrenom(),
+                                        pUtilisateur.getPseudo(),
+                                        pUtilisateur.getEmail(),
+                                        pUtilisateur.getTelephone(),
+                                        pUtilisateur.getStatut().getStatutId());
         return pUtilisateur;
     }
 
@@ -79,8 +87,8 @@ public class UtilisateurDao extends AbstractDao implements IUtilisateurDao {
         vSqlParameters.addValue("pseudo", pUtilisateur.getPseudo());
         vSqlParameters.addValue("email", pUtilisateur.getEmail());
         vSqlParameters.addValue("telephone", pUtilisateur.getTelephone());
-        vSqlParameters.addValue("statutId", pUtilisateur.getStatut().getStatut_id());
-        vSqlParameters.addValue("id", pUtilisateur.getUtilisateur_id());
+        vSqlParameters.addValue("statutId", pUtilisateur.getStatut().getStatutId());
+        vSqlParameters.addValue("id", pUtilisateur.getUtilisateurId());
 
         // Mise à jour de l'objet dans la base de données
         getNamedParameterJdbcTemplate().update(vSql, vSqlParameters);
@@ -94,7 +102,7 @@ public class UtilisateurDao extends AbstractDao implements IUtilisateurDao {
 
         // Définition des paramètres de la requête
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
-        vSqlParameters.addValue("id", pUtilisateur.getUtilisateur_id());
+        vSqlParameters.addValue("id", pUtilisateur.getUtilisateurId());
 
         getNamedParameterJdbcTemplate().update(vSql, vSqlParameters);
     }

@@ -29,7 +29,7 @@ public class TopoDao extends AbstractDao implements ITopoDao {
 
         // Définition des paramètres de la requêtes
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
-        vSqlParameters.addValue("id", pUtilisateur.getUtilisateur_id());
+        vSqlParameters.addValue("id", pUtilisateur.getUtilisateurId());
 
         return getNamedParameterJdbcTemplate().query(vSql, vSqlParameters, new TopoRM());
     }
@@ -56,7 +56,7 @@ public class TopoDao extends AbstractDao implements ITopoDao {
         // Requête SQL
         String vSql = "INSERT INTO public.topo (utilisateur_id, nom, disponible) VALUES(?, ?, ?)";
 
-        getJdbcTemplate().update(vSql, pTopo.getNom(), pTopo.getProprietaire().getUtilisateur_id(), pTopo.isDisponible());
+        getJdbcTemplate().update(vSql, pTopo.getNom(), pTopo.getProprietaire().getUtilisateurId(), pTopo.isDisponible());
 
         return pTopo;
     }
@@ -71,10 +71,10 @@ public class TopoDao extends AbstractDao implements ITopoDao {
 
         // Définition des paramètres de la requête
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
-        vSqlParameters.addValue("utilisateurId", pTopo.getTopo_id());
-        vSqlParameters.addValue("nom", pTopo.getTopo_id());
-        vSqlParameters.addValue("disponible", pTopo.getTopo_id());
-        vSqlParameters.addValue("id", pTopo.getTopo_id());
+        vSqlParameters.addValue("utilisateurId", pTopo.getProprietaire().getUtilisateurId());
+        vSqlParameters.addValue("nom", pTopo.getNom());
+        vSqlParameters.addValue("disponible", pTopo.isDisponible());
+        vSqlParameters.addValue("id", pTopo.getTopoId());
 
         getNamedParameterJdbcTemplate().update(vSql, vSqlParameters);
 
@@ -87,7 +87,7 @@ public class TopoDao extends AbstractDao implements ITopoDao {
 
         // Définition des paramètres de la requête
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
-        vSqlParameters.addValue("id", pTopo.getTopo_id());
+        vSqlParameters.addValue("id", pTopo.getTopoId());
 
         getNamedParameterJdbcTemplate().update(vSql, vSqlParameters);
     }

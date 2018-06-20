@@ -1,18 +1,22 @@
 package com.antazri.climbingclub.model.beans;
 
+import java.util.List;
+
 public class Topo {
 
-    private int topo_id;
+    private int topoId;
     private Utilisateur proprietaire;
     private String nom;
+    private List<Spot> spots;
     private boolean disponible;
+    private List<Commentaire> commentaires;
 
-    public int getTopo_id() {
-        return topo_id;
+    public int getTopoId() {
+        return topoId;
     }
 
-    public void setTopo_id(int topo_id) {
-        this.topo_id = topo_id;
+    public void setTopoId(int topoId) {
+        this.topoId = topoId;
     }
 
     public Utilisateur getProprietaire() {
@@ -31,11 +35,27 @@ public class Topo {
         this.nom = nom;
     }
 
+    public List<Spot> getSpots() {
+        return spots;
+    }
+
+    public void setSpots(List<Spot> spots) {
+        this.spots = spots;
+    }
+
     public boolean isDisponible() {
         return disponible;
     }
 
     public void setDisponible(boolean disponible) {
         this.disponible = disponible;
+    }
+
+    public List<Commentaire> getCommentaires() {
+        return commentaires;
+    }
+
+    public void setCommentaires(List<Commentaire> commentaires) {
+        this.commentaires = commentaires;
     }
 }

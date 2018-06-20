@@ -1,25 +1,19 @@
 package com.antazri.climbingclub.model.beans;
 
+import java.util.List;
+
 public class Secteur {
 
-    private int secteur_id;
-    private Spot spot;
+    private int secteurId;
     private String nom;
+    private List<Voie> voies;
 
-    public int getSecteur_id() {
-        return secteur_id;
+    public int getSecteurId() {
+        return secteurId;
     }
 
-    public void setSecteur_id(int secteur_id) {
-        this.secteur_id = secteur_id;
-    }
-
-    public Spot getSpot() {
-        return spot;
-    }
-
-    public void setSpot(Spot spot) {
-        this.spot = spot;
+    public void setSecteurId(int secteurId) {
+        this.secteurId = secteurId;
     }
 
     public String getNom() {
@@ -28,5 +22,13 @@ public class Secteur {
 
     public void setNom(String nom) {
         this.nom = nom;
+    }
+
+    public List<Voie> getVoies() {
+        return voies;
+    }
+
+    public void setVoies(List<Voie> voies) {
+        this.voies = voies;
     }
 }

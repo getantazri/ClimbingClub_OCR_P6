@@ -29,7 +29,7 @@ public class SpotDao extends AbstractDao implements ISpotDao {
 
         // Définition des paramètres de la requêtes
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
-        vSqlParameters.addValue("id", pTopo.getTopo_id());
+        vSqlParameters.addValue("id", pTopo.getTopoId());
 
         return getNamedParameterJdbcTemplate().query(vSql, vSqlParameters, new SpotRM());
     }
@@ -46,7 +46,7 @@ public class SpotDao extends AbstractDao implements ISpotDao {
         String vSql = "INSERT INTO public.spot (nom, description, hauteur, topo_id, region_id) "
                 + "VALUES (?, ?, ?, ?, ?)";
 
-        getJdbcTemplate().update(vSql, pSpot.getNom(), pSpot.getDescription(), pSpot.getHauteur(), pSpot.getTopo().getTopo_id(), pSpot.getRegion().getRegion_id());
+        getJdbcTemplate().update(vSql, pSpot.getNom(), pSpot.getDescription(), pSpot.getHauteur(), pSpot.getTopo().getTopoId(), pSpot.getRegion().getRegionId());
 
         return pSpot;
     }
@@ -66,9 +66,9 @@ public class SpotDao extends AbstractDao implements ISpotDao {
         vSqlParameters.addValue("nom", pSpot.getNom());
         vSqlParameters.addValue("description", pSpot.getDescription());
         vSqlParameters.addValue("hauteur", pSpot.getHauteur());
-        vSqlParameters.addValue("topoId", pSpot.getTopo().getTopo_id());
-        vSqlParameters.addValue("regionId", pSpot.getRegion().getRegion_id());
-        vSqlParameters.addValue("id", pSpot.getSpot_id());
+        vSqlParameters.addValue("topoId", pSpot.getTopo().getTopoId());
+        vSqlParameters.addValue("regionId", pSpot.getRegion().getRegionId());
+        vSqlParameters.addValue("id", pSpot.getSpotId());
 
         // Mise à jour de l'objet dans la base de données
         getNamedParameterJdbcTemplate().update(vSql, vSqlParameters);
@@ -82,7 +82,7 @@ public class SpotDao extends AbstractDao implements ISpotDao {
 
         // Définition des paramètres de la requête
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
-        vSqlParameters.addValue("id", pSpot.getSpot_id());
+        vSqlParameters.addValue("id", pSpot.getSpotId());
 
         // Suppression de l'objet dans la base de données
         getNamedParameterJdbcTemplate().update(vSql, vSqlParameters);

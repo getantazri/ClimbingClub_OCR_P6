@@ -2,7 +2,7 @@ package com.antazri.climbingclub.model.beans;
 
 public class Utilisateur {
 
-    private int utilisateur_id;
+    private int utilisateurId;
     private String nom;
     private String prenom;
     private String pseudo;
@@ -11,12 +11,12 @@ public class Utilisateur {
     private String telephone;
     private Statut statut;
 
-    public int getUtilisateur_id() {
-        return utilisateur_id;
+    public int getUtilisateurId() {
+        return utilisateurId;
     }
 
-    public void setUtilisateur_id(int utilisateur_id) {
-        this.utilisateur_id = utilisateur_id;
+    public void setUtilisateurId(int utilisateurId) {
+        this.utilisateurId = utilisateurId;
     }
 
     public String getNom() {

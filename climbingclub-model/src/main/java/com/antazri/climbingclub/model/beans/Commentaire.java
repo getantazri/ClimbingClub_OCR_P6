@@ -2,35 +2,17 @@ package com.antazri.climbingclub.model.beans;
 
 public class Commentaire {
 
-    private int commentaire_id;
-    private Spot spot;
-    private Topo topo;
+    private int commentaireId;
     private Utilisateur utilisateur;
     private String contenu;
     private Commentaire commentaireParent;
 
-    public int getCommentaire_id() {
-        return commentaire_id;
+    public int getCommentaireId() {
+        return commentaireId;
     }
 
-    public void setCommentaire_id(int commentaire_id) {
-        this.commentaire_id = commentaire_id;
-    }
-
-    public Spot getSpot() {
-        return spot;
-    }
-
-    public void setSpot(Spot spot) {
-        this.spot = spot;
-    }
-
-    public Topo getTopo() {
-        return topo;
-    }
-
-    public void setTopo(Topo topo) {
-        this.topo = topo;
+    public void setCommentaireId(int commentaireId) {
+        this.commentaireId = commentaireId;
     }
 
     public Utilisateur getUtilisateur() {

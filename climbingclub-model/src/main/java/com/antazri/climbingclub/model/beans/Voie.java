@@ -2,19 +2,18 @@ package com.antazri.climbingclub.model.beans;
 
 public class Voie {
 
-    private int voie_id;
+    private int voieId;
     private String nom;
-    private Secteur secteur;
     private int nombrePoints;
     private String description;
     private Cotation cotation;
 
-    public int getVoie_id() {
-        return voie_id;
+    public int getVoieId() {
+        return voieId;
     }
 
-    public void setVoie_id(int voie_id) {
-        this.voie_id = voie_id;
+    public void setVoieId(int voieId) {
+        this.voieId = voieId;
     }
 
     public String getNom() {
@@ -23,14 +22,6 @@ public class Voie {
 
     public void setNom(String nom) {
         this.nom = nom;
-    }
-
-    public Secteur getSecteur() {
-        return secteur;
-    }
-
-    public void setSecteur(Secteur secteur) {
-        this.secteur = secteur;
     }
 
     public int getNombrePoints() {

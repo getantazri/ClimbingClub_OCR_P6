@@ -41,7 +41,7 @@ public class CommentaireDao extends AbstractDao implements ICommentaireDao {
 
         // Définition des paramètres de la requêtes
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
-        vSqlParameters.addValue("id", pSpot.getSpot_id());
+        vSqlParameters.addValue("id", pSpot.getSpotId());
 
         return getNamedParameterJdbcTemplate().query(vSql, vSqlParameters, new CommentaireRM());
     }
@@ -52,7 +52,7 @@ public class CommentaireDao extends AbstractDao implements ICommentaireDao {
 
         // Définition des paramètres de la requêtes
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
-        vSqlParameters.addValue("id", pTopo.getTopo_id());
+        vSqlParameters.addValue("id", pTopo.getTopoId());
 
         return getNamedParameterJdbcTemplate().query(vSql, vSqlParameters, new CommentaireRM());
     }
@@ -69,7 +69,11 @@ public class CommentaireDao extends AbstractDao implements ICommentaireDao {
         String vSql = "INSERT INTO public.commentaire (contenu, parent_commentaire_id, utilisateur_id, spot_id, topo_id) "
                 + "VALUES (?, ?, ?, ?, ?)";
 
-        getJdbcTemplate().update(vSql, pCommentaire.getContenu(), pCommentaire.getCommentaireParent().getCommentaire_id(), pCommentaire.getUtilisateur().getUtilisateur_id(), pCommentaire.getSpot().getSpot_id(), pCommentaire.getTopo().getTopo_id());
+        getJdbcTemplate().update(vSql, pCommentaire.getContenu(),
+                                        pCommentaire.getCommentaireParent().getCommentaireId(),
+                                        pCommentaire.getUtilisateur().getUtilisateurId(),
+                                        pCommentaire.getSpot().getSpotId(),
+                                        pCommentaire.getTopo().getTopoId());
 
         return pCommentaire;
     }
@@ -87,11 +91,11 @@ public class CommentaireDao extends AbstractDao implements ICommentaireDao {
         // Définition des paramètres de la requêtes
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
         vSqlParameters.addValue("contenu", pCommentaire.getContenu());
-        vSqlParameters.addValue("parentCommentId", pCommentaire.getCommentaireParent().getCommentaire_id());
-        vSqlParameters.addValue("utilisateurId", pCommentaire.getUtilisateur().getUtilisateur_id());
-        vSqlParameters.addValue("spotId", pCommentaire.getSpot().getSpot_id());
-        vSqlParameters.addValue("topoId", pCommentaire.getTopo().getTopo_id());
-        vSqlParameters.addValue("id", pCommentaire.getCommentaire_id());
+        vSqlParameters.addValue("parentCommentId", pCommentaire.getCommentaireParent().getCommentaireId());
+        vSqlParameters.addValue("utilisateurId", pCommentaire.getUtilisateur().getUtilisateurId());
+        vSqlParameters.addValue("spotId", pCommentaire.getSpot().getSpotId());
+        vSqlParameters.addValue("topoId", pCommentaire.getTopo().getTopoId());
+        vSqlParameters.addValue("id", pCommentaire.getCommentaireId());
 
         getNamedParameterJdbcTemplate().update(vSql, vSqlParameters);
 
@@ -104,7 +108,7 @@ public class CommentaireDao extends AbstractDao implements ICommentaireDao {
 
         // Définition des paramètres de la requête
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
-        vSqlParameters.addValue("id", pCommentaire.getCommentaire_id());
+        vSqlParameters.addValue("id", pCommentaire.getCommentaireId());
 
         getNamedParameterJdbcTemplate().update(vSql, vSqlParameters);
     }

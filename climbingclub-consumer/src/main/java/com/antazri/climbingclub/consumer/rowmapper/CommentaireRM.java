@@ -30,14 +30,14 @@ public class CommentaireRM implements RowMapper {
     public Commentaire mapRow(ResultSet rs, int rowNum) throws SQLException {
         Commentaire commentaire = new Commentaire();
 
-        commentaire.setCommentaire_id(rs.getInt("commentaire_id"));
+        commentaire.setCommentaireId(rs.getInt("commentaire_id"));
 
         // On vérifie si le commentaire est présent sur une page d'un topo
         if(rs.getInt("topo_id") != 0) {
             commentaire.setTopo(topoDao.findById(rs.getInt("topo_id")));
         } else {
             Topo topo = new Topo();
-            topo.setTopo_id(0);
+            topo.setTopoId(0);
 
             commentaire.setTopo(topo);
         }
@@ -47,7 +47,7 @@ public class CommentaireRM implements RowMapper {
             commentaire.setSpot(spotDao.findById(rs.getInt("spot_id")));
         } else {
             Spot spot = new Spot();
-            spot.setSpot_id(0);
+            spot.setSpotId(0);
 
             commentaire.setSpot(spot);
         }
@@ -63,7 +63,7 @@ public class CommentaireRM implements RowMapper {
             commentaire.setSpot(spotDao.findById(rs.getInt("spot_id")));
         } else {
             Commentaire commentaireParent = new Commentaire();
-            commentaireParent.setCommentaire_id(0);
+            commentaireParent.setCommentaireId(0);
 
             commentaire.setCommentaireParent(commentaireParent);
         }

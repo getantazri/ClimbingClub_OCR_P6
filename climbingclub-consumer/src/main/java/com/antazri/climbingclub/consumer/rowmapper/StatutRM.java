@@ -16,7 +16,7 @@ public class StatutRM implements RowMapper {
     public Statut mapRow(ResultSet rs, int rowNum) throws SQLException {
         Statut statut = new Statut();
 
-        statut.setStatut_id(rs.getInt("statut_id"));
+        statut.setStatutId(rs.getInt("statut_id"));
         statut.setNom(rs.getString("nom"));
 
         return statut;
