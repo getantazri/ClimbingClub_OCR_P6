@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * Implémentation de l'interface VoieDao. VoieDao permet de récupérer les données grâce à la connexion à la DataSource obtenue via la classe AbstractDao. Les JdbcTemplate et
+ * Implémentation de l'interface IVoieDao. VoieDao permet de récupérer les données grâce à la connexion à la DataSource obtenue via la classe AbstractDao. Les JdbcTemplate et
  * NamedParameterJdbcTemplate sont également déclarés via l'AbstractDao.
  *
  * @author Anthony T
@@ -30,8 +30,13 @@ public class VoieDao extends AbstractDao implements IVoieDao {
     public Voie findById(int pId) {
         // Requête SQL
         String vSql = "SELECT * FROM public.voie " +
-                "FULL JOIN public.secteur ON secteur.secteur_id = voie.secteur_id " +
-                "FULL JOIN public.cotation ON cotation.cotation_id = voie.cotation_id " +
+                "FULL JOIN public.secteur ON voie.secteur_id = secteur.secteur_id " +
+                "FULL JOIN public.cotation ON voie.cotation_id = cotation.cotation_id " +
+                "FULL JOIN public.spot ON secteur.spot_id = spot.spot_id " +
+                "FULL JOIN public.region ON spot.region_id = region.region_id " +
+                "FULL JOIN public.topo ON spot.topo_id = topo.topo_id " +
+                "FULL JOIN public.utilisateur ON topo.utilisateur_id = utilisateur.utilisateur_id " +
+                "FULL JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
                 "WHERE voie.voie_id = :id";
 
         // Définition des paramètres de la requêtes
@@ -53,8 +58,13 @@ public class VoieDao extends AbstractDao implements IVoieDao {
     public List<Voie> findBySecteur(Secteur pSecteur) {
         // Requête SQL
         String vSql = "SELECT * FROM public.voie " +
-                "FULL JOIN public.secteur ON secteur.secteur_id = voie.secteur_id " +
-                "FULL JOIN public.cotation ON cotation.cotation_id = voie.cotation_id " +
+                "FULL JOIN public.secteur ON voie.secteur_id = secteur.secteur_id " +
+                "FULL JOIN public.cotation ON voie.cotation_id = cotation.cotation_id " +
+                "FULL JOIN public.spot ON secteur.spot_id = spot.spot_id " +
+                "FULL JOIN public.region ON spot.region_id = region.region_id " +
+                "FULL JOIN public.topo ON spot.topo_id = topo.topo_id " +
+                "FULL JOIN public.utilisateur ON topo.utilisateur_id = utilisateur.utilisateur_id " +
+                "FULL JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
                 "WHERE voie.secteur_id = :id";
 
         // Définition des paramètres de la requêtes
@@ -76,8 +86,13 @@ public class VoieDao extends AbstractDao implements IVoieDao {
     public List<Voie> findByCotation(Cotation pCotation) {
         // Requête SQL
         String vSql = "SELECT * FROM public.voie " +
-                "FULL JOIN public.secteur ON secteur.secteur_id = voie.secteur_id " +
-                "FULL JOIN public.cotation ON cotation.cotation_id = voie.cotation_id " +
+                "FULL JOIN public.secteur ON voie.secteur_id = secteur.secteur_id " +
+                "FULL JOIN public.cotation ON voie.cotation_id = cotation.cotation_id " +
+                "FULL JOIN public.spot ON secteur.spot_id = spot.spot_id " +
+                "FULL JOIN public.region ON spot.region_id = region.region_id " +
+                "FULL JOIN public.topo ON spot.topo_id = topo.topo_id " +
+                "FULL JOIN public.utilisateur ON topo.utilisateur_id = utilisateur.utilisateur_id " +
+                "FULL JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
                 "WHERE voie.cotation_id = :id";
 
         // Définition des paramètres de la requêtes
@@ -99,7 +114,12 @@ public class VoieDao extends AbstractDao implements IVoieDao {
         // Requête SQL
         String vSql = "SELECT * FROM public.voie " +
                 "FULL JOIN public.secteur ON voie.secteur_id = secteur.secteur_id " +
-                "FULL JOIN public.cotation ON voie.cotation_id = cotation.cotation_id";
+                "FULL JOIN public.cotation ON voie.cotation_id = cotation.cotation_id " +
+                "FULL JOIN public.spot ON secteur.spot_id = spot.spot_id " +
+                "FULL JOIN public.region ON spot.region_id = region.region_id " +
+                "FULL JOIN public.topo ON spot.topo_id = topo.topo_id " +
+                "FULL JOIN public.utilisateur ON topo.utilisateur_id = utilisateur.utilisateur_id " +
+                "FULL JOIN public.statut ON utilisateur.statut_id = statut.statut_id ";
 
         return getJdbcTemplate().query(vSql, new VoieRM());
     }
@@ -115,7 +135,7 @@ public class VoieDao extends AbstractDao implements IVoieDao {
         String vSql = "INSERT INTO public.voie (nom, nombre_points, description, secteur_id, cotation_id) "
                 + "VALUES (?, ?, ?, ?, ?)";
 
-        getJdbcTemplate().update(vSql, pVoie.getNom(), pVoie.getNombrePoints(), pVoie.getDescription(), pVoie.getCotation().getCotationId());
+        getJdbcTemplate().update(vSql, pVoie.getNom(), pVoie.getNombrePoints(), pVoie.getDescription(), pVoie.getSecteur().getSecteurId(), pVoie.getCotation().getCotationId());
 
         return pVoie;
     }
@@ -132,6 +152,7 @@ public class VoieDao extends AbstractDao implements IVoieDao {
                 + "SET voie.nom =  = :nom, "
                 + "voie.nom_points =  = :nbrPoints, "
                 + "voie.description =  = :description, "
+                + "voie.secteur_id =  = :secteurId, "
                 + "voie.cotation_id =  = :cotationId "
                 + "WHERE voie.voie_id = :id";
 
@@ -140,6 +161,7 @@ public class VoieDao extends AbstractDao implements IVoieDao {
         vSqlParameters.addValue("nom", pVoie.getNom());
         vSqlParameters.addValue("nbrPoints", pVoie.getNombrePoints());
         vSqlParameters.addValue("description", pVoie.getDescription());
+        vSqlParameters.addValue("secteurId", pVoie.getSecteur().getSecteurId());
         vSqlParameters.addValue("cotationId", pVoie.getCotation().getCotationId());
         vSqlParameters.addValue("id", pVoie.getVoieId());
 

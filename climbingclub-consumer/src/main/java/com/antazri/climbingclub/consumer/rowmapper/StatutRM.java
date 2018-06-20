@@ -8,11 +8,16 @@ import java.sql.SQLException;
 
 /**
  * Implémentation de RowMapper pour la création d'un objet Statut lors de la récupération des éléments depuis la base de données
- *
- * @return une instance de Statut paramétrée avec les informations issues de la base de données
  */
 public class StatutRM implements RowMapper {
 
+    /**
+     * La méthode mapRow va parcourir le ResultSet ligne par ligne et construire un objet Statut
+     * @param rs ResultSet récupéré à partir de la requête SQL envoyée par le DAO
+     * @param rowNum
+     * @return Un objet Statut construit et utilisable par le reste de l'application
+     * @throws SQLException
+     */
     public Statut mapRow(ResultSet rs, int rowNum) throws SQLException {
         Statut statut = new Statut();
 

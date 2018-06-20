@@ -1,10 +1,7 @@
 package com.antazri.climbingclub.consumer.rowmapper;
 
-import com.antazri.climbingclub.consumer.contract.IStatutDao;
 import com.antazri.climbingclub.model.beans.Statut;
 import com.antazri.climbingclub.model.beans.Utilisateur;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
@@ -12,15 +9,16 @@ import java.sql.SQLException;
 
 /**
  * Implémentation du RowMapper pour la création d'un objet Utilisateur lors de la récupération des éléments depuis la base de données
- *
- * @return une instance de Utilisateur paramétrée avec les informations issues de la base de données
  */
 public class UtilisateurRM implements RowMapper {
 
-    @Autowired
-    @Qualifier("statutDao")
-    private IStatutDao statutDao;
-
+    /**
+     * La méthode mapRow va parcourir le ResultSet ligne par ligne et construire un objet Utilisateur
+     * @param rs ResultSet récupéré à partir de la requête SQL envoyée par le DAO
+     * @param rowNum
+     * @return Un objet Utilisateur construit et utilisable par le reste de l'application
+     * @throws SQLException
+     */
     public Utilisateur mapRow(ResultSet rs, int rowNum) throws SQLException {
         Utilisateur utilisateur = new Utilisateur();
 
