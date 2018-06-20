@@ -43,10 +43,10 @@ public class SecteurDao extends AbstractDao implements ISecteurDao {
 
     public Secteur create(Secteur pSecteur) {
         // Requête SQL
-        String vSql = "INSERT INTO public.secteur (nom, spot_id) "
+        String vSql = "INSERT INTO public.secteur (nom) "
                 + "VALUES (?, ?)";
 
-        getJdbcTemplate().update(vSql, pSecteur.getNom(), pSecteur.getSpot().getSpotId());
+        getJdbcTemplate().update(vSql, pSecteur.getNom());
 
         return pSecteur;
     }
@@ -61,7 +61,6 @@ public class SecteurDao extends AbstractDao implements ISecteurDao {
         // Définition des paramètres de la requête
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
         vSqlParameters.addValue("nom", pSecteur.getNom());
-        vSqlParameters.addValue("spotId", pSecteur.getSpot().getSpotId());
         vSqlParameters.addValue("id", pSecteur.getSecteurId());
 
         // Mise à jour de l'objet dans la base de données

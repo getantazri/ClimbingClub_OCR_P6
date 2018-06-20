@@ -4,6 +4,7 @@ public class Voie {
 
     private int voieId;
     private String nom;
+    private Secteur secteur;
     private int nombrePoints;
     private String description;
     private Cotation cotation;
@@ -22,6 +23,14 @@ public class Voie {
 
     public void setNom(String nom) {
         this.nom = nom;
+    }
+
+    public Secteur getSecteur() {
+        return secteur;
+    }
+
+    public void setSecteur(Secteur secteur) {
+        this.secteur = secteur;
     }
 
     public int getNombrePoints() {

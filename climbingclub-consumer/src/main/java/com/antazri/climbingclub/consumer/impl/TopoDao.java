@@ -14,7 +14,10 @@ public class TopoDao extends AbstractDao implements ITopoDao {
 
     public Topo findById(int pId) {
         // Requête SQL
-        String vSql = "SELECT * FROM public.topo WHERE topo.topo_id = :id";
+        String vSql = "SELECT * FROM public.topo " +
+                "FULL JOIN public.utilisateur ON topo.utilisateur_id = utilisateur.utilisateur_id " +
+                "FULL JOIN public.spot ON topo." +
+                "WHERE topo.topo_id = :id";
 
         // Définition des paramètres de la requêtes
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();

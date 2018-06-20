@@ -43,10 +43,10 @@ public class SpotDao extends AbstractDao implements ISpotDao {
 
     public Spot create(Spot pSpot) {
         // Requête SQL
-        String vSql = "INSERT INTO public.spot (nom, description, hauteur, topo_id, region_id) "
+        String vSql = "INSERT INTO public.spot (nom, description, hauteur, tregion_id) "
                 + "VALUES (?, ?, ?, ?, ?)";
 
-        getJdbcTemplate().update(vSql, pSpot.getNom(), pSpot.getDescription(), pSpot.getHauteur(), pSpot.getTopo().getTopoId(), pSpot.getRegion().getRegionId());
+        getJdbcTemplate().update(vSql, pSpot.getNom(), pSpot.getDescription(), pSpot.getHauteur(), pSpot.getRegion().getRegionId());
 
         return pSpot;
     }
@@ -66,7 +66,6 @@ public class SpotDao extends AbstractDao implements ISpotDao {
         vSqlParameters.addValue("nom", pSpot.getNom());
         vSqlParameters.addValue("description", pSpot.getDescription());
         vSqlParameters.addValue("hauteur", pSpot.getHauteur());
-        vSqlParameters.addValue("topoId", pSpot.getTopo().getTopoId());
         vSqlParameters.addValue("regionId", pSpot.getRegion().getRegionId());
         vSqlParameters.addValue("id", pSpot.getSpotId());
 

@@ -11,21 +11,12 @@ import java.sql.SQLException;
 
 public class TopoRM implements RowMapper {
 
-    @Autowired
-    @Qualifier("utilisateurDao")
-    private IUtilisateurDao utilisateurDao;
-
     public Topo mapRow(ResultSet rs, int rowNum) throws SQLException {
         Topo topo = new Topo();
 
         topo.setTopoId(rs.getInt("topo_id"));
 
-        // Affectation d'un Utilisateur avec la méthode findById de l'attribut utilisateurDao qui retourne une
-        // instance de l'objet Utilisateur avec son id, récupéré dans le ResultSet, en paramètre
-        topo.setProprietaire(utilisateurDao.findById(rs.getInt("utilisateur_id")));
-
         topo.setNom(rs.getString("nom"));
-
         topo.setDisponible(rs.getBoolean("disponible"));
 
         return topo;
