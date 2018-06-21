@@ -22,7 +22,7 @@ public class RegionRM implements RowMapper {
         Region region = new Region();
 
         region.setRegionId(rs.getInt("region_id"));
-        region.setNom(rs.getString("nom"));
+        region.setNom(rs.getString("region_nom"));
 
         return region;
     }

@@ -14,4 +14,6 @@ public interface ITopoDao {
     Topo create(Topo pTopo);
     Topo update(Topo pTopo);
     void delete(Topo pTopo);
+
+    Utilisateur getProprietaire(Integer pId);
 }

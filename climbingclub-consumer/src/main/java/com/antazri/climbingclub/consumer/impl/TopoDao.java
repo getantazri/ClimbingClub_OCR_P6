@@ -2,6 +2,7 @@ package com.antazri.climbingclub.consumer.impl;
 
 import com.antazri.climbingclub.consumer.contract.ITopoDao;
 import com.antazri.climbingclub.consumer.rowmapper.TopoRM;
+import com.antazri.climbingclub.consumer.rowmapper.UtilisateurRM;
 import com.antazri.climbingclub.model.beans.Topo;
 import com.antazri.climbingclub.model.beans.Utilisateur;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -155,5 +156,24 @@ public class TopoDao extends AbstractDao implements ITopoDao {
         vSqlParameters.addValue("id", pTopo.getTopoId());
 
         getNamedParameterJdbcTemplate().update(vSql, vSqlParameters);
+    }
+
+    /**
+     * La méthode getProprietaire permet de créer un objet Utilisateur que l'on affectera à l'attribut Propriétaire de l'objet
+     * Topo afin de clarifier les différentes requêtes en dehors de multiples jointures
+     * @param pId est l'identifiant unique retourné depuis la colonne "utilisateur_id" de la table Topo
+     * @return un objet Utilisateur à affecter à l'objet Topo
+     */
+    public Utilisateur getProprietaire(Integer pId) {
+        // Requête SQL
+        String vSql = "SELECT * FROM public.utilisateur " +
+                "FULL JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
+                "WHERE utilisateur.utilisateur_id = :id";
+
+        // Définition des paramètres de la requêtes
+        MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
+        vSqlParameters.addValue("id", pId);
+
+        return (Utilisateur) getNamedParameterJdbcTemplate().queryForObject(vSql, vSqlParameters, new UtilisateurRM());
     }
 }

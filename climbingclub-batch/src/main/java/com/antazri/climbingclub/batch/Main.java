@@ -13,16 +13,5 @@ public class Main {
 
         ApplicationContext vApplicationContext = new ClassPathXmlApplicationContext("classpath*:/**/batch/spring/applicationContext-bootstrap.xml");
 
-        VoieDao voieDao = (VoieDao) vApplicationContext.getBean("voieDao");
-        CotationDao cotationDao = (CotationDao) vApplicationContext.getBean("cotationDao");
-
-        Cotation cotation = cotationDao.findById(2);
-
-
-        List<Voie> voies = voieDao.findByCotation(cotation);
-
-        for (Voie voie : voies) {
-            System.out.println(voie.getNom());
-        }
     }
 }

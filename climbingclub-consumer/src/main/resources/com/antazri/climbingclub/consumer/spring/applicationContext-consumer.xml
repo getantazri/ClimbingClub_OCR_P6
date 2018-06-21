@@ -7,8 +7,6 @@
     http://www.springframework.org/schema/context
     http://www.springframework.org/schema/context/spring-context.xsd">
 
-
-
     <!-- Configuration du bean AbstractDao -->
     <bean id="abstractDao" abstract="true" class="com.antazri.climbingclub.consumer.impl.AbstractDao">
         <property name="dataSource" ref="dataSource" />
@@ -43,9 +41,5 @@
     </bean>
     <bean id="voieDao" class="com.antazri.climbingclub.consumer.impl.VoieDao">
     </bean>
-
-    <!-- Déclaration des beans RowMapper
-    <bean id="regionRm"
-          class="com.antazri.climbingclub.consumer.rowmapper.RegionRM" /> -->
 
 </beans>

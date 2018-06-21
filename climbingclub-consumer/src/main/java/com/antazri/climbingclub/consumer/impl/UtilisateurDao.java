@@ -14,7 +14,7 @@ public class UtilisateurDao extends AbstractDao implements IUtilisateurDao {
 
     public Utilisateur findById(int pId) {
         // Requête SQL
-        String vSql = "SELECT * FROM public.utilisateur INNER JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
+        String vSql = "SELECT * FROM public.utilisateur JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
                 "WHERE utilisateur.utilisateur_id = :id";
 
         // Définition des paramètres de la requêtes
@@ -26,7 +26,7 @@ public class UtilisateurDao extends AbstractDao implements IUtilisateurDao {
 
     public List<Utilisateur> findByStatut(Statut pStatut) {
         // Requête SQL
-        String vSql = "SELECT * FROM public.utilisateur INNER JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
+        String vSql = "SELECT * FROM public.utilisateur JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
                 "WHERE utilisateur.statut_id = :id";
 
         // Définition des paramètres de la requêtes
@@ -38,7 +38,7 @@ public class UtilisateurDao extends AbstractDao implements IUtilisateurDao {
 
     public Utilisateur findByName(String pName) {
         // Requête SQL
-        String vSql = "SELECT * FROM public.utilisateur INNER JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
+        String vSql = "SELECT * FROM public.utilisateur JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
                 "WHERE utilisateur.nom = :nom";
 
         // Définition des paramètres de la requêtes

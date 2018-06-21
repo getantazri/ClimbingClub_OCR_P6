@@ -7,7 +7,6 @@ public class Commentaire {
     private Topo topo;
     private Utilisateur utilisateur;
     private String contenu;
-    private Commentaire commentaireParent;
 
     public int getCommentaireId() {
         return commentaireId;
@@ -47,13 +46,5 @@ public class Commentaire {
 
     public void setContenu(String contenu) {
         this.contenu = contenu;
-    }
-
-    public Commentaire getCommentaireParent() {
-        return commentaireParent;
-    }
-
-    public void setCommentaireParent(Commentaire commentaireParent) {
-        this.commentaireParent = commentaireParent;
     }
 }
