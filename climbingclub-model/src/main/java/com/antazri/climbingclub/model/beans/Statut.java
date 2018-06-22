@@ -3,7 +3,7 @@ package com.antazri.climbingclub.model.beans;
 public class Statut {
 
     private int statutId;
-    private String nom;
+    private String statutNom;
 
     public int getStatutId() {
         return statutId;
@@ -13,11 +13,11 @@ public class Statut {
         this.statutId = statutId;
     }
 
-    public String getNom() {
-        return nom;
+    public String getStatutNom() {
+        return statutNom;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public void setStatutNom(String nom) {
+        this.statutNom = statutNom;
     }
 }

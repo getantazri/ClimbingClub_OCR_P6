@@ -5,8 +5,8 @@ public class Spot {
     private int spotId;
     private Topo topo;
     private Region region;
-    private String nom;
-    private String description;
+    private String spotNom;
+    private String spotDescription;
     private String hauteur;
 
     public int getSpotId() {
@@ -33,20 +33,20 @@ public class Spot {
         this.region = region;
     }
 
-    public String getNom() {
-        return nom;
+    public String getSpotNom() {
+        return spotNom;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public void setSpotNom(String spotNom) {
+        this.spotNom = spotNom;
     }
 
-    public String getDescription() {
-        return description;
+    public String getSpotDescription() {
+        return spotDescription;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setSpotDescription(String spotDescription) {
+        this.spotDescription = spotDescription;
     }
 
     public String getHauteur() {

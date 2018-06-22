@@ -3,7 +3,7 @@ package com.antazri.climbingclub.model.beans;
 public class Region {
 
     private int regionId;
-    private String nom;
+    private String regionNom;
 
     public int getRegionId() {
         return regionId;
@@ -13,11 +13,11 @@ public class Region {
         this.regionId = regionId;
     }
 
-    public String getNom() {
-        return nom;
+    public String getRegionNom() {
+        return regionNom;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public void setRegionNom(String regionNom) {
+        this.regionNom = regionNom;
     }
 }

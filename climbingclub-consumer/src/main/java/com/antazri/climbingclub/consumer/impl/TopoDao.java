@@ -111,7 +111,7 @@ public class TopoDao extends AbstractDao implements ITopoDao {
         // Requête SQL
         String vSql = "INSERT INTO public.topo (utilisateur_id, nom, disponible) VALUES(?, ?, ?)";
 
-        getJdbcTemplate().update(vSql, pTopo.getNom(), pTopo.getProprietaire().getUtilisateurId(), pTopo.isDisponible());
+        getJdbcTemplate().update(vSql, pTopo.getTopoNom(), pTopo.getProprietaire().getUtilisateurId(), pTopo.isDisponible());
 
         return pTopo;
     }
@@ -133,7 +133,7 @@ public class TopoDao extends AbstractDao implements ITopoDao {
         // Définition des paramètres de la requête
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
         vSqlParameters.addValue("utilisateurId", pTopo.getProprietaire().getUtilisateurId());
-        vSqlParameters.addValue("nom", pTopo.getNom());
+        vSqlParameters.addValue("nom", pTopo.getTopoNom());
         vSqlParameters.addValue("disponible", pTopo.isDisponible());
         vSqlParameters.addValue("id", pTopo.getTopoId());
 

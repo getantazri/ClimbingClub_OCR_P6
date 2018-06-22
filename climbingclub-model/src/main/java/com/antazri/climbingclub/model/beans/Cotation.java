@@ -3,7 +3,7 @@ package com.antazri.climbingclub.model.beans;
 public class Cotation {
 
     private int cotationId;
-    private String nom;
+    private String cotationNom;
 
     public int getCotationId() {
         return cotationId;
@@ -13,11 +13,11 @@ public class Cotation {
         this.cotationId = cotationId;
     }
 
-    public String getNom() {
-        return nom;
+    public String getCotationNom() {
+        return cotationNom;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public void setCotationNom(String cotationNom) {
+        this.cotationNom = cotationNom;
     }
 }

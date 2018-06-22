@@ -25,7 +25,7 @@ public class TopoRM implements RowMapper {
 
         topo.setTopoId(rs.getInt("topo_id"));
 
-        topo.setNom(rs.getString("topo_nom"));
+        topo.setTopoNom(rs.getString("topo_nom"));
         topo.setDisponible(rs.getBoolean("disponible"));
 
         // Création d'un objet Utilisateur (Propriétaire)
@@ -41,7 +41,7 @@ public class TopoRM implements RowMapper {
         // Création d'un objet Statut
         Statut statut = new Statut();
         statut.setStatutId(rs.getInt("statut_id"));
-        statut.setNom(rs.getString("statut_nom"));
+        statut.setStatutNom(rs.getString("statut_nom"));
 
         // Affectation du Statut à l'Utilisateur
         utilisateur.setStatut(statut);

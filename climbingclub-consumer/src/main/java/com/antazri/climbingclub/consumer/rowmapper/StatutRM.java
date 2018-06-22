@@ -22,7 +22,7 @@ public class StatutRM implements RowMapper {
         Statut statut = new Statut();
 
         statut.setStatutId(rs.getInt("statut_id"));
-        statut.setNom(rs.getString("nom"));
+        statut.setStatutNom(rs.getString("nom"));
 
         return statut;
     }

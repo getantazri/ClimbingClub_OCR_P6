@@ -9,9 +9,23 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * Implémentation de l'interface IUtilisateurDao. UtilisateurDao permet de récupérer les données grâce à la connexion à la DataSource obtenue via la classe AbstractDao. Les JdbcTemplate et
+ * NamedParameterJdbcTemplate sont également déclarés via l'AbstractDao.
+ *
+ * @author Anthony T
+ * @version 1.0
+ */
 @Repository
 public class UtilisateurDao extends AbstractDao implements IUtilisateurDao {
 
+    /**
+     * La méthode findById permet de rechercher un objet Utilisateur dans la base de données via son identifiant unique
+     *
+     * @param pId est un Integer permettant l'identification unique d'une instance de Utilisateur dans la base de données
+     * @return un objet Utilisateur configuré via le RowMapper "UtilisateurRM"
+     * @see com.antazri.climbingclub.consumer.rowmapper.UtilisateurRM
+     */
     public Utilisateur findById(int pId) {
         // Requête SQL
         String vSql = "SELECT * FROM public.utilisateur JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
@@ -24,6 +38,13 @@ public class UtilisateurDao extends AbstractDao implements IUtilisateurDao {
         return (Utilisateur) getNamedParameterJdbcTemplate().queryForObject(vSql, vSqlParameters, new UtilisateurRM());
     }
 
+    /**
+     * La méthode findByStatut permet de rechercher un objet Utilisateur dans la base de données via l'identifiant de son statut "statut_id"
+     *
+     * @param pStatut est un objet Statut permettant l'identification des Utilisateur grâce à son attribut "statut_id"
+     * @return une List d'objets Utilisateur configurés via le RowMapper "UtilisateurRM"
+     * @see com.antazri.climbingclub.consumer.rowmapper.UtilisateurRM
+     */
     public List<Utilisateur> findByStatut(Statut pStatut) {
         // Requête SQL
         String vSql = "SELECT * FROM public.utilisateur JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
@@ -36,6 +57,13 @@ public class UtilisateurDao extends AbstractDao implements IUtilisateurDao {
         return getNamedParameterJdbcTemplate().query(vSql, vSqlParameters, new UtilisateurRM());
     }
 
+    /**
+     * La méthode findByName permet de rechercher un objet Utilisateur dans la base de données via son nom
+     *
+     * @param pName est un String permettant l'identification d'une instance de Utilisateur dans la base de données
+     * @return un objet Utilisateur configuré via le RowMapper "UtilisateurRM"
+     * @see com.antazri.climbingclub.consumer.rowmapper.UtilisateurRM
+     */
     public Utilisateur findByName(String pName) {
         // Requête SQL
         String vSql = "SELECT * FROM public.utilisateur JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
@@ -48,6 +76,12 @@ public class UtilisateurDao extends AbstractDao implements IUtilisateurDao {
         return (Utilisateur) getNamedParameterJdbcTemplate().queryForObject(vSql, vSqlParameters, new UtilisateurRM());
     }
 
+    /**
+     * La méthode findAll permet de retourner l'ensemble des instances de Utilisateur enregistrées dans la base de données
+     *
+     * @return une List d'objets Utilisateur configurés via le RowMapper "UtilisateurRM"
+     * @see com.antazri.climbingclub.consumer.rowmapper.UtilisateurRM
+     */
     public List<Utilisateur> findAll() {
         // Requête SQL
         String vSql = "SELECT * FROM public.utilisateur";
@@ -55,6 +89,13 @@ public class UtilisateurDao extends AbstractDao implements IUtilisateurDao {
         return getJdbcTemplate().query(vSql, new UtilisateurRM());
     }
 
+    /**
+     * La méthode create permet de créer une nouvelle instance de Utilisateur dans la base de données
+     *
+     * @param pUtilisateur est un objet Utilisateur passé et configuré depuis la couche Business
+     * @return l'objet Utilisateur passé en paramètre de la méthode
+     * @see com.antazri.climbingclub.consumer.rowmapper.UtilisateurRM
+     */
     public Utilisateur create(Utilisateur pUtilisateur) {
         // Requête SQL
         String vSql = "INSERT INTO public.utilisateur (nom, prenom, pseudo, email, telephone, statut_id) "
@@ -69,6 +110,13 @@ public class UtilisateurDao extends AbstractDao implements IUtilisateurDao {
         return pUtilisateur;
     }
 
+    /**
+     * La méthode create permet de mettre à jour une instance de Utilisateur dans la base de données
+     *
+     * @param pUtilisateur est un objet Utilisateur passé et configuré depuis la couche Business
+     * @return l'objet Utilisateur passé en paramètre de la méthode
+     * @see com.antazri.climbingclub.consumer.rowmapper.UtilisateurRM
+     */
     public Utilisateur update(Utilisateur pUtilisateur) {
         //Requête SQL
         String vSql = "UPDATE public.utilisateur "
@@ -96,6 +144,12 @@ public class UtilisateurDao extends AbstractDao implements IUtilisateurDao {
         return pUtilisateur;
     }
 
+    /**
+     * La méthode create permet de supprimer une instance de Utilisateur dans la base de données
+     *
+     * @param pUtilisateur est un objet Utilisateur passé et configuré depuis la couche Business
+     * @see com.antazri.climbingclub.consumer.rowmapper.UtilisateurRM
+     */
     public void delete(Utilisateur pUtilisateur) {
         // Requête SQL
         String vSql = "DELETE FROM public.utilisateur WHERE utilisateur.utilisateur_id = :id";

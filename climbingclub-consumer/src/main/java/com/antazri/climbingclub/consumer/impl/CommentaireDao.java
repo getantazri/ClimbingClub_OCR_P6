@@ -14,9 +14,23 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * Implémentation de l'interface ICommentaireDao. CommentaireDao permet de récupérer les données grâce à la connexion à la DataSource obtenue via la classe AbstractDao. Les JdbcTemplate et
+ * NamedParameterJdbcTemplate sont également déclarés via l'AbstractDao.
+ *
+ * @author Anthony T
+ * @version 1.0
+ */
 @Repository
 public class CommentaireDao extends AbstractDao implements ICommentaireDao {
 
+    /**
+     * La méthode findById permet de rechercher un objet Commentaire dans la base de données via son identifiant unique
+     *
+     * @param pId est un Integer permettant l'identification unique d'une instance de Commentaire dans la base de données
+     * @return un objet Commentaire configuré via le RowMapper "CommentaireRM"
+     * @see com.antazri.climbingclub.consumer.rowmapper.CommentaireRM
+     */
     public Commentaire findById(int pId) {
         // Requête SQL
         String vSql = "SELECT * FROM public.commentaire " +
@@ -35,6 +49,14 @@ public class CommentaireDao extends AbstractDao implements ICommentaireDao {
         return commentaire;
     }
 
+    /**
+     * La méthode findBySpot permet de rechercher un (ou plusieurs) objet Commentaire dans la base de données selon le Spot
+     * auquel il est rattaché
+     *
+     * @param pSpot est un objet Spot permettant l'identification de Commentaire dans la base de données via "spot_id"
+     * @return une List d'objets Commentaire configurés via le RowMapper "CommentaireRM"
+     * @see com.antazri.climbingclub.consumer.rowmapper.CommentaireRM
+     */
     public List<Commentaire> findBySpot(Spot pSpot) {
         // Requête SQL
         String vSql = "SELECT * FROM public.commentaire WHERE commentaire.spot_id = :id";
@@ -55,6 +77,14 @@ public class CommentaireDao extends AbstractDao implements ICommentaireDao {
         return commentaires;
     }
 
+    /**
+     * La méthode findByTopo permet de rechercher un (ou plusieurs) objet Commentaire dans la base de données selon le Topo
+     * auquel il est rattaché
+     *
+     * @param pTopo est un objet Topo permettant l'identification de Commentaire dans la base de données via "topo_id"
+     * @return une List d'objets Commentaire configurés via le RowMapper "CommentaireRM"
+     * @see com.antazri.climbingclub.consumer.rowmapper.CommentaireRM
+     */
     public List<Commentaire> findByTopo(Topo pTopo) {
         // Requête SQL
         String vSql = "SELECT * FROM public.commentaire WHERE commentaire.topo_id = :id";
@@ -75,6 +105,12 @@ public class CommentaireDao extends AbstractDao implements ICommentaireDao {
         return commentaires;
     }
 
+    /**
+     * La méthode findAll permet de retourner l'ensemble des instances de Commentaire de la base de données
+     *
+     * @return une List d'objets Commentaire configurés via le RowMapper "CommentaireRM"
+     * @see com.antazri.climbingclub.consumer.rowmapper.CommentaireRM
+     */
     public List<Commentaire> findAll() {
         // Requête SQL
         String vSql = "SELECT * FROM public.commentaire";
@@ -91,6 +127,13 @@ public class CommentaireDao extends AbstractDao implements ICommentaireDao {
         return commentaires;
     }
 
+    /**
+     * La méthode create permet de créer une nouvelle instance de Commentaire dans la base de données
+     *
+     * @param pCommentaire est un objet Commentaire passé et configuré depuis la couche Business
+     * @return l'objet Commentaire passé en paramètre de la méthode
+     * @see com.antazri.climbingclub.consumer.rowmapper.CommentaireRM
+     */
     public Commentaire create(Commentaire pCommentaire) {
         // Requête SQL
         String vSql = "INSERT INTO public.commentaire (contenu, utilisateur_id, spot_id, topo_id) "
@@ -104,6 +147,13 @@ public class CommentaireDao extends AbstractDao implements ICommentaireDao {
         return pCommentaire;
     }
 
+    /**
+     * La méthode create permet de mettre à jour une instance de Commentaire dans la base de données
+     *
+     * @param pCommentaire est un objet Commentaire passé et configuré depuis la couche Business
+     * @return l'objet Commentaire passé en paramètre de la méthode
+     * @see com.antazri.climbingclub.consumer.rowmapper.CommentaireRM
+     */
     public Commentaire update(Commentaire pCommentaire) {
         //Requête SQL
         String vSql = "UPDATE public.commentaire "
@@ -127,6 +177,12 @@ public class CommentaireDao extends AbstractDao implements ICommentaireDao {
         return pCommentaire;
     }
 
+    /**
+     * La méthode create permet de supprimer une instance de Commentaire dans la base de données
+     *
+     * @param pCommentaire est un objet Commentaire passé et configuré depuis la couche Business
+     * @see com.antazri.climbingclub.consumer.rowmapper.CommentaireRM
+     */
     public void delete(Commentaire pCommentaire) {
         // Requête SQL
         String vSql = "DELETE FROM public.commentaire WHERE commentaire.commentaire_id = :id";
@@ -138,6 +194,15 @@ public class CommentaireDao extends AbstractDao implements ICommentaireDao {
         getNamedParameterJdbcTemplate().update(vSql, vSqlParameters);
     }
 
+    /**
+     * La méthode getTopo permet de rechercher et retourner un objet Topo qui servira à la création d'un objet
+     * Commentaire dans le RowMapper "CommentaireRM". La requête récupère une instance de Topo selon l'identifiant
+     * "topo_id" renseigné dans l'objet Commentaire à configurer
+     *
+     * @param pId est un Integer récupéré dans l'objet Commentaire à configurer
+     * @return un objet Topo récupéré dans la base de données
+     * @see com.antazri.climbingclub.consumer.rowmapper.CommentaireRM
+     */
     public Topo getTopo(Integer pId) {
         // Requête SQL
         String vSql = "SELECT * FROM public.topo " +
@@ -152,6 +217,15 @@ public class CommentaireDao extends AbstractDao implements ICommentaireDao {
         return (Topo) getNamedParameterJdbcTemplate().queryForObject(vSql, vSqlParameters, new TopoRM());
     }
 
+    /**
+     * La méthode getSpot permet de rechercher et retourner un objet Spot qui servira à la création d'un objet
+     * Commentaire dans le RowMapper "CommentaireRM". La requête récupère une instance de Spot selon l'identifiant
+     * "spot_id" renseigné dans l'objet Commentaire à configurer
+     *
+     * @param pId est un Integer récupéré dans l'objet Commentaire à configurer
+     * @return un objet Topo récupéré dans la base de données
+     * @see com.antazri.climbingclub.consumer.rowmapper.CommentaireRM
+     */
     public Spot getSpot(Integer pId) {
         // Requête SQL
         String vSql = "SELECT * FROM public.spot " +
@@ -168,6 +242,15 @@ public class CommentaireDao extends AbstractDao implements ICommentaireDao {
         return (Spot) getNamedParameterJdbcTemplate().queryForObject(vSql, vSqlParameters, new SpotRM());
     }
 
+    /**
+     * La méthode getAuthor permet de rechercher et retourner un objet Utilisateur qui servira à la création d'un objet
+     * Commentaire dans le RowMapper "CommentaireRM". La requête récupère une instance de Utilisateur selon l'identifiant
+     * "utilisateur_id" renseigné dans l'objet Commentaire à configurer
+     *
+     * @param pId est un Integer récupéré dans l'objet Commentaire à configurer
+     * @return un objet Utilisateur récupéré dans la base de données
+     * @see com.antazri.climbingclub.consumer.rowmapper.CommentaireRM
+     */
     public Utilisateur getAuthor(Integer pId) {
         // Requête SQL
         String vSql = "SELECT * FROM public.utilisateur JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +

@@ -135,7 +135,7 @@ public class VoieDao extends AbstractDao implements IVoieDao {
         String vSql = "INSERT INTO public.voie (nom, nombre_points, description, secteur_id, cotation_id) "
                 + "VALUES (?, ?, ?, ?, ?)";
 
-        getJdbcTemplate().update(vSql, pVoie.getNom(), pVoie.getNombrePoints(), pVoie.getDescription(), pVoie.getSecteur().getSecteurId(), pVoie.getCotation().getCotationId());
+        getJdbcTemplate().update(vSql, pVoie.getVoieNom(), pVoie.getNombrePoints(), pVoie.getVoieDescription(), pVoie.getSecteur().getSecteurId(), pVoie.getCotation().getCotationId());
 
         return pVoie;
     }
@@ -158,9 +158,9 @@ public class VoieDao extends AbstractDao implements IVoieDao {
 
         // Définition des paramètres de la requête
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
-        vSqlParameters.addValue("nom", pVoie.getNom());
+        vSqlParameters.addValue("nom", pVoie.getVoieNom());
         vSqlParameters.addValue("nbrPoints", pVoie.getNombrePoints());
-        vSqlParameters.addValue("description", pVoie.getDescription());
+        vSqlParameters.addValue("description", pVoie.getVoieDescription());
         vSqlParameters.addValue("secteurId", pVoie.getSecteur().getSecteurId());
         vSqlParameters.addValue("cotationId", pVoie.getCotation().getCotationId());
         vSqlParameters.addValue("id", pVoie.getVoieId());

@@ -4,7 +4,7 @@ public class Topo {
 
     private int topoId;
     private Utilisateur proprietaire;
-    private String nom;
+    private String topoNom;
     private boolean disponible;
 
     public int getTopoId() {
@@ -23,12 +23,12 @@ public class Topo {
         this.proprietaire = proprietaire;
     }
 
-    public String getNom() {
-        return nom;
+    public String getTopoNom() {
+        return topoNom;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public void setTopoNom(String topoNom) {
+        this.topoNom = topoNom;
     }
 
     public boolean isDisponible() {

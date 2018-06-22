@@ -3,10 +3,10 @@ package com.antazri.climbingclub.model.beans;
 public class Voie {
 
     private int voieId;
-    private String nom;
+    private String voieNom;
     private Secteur secteur;
     private int nombrePoints;
-    private String description;
+    private String voieDescription;
     private Cotation cotation;
 
     public int getVoieId() {
@@ -17,12 +17,12 @@ public class Voie {
         this.voieId = voieId;
     }
 
-    public String getNom() {
-        return nom;
+    public String getVoieNom() {
+        return voieNom;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public void setVoieNom(String voieNom) {
+        this.voieNom = voieNom;
     }
 
     public Secteur getSecteur() {
@@ -41,12 +41,12 @@ public class Voie {
         this.nombrePoints = nombrePoints;
     }
 
-    public String getDescription() {
-        return description;
+    public String getVoieDescription() {
+        return voieDescription;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setVoieDescription(String voieDescription) {
+        this.voieDescription = voieDescription;
     }
 
     public Cotation getCotation() {

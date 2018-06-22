@@ -12,7 +12,7 @@ import java.sql.SQLException;
 /**
  * Implémentation de RowMapper pour la création d'un objet Commentaire lors de la récupération des éléments depuis la base de données
  */
-public class CommentaireRM extends AbstractMapper implements RowMapper {
+public class CommentaireRM implements RowMapper {
 
     /**
      * La méthode mapRow va parcourir le ResultSet ligne par ligne et construire un objet Commentaire

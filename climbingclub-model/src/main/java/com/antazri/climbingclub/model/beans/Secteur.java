@@ -4,7 +4,7 @@ public class Secteur {
 
     private int secteurId;
     private Spot spot;
-    private String nom;
+    private String secteurNom;
 
     public int getSecteurId() {
         return secteurId;
@@ -22,11 +22,11 @@ public class Secteur {
         this.spot = spot;
     }
 
-    public String getNom() {
-        return nom;
+    public String getSecteurNom() {
+        return secteurNom;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public void setSecteurNom(String secteurNom) {
+        this.secteurNom = secteurNom;
     }
 }

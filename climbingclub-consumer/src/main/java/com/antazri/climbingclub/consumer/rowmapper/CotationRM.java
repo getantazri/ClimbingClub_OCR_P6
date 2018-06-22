@@ -22,7 +22,7 @@ public class CotationRM implements RowMapper {
         Cotation cotation = new Cotation();
 
         cotation.setCotationId(rs.getInt("cotation_id"));
-        cotation.setNom(rs.getString("cotation_nom"));
+        cotation.setCotationNom(rs.getString("cotation_nom"));
 
         return cotation;
     }

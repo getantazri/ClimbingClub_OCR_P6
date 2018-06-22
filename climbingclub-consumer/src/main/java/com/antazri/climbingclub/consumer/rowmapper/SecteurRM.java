@@ -22,25 +22,25 @@ public class SecteurRM implements RowMapper {
         Secteur secteur = new Secteur();
 
         secteur.setSecteurId(rs.getInt("secteur_id"));
-        secteur.setNom(rs.getString("secteur_nom"));
+        secteur.setSecteurNom(rs.getString("secteur_nom"));
 
         // Création d'un objet Spot
         Spot spot = new Spot();
         spot.setSpotId(rs.getInt("spot_id"));
-        spot.setNom(rs.getString("spot_nom"));
-        spot.setDescription(rs.getString("spot_description"));
+        spot.setSpotNom(rs.getString("spot_nom"));
+        spot.setSpotDescription(rs.getString("spot_description"));
         spot.setHauteur(rs.getString("hauteur"));
 
         // Création d'un objet Region et affection à l'objet Spot
         Region region = new Region();
         region.setRegionId(rs.getInt("region_id"));
-        region.setNom(rs.getString("region_nom"));
+        region.setRegionNom(rs.getString("region_nom"));
         spot.setRegion(region);
 
         // Création d'un objet Topo
         Topo topo = new Topo();
         topo.setTopoId(rs.getInt("topo_id"));
-        topo.setNom(rs.getString("topo_nom"));
+        topo.setTopoNom(rs.getString("topo_nom"));
         topo.setDisponible(rs.getBoolean("disponible"));
 
         // Création d'un objet Utilisateur (Propriétaire)
@@ -56,7 +56,7 @@ public class SecteurRM implements RowMapper {
         // Création d'un objet Statut
         Statut statut = new Statut();
         statut.setStatutId(rs.getInt("statut_id"));
-        statut.setNom(rs.getString("statut_nom"));
+        statut.setStatutNom(rs.getString("statut_nom"));
 
         // Affectation du Statut à l'Utilisateur
         utilisateur.setStatut(statut);
