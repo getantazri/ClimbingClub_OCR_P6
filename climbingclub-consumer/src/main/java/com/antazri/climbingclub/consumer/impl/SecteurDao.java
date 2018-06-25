@@ -91,25 +91,23 @@ public class SecteurDao extends AbstractDao implements ISecteurDao {
      * La méthode create permet de persister un objet Secteur dans la base de données
      *
      * @param pSecteur est un objet Secteur configuré et envoyé depuis la couche Business
-     * @return l'objet Secteur spécifié en paramètre
+     * @return un Integer indiquant le nombre de lignes modifiées dans la base de données
      */
-    public Secteur create(Secteur pSecteur) {
+    public int create(Secteur pSecteur) {
         // Requête SQL
         String vSql = "INSERT INTO public.secteur (nom, spot_id) "
                 + "VALUES (?, ?)";
 
-        getJdbcTemplate().update(vSql, pSecteur.getSecteurNom(), pSecteur.getSpot().getSpotId());
-
-        return pSecteur;
+        return getJdbcTemplate().update(vSql, pSecteur.getSecteurNom(), pSecteur.getSpot().getSpotId());
     }
 
     /**
      * La méthode update permet de mettre à jour une instance de Secteur enregistrée dans la base de données
      *
      * @param pSecteur est un objet Secteur configuré et envoyé depuis la couche Business
-     * @return l'objet Secteur spécifié en paramètre
+     * @return un Integer indiquant le nombre de lignes modifiées dans la base de données
      */
-    public Secteur update(Secteur pSecteur) {
+    public int update(Secteur pSecteur) {
         //Requête SQL
         String vSql = "UPDATE public.secteur "
                 + "SET secteur.nom =  = :nom, "
@@ -123,9 +121,7 @@ public class SecteurDao extends AbstractDao implements ISecteurDao {
         vSqlParameters.addValue("id", pSecteur.getSecteurId());
 
         // Mise à jour de l'objet dans la base de données
-        getNamedParameterJdbcTemplate().update(vSql, vSqlParameters);
-
-        return pSecteur;
+        return getNamedParameterJdbcTemplate().update(vSql, vSqlParameters);
     }
 
     /**

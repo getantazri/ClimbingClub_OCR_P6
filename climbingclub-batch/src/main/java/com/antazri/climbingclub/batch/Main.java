@@ -1,5 +1,6 @@
 package com.antazri.climbingclub.batch;
 
+import com.antazri.climbingclub.business.bo.impl.RegionBo;
 import com.antazri.climbingclub.consumer.impl.*;
 import com.antazri.climbingclub.model.beans.*;
 import org.springframework.context.ApplicationContext;
@@ -13,23 +14,28 @@ public class Main {
 
         ApplicationContext vApplicationContext = new ClassPathXmlApplicationContext("classpath*:/**/batch/spring/applicationContext-bootstrap.xml");
 
-        RegionDao regionDao = (RegionDao) vApplicationContext.getBean("regionDao");
+        RegionBo regionBo = (RegionBo) vApplicationContext.getBean("regionBo");
 
-        Region region = regionDao.findById(1);
+        Region region = regionBo.findById(1);
         System.out.println(region.getRegionNom());
 
         System.out.println("=========================");
 
-        Region jura = new Region();
-        jura.setRegionId(0);
-        jura.setRegionNom("Jura");
+        Region normandie = new Region();
+        normandie.setRegionId(16);
+        normandie.setRegionNom("Normandie");
 
-        regionDao.create(jura);
-        System.out.println("Région créée : " + jura.getRegionNom());
+        regionBo.update(normandie);
+
+        Region vosges = new Region();
+        vosges.setRegionId(17);
+        vosges.setRegionNom("Vosges");
+
+        regionBo.delete(vosges);
 
         System.out.println("=========================");
 
-        List<Region> regions = regionDao.findAll();
+        List<Region> regions = regionBo.findAll();
 
         for (Region reg : regions) {
             System.out.println(reg.getRegionNom());

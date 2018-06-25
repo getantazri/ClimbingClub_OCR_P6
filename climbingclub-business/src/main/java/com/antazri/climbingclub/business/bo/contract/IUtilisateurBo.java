@@ -9,9 +9,9 @@ public interface IUtilisateurBo {
 
     Utilisateur findById(int pId);
     List<Utilisateur> findByStatut(Statut pStatut);
-    List<Utilisateur> findByName(String pName);
+    Utilisateur findByName(String pName);
     List<Utilisateur> findAll();
-    Utilisateur create(Utilisateur pTopUtilisateurpo);
-    Utilisateur update(Utilisateur pUtilisateur);
+    int create(Utilisateur pUtilisateur);
+    int update(Utilisateur pUtilisateur);
     void delete(Utilisateur pUtilisateur);
 }

@@ -71,26 +71,24 @@ public class CotationDao extends AbstractDao implements ICotationDao {
      * La méthode create permet de créer une nouvelle instance de Cotation dans la base de données
      *
      * @param pCotation est un objet Cotation passé et configuré depuis la couche Business
-     * @return l'objet Cotation passé en paramètre de la méthode
+     * @return un Integer indiquant le nombre de lignes modifiées dans la base de données
      * @see com.antazri.climbingclub.consumer.rowmapper.CotationRM
      */
-    public Cotation create(Cotation pCotation) {
+    public int create(Cotation pCotation) {
         // Requête SQL
         String vSql = "INSERT INTO public.cotation (nom) VALUES (?)";
 
-        getJdbcTemplate().update(vSql, pCotation.getCotationNom());
-
-        return pCotation;
+        return getJdbcTemplate().update(vSql, pCotation.getCotationNom());
     }
 
     /**
      * La méthode update permet de mettre à jour une instance de Cotation dans la base de données
      *
      * @param pCotation est un objet Cotation passé et configuré depuis la couche Business
-     * @return l'objet Cotation passé en paramètre de la méthode
+     * @return un Integer indiquant le nombre de lignes modifiées dans la base de données
      * @see com.antazri.climbingclub.consumer.rowmapper.CotationRM
      */
-    public Cotation update(Cotation pCotation) {
+    public int update(Cotation pCotation) {
         //Requête SQL
         String vSql = "UPDATE public.cotation SET cotation.nom = :nom WHERE cotation.cotation_id = :id";
 
@@ -99,9 +97,7 @@ public class CotationDao extends AbstractDao implements ICotationDao {
         vSqlParameters.addValue("nom", pCotation.getCotationNom());
         vSqlParameters.addValue("id", pCotation.getCotationId());
 
-        getNamedParameterJdbcTemplate().update(vSql, vSqlParameters);
-
-        return pCotation;
+        return getNamedParameterJdbcTemplate().update(vSql, vSqlParameters);
     }
 
     /**

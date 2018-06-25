@@ -47,10 +47,6 @@
         </dependency>
         <dependency>
             <groupId>com.antazri</groupId>
-            <artifactId>climbingclub-consumer</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.antazri</groupId>
             <artifactId>climbingclub-business</artifactId>
         </dependency>
 

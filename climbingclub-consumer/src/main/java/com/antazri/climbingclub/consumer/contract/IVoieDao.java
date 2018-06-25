@@ -12,7 +12,7 @@ public interface IVoieDao {
     List<Voie> findBySecteur(Secteur pSecteur);
     List<Voie> findByCotation(Cotation pCotation);
     List<Voie> findAll();
-    Voie create(Voie pSpot);
-    Voie update(Voie pSpot);
+    int create(Voie pSpot);
+    int update(Voie pSpot);
     void delete(Voie pSpot);
 }

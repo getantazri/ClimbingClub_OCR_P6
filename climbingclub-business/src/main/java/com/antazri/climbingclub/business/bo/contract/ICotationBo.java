@@ -9,7 +9,7 @@ public interface ICotationBo {
     Cotation findById(int pId);
     Cotation findByName(String pName);
     List<Cotation> findAll();
-    Cotation create(Cotation pCotation);
-    Cotation update(Cotation pCotation);
+    int create(Cotation pCotation);
+    int update(Cotation pCotation);
     void delete(Cotation pCotation);
 }

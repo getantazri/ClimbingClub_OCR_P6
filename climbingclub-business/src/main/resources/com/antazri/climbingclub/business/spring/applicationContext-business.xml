@@ -7,4 +7,16 @@
     http://www.springframework.org/schema/context
     http://www.springframework.org/schema/context/spring-context.xsd">
 
+    <!-- =============================================================== -->
+    <!-- Configuration des beans Bo -->
+    <!-- =============================================================== -->
+    <bean id="regionBo" class="com.antazri.climbingclub.business.bo.impl.RegionBo" />
+
+    <!-- =============================================================== -->
+    <!-- Configuration du Transaction Manager -->
+    <!-- =============================================================== -->
+    <bean id="platformTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
 </beans>

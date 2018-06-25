@@ -93,31 +93,30 @@ public class UtilisateurDao extends AbstractDao implements IUtilisateurDao {
      * La méthode create permet de créer une nouvelle instance de Utilisateur dans la base de données
      *
      * @param pUtilisateur est un objet Utilisateur passé et configuré depuis la couche Business
-     * @return l'objet Utilisateur passé en paramètre de la méthode
+     * @return un Integer indiquant le nombre de lignes modifiées dans la base de données
      * @see com.antazri.climbingclub.consumer.rowmapper.UtilisateurRM
      */
-    public Utilisateur create(Utilisateur pUtilisateur) {
+    public int create(Utilisateur pUtilisateur) {
         // Requête SQL
         String vSql = "INSERT INTO public.utilisateur (nom, prenom, pseudo, email, telephone, statut_id) "
                 + "VALUES (?, ?, ?, ?, ?, ?)";
 
-        getJdbcTemplate().update(vSql, pUtilisateur.getNom(),
+        return getJdbcTemplate().update(vSql, pUtilisateur.getNom(),
                                         pUtilisateur.getPrenom(),
                                         pUtilisateur.getPseudo(),
                                         pUtilisateur.getEmail(),
                                         pUtilisateur.getTelephone(),
                                         pUtilisateur.getStatut().getStatutId());
-        return pUtilisateur;
     }
 
     /**
      * La méthode create permet de mettre à jour une instance de Utilisateur dans la base de données
      *
      * @param pUtilisateur est un objet Utilisateur passé et configuré depuis la couche Business
-     * @return l'objet Utilisateur passé en paramètre de la méthode
+     * @return un Integer indiquant le nombre de lignes modifiées dans la base de données
      * @see com.antazri.climbingclub.consumer.rowmapper.UtilisateurRM
      */
-    public Utilisateur update(Utilisateur pUtilisateur) {
+    public int update(Utilisateur pUtilisateur) {
         //Requête SQL
         String vSql = "UPDATE public.utilisateur "
                 + "SET utilisateur.nom =  = :nom, "
@@ -139,9 +138,7 @@ public class UtilisateurDao extends AbstractDao implements IUtilisateurDao {
         vSqlParameters.addValue("id", pUtilisateur.getUtilisateurId());
 
         // Mise à jour de l'objet dans la base de données
-        getNamedParameterJdbcTemplate().update(vSql, vSqlParameters);
-
-        return pUtilisateur;
+        return getNamedParameterJdbcTemplate().update(vSql, vSqlParameters);
     }
 
     /**

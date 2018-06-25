@@ -11,7 +11,7 @@ public interface IUtilisateurDao {
     List<Utilisateur> findByStatut(Statut pStatut);
     Utilisateur findByName(String pName);
     List<Utilisateur> findAll();
-    Utilisateur create(Utilisateur pTopUtilisateurpo);
-    Utilisateur update(Utilisateur pUtilisateur);
+    int create(Utilisateur pTopUtilisateurpo);
+    int update(Utilisateur pUtilisateur);
     void delete(Utilisateur pUtilisateur);
 }

@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Types;
 import java.util.List;
 
 /**
@@ -28,11 +29,11 @@ public class RegionDao extends AbstractDao implements IRegionDao {
      */
     public Region findById(int pId) {
         // Requête SQL
-        String vSql = "SELECT * FROM public.region WHERE region.region_id = :id";
+        String vSql = "SELECT * FROM public.region WHERE region.region_id = :region_id";
 
         // Définition des paramètres de la requêtes
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
-        vSqlParameters.addValue("id", pId);
+        vSqlParameters.addValue("region_id", pId);
 
         return (Region) getNamedParameterJdbcTemplate().queryForObject(vSql, vSqlParameters, new RegionRM());
     }
@@ -46,11 +47,11 @@ public class RegionDao extends AbstractDao implements IRegionDao {
      */
     public Region findByName(String pName) {
         // Requête SQL
-        String vSql = "SELECT * FROM public.region WHERE region.region_nom = :nom";
+        String vSql = "SELECT * FROM public.region WHERE region.region_nom = :region_nom";
 
         // Définition des paramètres de la requêtes
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
-        vSqlParameters.addValue("nom", pName);
+        vSqlParameters.addValue("region_nom", pName);
 
         return (Region) getNamedParameterJdbcTemplate().queryForObject(vSql, vSqlParameters, new RegionRM());
     }
@@ -73,43 +74,35 @@ public class RegionDao extends AbstractDao implements IRegionDao {
      * La méthode create permet de créer une nouvelle instance de Region dans la base de données
      *
      * @param pRegion est un objet Region passé et configuré depuis la couche Business
-     * @return l'objet Region passé en paramètre de la méthode
+     * @return un Integer indiquant le nombre de lignes modifiées dans la base de données
      * @see com.antazri.climbingclub.consumer.rowmapper.RegionRM
      */
-    public Region create(Region pRegion) {
+    public int create(Region pRegion) {
         //Requête SQL
         String vSql = "INSERT INTO public.region(region_nom) VALUES (?)";
 
-        MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
-        vSqlParameters.addValue("region_nom", pRegion.getRegionNom());
-
-        // Mise à jour de l'objet dans la base de données
-        SimpleJdbcInsert vSimpleJdbcInsert = new SimpleJdbcInsert(getJdbcTemplate()).withTableName("region").usingGeneratedKeyColumns("region_id");
-        vSimpleJdbcInsert.execute(vSqlParameters);
-
-        return pRegion;
+        // Création de l'objet en base de données, retourne le nombre de ligne
+        return getJdbcTemplate().update(vSql, pRegion.getRegionNom());
     }
 
     /**
      * La méthode update permet de mettre à jour une instance de Region dans la base de données
      *
      * @param pRegion est un objet Region passé et configuré depuis la couche Business
-     * @return l'objet Region passé en paramètre de la méthode
+     * @return un Integer indiquant le nombre de lignes modifiées dans la base de données
      * @see com.antazri.climbingclub.consumer.rowmapper.RegionRM
      */
-    public Region update(Region pRegion) {
+    public int update(Region pRegion) {
         //Requête SQL
-        String vSql = "UPDATE public.region SET nom = :nom WHERE region.region_id = :id";
+        String vSql = "UPDATE public.region SET region_nom = :region_nom WHERE region.region_id = :region_id";
 
         // Définition des paramètres de la requête
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
-        vSqlParameters.addValue("id", pRegion.getRegionId());
-        vSqlParameters.addValue("nom", pRegion.getRegionNom());
+        vSqlParameters.addValue("region_id", pRegion.getRegionId());
+        vSqlParameters.addValue("region_nom", pRegion.getRegionNom());
 
-        // Mise à jour de l'objet dans la base de données
-        getNamedParameterJdbcTemplate().update(vSql, vSqlParameters);
-
-        return pRegion;
+        // Mise à jour de l'objet dans la base de données, retourne le nombre de ligne modifiée
+        return getNamedParameterJdbcTemplate().update(vSql, vSqlParameters);
 
     }
 
@@ -120,11 +113,11 @@ public class RegionDao extends AbstractDao implements IRegionDao {
      */
     public void delete(Region pRegion) {
         //Requête SQL
-        String vSql = "DELETE FROM public.region WHERE region.region_id = :id";
+        String vSql = "DELETE FROM public.region WHERE region.region_id = :region_id";
 
         // Définition des paramètres de la requête
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
-        vSqlParameters.addValue("id", pRegion.getRegionId());
+        vSqlParameters.addValue("region_id", pRegion.getRegionId());
 
         // Suppression de l'objet dans la base de données
         getNamedParameterJdbcTemplate().update(vSql, vSqlParameters);

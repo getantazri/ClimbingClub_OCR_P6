@@ -10,7 +10,7 @@ public interface ISecteurBo {
     Secteur findById(int pId);
     List<Secteur> findBySpot(Spot pSpot);
     List<Secteur> findAll();
-    Secteur create(Secteur pSecteur);
-    Secteur update(Secteur pSecteur);
+    int create(Secteur pSecteur);
+    int update(Secteur pSecteur);
     void delete(Secteur pSecteur);
 }

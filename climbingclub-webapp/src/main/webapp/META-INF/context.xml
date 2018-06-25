@@ -4,7 +4,7 @@
               auth="Container"
               type="javax.sql.DataSource"
 
-              url="jdbc:postgresql://localhost:5433/climbingclub_db"
+              url="jdbc:postgresql://localhost:5432/climbingclub_db"
               driverClassName="org.postgresql.Driver"
               username="postgres"
               password="admin"

@@ -105,24 +105,22 @@ public class TopoDao extends AbstractDao implements ITopoDao {
      * La méthode create permet de persister un objet Topo dans la base de données
      *
      * @param pTopo est un objet Topo configuré et envoyé depuis la couche Business
-     * @return l'objet Topo spécifié en paramètre
+     * @return un Integer indiquant le nombre de lignes modifiées dans la base de données
      */
-    public Topo create(Topo pTopo) {
+    public int create(Topo pTopo) {
         // Requête SQL
         String vSql = "INSERT INTO public.topo (utilisateur_id, nom, disponible) VALUES(?, ?, ?)";
 
-        getJdbcTemplate().update(vSql, pTopo.getTopoNom(), pTopo.getProprietaire().getUtilisateurId(), pTopo.isDisponible());
-
-        return pTopo;
+        return getJdbcTemplate().update(vSql, pTopo.getTopoNom(), pTopo.getProprietaire().getUtilisateurId(), pTopo.isDisponible());
     }
 
     /**
      * La méthode update permet de mettre à jour une instance de Topo enregistrée dans la base de données
      *
      * @param pTopo est un objet Topo configuré et envoyé depuis la couche Business
-     * @return l'objet Topo spécifié en paramètre
+     * @return un Integer indiquant le nombre de lignes modifiées dans la base de données
      */
-    public Topo update(Topo pTopo) {
+    public int update(Topo pTopo) {
         // Requête SQL
         String vSql = "UPDATE public.topo "
                 + "SET topo.utilisateur_id = :utilisateurId, "
@@ -137,9 +135,7 @@ public class TopoDao extends AbstractDao implements ITopoDao {
         vSqlParameters.addValue("disponible", pTopo.isDisponible());
         vSqlParameters.addValue("id", pTopo.getTopoId());
 
-        getNamedParameterJdbcTemplate().update(vSql, vSqlParameters);
-
-        return pTopo;
+        return getNamedParameterJdbcTemplate().update(vSql, vSqlParameters);
     }
 
     /**

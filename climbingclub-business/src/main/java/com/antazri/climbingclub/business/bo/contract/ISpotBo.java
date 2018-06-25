@@ -10,7 +10,7 @@ public interface ISpotBo {
     Spot findById(int pId);
     List<Spot> findByTopo(Topo pTopo);
     List<Spot> findAll();
-    Spot create(Spot pSpot);
-    Spot update(Spot pSpot);
+    int create(Spot pSpot);
+    int update(Spot pSpot);
     void delete(Spot pSpot);
 }

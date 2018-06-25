@@ -131,30 +131,28 @@ public class CommentaireDao extends AbstractDao implements ICommentaireDao {
      * La méthode create permet de créer une nouvelle instance de Commentaire dans la base de données
      *
      * @param pCommentaire est un objet Commentaire passé et configuré depuis la couche Business
-     * @return l'objet Commentaire passé en paramètre de la méthode
+     * @return un Integer indiquant le nombre de lignes modifiées dans la base de données
      * @see com.antazri.climbingclub.consumer.rowmapper.CommentaireRM
      */
-    public Commentaire create(Commentaire pCommentaire) {
+    public int create(Commentaire pCommentaire) {
         // Requête SQL
         String vSql = "INSERT INTO public.commentaire (contenu, utilisateur_id, spot_id, topo_id) "
                 + "VALUES (?, ?, ?, ?)";
 
-        getJdbcTemplate().update(vSql, pCommentaire.getContenu(),
+        return getJdbcTemplate().update(vSql, pCommentaire.getContenu(),
                                         pCommentaire.getUtilisateur().getUtilisateurId(),
                                         pCommentaire.getSpot().getSpotId(),
                                         pCommentaire.getTopo().getTopoId());
-
-        return pCommentaire;
     }
 
     /**
      * La méthode create permet de mettre à jour une instance de Commentaire dans la base de données
      *
      * @param pCommentaire est un objet Commentaire passé et configuré depuis la couche Business
-     * @return l'objet Commentaire passé en paramètre de la méthode
+     * @return un Integer indiquant le nombre de lignes modifiées dans la base de données
      * @see com.antazri.climbingclub.consumer.rowmapper.CommentaireRM
      */
-    public Commentaire update(Commentaire pCommentaire) {
+    public int update(Commentaire pCommentaire) {
         //Requête SQL
         String vSql = "UPDATE public.commentaire "
                 + "SET commentaire.nom = :nom, "
@@ -172,9 +170,7 @@ public class CommentaireDao extends AbstractDao implements ICommentaireDao {
         vSqlParameters.addValue("topoId", pCommentaire.getTopo().getTopoId());
         vSqlParameters.addValue("id", pCommentaire.getCommentaireId());
 
-        getNamedParameterJdbcTemplate().update(vSql, vSqlParameters);
-
-        return pCommentaire;
+        return getNamedParameterJdbcTemplate().update(vSql, vSqlParameters);
     }
 
     /**

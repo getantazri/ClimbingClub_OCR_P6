@@ -7,7 +7,9 @@
     http://www.springframework.org/schema/context
     http://www.springframework.org/schema/context/spring-context.xsd">
 
+    <!-- =============================================================== -->
     <!-- Configuration du bean AbstractDao -->
+    <!-- =============================================================== -->
     <bean id="abstractDao" abstract="true" class="com.antazri.climbingclub.consumer.impl.AbstractDao">
         <property name="dataSource" ref="dataSource" />
     </bean>
@@ -22,8 +24,9 @@
         <constructor-arg name="dataSource" ref="dataSource" />
     </bean>
 
-    <!-- Déclaration des beans Dao -->
-    <bean id="commentaireDao" class="com.antazri.climbingclub.consumer.impl.CommentaireDao">
+    <!-- =============================================================== -->
+    <!-- Configuration des beans Dao -->
+    <!-- =============================================================== -->    <bean id="commentaireDao" class="com.antazri.climbingclub.consumer.impl.CommentaireDao">
     </bean>
     <bean id="cotationDao" class="com.antazri.climbingclub.consumer.impl.CotationDao">
     </bean>

@@ -128,25 +128,23 @@ public class VoieDao extends AbstractDao implements IVoieDao {
      * La méthode create permet d'enregistrer une instance de Voie dans la base de données
      *
      * @param pVoie est un objet Voie configuré et envoyé par la couche Business
-     * @return l'objet pVoie placé en paramètre
+     * @return un Integer indiquant le nombre de lignes modifiées dans la base de données
      */
-    public Voie create(Voie pVoie) {
+    public int create(Voie pVoie) {
         // Requête SQL
         String vSql = "INSERT INTO public.voie (nom, nombre_points, description, secteur_id, cotation_id) "
                 + "VALUES (?, ?, ?, ?, ?)";
 
-        getJdbcTemplate().update(vSql, pVoie.getVoieNom(), pVoie.getNombrePoints(), pVoie.getVoieDescription(), pVoie.getSecteur().getSecteurId(), pVoie.getCotation().getCotationId());
-
-        return pVoie;
+        return getJdbcTemplate().update(vSql, pVoie.getVoieNom(), pVoie.getNombrePoints(), pVoie.getVoieDescription(), pVoie.getSecteur().getSecteurId(), pVoie.getCotation().getCotationId());
     }
 
     /**
      * La méthode update permet de mettre à jour une instance de Voie dans la base de données
      *
      * @param pVoie est un objet Voie configuré et envoyé par la couche Business
-     * @return l'objet pVoie placé en paramètre
+     * @return un Integer indiquant le nombre de lignes modifiées dans la base de données
      */
-    public Voie update(Voie pVoie) {
+    public int update(Voie pVoie) {
         //Requête SQL
         String vSql = "UPDATE public.voie "
                 + "SET voie.nom =  = :nom, "
@@ -166,9 +164,7 @@ public class VoieDao extends AbstractDao implements IVoieDao {
         vSqlParameters.addValue("id", pVoie.getVoieId());
 
         // Mise à jour de l'objet dans la base de données
-        getNamedParameterJdbcTemplate().update(vSql, vSqlParameters);
-
-        return pVoie;
+        return getNamedParameterJdbcTemplate().update(vSql, vSqlParameters);
     }
 
     /**

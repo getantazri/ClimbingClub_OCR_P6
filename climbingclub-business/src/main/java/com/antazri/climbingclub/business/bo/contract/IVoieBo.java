@@ -12,7 +12,7 @@ public interface IVoieBo {
     List<Voie> findBySecteur(Secteur pSecteur);
     List<Voie> findByCotation(Cotation pCotation);
     List<Voie> findAll();
-    Voie create(Voie pSpot);
-    Voie update(Voie pSpot);
-    void delete(Voie pSpot);
+    int create(Voie pVoie);
+    int update(Voie pVoie);
+    void delete(Voie pVoie);
 }

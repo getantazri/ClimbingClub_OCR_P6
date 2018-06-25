@@ -13,8 +13,8 @@ public interface ICommentaireDao {
     List<Commentaire> findBySpot(Spot pSpot);
     List<Commentaire> findByTopo(Topo pTopo);
     List<Commentaire> findAll();
-    Commentaire create(Commentaire pCommentaire);
-    Commentaire update(Commentaire pCommentaire);
+    int create(Commentaire pCommentaire);
+    int update(Commentaire pCommentaire);
     void delete(Commentaire pCommentaire);
 
     Topo getTopo(Integer pId);

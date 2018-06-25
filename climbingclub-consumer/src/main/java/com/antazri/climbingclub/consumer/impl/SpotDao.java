@@ -88,25 +88,23 @@ public class SpotDao extends AbstractDao implements ISpotDao {
      * La méthode create permet de persister un objet Spot dans la base de données
      *
      * @param pSpot est un objet Spot configuré et envoyé depuis la couche Business
-     * @return l'objet Spot spécifié en paramètre
+     * @return un Integer indiquant le nombre de lignes modifiées dans la base de données
      */
-    public Spot create(Spot pSpot) {
+    public int create(Spot pSpot) {
         // Requête SQL
         String vSql = "INSERT INTO public.spot (nom, description, hauteur, topo_id, region_id) "
                 + "VALUES (?, ?, ?, ?, ?)";
 
-        getJdbcTemplate().update(vSql, pSpot.getSpotNom(), pSpot.getSpotDescription(), pSpot.getHauteur(), pSpot.getTopo().getTopoId(), pSpot.getRegion().getRegionId());
-
-        return pSpot;
+        return getJdbcTemplate().update(vSql, pSpot.getSpotNom(), pSpot.getSpotDescription(), pSpot.getHauteur(), pSpot.getTopo().getTopoId(), pSpot.getRegion().getRegionId());
     }
 
     /**
      * La méthode update permet de mettre à jour une instance de Spot enregistrée dans la base de données
      *
      * @param pSpot est un objet Spot configuré et envoyé depuis la couche Business
-     * @return l'objet Spot spécifié en paramètre
+     * @return un Integer indiquant le nombre de lignes modifiées dans la base de données
      */
-    public Spot update(Spot pSpot) {
+    public int update(Spot pSpot) {
         //Requête SQL
         String vSql = "UPDATE public.spot "
                 + "SET spot.nom =  = :nom, "
@@ -126,9 +124,7 @@ public class SpotDao extends AbstractDao implements ISpotDao {
         vSqlParameters.addValue("id", pSpot.getSpotId());
 
         // Mise à jour de l'objet dans la base de données
-        getNamedParameterJdbcTemplate().update(vSql, vSqlParameters);
-
-        return pSpot;
+        return getNamedParameterJdbcTemplate().update(vSql, vSqlParameters);
     }
 
     /**

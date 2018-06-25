@@ -11,8 +11,8 @@ public interface ITopoDao {
     List<Topo> findByUser(Utilisateur pUtilisateur);
     List<Topo> findByName(String pName);
     List<Topo> findAll();
-    Topo create(Topo pTopo);
-    Topo update(Topo pTopo);
+    int create(Topo pTopo);
+    int update(Topo pTopo);
     void delete(Topo pTopo);
 
     Utilisateur getProprietaire(Integer pId);

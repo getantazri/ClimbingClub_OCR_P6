@@ -9,7 +9,7 @@ public interface IRegionBo {
     Region findById(int pId);
     Region findByName(String pName);
     List<Region> findAll();
-    Region create(Region pRegion);
-    Region update(Region pRegion);
+    int create(Region pRegion);
+    int update(Region pRegion);
     void delete(Region pRegion);
 }

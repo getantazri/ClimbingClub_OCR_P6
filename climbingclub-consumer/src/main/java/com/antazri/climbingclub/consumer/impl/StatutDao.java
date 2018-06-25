@@ -71,26 +71,24 @@ public class StatutDao extends AbstractDao implements IStatutDao {
      * La méthode create permet de créer une nouvelle instance de Statut dans la base de données
      *
      * @param pStatut est un objet Statut passé et configuré depuis la couche Business
-     * @return l'objet Cotation passé en paramètre de la méthode
+     * @return un Integer indiquant le nombre de lignes modifiées dans la base de données
      * @see com.antazri.climbingclub.consumer.rowmapper.StatutRM
      */
-    public Statut create(Statut pStatut) {
+    public int create(Statut pStatut) {
         // Requête SQL
         String vSql = "INSERT INTO public.topo (nom) VALUES (?)";
 
-        getJdbcTemplate().update(vSql, pStatut.getStatutNom());
-
-        return pStatut;
+        return getJdbcTemplate().update(vSql, pStatut.getStatutNom());
     }
 
     /**
      * La méthode update permet de mettre à jour une instance de Statut dans la base de données
      *
      * @param pStatut est un objet Statut passé et configuré depuis la couche Business
-     * @return l'objet Cotation passé en paramètre de la méthode
+     * @return un Integer indiquant le nombre de lignes modifiées dans la base de données
      * @see com.antazri.climbingclub.consumer.rowmapper.StatutRM
      */
-    public Statut update(Statut pStatut) {
+    public int update(Statut pStatut) {
         // Requête SQL
         String vSql = "UPDATE public.statut "
                 + "SET statut.nom = :nom "
@@ -101,9 +99,7 @@ public class StatutDao extends AbstractDao implements IStatutDao {
         vSqlParameters.addValue("nom", pStatut.getStatutNom());
         vSqlParameters.addValue("id", pStatut.getStatutId());
 
-        getNamedParameterJdbcTemplate().update(vSql, vSqlParameters);
-
-        return pStatut;
+        return getNamedParameterJdbcTemplate().update(vSql, vSqlParameters);
     }
 
     /**
