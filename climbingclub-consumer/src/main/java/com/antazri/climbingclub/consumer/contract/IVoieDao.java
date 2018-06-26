@@ -9,6 +9,7 @@ import java.util.List;
 public interface IVoieDao {
 
     Voie findById(int pId);
+    Voie findByName(String pName);
     List<Voie> findBySecteur(Secteur pSecteur);
     List<Voie> findByCotation(Cotation pCotation);
     List<Voie> findAll();

@@ -26,12 +26,6 @@ public class SpotRM implements RowMapper {
         spot.setSpotDescription(rs.getString("spot_description"));
         spot.setHauteur(rs.getString("hauteur"));
 
-        // Création d'un objet Region et affection à l'objet Spot
-        Region region = new Region();
-        region.setRegionId(rs.getInt("region_id"));
-        region.setRegionNom(rs.getString("region_nom"));
-        spot.setRegion(region);
-
         // Création d'un objet Topo
         Topo topo = new Topo();
         topo.setTopoId(rs.getInt("topo_id"));

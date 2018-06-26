@@ -12,12 +12,13 @@ public interface ICommentaireDao {
     Commentaire findById(int pId);
     List<Commentaire> findBySpot(Spot pSpot);
     List<Commentaire> findByTopo(Topo pTopo);
+    List<Commentaire> findByUtilisateur(Utilisateur pUtilisateur);
     List<Commentaire> findAll();
     int create(Commentaire pCommentaire);
     int update(Commentaire pCommentaire);
     void delete(Commentaire pCommentaire);
 
-    Topo getTopo(Integer pId);
-    Spot getSpot(Integer pId);
-    Utilisateur getAuthor(Integer pId);
+    Topo getTopo(int pId);
+    Spot getSpot(int pId);
+    Utilisateur getAuthor(int pId);
 }

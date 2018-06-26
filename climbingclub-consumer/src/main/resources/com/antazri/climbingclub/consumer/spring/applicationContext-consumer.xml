@@ -26,7 +26,8 @@
 
     <!-- =============================================================== -->
     <!-- Configuration des beans Dao -->
-    <!-- =============================================================== -->    <bean id="commentaireDao" class="com.antazri.climbingclub.consumer.impl.CommentaireDao">
+    <!-- =============================================================== -->
+    <bean id="commentaireDao" class="com.antazri.climbingclub.consumer.impl.CommentaireDao">
     </bean>
     <bean id="cotationDao" class="com.antazri.climbingclub.consumer.impl.CotationDao">
     </bean>

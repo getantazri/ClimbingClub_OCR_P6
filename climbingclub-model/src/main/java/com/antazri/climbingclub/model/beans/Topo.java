@@ -5,6 +5,7 @@ public class Topo {
     private int topoId;
     private Utilisateur proprietaire;
     private String topoNom;
+    private Region region;
     private boolean disponible;
 
     public int getTopoId() {
@@ -29,6 +30,14 @@ public class Topo {
 
     public void setTopoNom(String topoNom) {
         this.topoNom = topoNom;
+    }
+
+    public Region getRegion() {
+        return region;
+    }
+
+    public void setRegion(Region region) {
+        this.region = region;
     }
 
     public boolean isDisponible() {

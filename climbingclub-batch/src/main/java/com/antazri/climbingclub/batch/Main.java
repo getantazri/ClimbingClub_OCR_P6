@@ -1,7 +1,8 @@
 package com.antazri.climbingclub.batch;
 
-import com.antazri.climbingclub.business.bo.impl.RegionBo;
+import com.antazri.climbingclub.business.bo.impl.*;
 import com.antazri.climbingclub.consumer.impl.*;
+import com.antazri.climbingclub.consumer.rowmapper.UtilisateurRM;
 import com.antazri.climbingclub.model.beans.*;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -14,34 +15,21 @@ public class Main {
 
         ApplicationContext vApplicationContext = new ClassPathXmlApplicationContext("classpath*:/**/batch/spring/applicationContext-bootstrap.xml");
 
+        CommentaireBo commentaireBo = (CommentaireBo) vApplicationContext.getBean("commentaireBo");
+        CotationBo cotationBo = (CotationBo) vApplicationContext.getBean("cotationBo");
         RegionBo regionBo = (RegionBo) vApplicationContext.getBean("regionBo");
+        SecteurBo secteurBo = (SecteurBo) vApplicationContext.getBean("secteurBo");
+        SpotBo spotBo = (SpotBo) vApplicationContext.getBean("spotBo");
+        StatutBo statutBo = (StatutBo) vApplicationContext.getBean("statutBo");
+        TopoBo topoBo = (TopoBo) vApplicationContext.getBean("topoBo");
+        UtilisateurBo utilisateurBo = (UtilisateurBo) vApplicationContext.getBean("utilisateurBo");
+        VoieBo voieBo = (VoieBo) vApplicationContext.getBean("voieBo");
 
-        Region region = regionBo.findById(1);
-        System.out.println(region.getRegionNom());
+        System.out.println("===================================");
 
-        System.out.println("=========================");
+        
 
-        Region normandie = new Region();
-        normandie.setRegionId(16);
-        normandie.setRegionNom("Normandie");
-
-        regionBo.update(normandie);
-
-        Region vosges = new Region();
-        vosges.setRegionId(17);
-        vosges.setRegionNom("Vosges");
-
-        regionBo.delete(vosges);
-
-        System.out.println("=========================");
-
-        List<Region> regions = regionBo.findAll();
-
-        for (Region reg : regions) {
-            System.out.println(reg.getRegionNom());
-        }
-
-        System.out.println("=========================");
+        System.out.println("===================================");
 
     }
 }

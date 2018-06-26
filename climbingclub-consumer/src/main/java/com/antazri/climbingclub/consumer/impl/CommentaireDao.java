@@ -106,6 +106,34 @@ public class CommentaireDao extends AbstractDao implements ICommentaireDao {
     }
 
     /**
+     * La méthode findByUtilisateur permet de rechercher un (ou plusieurs) objet Commentaire dans la base de données selon l'Utilisateur
+     * auquel il est rattaché
+     *
+     * @param pUtilisateur est un objet Utilisateur permettant l'identification de Commentaire dans la base de données via "utilisateur_id"
+     * @return une List d'objets Commentaire configurés via le RowMapper "CommentaireRM"
+     * @see com.antazri.climbingclub.consumer.rowmapper.CommentaireRM
+     */
+    public List<Commentaire> findByUtilisateur(Utilisateur pUtilisateur) {
+        // Requête SQL
+        String vSql = "SELECT * FROM public.commentaire WHERE commentaire.utilisateur_id = :id";
+
+        // Définition des paramètres de la requêtes
+        MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
+        vSqlParameters.addValue("id", pUtilisateur.getUtilisateurId());
+
+        //Récupération du résultat et affectation des attributs
+        List<Commentaire> commentaires = getNamedParameterJdbcTemplate().query(vSql, vSqlParameters, new CommentaireRM());
+
+        for (Commentaire commentaire : commentaires) {
+            commentaire.setUtilisateur(getAuthor(commentaire.getUtilisateur().getUtilisateurId()));
+            commentaire.setSpot(getSpot(commentaire.getSpot().getSpotId()));
+            commentaire.setTopo(getTopo(commentaire.getTopo().getTopoId()));
+        }
+
+        return commentaires;
+    }
+
+    /**
      * La méthode findAll permet de retourner l'ensemble des instances de Commentaire de la base de données
      *
      * @return une List d'objets Commentaire configurés via le RowMapper "CommentaireRM"
@@ -155,11 +183,10 @@ public class CommentaireDao extends AbstractDao implements ICommentaireDao {
     public int update(Commentaire pCommentaire) {
         //Requête SQL
         String vSql = "UPDATE public.commentaire "
-                + "SET commentaire.nom = :nom, "
-                + "commentaire.parent_commentaire_id = :parentCommentId, "
-                + "commentaire.utilisateur_id = :utilisateurId, "
-                + "commentaire.spot_id = :spotId, "
-                + "commentaire.topo_id = :topoId "
+                + "SET contenu = :contenu, "
+                + "utilisateur_id = :utilisateurId, "
+                + "spot_id = :spotId, "
+                + "topo_id = :topoId "
                 + "WHERE commentaire.commentaire_id = :id";
 
         // Définition des paramètres de la requêtes
@@ -199,11 +226,12 @@ public class CommentaireDao extends AbstractDao implements ICommentaireDao {
      * @return un objet Topo récupéré dans la base de données
      * @see com.antazri.climbingclub.consumer.rowmapper.CommentaireRM
      */
-    public Topo getTopo(Integer pId) {
+    public Topo getTopo(int pId) {
         // Requête SQL
         String vSql = "SELECT * FROM public.topo " +
-                "FULL JOIN public.utilisateur ON topo.utilisateur_id = utilisateur.utilisateur_id " +
-                "FULL JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
+                "JOIN public.utilisateur ON topo.utilisateur_id = utilisateur.utilisateur_id " +
+                "JOIN public.region ON topo.region_id = region.region_id " +
+                "JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
                 "WHERE topo.topo_id = :id";
 
         // Définition des paramètres de la requêtes
@@ -222,13 +250,13 @@ public class CommentaireDao extends AbstractDao implements ICommentaireDao {
      * @return un objet Topo récupéré dans la base de données
      * @see com.antazri.climbingclub.consumer.rowmapper.CommentaireRM
      */
-    public Spot getSpot(Integer pId) {
+    public Spot getSpot(int pId) {
         // Requête SQL
         String vSql = "SELECT * FROM public.spot " +
-                "FULL JOIN public.region ON spot.region_id = region.region_id " +
-                "FULL JOIN public.topo ON spot.topo_id = topo.topo_id " +
-                "FULL JOIN public.utilisateur ON topo.utilisateur_id = utilisateur.utilisateur_id " +
-                "FULL JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
+                "JOIN public.topo ON spot.topo_id = topo.topo_id " +
+                "JOIN public.region ON topo.region_id = region.region_id " +
+                "JOIN public.utilisateur ON topo.utilisateur_id = utilisateur.utilisateur_id " +
+                "JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
                 "WHERE spot.spot_id = :id";
 
         // Définition des paramètres de la requêtes
@@ -247,7 +275,7 @@ public class CommentaireDao extends AbstractDao implements ICommentaireDao {
      * @return un objet Utilisateur récupéré dans la base de données
      * @see com.antazri.climbingclub.consumer.rowmapper.CommentaireRM
      */
-    public Utilisateur getAuthor(Integer pId) {
+    public Utilisateur getAuthor(int pId) {
         // Requête SQL
         String vSql = "SELECT * FROM public.utilisateur JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
                 "WHERE utilisateur.utilisateur_id = :id";

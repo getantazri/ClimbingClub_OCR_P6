@@ -4,7 +4,6 @@ public class Spot {
 
     private int spotId;
     private Topo topo;
-    private Region region;
     private String spotNom;
     private String spotDescription;
     private String hauteur;
@@ -23,14 +22,6 @@ public class Spot {
 
     public void setTopo(Topo topo) {
         this.topo = topo;
-    }
-
-    public Region getRegion() {
-        return region;
-    }
-
-    public void setRegion(Region region) {
-        this.region = region;
     }
 
     public String getSpotNom() {

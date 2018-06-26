@@ -1,5 +1,6 @@
 package com.antazri.climbingclub.consumer.rowmapper;
 
+import com.antazri.climbingclub.model.beans.Region;
 import com.antazri.climbingclub.model.beans.Statut;
 import com.antazri.climbingclub.model.beans.Topo;
 import com.antazri.climbingclub.model.beans.Utilisateur;
@@ -48,6 +49,14 @@ public class TopoRM implements RowMapper {
 
         // Affectation de l'Utilisateur (Propriétaire) au Topo
         topo.setProprietaire(utilisateur);
+
+        // Création d'un objet Region
+        Region region = new Region();
+        region.setRegionId(rs.getInt("region_id"));
+        region.setRegionNom(rs.getString("region_nom"));
+
+        // Affectation de Region au Topo
+        topo.setRegion(region);
 
         return topo;
     }

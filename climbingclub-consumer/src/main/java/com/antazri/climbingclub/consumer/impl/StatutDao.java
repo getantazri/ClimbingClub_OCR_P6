@@ -45,7 +45,7 @@ public class StatutDao extends AbstractDao implements IStatutDao {
      */
     public Statut findByName(String pName) {
         // Requête SQL
-        String vSql = "SELECT * FROM public.statut WHERE statut.nom = :nom";
+        String vSql = "SELECT * FROM public.statut WHERE statut.statut_nom = :nom";
 
         // Définition des paramètres de la requêtes
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
@@ -76,7 +76,7 @@ public class StatutDao extends AbstractDao implements IStatutDao {
      */
     public int create(Statut pStatut) {
         // Requête SQL
-        String vSql = "INSERT INTO public.topo (nom) VALUES (?)";
+        String vSql = "INSERT INTO public.statut (statut_nom) VALUES (?)";
 
         return getJdbcTemplate().update(vSql, pStatut.getStatutNom());
     }
@@ -91,7 +91,7 @@ public class StatutDao extends AbstractDao implements IStatutDao {
     public int update(Statut pStatut) {
         // Requête SQL
         String vSql = "UPDATE public.statut "
-                + "SET statut.nom = :nom "
+                + "SET statut_nom = :nom "
                 + "WHERE statut.statut_id = :id";
 
         // Définition des paramètres de la requête

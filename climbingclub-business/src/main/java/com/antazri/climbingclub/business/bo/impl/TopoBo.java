@@ -2,6 +2,7 @@ package com.antazri.climbingclub.business.bo.impl;
 
 import com.antazri.climbingclub.business.bo.contract.ITopoBo;
 import com.antazri.climbingclub.consumer.contract.ITopoDao;
+import com.antazri.climbingclub.model.beans.Region;
 import com.antazri.climbingclub.model.beans.Topo;
 import com.antazri.climbingclub.model.beans.Utilisateur;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +30,12 @@ public class TopoBo implements ITopoBo {
         return topoDao.findByUser(pUtilisateur);
     }
 
-    public List<Topo> findByName(String pName) {
+    public Topo findByName(String pName) {
         return topoDao.findByName(pName);
+    }
+
+    public List<Topo> findByRegion(Region pRegion) {
+        return topoDao.findByRegion(pRegion);
     }
 
     public List<Topo> findAll() {

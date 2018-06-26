@@ -10,7 +10,15 @@
     <!-- =============================================================== -->
     <!-- Configuration des beans Bo -->
     <!-- =============================================================== -->
+    <bean id="commentaireBo" class="com.antazri.climbingclub.business.bo.impl.CommentaireBo" />
+    <bean id="cotationBo" class="com.antazri.climbingclub.business.bo.impl.CotationBo" />
     <bean id="regionBo" class="com.antazri.climbingclub.business.bo.impl.RegionBo" />
+    <bean id="secteurBo" class="com.antazri.climbingclub.business.bo.impl.SecteurBo" />
+    <bean id="spotBo" class="com.antazri.climbingclub.business.bo.impl.SpotBo" />
+    <bean id="statutBo" class="com.antazri.climbingclub.business.bo.impl.StatutBo" />
+    <bean id="topoBo" class="com.antazri.climbingclub.business.bo.impl.TopoBo" />
+    <bean id="utilisateurBo" class="com.antazri.climbingclub.business.bo.impl.UtilisateurBo" />
+    <bean id="voieBo" class="com.antazri.climbingclub.business.bo.impl.VoieBo" />
 
     <!-- =============================================================== -->
     <!-- Configuration du Transaction Manager -->

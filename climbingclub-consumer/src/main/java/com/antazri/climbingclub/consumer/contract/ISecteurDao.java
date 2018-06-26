@@ -8,6 +8,7 @@ import java.util.List;
 public interface ISecteurDao {
 
     Secteur findById(int pId);
+    Secteur findByName(String pName);
     List<Secteur> findBySpot(Spot pSpot);
     List<Secteur> findAll();
     int create(Secteur pSecteur);

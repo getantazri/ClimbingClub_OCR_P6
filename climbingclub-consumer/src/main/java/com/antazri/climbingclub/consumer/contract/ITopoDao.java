@@ -1,5 +1,6 @@
 package com.antazri.climbingclub.consumer.contract;
 
+import com.antazri.climbingclub.model.beans.Region;
 import com.antazri.climbingclub.model.beans.Topo;
 import com.antazri.climbingclub.model.beans.Utilisateur;
 
@@ -9,7 +10,8 @@ public interface ITopoDao {
 
     Topo findById(int pId);
     List<Topo> findByUser(Utilisateur pUtilisateur);
-    List<Topo> findByName(String pName);
+    Topo findByName(String pName);
+    List<Topo> findByRegion(Region pRegion);
     List<Topo> findAll();
     int create(Topo pTopo);
     int update(Topo pTopo);

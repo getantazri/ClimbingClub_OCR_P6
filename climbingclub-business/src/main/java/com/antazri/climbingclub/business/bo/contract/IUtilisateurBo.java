@@ -10,6 +10,7 @@ public interface IUtilisateurBo {
     Utilisateur findById(int pId);
     List<Utilisateur> findByStatut(Statut pStatut);
     Utilisateur findByName(String pName);
+    Utilisateur findByPseudo(String pPseudo);
     List<Utilisateur> findAll();
     int create(Utilisateur pUtilisateur);
     int update(Utilisateur pUtilisateur);

@@ -9,6 +9,7 @@ public interface ISecteurBo {
 
     Secteur findById(int pId);
     List<Secteur> findBySpot(Spot pSpot);
+    Secteur findByName(String pName);
     List<Secteur> findAll();
     int create(Secteur pSecteur);
     int update(Secteur pSecteur);

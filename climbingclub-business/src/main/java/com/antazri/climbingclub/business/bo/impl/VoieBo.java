@@ -26,6 +26,10 @@ public class VoieBo implements IVoieBo {
         return voieDao.findById(pId);
     }
 
+    public Voie findByName(String pName) {
+        return voieDao.findByName(pName);
+    }
+
     public List<Voie> findBySecteur(Secteur pSecteur) {
         return voieDao.findBySecteur(pSecteur);
     }

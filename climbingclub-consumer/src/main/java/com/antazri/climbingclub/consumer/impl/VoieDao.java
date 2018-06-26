@@ -30,18 +30,44 @@ public class VoieDao extends AbstractDao implements IVoieDao {
     public Voie findById(int pId) {
         // Requête SQL
         String vSql = "SELECT * FROM public.voie " +
-                "FULL JOIN public.secteur ON voie.secteur_id = secteur.secteur_id " +
-                "FULL JOIN public.cotation ON voie.cotation_id = cotation.cotation_id " +
-                "FULL JOIN public.spot ON secteur.spot_id = spot.spot_id " +
-                "FULL JOIN public.region ON spot.region_id = region.region_id " +
-                "FULL JOIN public.topo ON spot.topo_id = topo.topo_id " +
-                "FULL JOIN public.utilisateur ON topo.utilisateur_id = utilisateur.utilisateur_id " +
-                "FULL JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
+                "JOIN public.secteur ON voie.secteur_id = secteur.secteur_id " +
+                "JOIN public.cotation ON voie.cotation_id = cotation.cotation_id " +
+                "JOIN public.spot ON secteur.spot_id = spot.spot_id " +
+                "JOIN public.topo ON spot.topo_id = topo.topo_id " +
+                "JOIN public.region ON topo.region_id = region.region_id " +
+                "JOIN public.utilisateur ON topo.utilisateur_id = utilisateur.utilisateur_id " +
+                "JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
                 "WHERE voie.voie_id = :id";
 
         // Définition des paramètres de la requêtes
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
         vSqlParameters.addValue("id", pId);
+
+        return (Voie) getNamedParameterJdbcTemplate().queryForObject(vSql, vSqlParameters, new VoieRM());
+    }
+
+    /**
+     * La méthode findByName permet de rechercher un objet Voie dans la base de données via son nom
+     *
+     * @param pName est un String permettant l'identification unique d'une instance de Voie dans la base de données
+     * @return un objet Voie configuré via le RowMapper "VoieRM"
+     * @see com.antazri.climbingclub.consumer.rowmapper.VoieRM
+     */
+    public Voie findByName(String pName) {
+        // Requête SQL
+        String vSql = "SELECT * FROM public.voie " +
+                "JOIN public.secteur ON voie.secteur_id = secteur.secteur_id " +
+                "JOIN public.cotation ON voie.cotation_id = cotation.cotation_id " +
+                "JOIN public.spot ON secteur.spot_id = spot.spot_id " +
+                "JOIN public.topo ON spot.topo_id = topo.topo_id " +
+                "JOIN public.region ON topo.region_id = region.region_id " +
+                "JOIN public.utilisateur ON topo.utilisateur_id = utilisateur.utilisateur_id " +
+                "JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
+                "WHERE voie.voie_nom = :nom";
+
+        // Définition des paramètres de la requêtes
+        MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
+        vSqlParameters.addValue("nom", pName);
 
         return (Voie) getNamedParameterJdbcTemplate().queryForObject(vSql, vSqlParameters, new VoieRM());
     }
@@ -58,13 +84,13 @@ public class VoieDao extends AbstractDao implements IVoieDao {
     public List<Voie> findBySecteur(Secteur pSecteur) {
         // Requête SQL
         String vSql = "SELECT * FROM public.voie " +
-                "FULL JOIN public.secteur ON voie.secteur_id = secteur.secteur_id " +
-                "FULL JOIN public.cotation ON voie.cotation_id = cotation.cotation_id " +
-                "FULL JOIN public.spot ON secteur.spot_id = spot.spot_id " +
-                "FULL JOIN public.region ON spot.region_id = region.region_id " +
-                "FULL JOIN public.topo ON spot.topo_id = topo.topo_id " +
-                "FULL JOIN public.utilisateur ON topo.utilisateur_id = utilisateur.utilisateur_id " +
-                "FULL JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
+                "JOIN public.secteur ON voie.secteur_id = secteur.secteur_id " +
+                "JOIN public.cotation ON voie.cotation_id = cotation.cotation_id " +
+                "JOIN public.spot ON secteur.spot_id = spot.spot_id " +
+                "JOIN public.topo ON spot.topo_id = topo.topo_id " +
+                "JOIN public.region ON topo.region_id = region.region_id " +
+                "JOIN public.utilisateur ON topo.utilisateur_id = utilisateur.utilisateur_id " +
+                "JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
                 "WHERE voie.secteur_id = :id";
 
         // Définition des paramètres de la requêtes
@@ -86,13 +112,13 @@ public class VoieDao extends AbstractDao implements IVoieDao {
     public List<Voie> findByCotation(Cotation pCotation) {
         // Requête SQL
         String vSql = "SELECT * FROM public.voie " +
-                "FULL JOIN public.secteur ON voie.secteur_id = secteur.secteur_id " +
-                "FULL JOIN public.cotation ON voie.cotation_id = cotation.cotation_id " +
-                "FULL JOIN public.spot ON secteur.spot_id = spot.spot_id " +
-                "FULL JOIN public.region ON spot.region_id = region.region_id " +
-                "FULL JOIN public.topo ON spot.topo_id = topo.topo_id " +
-                "FULL JOIN public.utilisateur ON topo.utilisateur_id = utilisateur.utilisateur_id " +
-                "FULL JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
+                "JOIN public.secteur ON voie.secteur_id = secteur.secteur_id " +
+                "JOIN public.cotation ON voie.cotation_id = cotation.cotation_id " +
+                "JOIN public.spot ON secteur.spot_id = spot.spot_id " +
+                "JOIN public.topo ON spot.topo_id = topo.topo_id " +
+                "JOIN public.region ON topo.region_id = region.region_id " +
+                "JOIN public.utilisateur ON topo.utilisateur_id = utilisateur.utilisateur_id " +
+                "JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
                 "WHERE voie.cotation_id = :id";
 
         // Définition des paramètres de la requêtes
@@ -113,13 +139,13 @@ public class VoieDao extends AbstractDao implements IVoieDao {
     public List<Voie> findAll() {
         // Requête SQL
         String vSql = "SELECT * FROM public.voie " +
-                "FULL JOIN public.secteur ON voie.secteur_id = secteur.secteur_id " +
-                "FULL JOIN public.cotation ON voie.cotation_id = cotation.cotation_id " +
-                "FULL JOIN public.spot ON secteur.spot_id = spot.spot_id " +
-                "FULL JOIN public.region ON spot.region_id = region.region_id " +
-                "FULL JOIN public.topo ON spot.topo_id = topo.topo_id " +
-                "FULL JOIN public.utilisateur ON topo.utilisateur_id = utilisateur.utilisateur_id " +
-                "FULL JOIN public.statut ON utilisateur.statut_id = statut.statut_id ";
+                "JOIN public.secteur ON voie.secteur_id = secteur.secteur_id " +
+                "JOIN public.cotation ON voie.cotation_id = cotation.cotation_id " +
+                "JOIN public.spot ON secteur.spot_id = spot.spot_id " +
+                "JOIN public.topo ON spot.topo_id = topo.topo_id " +
+                "JOIN public.region ON topo.region_id = region.region_id " +
+                "JOIN public.utilisateur ON topo.utilisateur_id = utilisateur.utilisateur_id " +
+                "JOIN public.statut ON utilisateur.statut_id = statut.statut_id ";
 
         return getJdbcTemplate().query(vSql, new VoieRM());
     }
@@ -132,7 +158,7 @@ public class VoieDao extends AbstractDao implements IVoieDao {
      */
     public int create(Voie pVoie) {
         // Requête SQL
-        String vSql = "INSERT INTO public.voie (nom, nombre_points, description, secteur_id, cotation_id) "
+        String vSql = "INSERT INTO public.voie (voie_nom, nombre_points, voie_description, secteur_id, cotation_id) "
                 + "VALUES (?, ?, ?, ?, ?)";
 
         return getJdbcTemplate().update(vSql, pVoie.getVoieNom(), pVoie.getNombrePoints(), pVoie.getVoieDescription(), pVoie.getSecteur().getSecteurId(), pVoie.getCotation().getCotationId());
@@ -147,11 +173,11 @@ public class VoieDao extends AbstractDao implements IVoieDao {
     public int update(Voie pVoie) {
         //Requête SQL
         String vSql = "UPDATE public.voie "
-                + "SET voie.nom =  = :nom, "
-                + "voie.nom_points =  = :nbrPoints, "
-                + "voie.description =  = :description, "
-                + "voie.secteur_id =  = :secteurId, "
-                + "voie.cotation_id =  = :cotationId "
+                + "SET voie_nom = :nom, "
+                + "nombre_points = :nbrPoints, "
+                + "voie_description = :description, "
+                + "secteur_id = :secteurId, "
+                + "cotation_id = :cotationId "
                 + "WHERE voie.voie_id = :id";
 
         // Définition des paramètres de la requête

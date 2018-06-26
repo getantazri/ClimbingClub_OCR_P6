@@ -45,7 +45,7 @@ public class CotationDao extends AbstractDao implements ICotationDao {
      */
     public Cotation findByName(String pName) {
         // Requête SQL
-        String vSql = "SELECT * FROM public.cotation WHERE cotation.nom = :nom";
+        String vSql = "SELECT * FROM public.cotation WHERE cotation.cotation_nom = :nom";
 
         // Définition des paramètres de la requêtes
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
@@ -76,7 +76,7 @@ public class CotationDao extends AbstractDao implements ICotationDao {
      */
     public int create(Cotation pCotation) {
         // Requête SQL
-        String vSql = "INSERT INTO public.cotation (nom) VALUES (?)";
+        String vSql = "INSERT INTO public.cotation (cotation_nom) VALUES (?)";
 
         return getJdbcTemplate().update(vSql, pCotation.getCotationNom());
     }
@@ -90,7 +90,7 @@ public class CotationDao extends AbstractDao implements ICotationDao {
      */
     public int update(Cotation pCotation) {
         //Requête SQL
-        String vSql = "UPDATE public.cotation SET cotation.nom = :nom WHERE cotation.cotation_id = :id";
+        String vSql = "UPDATE public.cotation SET cotation_nom = :nom WHERE cotation.cotation_id = :id";
 
         // Définition des paramètres de la requêtes
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();

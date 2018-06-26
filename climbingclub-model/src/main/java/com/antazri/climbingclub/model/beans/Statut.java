@@ -17,7 +17,7 @@ public class Statut {
         return statutNom;
     }
 
-    public void setStatutNom(String nom) {
+    public void setStatutNom(String statutNom) {
         this.statutNom = statutNom;
     }
 }

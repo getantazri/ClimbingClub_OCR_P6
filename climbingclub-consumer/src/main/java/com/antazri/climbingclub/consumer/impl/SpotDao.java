@@ -2,6 +2,7 @@ package com.antazri.climbingclub.consumer.impl;
 
 import com.antazri.climbingclub.consumer.contract.ISpotDao;
 import com.antazri.climbingclub.consumer.rowmapper.SpotRM;
+import com.antazri.climbingclub.model.beans.Region;
 import com.antazri.climbingclub.model.beans.Spot;
 import com.antazri.climbingclub.model.beans.Topo;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -29,15 +30,38 @@ public class SpotDao extends AbstractDao implements ISpotDao {
     public Spot findById(int pId) {
         // Requête SQL
         String vSql = "SELECT * FROM public.spot " +
-                "FULL JOIN public.region ON spot.region_id = region.region_id " +
-                "FULL JOIN public.topo ON spot.topo_id = topo.topo_id " +
-                "FULL JOIN public.utilisateur ON topo.utilisateur_id = utilisateur.utilisateur_id " +
-                "FULL JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
+                "JOIN public.topo ON spot.topo_id = topo.topo_id " +
+                "JOIN public.region ON topo.region_id = region.region_id " +
+                "JOIN public.utilisateur ON topo.utilisateur_id = utilisateur.utilisateur_id " +
+                "JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
                 "WHERE spot.spot_id = :id";
 
         // Définition des paramètres de la requêtes
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
         vSqlParameters.addValue("id", pId);
+
+        return (Spot) getNamedParameterJdbcTemplate().queryForObject(vSql, vSqlParameters, new SpotRM());
+    }
+
+    /**
+     * La méthode findByName permet de rechercher un objet Spot dans la base de données via son nom
+     *
+     * @param pName est un String permettant l'identification d'une instance de Spot dans la base de données
+     * @return un objet Spot configuré via le RowMapper "SpotRM"
+     * @see com.antazri.climbingclub.consumer.rowmapper.SpotRM
+     */
+    public Spot findByName(String pName) {
+        // Requête SQL
+        String vSql = "SELECT * FROM public.spot " +
+                "JOIN public.topo ON spot.topo_id = topo.topo_id " +
+                "JOIN public.region ON topo.region_id = region.region_id " +
+                "JOIN public.utilisateur ON topo.utilisateur_id = utilisateur.utilisateur_id " +
+                "JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
+                "WHERE spot.spot_nom = :nom";
+
+        // Définition des paramètres de la requêtes
+        MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
+        vSqlParameters.addValue("nom", pName);
 
         return (Spot) getNamedParameterJdbcTemplate().queryForObject(vSql, vSqlParameters, new SpotRM());
     }
@@ -53,10 +77,10 @@ public class SpotDao extends AbstractDao implements ISpotDao {
     public List<Spot> findByTopo(Topo pTopo) {
         // Requête SQL
         String vSql = "SELECT * FROM public.spot " +
-                "FULL JOIN public.region ON spot.region_id = region.region_id " +
-                "FULL JOIN public.topo ON spot.topo_id = topo.topo_id " +
-                "FULL JOIN public.utilisateur ON topo.utilisateur_id = utilisateur.utilisateur_id " +
-                "FULL JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
+                "JOIN public.topo ON spot.topo_id = topo.topo_id " +
+                "JOIN public.region ON topo.region_id = region.region_id " +
+                "JOIN public.utilisateur ON topo.utilisateur_id = utilisateur.utilisateur_id " +
+                "JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
                 "WHERE spot.topo_id = :id";
 
         // Définition des paramètres de la requêtes
@@ -76,10 +100,10 @@ public class SpotDao extends AbstractDao implements ISpotDao {
     public List<Spot> findAll() {
         // Requête SQL
         String vSql = "SELECT * FROM public.spot " +
-                "FULL JOIN public.region ON spot.region_id = region.region_id " +
-                "FULL JOIN public.topo ON spot.topo_id = topo.topo_id " +
-                "FULL JOIN public.utilisateur ON topo.utilisateur_id = utilisateur.utilisateur_id " +
-                "FULL JOIN public.statut ON utilisateur.statut_id = statut.statut_id ";
+                "JOIN public.topo ON spot.topo_id = topo.topo_id " +
+                "JOIN public.region ON topo.region_id = region.region_id " +
+                "JOIN public.utilisateur ON topo.utilisateur_id = utilisateur.utilisateur_id " +
+                "JOIN public.statut ON utilisateur.statut_id = statut.statut_id ";
 
         return getJdbcTemplate().query(vSql, new SpotRM());
     }
@@ -92,10 +116,10 @@ public class SpotDao extends AbstractDao implements ISpotDao {
      */
     public int create(Spot pSpot) {
         // Requête SQL
-        String vSql = "INSERT INTO public.spot (nom, description, hauteur, topo_id, region_id) "
-                + "VALUES (?, ?, ?, ?, ?)";
+        String vSql = "INSERT INTO public.spot (spot_nom, spot_description, hauteur, topo_id) "
+                + "VALUES (?, ?, ?, ?)";
 
-        return getJdbcTemplate().update(vSql, pSpot.getSpotNom(), pSpot.getSpotDescription(), pSpot.getHauteur(), pSpot.getTopo().getTopoId(), pSpot.getRegion().getRegionId());
+        return getJdbcTemplate().update(vSql, pSpot.getSpotNom(), pSpot.getSpotDescription(), pSpot.getHauteur(), pSpot.getTopo().getTopoId());
     }
 
     /**
@@ -107,11 +131,10 @@ public class SpotDao extends AbstractDao implements ISpotDao {
     public int update(Spot pSpot) {
         //Requête SQL
         String vSql = "UPDATE public.spot "
-                + "SET spot.nom =  = :nom, "
-                + "spot.description =  = :description, "
-                + "spot.hauteur =  = :hauteur, "
-                + "spot.topo_id =  = :topoId, "
-                + "spot.region_id =  = :regionId "
+                + "SET spot_nom = :nom, "
+                + "spot_description = :description, "
+                + "hauteur = :hauteur, "
+                + "topo_id = :topoId "
                 + "WHERE spot.spot_id = :id";
 
         // Définition des paramètres de la requête
@@ -120,7 +143,6 @@ public class SpotDao extends AbstractDao implements ISpotDao {
         vSqlParameters.addValue("description", pSpot.getSpotDescription());
         vSqlParameters.addValue("hauteur", pSpot.getHauteur());
         vSqlParameters.addValue("topoId", pSpot.getTopo().getTopoId());
-        vSqlParameters.addValue("regionId", pSpot.getRegion().getRegionId());
         vSqlParameters.addValue("id", pSpot.getSpotId());
 
         // Mise à jour de l'objet dans la base de données

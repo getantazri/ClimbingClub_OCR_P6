@@ -5,6 +5,7 @@ import com.antazri.climbingclub.consumer.contract.ICommentaireDao;
 import com.antazri.climbingclub.model.beans.Commentaire;
 import com.antazri.climbingclub.model.beans.Spot;
 import com.antazri.climbingclub.model.beans.Topo;
+import com.antazri.climbingclub.model.beans.Utilisateur;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
@@ -38,6 +39,10 @@ public class CommentaireBo implements ICommentaireBo {
         return commentaireDao.findAll();
     }
 
+    public List<Commentaire> findByUtilisateur(Utilisateur pUtilisateur) {
+        return commentaireDao.findByUtilisateur(pUtilisateur);
+    }
+
     public int create(final Commentaire pCommentaire) {
         TransactionTemplate vTransactionTemplate = new TransactionTemplate(platformTransactionManager);
         return vTransactionTemplate.execute(new TransactionCallback<Integer>() {
@@ -51,7 +56,7 @@ public class CommentaireBo implements ICommentaireBo {
         TransactionTemplate vTransactionTemplate = new TransactionTemplate(platformTransactionManager);
         return vTransactionTemplate.execute(new TransactionCallback<Integer>() {
             public Integer doInTransaction(TransactionStatus status) {
-                return commentaireDao.create(pCommentaire);
+                return commentaireDao.update(pCommentaire);
             }
         });
     }

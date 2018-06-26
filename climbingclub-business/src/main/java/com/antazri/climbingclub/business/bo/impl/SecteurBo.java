@@ -29,6 +29,10 @@ public class SecteurBo implements ISecteurBo {
         return secteurDao.findBySpot(pSpot);
     }
 
+    public Secteur findByName(String pName) {
+        return secteurDao.findByName(pName);
+    }
+
     public List<Secteur> findAll() {
         return secteurDao.findAll();
     }

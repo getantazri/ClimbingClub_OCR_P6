@@ -2,6 +2,7 @@ package com.antazri.climbingclub.business.bo.impl;
 
 import com.antazri.climbingclub.business.bo.contract.ISpotBo;
 import com.antazri.climbingclub.consumer.contract.ISpotDao;
+import com.antazri.climbingclub.model.beans.Region;
 import com.antazri.climbingclub.model.beans.Spot;
 import com.antazri.climbingclub.model.beans.Topo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,10 @@ public class SpotBo implements ISpotBo {
 
     public Spot findById(int pId) {
         return spotDao.findById(pId);
+    }
+
+    public Spot findByName(String pName) {
+        return spotDao.findByName(pName);
     }
 
     public List<Spot> findByTopo(Topo pTopo) {

@@ -33,6 +33,10 @@ public class UtilisateurBo implements IUtilisateurBo {
         return utilisateurDao.findByName(pName);
     }
 
+    public Utilisateur findByPseudo(String pPseudo) {
+        return utilisateurDao.findByPseudo(pPseudo);
+    }
+
     public List<Utilisateur> findAll() {
         return utilisateurDao.findAll();
     }

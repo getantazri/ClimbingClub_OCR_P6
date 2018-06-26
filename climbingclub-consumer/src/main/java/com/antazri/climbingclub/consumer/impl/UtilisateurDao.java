@@ -77,6 +77,25 @@ public class UtilisateurDao extends AbstractDao implements IUtilisateurDao {
     }
 
     /**
+     * La méthode findByPseudo permet de rechercher un objet Utilisateur dans la base de données via son pseudonyme
+     *
+     * @param pPseudo est un String permettant l'identification d'une instance de Utilisateur dans la base de données
+     * @return un objet Utilisateur configuré via le RowMapper "UtilisateurRM"
+     * @see com.antazri.climbingclub.consumer.rowmapper.UtilisateurRM
+     */
+    public Utilisateur findByPseudo(String pPseudo) {
+        // Requête SQL
+        String vSql = "SELECT * FROM public.utilisateur JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
+                "WHERE utilisateur.pseudo = :pseudo";
+
+        // Définition des paramètres de la requêtes
+        MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
+        vSqlParameters.addValue("pseudo", pPseudo);
+
+        return (Utilisateur) getNamedParameterJdbcTemplate().queryForObject(vSql, vSqlParameters, new UtilisateurRM());
+    }
+
+    /**
      * La méthode findAll permet de retourner l'ensemble des instances de Utilisateur enregistrées dans la base de données
      *
      * @return une List d'objets Utilisateur configurés via le RowMapper "UtilisateurRM"
@@ -84,7 +103,7 @@ public class UtilisateurDao extends AbstractDao implements IUtilisateurDao {
      */
     public List<Utilisateur> findAll() {
         // Requête SQL
-        String vSql = "SELECT * FROM public.utilisateur";
+        String vSql = "SELECT * FROM public.utilisateur JOIN public.statut ON utilisateur.statut_id = statut.statut_id";
 
         return getJdbcTemplate().query(vSql, new UtilisateurRM());
     }
@@ -98,12 +117,13 @@ public class UtilisateurDao extends AbstractDao implements IUtilisateurDao {
      */
     public int create(Utilisateur pUtilisateur) {
         // Requête SQL
-        String vSql = "INSERT INTO public.utilisateur (nom, prenom, pseudo, email, telephone, statut_id) "
-                + "VALUES (?, ?, ?, ?, ?, ?)";
+        String vSql = "INSERT INTO public.utilisateur (nom, prenom, pseudo, password, email, telephone, statut_id) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         return getJdbcTemplate().update(vSql, pUtilisateur.getNom(),
                                         pUtilisateur.getPrenom(),
                                         pUtilisateur.getPseudo(),
+                                        pUtilisateur.getPassword(),
                                         pUtilisateur.getEmail(),
                                         pUtilisateur.getTelephone(),
                                         pUtilisateur.getStatut().getStatutId());
@@ -119,12 +139,13 @@ public class UtilisateurDao extends AbstractDao implements IUtilisateurDao {
     public int update(Utilisateur pUtilisateur) {
         //Requête SQL
         String vSql = "UPDATE public.utilisateur "
-                + "SET utilisateur.nom =  = :nom, "
-                + "utilisateur.prenom = :prenom, "
-                + "utilisateur.pseudo = :pseudo, "
-                + "utilisateur.email = :email, "
-                + "utilisateur.telephone = :telephone, "
-                + "utilisateur.statut_id = :statutId "
+                + "SET nom = :nom, "
+                + "prenom = :prenom, "
+                + "pseudo = :pseudo, "
+                + "password = :password, "
+                + "email = :email, "
+                + "telephone = :telephone, "
+                + "statut_id = :statutId "
                 + "WHERE utilisateur.utilisateur_id = :id";
 
         // Définition des paramètres de la requête
@@ -132,6 +153,7 @@ public class UtilisateurDao extends AbstractDao implements IUtilisateurDao {
         vSqlParameters.addValue("nom", pUtilisateur.getNom());
         vSqlParameters.addValue("prenom", pUtilisateur.getPrenom());
         vSqlParameters.addValue("pseudo", pUtilisateur.getPseudo());
+        vSqlParameters.addValue("password", pUtilisateur.getPassword());
         vSqlParameters.addValue("email", pUtilisateur.getEmail());
         vSqlParameters.addValue("telephone", pUtilisateur.getTelephone());
         vSqlParameters.addValue("statutId", pUtilisateur.getStatut().getStatutId());

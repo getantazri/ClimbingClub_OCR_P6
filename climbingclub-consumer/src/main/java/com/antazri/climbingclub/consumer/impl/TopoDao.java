@@ -3,6 +3,7 @@ package com.antazri.climbingclub.consumer.impl;
 import com.antazri.climbingclub.consumer.contract.ITopoDao;
 import com.antazri.climbingclub.consumer.rowmapper.TopoRM;
 import com.antazri.climbingclub.consumer.rowmapper.UtilisateurRM;
+import com.antazri.climbingclub.model.beans.Region;
 import com.antazri.climbingclub.model.beans.Topo;
 import com.antazri.climbingclub.model.beans.Utilisateur;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -30,8 +31,9 @@ public class TopoDao extends AbstractDao implements ITopoDao {
     public Topo findById(int pId) {
         // Requête SQL
         String vSql = "SELECT * FROM public.topo " +
-                "FULL JOIN public.utilisateur ON topo.utilisateur_id = utilisateur.utilisateur_id " +
-                "FULL JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
+                "JOIN public.utilisateur ON topo.utilisateur_id = utilisateur.utilisateur_id " +
+                "JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
+                "JOIN public.region ON topo.region_id = region.region_id " +
                 "WHERE topo.topo_id = :id";
 
         // Définition des paramètres de la requêtes
@@ -52,8 +54,9 @@ public class TopoDao extends AbstractDao implements ITopoDao {
     public List<Topo> findByUser(Utilisateur pUtilisateur) {
         // Requête SQL
         String vSql = "SELECT * FROM public.topo " +
-                "FULL JOIN public.utilisateur ON topo.utilisateur_id = utilisateur.utilisateur_id " +
-                "FULL JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
+                "JOIN public.utilisateur ON topo.utilisateur_id = utilisateur.utilisateur_id " +
+                "JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
+                "JOIN public.region ON topo.region_id = region.region_id " +
                 "WHERE topo.utilisateur_id = :id";
 
         // Définition des paramètres de la requêtes
@@ -71,16 +74,40 @@ public class TopoDao extends AbstractDao implements ITopoDao {
      * @return un objet Topo configuré via le RowMapper "TopoRM"
      * @see com.antazri.climbingclub.consumer.rowmapper.TopoRM
      */
-    public List<Topo> findByName(String pName) {
+    public Topo findByName(String pName) {
         // Requête SQL
         String vSql = "SELECT * FROM public.topo " +
-                "FULL JOIN public.utilisateur ON topo.utilisateur_id = utilisateur.utilisateur_id " +
-                "FULL JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
-                "WHERE topo.nom = :nom";
+                "JOIN public.utilisateur ON topo.utilisateur_id = utilisateur.utilisateur_id " +
+                "JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
+                "JOIN public.region ON topo.region_id = region.region_id " +
+                "WHERE topo.topo_nom = :nom";
 
         // Définition des paramètres de la requêtes
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
         vSqlParameters.addValue("nom", pName);
+
+        return (Topo) getNamedParameterJdbcTemplate().queryForObject(vSql, vSqlParameters, new TopoRM());
+    }
+
+    /**
+     *  La méthode findByRegion permet de rechercher un objet Topo selon la Region spécifiée dans la base de données.
+     *  La requête SQL permet de faire une jointure avec les tables liées aux attributs de l'objet et puis l'ensemble est construit via le RowMapper "TopoRM"
+     *
+     * @param pRegion est un String  qui servira à effectuer la recherche dans la colonne "topo_nom" de la table "topo"
+     * @return une List d'objets Topo configurés via le RowMapper "TopoRM"
+     * @see com.antazri.climbingclub.consumer.rowmapper.TopoRM
+     */
+    public List<Topo> findByRegion(Region pRegion) {
+        // Requête SQL
+        String vSql = "SELECT * FROM public.topo " +
+                "JOIN public.utilisateur ON topo.utilisateur_id = utilisateur.utilisateur_id " +
+                "JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
+                "JOIN public.region ON topo.region_id = region.region_id " +
+                "WHERE topo.region_id = :id";
+
+        // Définition des paramètres de la requêtes
+        MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
+        vSqlParameters.addValue("id", pRegion.getRegionId());
 
         return getNamedParameterJdbcTemplate().query(vSql, vSqlParameters, new TopoRM());
     }
@@ -95,8 +122,9 @@ public class TopoDao extends AbstractDao implements ITopoDao {
     public List<Topo> findAll() {
         // Requête SQL
         String vSql = "SELECT * FROM public.topo " +
-                "FULL JOIN public.utilisateur ON topo.utilisateur_id = utilisateur.utilisateur_id " +
-                "FULL JOIN public.statut ON utilisateur.statut_id = statut.statut_id ";
+                "JOIN public.utilisateur ON topo.utilisateur_id = utilisateur.utilisateur_id " +
+                "JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
+                "JOIN public.region ON topo.region_id = region.region_id ";
 
         return getJdbcTemplate().query(vSql, new TopoRM());
     }
@@ -109,9 +137,9 @@ public class TopoDao extends AbstractDao implements ITopoDao {
      */
     public int create(Topo pTopo) {
         // Requête SQL
-        String vSql = "INSERT INTO public.topo (utilisateur_id, nom, disponible) VALUES(?, ?, ?)";
+        String vSql = "INSERT INTO public.topo (topo_nom, utilisateur_id, disponible, region_id) VALUES(?, ?, ?, ?)";
 
-        return getJdbcTemplate().update(vSql, pTopo.getTopoNom(), pTopo.getProprietaire().getUtilisateurId(), pTopo.isDisponible());
+        return getJdbcTemplate().update(vSql, pTopo.getTopoNom(), pTopo.getProprietaire().getUtilisateurId(), pTopo.isDisponible(), pTopo.getRegion().getRegionId());
     }
 
     /**
@@ -123,16 +151,18 @@ public class TopoDao extends AbstractDao implements ITopoDao {
     public int update(Topo pTopo) {
         // Requête SQL
         String vSql = "UPDATE public.topo "
-                + "SET topo.utilisateur_id = :utilisateurId, "
-                + "topo.nom = :nom, "
-                + "topo.disponible = :disponible "
+                + "SET topo_nom = :nom, "
+                + "utilisateur_id = :utilisateurId, "
+                + "disponible = :disponible, "
+                + "region_id = :regionId "
                 + "WHERE topo.topo_id = :id";
 
         // Définition des paramètres de la requête
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
-        vSqlParameters.addValue("utilisateurId", pTopo.getProprietaire().getUtilisateurId());
         vSqlParameters.addValue("nom", pTopo.getTopoNom());
+        vSqlParameters.addValue("utilisateurId", pTopo.getProprietaire().getUtilisateurId());
         vSqlParameters.addValue("disponible", pTopo.isDisponible());
+        vSqlParameters.addValue("regionId", pTopo.getRegion().getRegionId());
         vSqlParameters.addValue("id", pTopo.getTopoId());
 
         return getNamedParameterJdbcTemplate().update(vSql, vSqlParameters);
@@ -163,7 +193,7 @@ public class TopoDao extends AbstractDao implements ITopoDao {
     public Utilisateur getProprietaire(Integer pId) {
         // Requête SQL
         String vSql = "SELECT * FROM public.utilisateur " +
-                "FULL JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
+                "JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
                 "WHERE utilisateur.utilisateur_id = :id";
 
         // Définition des paramètres de la requêtes
