@@ -28,8 +28,7 @@ public class UtilisateurDao extends AbstractDao implements IUtilisateurDao {
      */
     public Utilisateur findById(int pId) {
         // Requête SQL
-        String vSql = "SELECT * FROM public.utilisateur JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
-                "WHERE utilisateur.utilisateur_id = :id";
+        String vSql = "SELECT * FROM public.utilisateur WHERE utilisateur.utilisateur_id = :id";
 
         // Définition des paramètres de la requêtes
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
@@ -47,8 +46,7 @@ public class UtilisateurDao extends AbstractDao implements IUtilisateurDao {
      */
     public List<Utilisateur> findByStatut(Statut pStatut) {
         // Requête SQL
-        String vSql = "SELECT * FROM public.utilisateur JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
-                "WHERE utilisateur.statut_id = :id";
+        String vSql = "SELECT * FROM public.utilisateur WHERE utilisateur.statut_id = :id";
 
         // Définition des paramètres de la requêtes
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
@@ -66,8 +64,7 @@ public class UtilisateurDao extends AbstractDao implements IUtilisateurDao {
      */
     public Utilisateur findByName(String pName) {
         // Requête SQL
-        String vSql = "SELECT * FROM public.utilisateur JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
-                "WHERE utilisateur.nom = :nom";
+        String vSql = "SELECT * FROM public.utilisateur WHERE utilisateur.nom = :nom";
 
         // Définition des paramètres de la requêtes
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
@@ -85,8 +82,7 @@ public class UtilisateurDao extends AbstractDao implements IUtilisateurDao {
      */
     public Utilisateur findByPseudo(String pPseudo) {
         // Requête SQL
-        String vSql = "SELECT * FROM public.utilisateur JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
-                "WHERE utilisateur.pseudo = :pseudo";
+        String vSql = "SELECT * FROM public.utilisateur WHERE utilisateur.pseudo = :pseudo";
 
         // Définition des paramètres de la requêtes
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
@@ -103,7 +99,7 @@ public class UtilisateurDao extends AbstractDao implements IUtilisateurDao {
      */
     public List<Utilisateur> findAll() {
         // Requête SQL
-        String vSql = "SELECT * FROM public.utilisateur JOIN public.statut ON utilisateur.statut_id = statut.statut_id";
+        String vSql = "SELECT * FROM public.utilisateur";
 
         return getJdbcTemplate().query(vSql, new UtilisateurRM());
     }

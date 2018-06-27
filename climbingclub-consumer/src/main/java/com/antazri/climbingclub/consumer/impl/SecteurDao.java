@@ -28,13 +28,7 @@ public class SecteurDao extends AbstractDao implements ISecteurDao {
      */
     public Secteur findById(int pId) {
         // Requête SQL
-        String vSql = "SELECT * FROM public.secteur " +
-                "JOIN public.spot ON secteur.spot_id = spot.spot_id " +
-                "JOIN public.topo ON spot.topo_id = topo.topo_id " +
-                "JOIN public.region ON topo.region_id = region.region_id " +
-                "JOIN public.utilisateur ON topo.utilisateur_id = utilisateur.utilisateur_id " +
-                "JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
-                "WHERE secteur.secteur_id = :id";
+        String vSql = "SELECT * FROM public.secteur WHERE secteur.secteur_id = :id";
 
         // Définition des paramètres de la requêtes
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
@@ -52,13 +46,7 @@ public class SecteurDao extends AbstractDao implements ISecteurDao {
      */
     public Secteur findByName(String pName) {
         // Requête SQL
-        String vSql = "SELECT * FROM public.secteur " +
-                "JOIN public.spot ON secteur.spot_id = spot.spot_id " +
-                "JOIN public.topo ON spot.topo_id = topo.topo_id " +
-                "JOIN public.region ON topo.region_id = region.region_id " +
-                "JOIN public.utilisateur ON topo.utilisateur_id = utilisateur.utilisateur_id " +
-                "JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
-                "WHERE secteur.secteur_nom = :nom";
+        String vSql = "SELECT * FROM public.secteur WHERE secteur.secteur_nom = :nom";
 
         // Définition des paramètres de la requêtes
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
@@ -77,13 +65,7 @@ public class SecteurDao extends AbstractDao implements ISecteurDao {
      */
     public List<Secteur> findBySpot(Spot pSpot) {
         // Requête SQL
-        String vSql = "SELECT * FROM public.secteur " +
-                "JOIN public.spot ON secteur.spot_id = spot.spot_id " +
-                "JOIN public.topo ON spot.topo_id = topo.topo_id " +
-                "JOIN public.region ON topo.region_id = region.region_id " +
-                "JOIN public.utilisateur ON topo.utilisateur_id = utilisateur.utilisateur_id " +
-                "JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
-                "WHERE secteur.spot_id = :id";
+        String vSql = "SELECT * FROM public.secteur WHERE secteur.spot_id = :id";
 
         // Définition des paramètres de la requêtes
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
@@ -101,12 +83,7 @@ public class SecteurDao extends AbstractDao implements ISecteurDao {
      */
     public List<Secteur> findAll() {
         // Requête SQL
-        String vSql = "SELECT * FROM public.secteur " +
-                "JOIN public.spot ON secteur.spot_id = spot.spot_id " +
-                "JOIN public.topo ON spot.topo_id = topo.topo_id " +
-                "JOIN public.region ON topo.region_id = region.region_id " +
-                "JOIN public.utilisateur ON topo.utilisateur_id = utilisateur.utilisateur_id " +
-                "JOIN public.statut ON utilisateur.statut_id = statut.statut_id ";
+        String vSql = "SELECT * FROM public.secteur";
 
         return getJdbcTemplate().query(vSql, new SecteurRM());
     }
@@ -119,8 +96,7 @@ public class SecteurDao extends AbstractDao implements ISecteurDao {
      */
     public int create(Secteur pSecteur) {
         // Requête SQL
-        String vSql = "INSERT INTO public.secteur (secteur_nom, spot_id) "
-                + "VALUES (?, ?)";
+        String vSql = "INSERT INTO public.secteur (secteur_nom, spot_id) VALUES (?, ?)";
 
         return getJdbcTemplate().update(vSql, pSecteur.getSecteurNom(), pSecteur.getSpot().getSpotId());
     }

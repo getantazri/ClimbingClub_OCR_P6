@@ -27,39 +27,6 @@ public class SecteurRM implements RowMapper {
         // Création d'un objet Spot
         Spot spot = new Spot();
         spot.setSpotId(rs.getInt("spot_id"));
-        spot.setSpotNom(rs.getString("spot_nom"));
-        spot.setSpotDescription(rs.getString("spot_description"));
-        spot.setHauteur(rs.getString("hauteur"));
-
-        // Création d'un objet Topo
-        Topo topo = new Topo();
-        topo.setTopoId(rs.getInt("topo_id"));
-        topo.setTopoNom(rs.getString("topo_nom"));
-        topo.setDisponible(rs.getBoolean("disponible"));
-
-        // Création d'un objet Utilisateur (Propriétaire)
-        Utilisateur utilisateur = new Utilisateur();
-        utilisateur.setUtilisateurId(rs.getInt("utilisateur_id"));
-        utilisateur.setNom(rs.getString("nom"));
-        utilisateur.setPrenom(rs.getString("prenom"));
-        utilisateur.setPseudo(rs.getString("pseudo"));
-        utilisateur.setEmail(rs.getString("email"));
-        utilisateur.setTelephone(rs.getString("telephone"));
-
-
-        // Création d'un objet Statut
-        Statut statut = new Statut();
-        statut.setStatutId(rs.getInt("statut_id"));
-        statut.setStatutNom(rs.getString("statut_nom"));
-
-        // Affectation du Statut à l'Utilisateur
-        utilisateur.setStatut(statut);
-
-        // Affectation de l'Utilisateur (Propriétaire) au Topo
-        topo.setProprietaire(utilisateur);
-
-        // Affectation du Topo au Spot
-        spot.setTopo(topo);
 
         // Affectation du Spot au Secteur
         secteur.setSpot(spot);

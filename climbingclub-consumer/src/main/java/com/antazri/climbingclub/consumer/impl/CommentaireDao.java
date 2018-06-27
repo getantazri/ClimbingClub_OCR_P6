@@ -33,20 +33,13 @@ public class CommentaireDao extends AbstractDao implements ICommentaireDao {
      */
     public Commentaire findById(int pId) {
         // Requête SQL
-        String vSql = "SELECT * FROM public.commentaire " +
-                "WHERE commentaire.commentaire_id = :id";
+        String vSql = "SELECT * FROM public.commentaire WHERE commentaire.commentaire_id = :id";
 
         // Définition des paramètres de la requêtes
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
         vSqlParameters.addValue("id", pId);
 
-        // Récupération du résultat et affectation des attributs
-        Commentaire commentaire = (Commentaire) getNamedParameterJdbcTemplate().queryForObject(vSql, vSqlParameters, new CommentaireRM());
-        commentaire.setUtilisateur(getAuthor(commentaire.getUtilisateur().getUtilisateurId()));
-        commentaire.setSpot(getSpot(commentaire.getSpot().getSpotId()));
-        commentaire.setTopo(getTopo(commentaire.getTopo().getTopoId()));
-
-        return commentaire;
+        return (Commentaire) getNamedParameterJdbcTemplate().queryForObject(vSql, vSqlParameters, new CommentaireRM());
     }
 
     /**
@@ -65,16 +58,7 @@ public class CommentaireDao extends AbstractDao implements ICommentaireDao {
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
         vSqlParameters.addValue("id", pSpot.getSpotId());
 
-        //Récupération du résultat et affectation des attributs
-        List<Commentaire> commentaires = getNamedParameterJdbcTemplate().query(vSql, vSqlParameters, new CommentaireRM());
-
-        for (Commentaire commentaire : commentaires) {
-            commentaire.setUtilisateur(getAuthor(commentaire.getUtilisateur().getUtilisateurId()));
-            commentaire.setSpot(getSpot(commentaire.getSpot().getSpotId()));
-            commentaire.setTopo(getTopo(commentaire.getTopo().getTopoId()));
-        }
-
-        return commentaires;
+        return getNamedParameterJdbcTemplate().query(vSql, vSqlParameters, new CommentaireRM());
     }
 
     /**
@@ -93,16 +77,7 @@ public class CommentaireDao extends AbstractDao implements ICommentaireDao {
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
         vSqlParameters.addValue("id", pTopo.getTopoId());
 
-        //Récupération du résultat et affectation des attributs
-        List<Commentaire> commentaires = getNamedParameterJdbcTemplate().query(vSql, vSqlParameters, new CommentaireRM());
-
-        for (Commentaire commentaire : commentaires) {
-            commentaire.setUtilisateur(getAuthor(commentaire.getUtilisateur().getUtilisateurId()));
-            commentaire.setSpot(getSpot(commentaire.getSpot().getSpotId()));
-            commentaire.setTopo(getTopo(commentaire.getTopo().getTopoId()));
-        }
-
-        return commentaires;
+        return getNamedParameterJdbcTemplate().query(vSql, vSqlParameters, new CommentaireRM());
     }
 
     /**
@@ -121,16 +96,7 @@ public class CommentaireDao extends AbstractDao implements ICommentaireDao {
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
         vSqlParameters.addValue("id", pUtilisateur.getUtilisateurId());
 
-        //Récupération du résultat et affectation des attributs
-        List<Commentaire> commentaires = getNamedParameterJdbcTemplate().query(vSql, vSqlParameters, new CommentaireRM());
-
-        for (Commentaire commentaire : commentaires) {
-            commentaire.setUtilisateur(getAuthor(commentaire.getUtilisateur().getUtilisateurId()));
-            commentaire.setSpot(getSpot(commentaire.getSpot().getSpotId()));
-            commentaire.setTopo(getTopo(commentaire.getTopo().getTopoId()));
-        }
-
-        return commentaires;
+        return getNamedParameterJdbcTemplate().query(vSql, vSqlParameters, new CommentaireRM());
     }
 
     /**
@@ -143,16 +109,7 @@ public class CommentaireDao extends AbstractDao implements ICommentaireDao {
         // Requête SQL
         String vSql = "SELECT * FROM public.commentaire";
 
-        //Récupération du résultat et affectation des attributs
-        List<Commentaire> commentaires = getJdbcTemplate().query(vSql, new CommentaireRM());
-
-        for (Commentaire commentaire : commentaires) {
-            commentaire.setUtilisateur(getAuthor(commentaire.getUtilisateur().getUtilisateurId()));
-            commentaire.setSpot(getSpot(commentaire.getSpot().getSpotId()));
-            commentaire.setTopo(getTopo(commentaire.getTopo().getTopoId()));
-        }
-
-        return commentaires;
+        return getJdbcTemplate().query(vSql, new CommentaireRM());
     }
 
     /**
@@ -217,73 +174,4 @@ public class CommentaireDao extends AbstractDao implements ICommentaireDao {
         getNamedParameterJdbcTemplate().update(vSql, vSqlParameters);
     }
 
-    /**
-     * La méthode getTopo permet de rechercher et retourner un objet Topo qui servira à la création d'un objet
-     * Commentaire dans le RowMapper "CommentaireRM". La requête récupère une instance de Topo selon l'identifiant
-     * "topo_id" renseigné dans l'objet Commentaire à configurer
-     *
-     * @param pId est un Integer récupéré dans l'objet Commentaire à configurer
-     * @return un objet Topo récupéré dans la base de données
-     * @see com.antazri.climbingclub.consumer.rowmapper.CommentaireRM
-     */
-    public Topo getTopo(int pId) {
-        // Requête SQL
-        String vSql = "SELECT * FROM public.topo " +
-                "JOIN public.utilisateur ON topo.utilisateur_id = utilisateur.utilisateur_id " +
-                "JOIN public.region ON topo.region_id = region.region_id " +
-                "JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
-                "WHERE topo.topo_id = :id";
-
-        // Définition des paramètres de la requêtes
-        MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
-        vSqlParameters.addValue("id", pId);
-
-        return (Topo) getNamedParameterJdbcTemplate().queryForObject(vSql, vSqlParameters, new TopoRM());
-    }
-
-    /**
-     * La méthode getSpot permet de rechercher et retourner un objet Spot qui servira à la création d'un objet
-     * Commentaire dans le RowMapper "CommentaireRM". La requête récupère une instance de Spot selon l'identifiant
-     * "spot_id" renseigné dans l'objet Commentaire à configurer
-     *
-     * @param pId est un Integer récupéré dans l'objet Commentaire à configurer
-     * @return un objet Topo récupéré dans la base de données
-     * @see com.antazri.climbingclub.consumer.rowmapper.CommentaireRM
-     */
-    public Spot getSpot(int pId) {
-        // Requête SQL
-        String vSql = "SELECT * FROM public.spot " +
-                "JOIN public.topo ON spot.topo_id = topo.topo_id " +
-                "JOIN public.region ON topo.region_id = region.region_id " +
-                "JOIN public.utilisateur ON topo.utilisateur_id = utilisateur.utilisateur_id " +
-                "JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
-                "WHERE spot.spot_id = :id";
-
-        // Définition des paramètres de la requêtes
-        MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
-        vSqlParameters.addValue("id", pId);
-
-        return (Spot) getNamedParameterJdbcTemplate().queryForObject(vSql, vSqlParameters, new SpotRM());
-    }
-
-    /**
-     * La méthode getAuthor permet de rechercher et retourner un objet Utilisateur qui servira à la création d'un objet
-     * Commentaire dans le RowMapper "CommentaireRM". La requête récupère une instance de Utilisateur selon l'identifiant
-     * "utilisateur_id" renseigné dans l'objet Commentaire à configurer
-     *
-     * @param pId est un Integer récupéré dans l'objet Commentaire à configurer
-     * @return un objet Utilisateur récupéré dans la base de données
-     * @see com.antazri.climbingclub.consumer.rowmapper.CommentaireRM
-     */
-    public Utilisateur getAuthor(int pId) {
-        // Requête SQL
-        String vSql = "SELECT * FROM public.utilisateur JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
-                "WHERE utilisateur.utilisateur_id = :id";
-
-        // Définition des paramètres de la requêtes
-        MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
-        vSqlParameters.addValue("id", pId);
-
-        return (Utilisateur) getNamedParameterJdbcTemplate().queryForObject(vSql, vSqlParameters, new UtilisateurRM());
-    }
 }

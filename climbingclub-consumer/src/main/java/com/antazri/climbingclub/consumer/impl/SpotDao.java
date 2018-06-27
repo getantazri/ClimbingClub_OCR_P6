@@ -29,12 +29,7 @@ public class SpotDao extends AbstractDao implements ISpotDao {
      */
     public Spot findById(int pId) {
         // Requête SQL
-        String vSql = "SELECT * FROM public.spot " +
-                "JOIN public.topo ON spot.topo_id = topo.topo_id " +
-                "JOIN public.region ON topo.region_id = region.region_id " +
-                "JOIN public.utilisateur ON topo.utilisateur_id = utilisateur.utilisateur_id " +
-                "JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
-                "WHERE spot.spot_id = :id";
+        String vSql = "SELECT * FROM public.spot WHERE spot.spot_id = :id";
 
         // Définition des paramètres de la requêtes
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
@@ -52,12 +47,7 @@ public class SpotDao extends AbstractDao implements ISpotDao {
      */
     public Spot findByName(String pName) {
         // Requête SQL
-        String vSql = "SELECT * FROM public.spot " +
-                "JOIN public.topo ON spot.topo_id = topo.topo_id " +
-                "JOIN public.region ON topo.region_id = region.region_id " +
-                "JOIN public.utilisateur ON topo.utilisateur_id = utilisateur.utilisateur_id " +
-                "JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
-                "WHERE spot.spot_nom = :nom";
+        String vSql = "SELECT * FROM public.spot WHERE spot.spot_nom = :nom";
 
         // Définition des paramètres de la requêtes
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
@@ -76,12 +66,7 @@ public class SpotDao extends AbstractDao implements ISpotDao {
      */
     public List<Spot> findByTopo(Topo pTopo) {
         // Requête SQL
-        String vSql = "SELECT * FROM public.spot " +
-                "JOIN public.topo ON spot.topo_id = topo.topo_id " +
-                "JOIN public.region ON topo.region_id = region.region_id " +
-                "JOIN public.utilisateur ON topo.utilisateur_id = utilisateur.utilisateur_id " +
-                "JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
-                "WHERE spot.topo_id = :id";
+        String vSql = "SELECT * FROM public.spot WHERE spot.topo_id = :id";
 
         // Définition des paramètres de la requêtes
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
@@ -99,11 +84,7 @@ public class SpotDao extends AbstractDao implements ISpotDao {
      */
     public List<Spot> findAll() {
         // Requête SQL
-        String vSql = "SELECT * FROM public.spot " +
-                "JOIN public.topo ON spot.topo_id = topo.topo_id " +
-                "JOIN public.region ON topo.region_id = region.region_id " +
-                "JOIN public.utilisateur ON topo.utilisateur_id = utilisateur.utilisateur_id " +
-                "JOIN public.statut ON utilisateur.statut_id = statut.statut_id ";
+        String vSql = "SELECT * FROM public.spot";
 
         return getJdbcTemplate().query(vSql, new SpotRM());
     }

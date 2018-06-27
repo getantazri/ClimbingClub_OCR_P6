@@ -31,7 +31,6 @@ public class UtilisateurRM implements RowMapper {
         utilisateur.setTelephone(rs.getString("telephone"));
 
         Statut statut = new Statut();
-        statut.setStatutNom(rs.getString("statut_nom"));
         statut.setStatutId(rs.getInt("statut_id"));
 
         utilisateur.setStatut(statut);

@@ -101,6 +101,13 @@
                 <version>5.0.7.RELEASE</version>
             </dependency>
 
+            <!-- Struts dependencies -->
+            <dependency>
+                <groupId>org.apache.struts</groupId>
+                <artifactId>struts2-core</artifactId>
+                <version>2.5.16</version>
+            </dependency>
+
             <!-- PostgreSQL -->
             <dependency>
                 <groupId>org.postgresql</groupId>

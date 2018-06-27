@@ -29,15 +29,7 @@ public class VoieDao extends AbstractDao implements IVoieDao {
      */
     public Voie findById(int pId) {
         // Requête SQL
-        String vSql = "SELECT * FROM public.voie " +
-                "JOIN public.secteur ON voie.secteur_id = secteur.secteur_id " +
-                "JOIN public.cotation ON voie.cotation_id = cotation.cotation_id " +
-                "JOIN public.spot ON secteur.spot_id = spot.spot_id " +
-                "JOIN public.topo ON spot.topo_id = topo.topo_id " +
-                "JOIN public.region ON topo.region_id = region.region_id " +
-                "JOIN public.utilisateur ON topo.utilisateur_id = utilisateur.utilisateur_id " +
-                "JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
-                "WHERE voie.voie_id = :id";
+        String vSql = "SELECT * FROM public.voie WHERE voie.voie_id = :id";
 
         // Définition des paramètres de la requêtes
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
@@ -55,15 +47,7 @@ public class VoieDao extends AbstractDao implements IVoieDao {
      */
     public Voie findByName(String pName) {
         // Requête SQL
-        String vSql = "SELECT * FROM public.voie " +
-                "JOIN public.secteur ON voie.secteur_id = secteur.secteur_id " +
-                "JOIN public.cotation ON voie.cotation_id = cotation.cotation_id " +
-                "JOIN public.spot ON secteur.spot_id = spot.spot_id " +
-                "JOIN public.topo ON spot.topo_id = topo.topo_id " +
-                "JOIN public.region ON topo.region_id = region.region_id " +
-                "JOIN public.utilisateur ON topo.utilisateur_id = utilisateur.utilisateur_id " +
-                "JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
-                "WHERE voie.voie_nom = :nom";
+        String vSql = "SELECT * FROM public.voie WHERE voie.voie_nom LIKE :nom";
 
         // Définition des paramètres de la requêtes
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
@@ -83,15 +67,7 @@ public class VoieDao extends AbstractDao implements IVoieDao {
      */
     public List<Voie> findBySecteur(Secteur pSecteur) {
         // Requête SQL
-        String vSql = "SELECT * FROM public.voie " +
-                "JOIN public.secteur ON voie.secteur_id = secteur.secteur_id " +
-                "JOIN public.cotation ON voie.cotation_id = cotation.cotation_id " +
-                "JOIN public.spot ON secteur.spot_id = spot.spot_id " +
-                "JOIN public.topo ON spot.topo_id = topo.topo_id " +
-                "JOIN public.region ON topo.region_id = region.region_id " +
-                "JOIN public.utilisateur ON topo.utilisateur_id = utilisateur.utilisateur_id " +
-                "JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
-                "WHERE voie.secteur_id = :id";
+        String vSql = "SELECT * FROM public.voie WHERE voie.secteur_id = :id";
 
         // Définition des paramètres de la requêtes
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
@@ -111,15 +87,7 @@ public class VoieDao extends AbstractDao implements IVoieDao {
      */
     public List<Voie> findByCotation(Cotation pCotation) {
         // Requête SQL
-        String vSql = "SELECT * FROM public.voie " +
-                "JOIN public.secteur ON voie.secteur_id = secteur.secteur_id " +
-                "JOIN public.cotation ON voie.cotation_id = cotation.cotation_id " +
-                "JOIN public.spot ON secteur.spot_id = spot.spot_id " +
-                "JOIN public.topo ON spot.topo_id = topo.topo_id " +
-                "JOIN public.region ON topo.region_id = region.region_id " +
-                "JOIN public.utilisateur ON topo.utilisateur_id = utilisateur.utilisateur_id " +
-                "JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
-                "WHERE voie.cotation_id = :id";
+        String vSql = "SELECT * FROM public.voie WHERE voie.cotation_id = :id";
 
         // Définition des paramètres de la requêtes
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
@@ -138,14 +106,7 @@ public class VoieDao extends AbstractDao implements IVoieDao {
      */
     public List<Voie> findAll() {
         // Requête SQL
-        String vSql = "SELECT * FROM public.voie " +
-                "JOIN public.secteur ON voie.secteur_id = secteur.secteur_id " +
-                "JOIN public.cotation ON voie.cotation_id = cotation.cotation_id " +
-                "JOIN public.spot ON secteur.spot_id = spot.spot_id " +
-                "JOIN public.topo ON spot.topo_id = topo.topo_id " +
-                "JOIN public.region ON topo.region_id = region.region_id " +
-                "JOIN public.utilisateur ON topo.utilisateur_id = utilisateur.utilisateur_id " +
-                "JOIN public.statut ON utilisateur.statut_id = statut.statut_id ";
+        String vSql = "SELECT * FROM public.voie";
 
         return getJdbcTemplate().query(vSql, new VoieRM());
     }

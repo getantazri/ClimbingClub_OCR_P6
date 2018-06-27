@@ -17,8 +17,4 @@ public interface ICommentaireDao {
     int create(Commentaire pCommentaire);
     int update(Commentaire pCommentaire);
     void delete(Commentaire pCommentaire);
-
-    Topo getTopo(int pId);
-    Spot getSpot(int pId);
-    Utilisateur getAuthor(int pId);
 }

@@ -30,11 +30,7 @@ public class TopoDao extends AbstractDao implements ITopoDao {
      */
     public Topo findById(int pId) {
         // Requête SQL
-        String vSql = "SELECT * FROM public.topo " +
-                "JOIN public.utilisateur ON topo.utilisateur_id = utilisateur.utilisateur_id " +
-                "JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
-                "JOIN public.region ON topo.region_id = region.region_id " +
-                "WHERE topo.topo_id = :id";
+        String vSql = "SELECT * FROM public.topo WHERE topo.topo_id = :id";
 
         // Définition des paramètres de la requêtes
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
@@ -53,11 +49,7 @@ public class TopoDao extends AbstractDao implements ITopoDao {
      */
     public List<Topo> findByUser(Utilisateur pUtilisateur) {
         // Requête SQL
-        String vSql = "SELECT * FROM public.topo " +
-                "JOIN public.utilisateur ON topo.utilisateur_id = utilisateur.utilisateur_id " +
-                "JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
-                "JOIN public.region ON topo.region_id = region.region_id " +
-                "WHERE topo.utilisateur_id = :id";
+        String vSql = "SELECT * FROM public.topo WHERE topo.utilisateur_id = :id";
 
         // Définition des paramètres de la requêtes
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
@@ -76,11 +68,7 @@ public class TopoDao extends AbstractDao implements ITopoDao {
      */
     public Topo findByName(String pName) {
         // Requête SQL
-        String vSql = "SELECT * FROM public.topo " +
-                "JOIN public.utilisateur ON topo.utilisateur_id = utilisateur.utilisateur_id " +
-                "JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
-                "JOIN public.region ON topo.region_id = region.region_id " +
-                "WHERE topo.topo_nom = :nom";
+        String vSql = "SELECT * FROM public.topo WHERE topo.topo_nom = :nom";
 
         // Définition des paramètres de la requêtes
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
@@ -99,11 +87,7 @@ public class TopoDao extends AbstractDao implements ITopoDao {
      */
     public List<Topo> findByRegion(Region pRegion) {
         // Requête SQL
-        String vSql = "SELECT * FROM public.topo " +
-                "JOIN public.utilisateur ON topo.utilisateur_id = utilisateur.utilisateur_id " +
-                "JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
-                "JOIN public.region ON topo.region_id = region.region_id " +
-                "WHERE topo.region_id = :id";
+        String vSql = "SELECT * FROM public.topo WHERE topo.region_id = :id";
 
         // Définition des paramètres de la requêtes
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
@@ -121,10 +105,7 @@ public class TopoDao extends AbstractDao implements ITopoDao {
      */
     public List<Topo> findAll() {
         // Requête SQL
-        String vSql = "SELECT * FROM public.topo " +
-                "JOIN public.utilisateur ON topo.utilisateur_id = utilisateur.utilisateur_id " +
-                "JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
-                "JOIN public.region ON topo.region_id = region.region_id ";
+        String vSql = "SELECT * FROM public.topo";
 
         return getJdbcTemplate().query(vSql, new TopoRM());
     }
@@ -182,24 +163,5 @@ public class TopoDao extends AbstractDao implements ITopoDao {
         vSqlParameters.addValue("id", pTopo.getTopoId());
 
         getNamedParameterJdbcTemplate().update(vSql, vSqlParameters);
-    }
-
-    /**
-     * La méthode getProprietaire permet de créer un objet Utilisateur que l'on affectera à l'attribut Propriétaire de l'objet
-     * Topo afin de clarifier les différentes requêtes en dehors de multiples jointures
-     * @param pId est l'identifiant unique retourné depuis la colonne "utilisateur_id" de la table Topo
-     * @return un objet Utilisateur à affecter à l'objet Topo
-     */
-    public Utilisateur getProprietaire(Integer pId) {
-        // Requête SQL
-        String vSql = "SELECT * FROM public.utilisateur " +
-                "JOIN public.statut ON utilisateur.statut_id = statut.statut_id " +
-                "WHERE utilisateur.utilisateur_id = :id";
-
-        // Définition des paramètres de la requêtes
-        MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
-        vSqlParameters.addValue("id", pId);
-
-        return (Utilisateur) getNamedParameterJdbcTemplate().queryForObject(vSql, vSqlParameters, new UtilisateurRM());
     }
 }
