@@ -105,6 +105,42 @@ public class UtilisateurDao extends AbstractDao implements IUtilisateurDao {
     }
 
     /**
+     * La méthode containsName permet de retourner les instances de Utilisateur ayant le paramètre pName dans leur nom et sont
+     *  construits à l'aide du RowMapper.
+     *
+     * @return une List d'objets Utilisateur configurés via le RowMapper "UtilisateurRM"
+     * @see com.antazri.climbingclub.consumer.rowmapper.UtilisateurRM
+     */
+    public List<Utilisateur> containsName(String pName) {
+        // Requête SQL
+        String vSql = "SELECT * FROM public.utilisateur WHERE utilisateur.nom = :nom";
+
+        // Définition des paramètres de la requêtes
+        MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
+        vSqlParameters.addValue("nom", "%" + pName + "%");
+
+        return getNamedParameterJdbcTemplate().query(vSql, vSqlParameters, new UtilisateurRM());
+    }
+
+    /**
+     * La méthode containsPseudo permet de retourner les instances de Utilisateur ayant le paramètre pPseudo dans leur nom et sont
+     *  construits à l'aide du RowMapper.
+     *
+     * @return une List d'objets Voie configurés via le RowMapper "UtilisateurRM"
+     * @see com.antazri.climbingclub.consumer.rowmapper.UtilisateurRM
+     */
+    public List<Utilisateur> containsPseudo(String pPseudo) {
+        // Requête SQL
+        String vSql = "SELECT * FROM public.utilisateur WHERE utilisateur.pseudo = :pseudo";
+
+        // Définition des paramètres de la requêtes
+        MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
+        vSqlParameters.addValue("pseudo", "%" + pPseudo + "%");
+
+        return getNamedParameterJdbcTemplate().query(vSql, vSqlParameters, new UtilisateurRM());
+    }
+
+    /**
      * La méthode create permet de créer une nouvelle instance de Utilisateur dans la base de données
      *
      * @param pUtilisateur est un objet Utilisateur passé et configuré depuis la couche Business

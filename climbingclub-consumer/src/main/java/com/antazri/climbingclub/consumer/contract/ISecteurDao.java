@@ -11,6 +11,7 @@ public interface ISecteurDao {
     Secteur findByName(String pName);
     List<Secteur> findBySpot(Spot pSpot);
     List<Secteur> findAll();
+    List<Secteur> containsName(String pName);
     int create(Secteur pSecteur);
     int update(Secteur pSecteur);
     void delete(Secteur pSecteur);

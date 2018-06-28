@@ -58,8 +58,6 @@ public class VoieDao extends AbstractDao implements IVoieDao {
 
     /**
      *  La méthode findBySecteur permet de rechercher une List d'objets Voie selon l'identifiant unique du Secteur auquel les Voies sont rattachées.
-     *  La requête SQL permet de faire une jointure avec les tables Cotation et Secteur puis les objets Cotation et RowMapper sont
-     *  construit à l'aide du RowMapper.
      *
      * @param pSecteur est un objet Secteur à partir duquel on extrait l'identifiant unique qui servira à effectuer la recherche dans la colonne "secteur_id" de la table "voie"
      * @return une List d'objets Voie configurés via le RowMapper "VoieRM"
@@ -78,8 +76,6 @@ public class VoieDao extends AbstractDao implements IVoieDao {
 
     /**
      *  La méthode findByCotation permet de rechercher une List d'objets Voie selon l'identifiant unique de Cotation auquel les Voies sont rattachées.
-     *  La requête SQL permet de faire une jointure avec les tables Cotation et Secteur puis les objets Cotation et RowMapper sont
-     *  construit à l'aide du RowMapper.
      *
      * @param pCotation est un objet Cotation à partir duquel on extrait l'identifiant unique qui servira à effectuer la recherche dans la colonne "cotation_id" de la table "voie"
      * @return une List d'objets Voie configurés via le RowMapper "VoieRM"
@@ -98,8 +94,6 @@ public class VoieDao extends AbstractDao implements IVoieDao {
 
     /**
      * La méthode findAll permet de retourner l'ensemble des lignes enregistrées dans la table "voie" de la base de données.
-     *  La requête SQL permet de faire une jointure avec les tables Cotation et Secteur puis les objets Cotation et RowMapper sont
-     *  construit à l'aide du RowMapper.
      *
      * @return une List d'objets Voie configurés via le RowMapper "VoieRM"
      * @see com.antazri.climbingclub.consumer.rowmapper.VoieRM
@@ -109,6 +103,24 @@ public class VoieDao extends AbstractDao implements IVoieDao {
         String vSql = "SELECT * FROM public.voie";
 
         return getJdbcTemplate().query(vSql, new VoieRM());
+    }
+
+    /**
+     * La méthode containsName permet de retourner les instances de Voie ayant le paramètre pName dans leur nom et sont
+     *  construits à l'aide du RowMapper.
+     *
+     * @return une List d'objets Voie configurés via le RowMapper "VoieRM"
+     * @see com.antazri.climbingclub.consumer.rowmapper.VoieRM
+     */
+    public List<Voie> containsName(String pName) {
+        // Requête SQL
+        String vSql = "SELECT * FROM public.voie WHERE voie.voie_nom LIKE :nom";
+
+        // Définition des paramètres de la requêtes
+        MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
+        vSqlParameters.addValue("nom", "%" + pName + "%");
+
+        return getNamedParameterJdbcTemplate().query(vSql, vSqlParameters, new VoieRM());
     }
 
     /**

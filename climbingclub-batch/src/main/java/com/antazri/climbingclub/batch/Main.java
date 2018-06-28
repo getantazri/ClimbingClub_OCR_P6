@@ -27,7 +27,11 @@ public class Main {
 
         System.out.println("===================================");
 
+        List<Voie> voies = voieBo.containsName("Voie");
 
+        for (Voie voie : voies) {
+            System.out.println(voie.getVoieNom());
+        }
 
         System.out.println("===================================");
 

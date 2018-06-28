@@ -57,7 +57,6 @@ public class SecteurDao extends AbstractDao implements ISecteurDao {
 
     /**
      *  La méthode findBySpot permet de rechercher une List d'objets Secteur selon l'identifiant unique du Spot auquel les Secteur sont rattachés.
-     *  La requête SQL permet de faire une jointure avec les tables liées aux attributs de l'objet et puis l'ensemble est construit via le RowMapper
      *
      * @param pSpot est un objet Spot à partir duquel on extrait l'identifiant unique qui servira à effectuer la recherche dans la colonne "spot_id" de la table "secteur"
      * @return une List d'objets Secteur configurés via le RowMapper "SpotRM"
@@ -76,7 +75,6 @@ public class SecteurDao extends AbstractDao implements ISecteurDao {
 
     /**
      *  La méthode findAll permet de retrouver l'ensemble des instances de Secteur enregistrées dans la base de données.
-     *  La requête SQL permet de faire une jointure avec les tables liées aux attributs de l'objet et puis l'ensemble est construit via le RowMapper
      *
      * @return une List d'objets Secteur configurés via le RowMapper "SecteurRM"
      * @see com.antazri.climbingclub.consumer.rowmapper.SecteurRM
@@ -86,6 +84,24 @@ public class SecteurDao extends AbstractDao implements ISecteurDao {
         String vSql = "SELECT * FROM public.secteur";
 
         return getJdbcTemplate().query(vSql, new SecteurRM());
+    }
+
+    /**
+     * La méthode containsName permet de retourner les instances de Secteur ayant le paramètre pName dans leur nom et sont
+     *  construits à l'aide du RowMapper.
+     *
+     * @return une List d'objets Secteur configurés via le RowMapper "SecteurRM"
+     * @see com.antazri.climbingclub.consumer.rowmapper.SecteurRM
+     */
+    public List<Secteur> containsName(String pName) {
+        // Requête SQL
+        String vSql = "SELECT * FROM public.secteur WHERE secteur.secteur_nom = :nom";
+
+        // Définition des paramètres de la requêtes
+        MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
+        vSqlParameters.addValue("nom", "%" + pName + "%");
+
+        return getNamedParameterJdbcTemplate().query(vSql, vSqlParameters, new SecteurRM());
     }
 
     /**

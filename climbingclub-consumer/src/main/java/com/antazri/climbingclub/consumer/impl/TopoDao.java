@@ -41,7 +41,6 @@ public class TopoDao extends AbstractDao implements ITopoDao {
 
     /**
      *  La méthode findByUser permet de rechercher une List d'objets Topo selon l'identifiant unique du Propriétaire (un Utilisateur) auquel les Topo sont rattachés.
-     *  La requête SQL permet de faire une jointure avec les tables liées aux attributs de l'objet et puis l'ensemble est construit via le RowMapper "TopoRM"
      *
      * @param pUtilisateur est un objet Utilisateur à partir duquel on extrait l'identifiant unique qui servira à effectuer la recherche dans la colonne "utilisateur_id" de la table "topo"
      * @return une List d'objets Topo configurés via le RowMapper "TopoRM"
@@ -60,7 +59,6 @@ public class TopoDao extends AbstractDao implements ITopoDao {
 
     /**
      *  La méthode findByName permet de rechercher un objet Topo selon le nom spécifié dans la base de données.
-     *  La requête SQL permet de faire une jointure avec les tables liées aux attributs de l'objet et puis l'ensemble est construit via le RowMapper "TopoRM"
      *
      * @param pName est un String  qui servira à effectuer la recherche dans la colonne "topo_nom" de la table "topo"
      * @return un objet Topo configuré via le RowMapper "TopoRM"
@@ -79,7 +77,6 @@ public class TopoDao extends AbstractDao implements ITopoDao {
 
     /**
      *  La méthode findByRegion permet de rechercher un objet Topo selon la Region spécifiée dans la base de données.
-     *  La requête SQL permet de faire une jointure avec les tables liées aux attributs de l'objet et puis l'ensemble est construit via le RowMapper "TopoRM"
      *
      * @param pRegion est un String  qui servira à effectuer la recherche dans la colonne "topo_nom" de la table "topo"
      * @return une List d'objets Topo configurés via le RowMapper "TopoRM"
@@ -98,7 +95,6 @@ public class TopoDao extends AbstractDao implements ITopoDao {
 
     /**
      *  La méthode findAll permet de retrouver l'ensemble des instances de Topo enregistrées dans la base de données.
-     *  La requête SQL permet de faire une jointure avec les tables liées aux attributs de l'objet et puis l'ensemble est construit via le RowMapper "TopoRM"
      *
      * @return un objet Topo configuré via le RowMapper "TopoRM"
      * @see com.antazri.climbingclub.consumer.rowmapper.TopoRM
@@ -108,6 +104,24 @@ public class TopoDao extends AbstractDao implements ITopoDao {
         String vSql = "SELECT * FROM public.topo";
 
         return getJdbcTemplate().query(vSql, new TopoRM());
+    }
+
+    /**
+     * La méthode containsName permet de retourner les instances de Topo ayant le paramètre pName dans leur nom et sont
+     *  construits à l'aide du RowMapper.
+     *
+     * @return une List d'objets Topo configurés via le RowMapper "TopoRM"
+     * @see com.antazri.climbingclub.consumer.rowmapper.TopoRM
+     */
+    public List<Topo> containsName(String pName) {
+        // Requête SQL
+        String vSql = "SELECT * FROM public.topo WHERE topo.topo_nom = :nom";
+
+        // Définition des paramètres de la requêtes
+        MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
+        vSqlParameters.addValue("nom", "%" + pName + "%");
+
+        return getNamedParameterJdbcTemplate().query(vSql, vSqlParameters, new TopoRM());
     }
 
     /**

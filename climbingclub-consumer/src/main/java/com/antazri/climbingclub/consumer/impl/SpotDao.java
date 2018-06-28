@@ -58,7 +58,6 @@ public class SpotDao extends AbstractDao implements ISpotDao {
 
     /**
      *  La méthode findByTopo permet de rechercher une List d'objets Spot selon l'identifiant unique du Topo auquel les Spot sont rattachés.
-     *  La requête SQL permet de faire une jointure avec les tables liées aux attributs de l'objet et puis l'ensemble est construit via le RowMapper
      *
      * @param pTopo est un objet Topo à partir duquel on extrait l'identifiant unique qui servira à effectuer la recherche dans la colonne "topo_id" de la table "spot"
      * @return une List d'objets Spot configurés via le RowMapper "SpotRM"
@@ -77,7 +76,6 @@ public class SpotDao extends AbstractDao implements ISpotDao {
 
     /**
      *  La méthode findAll permet de retrouver l'ensemble des instances de Spot enregistrées dans la base de données.
-     *  La requête SQL permet de faire une jointure avec les tables liées aux attributs de l'objet et puis l'ensemble est construit via le RowMapper
      *
      * @return une List d'objets Spot configurés via le RowMapper "SpotRM"
      * @see com.antazri.climbingclub.consumer.rowmapper.SpotRM
@@ -87,6 +85,24 @@ public class SpotDao extends AbstractDao implements ISpotDao {
         String vSql = "SELECT * FROM public.spot";
 
         return getJdbcTemplate().query(vSql, new SpotRM());
+    }
+
+    /**
+     * La méthode containsName permet de retourner les instances de Spot ayant le paramètre pName dans leur nom et sont
+     *  construits à l'aide du RowMapper.
+     *
+     * @return une List d'objets Spot configurés via le RowMapper "SpotRM"
+     * @see com.antazri.climbingclub.consumer.rowmapper.SpotRM
+     */
+    public List<Spot> containsName(String pName) {
+        // Requête SQL
+        String vSql = "SELECT * FROM public.spot WHERE spot.spot_nom = :nom";
+
+        // Définition des paramètres de la requêtes
+        MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
+        vSqlParameters.addValue("nom", "%" + pName + "%");
+
+        return getNamedParameterJdbcTemplate().query(vSql, vSqlParameters, new SpotRM());
     }
 
     /**

@@ -12,6 +12,7 @@ public interface IVoieBo {
     Voie findByName(String pName);
     List<Voie> findBySecteur(Secteur pSecteur);
     List<Voie> findByCotation(Cotation pCotation);
+    List<Voie> containsName(String pName);
     List<Voie> findAll();
     int create(Voie pVoie);
     int update(Voie pVoie);

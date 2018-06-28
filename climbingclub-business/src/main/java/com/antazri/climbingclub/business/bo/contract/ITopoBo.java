@@ -12,6 +12,7 @@ public interface ITopoBo {
     List<Topo> findByUser(Utilisateur pUtilisateur);
     Topo findByName(String pName);
     List<Topo> findByRegion(Region pRegion);
+    List<Topo> containsName(String pName);
     List<Topo> findAll();
     int create(Topo pTopo);
     int update(Topo pTopo);

@@ -11,6 +11,7 @@ public interface ISpotBo {
     Spot findById(int pId);
     Spot findByName(String pName);
     List<Spot> findByTopo(Topo pTopo);
+    List<Spot> containsName(String pName);
     List<Spot> findAll();
     int create(Spot pSpot);
     int update(Spot pSpot);
