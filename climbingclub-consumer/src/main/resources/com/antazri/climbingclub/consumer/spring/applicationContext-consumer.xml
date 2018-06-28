@@ -31,6 +31,8 @@
     </bean>
     <bean id="cotationDao" class="com.antazri.climbingclub.consumer.impl.CotationDao">
     </bean>
+    <bean id="empruntDao" class="com.antazri.climbingclub.consumer.impl.EmpruntDao">
+    </bean>
     <bean id="regionDao" class="com.antazri.climbingclub.consumer.impl.RegionDao">
     </bean>
     <bean id="secteurDao" class="com.antazri.climbingclub.consumer.impl.SecteurDao">

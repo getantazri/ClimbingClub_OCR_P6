@@ -32,6 +32,12 @@
     <!-- Dependencies Management -->
     <!-- =============================================================== -->
     <dependencies>
+        <!-- Struts dependencies -->
+        <dependency>
+            <groupId>org.apache.struts</groupId>
+            <artifactId>struts2-core</artifactId>
+        </dependency>
+
         <!-- JUnit dependency -->
         <dependency>
             <groupId>junit</groupId>
