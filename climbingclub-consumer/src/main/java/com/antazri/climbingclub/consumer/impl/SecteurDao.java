@@ -95,7 +95,7 @@ public class SecteurDao extends AbstractDao implements ISecteurDao {
      */
     public List<Secteur> containsName(String pName) {
         // Requête SQL
-        String vSql = "SELECT * FROM public.secteur WHERE secteur.secteur_nom = :nom";
+        String vSql = "SELECT * FROM public.secteur WHERE secteur.secteur_nom LIKE :nom";
 
         // Définition des paramètres de la requêtes
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();

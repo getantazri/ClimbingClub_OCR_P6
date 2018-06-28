@@ -96,7 +96,7 @@ public class SpotDao extends AbstractDao implements ISpotDao {
      */
     public List<Spot> containsName(String pName) {
         // Requête SQL
-        String vSql = "SELECT * FROM public.spot WHERE spot.spot_nom = :nom";
+        String vSql = "SELECT * FROM public.spot WHERE spot.spot_nom LIKE :nom";
 
         // Définition des paramètres de la requêtes
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();

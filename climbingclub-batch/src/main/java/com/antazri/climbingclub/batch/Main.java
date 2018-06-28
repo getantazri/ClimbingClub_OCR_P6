@@ -25,19 +25,61 @@ public class Main {
         UtilisateurBo utilisateurBo = (UtilisateurBo) vApplicationContext.getBean("utilisateurBo");
         VoieBo voieBo = (VoieBo) vApplicationContext.getBean("voieBo");
 
-        System.out.println("===================================");
+        System.out.println("======================================================================");
+        System.out.println("======================================================================");
 
-        List<Voie> voies = voieBo.containsName("Voie");
+        List<Topo> topos = topoBo.containsName("Massif");
 
-        for (Voie voie : voies) {
-            System.out.println(voie.getVoieNom());
+        for (Topo topo : topos) {
+            System.out.println(topo.getTopoNom());
         }
 
+        Topo topo = topoBo.findById(1);
+        System.out.println("+ " + topo.getTopoNom());
+
         System.out.println("===================================");
 
-        if(vApplicationContext != null) {
-            ((ClassPathXmlApplicationContext) vApplicationContext).close();
+        List<Spot> spots = spotBo.containsName("Mont");
+
+        for (Spot spot : spots) {
+            System.out.println(spot.getSpotNom());
         }
+
+        Spot spot = spotBo.findById(1);
+        System.out.println("+ " + spot.getSpotNom());
+
+        System.out.println("===================================");
+
+        List<Secteur> secteurs = secteurBo.containsName("Lorem");
+
+        for (Secteur secteur : secteurs) {
+            System.out.println(secteur.getSecteurNom());
+        }
+
+        Secteur secteur = secteurBo.findById(1);
+        System.out.println("+ " + secteur.getSecteurNom());
+
+        System.out.println("===================================");
+
+        List<Utilisateur> users = utilisateurBo.containsName("Dr");
+
+        for (Utilisateur user : users) {
+            System.out.println(user.getNom());
+        }
+
+        Utilisateur user = utilisateurBo.findById(1);
+        System.out.println("+ " + user.getNom());
+
+        System.out.println("===================================");
+
+        List<Utilisateur> usersPseudo = utilisateurBo.containsName("man");
+
+        for (Utilisateur userPseudo : usersPseudo) {
+            System.out.println(userPseudo.getPseudo());
+        }
+
+        System.out.println("======================================================================");
+        System.out.println("======================================================================");
 
     }
 }

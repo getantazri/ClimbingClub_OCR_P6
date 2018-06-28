@@ -115,7 +115,7 @@ public class TopoDao extends AbstractDao implements ITopoDao {
      */
     public List<Topo> containsName(String pName) {
         // Requête SQL
-        String vSql = "SELECT * FROM public.topo WHERE topo.topo_nom = :nom";
+        String vSql = "SELECT * FROM public.topo WHERE topo.topo_nom LIKE :nom";
 
         // Définition des paramètres de la requêtes
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
