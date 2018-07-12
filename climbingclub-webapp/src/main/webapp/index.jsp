@@ -1,11 +1,13 @@
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>ClimbingClub - Homepage</title>
-
+    <meta charset="UTF-8">
+    <title>ClimbingClub Web Application - Homepage</title>
 </head>
+
 <body>
-<h1>Hello world from ClimbingClub Homepage</h1>
+<h1>Bienvenue sur l'application CClub</h1>
+<h2>qui implémente Struts 2</h2>
 </body>
 </html>

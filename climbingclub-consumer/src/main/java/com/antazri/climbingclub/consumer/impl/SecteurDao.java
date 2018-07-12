@@ -87,24 +87,6 @@ public class SecteurDao extends AbstractDao implements ISecteurDao {
     }
 
     /**
-     * La méthode containsName permet de retourner les instances de Secteur ayant le paramètre pName dans leur nom et sont
-     *  construits à l'aide du RowMapper.
-     *
-     * @return une List d'objets Secteur configurés via le RowMapper "SecteurRM"
-     * @see com.antazri.climbingclub.consumer.rowmapper.SecteurRM
-     */
-    public List<Secteur> containsName(String pName) {
-        // Requête SQL
-        String vSql = "SELECT * FROM public.secteur WHERE secteur.secteur_nom LIKE :nom";
-
-        // Définition des paramètres de la requêtes
-        MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
-        vSqlParameters.addValue("nom", "%" + pName + "%");
-
-        return getNamedParameterJdbcTemplate().query(vSql, vSqlParameters, new SecteurRM());
-    }
-
-    /**
      * La méthode create permet de persister un objet Secteur dans la base de données
      *
      * @param pSecteur est un objet Secteur configuré et envoyé depuis la couche Business

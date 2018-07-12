@@ -11,8 +11,8 @@ public interface ISpotDao {
     Spot findById(int pId);
     Spot findByName(String pName);
     List<Spot> findByTopo(Topo pTopo);
+    List<Spot> findByHauteur(int pHauteur);
     List<Spot> findAll();
-    List<Spot> containsName(String pName);
     int create(Spot pSpot);
     int update(Spot pSpot);
     void delete(Spot pSpot);

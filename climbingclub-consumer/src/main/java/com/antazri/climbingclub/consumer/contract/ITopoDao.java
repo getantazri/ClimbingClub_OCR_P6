@@ -13,7 +13,6 @@ public interface ITopoDao {
     Topo findByName(String pName);
     List<Topo> findByRegion(Region pRegion);
     List<Topo> findAll();
-    List<Topo> containsName(String pName);
     int create(Topo pTopo);
     int update(Topo pTopo);
     void delete(Topo pTopo);

@@ -107,24 +107,6 @@ public class TopoDao extends AbstractDao implements ITopoDao {
     }
 
     /**
-     * La méthode containsName permet de retourner les instances de Topo ayant le paramètre pName dans leur nom et sont
-     *  construits à l'aide du RowMapper.
-     *
-     * @return une List d'objets Topo configurés via le RowMapper "TopoRM"
-     * @see com.antazri.climbingclub.consumer.rowmapper.TopoRM
-     */
-    public List<Topo> containsName(String pName) {
-        // Requête SQL
-        String vSql = "SELECT * FROM public.topo WHERE topo.topo_nom LIKE :nom";
-
-        // Définition des paramètres de la requêtes
-        MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
-        vSqlParameters.addValue("nom", "%" + pName + "%");
-
-        return getNamedParameterJdbcTemplate().query(vSql, vSqlParameters, new TopoRM());
-    }
-
-    /**
      * La méthode create permet de persister un objet Topo dans la base de données
      *
      * @param pTopo est un objet Topo configuré et envoyé depuis la couche Business

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- =============================================================== -->
+    <!-- Configuration de la ressource JNDI pour la DataSource -->
+    <!-- =============================================================== -->
+    <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <property name="jndiName" value="java:comp/env/jdbc/DB_CCLUB"/>
+    </bean>
+
+    <!-- =============================================================== -->
+    <!-- Configuration des beans Service -->
+    <!-- =============================================================== -->
+    <bean id="compteUtilisateurService" class="com.antazri.climbingclub.webapp.service.impl.CompteUtilisateurService" />
+    <bean id="gestionTopoService" class="com.antazri.climbingclub.webapp.service.impl.GestionTopoService" />
+    <bean id="gestionSpotService" class="com.antazri.climbingclub.webapp.service.impl.GestionSpotService" />
+    <bean id="gestionSecteurService" class="com.antazri.climbingclub.webapp.service.impl.GestionSecteurService" />
+    <bean id="gestionVoieService" class="com.antazri.climbingclub.webapp.service.impl.GestionVoieService" />
+    <bean id="MoteurRechercheService" class="com.antazri.climbingclub.webapp.service.impl.MoteurRechercheService" />
+    <bean id="reservationService" class="com.antazri.climbingclub.webapp.service.impl.ReservationService" />
+
+</beans>

@@ -6,7 +6,7 @@ public class Spot {
     private Topo topo;
     private String spotNom;
     private String spotDescription;
-    private String hauteur;
+    private int hauteur;
 
     public int getSpotId() {
         return spotId;
@@ -40,11 +40,11 @@ public class Spot {
         this.spotDescription = spotDescription;
     }
 
-    public String getHauteur() {
+    public int getHauteur() {
         return hauteur;
     }
 
-    public void setHauteur(String hauteur) {
+    public void setHauteur(int hauteur) {
         this.hauteur = hauteur;
     }
 }

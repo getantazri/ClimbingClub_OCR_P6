@@ -33,8 +33,8 @@ public class SpotBo implements ISpotBo {
         return spotDao.findByTopo(pTopo);
     }
 
-    public List<Spot> containsName(String pName) {
-        return spotDao.containsName(pName);
+    public List<Spot> findByHauteur(int pHauteur) {
+        return spotDao.findByHauteur(pHauteur);
     }
 
     public List<Spot> findAll() {

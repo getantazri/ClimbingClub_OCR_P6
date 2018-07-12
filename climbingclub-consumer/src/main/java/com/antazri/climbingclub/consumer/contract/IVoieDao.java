@@ -13,7 +13,6 @@ public interface IVoieDao {
     List<Voie> findBySecteur(Secteur pSecteur);
     List<Voie> findByCotation(Cotation pCotation);
     List<Voie> findAll();
-    List<Voie> containsName(String pName);
     int create(Voie pSpot);
     int update(Voie pSpot);
     void delete(Voie pSpot);

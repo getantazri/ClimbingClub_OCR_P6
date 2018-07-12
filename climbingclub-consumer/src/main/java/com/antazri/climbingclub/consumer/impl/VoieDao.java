@@ -106,24 +106,6 @@ public class VoieDao extends AbstractDao implements IVoieDao {
     }
 
     /**
-     * La méthode containsName permet de retourner les instances de Voie ayant le paramètre pName dans leur nom et sont
-     *  construits à l'aide du RowMapper.
-     *
-     * @return une List d'objets Voie configurés via le RowMapper "VoieRM"
-     * @see com.antazri.climbingclub.consumer.rowmapper.VoieRM
-     */
-    public List<Voie> containsName(String pName) {
-        // Requête SQL
-        String vSql = "SELECT * FROM public.voie WHERE voie.voie_nom LIKE :nom";
-
-        // Définition des paramètres de la requêtes
-        MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
-        vSqlParameters.addValue("nom", "%" + pName + "%");
-
-        return getNamedParameterJdbcTemplate().query(vSql, vSqlParameters, new VoieRM());
-    }
-
-    /**
      * La méthode create permet d'enregistrer une instance de Voie dans la base de données
      *
      * @param pVoie est un objet Voie configuré et envoyé par la couche Business
