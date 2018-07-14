@@ -13,6 +13,7 @@
     <bean id="commentaireBo" class="com.antazri.climbingclub.business.bo.impl.CommentaireBo" />
     <bean id="cotationBo" class="com.antazri.climbingclub.business.bo.impl.CotationBo" />
     <bean id="empruntBo" class="com.antazri.climbingclub.business.bo.impl.EmpruntBo" />
+    <bean id="rechercheBo" class="com.antazri.climbingclub.business.bo.impl.RechercheBo" />
     <bean id="regionBo" class="com.antazri.climbingclub.business.bo.impl.RegionBo" />
     <bean id="secteurBo" class="com.antazri.climbingclub.business.bo.impl.SecteurBo" />
     <bean id="spotBo" class="com.antazri.climbingclub.business.bo.impl.SpotBo" />

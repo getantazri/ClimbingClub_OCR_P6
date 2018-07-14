@@ -37,14 +37,6 @@ public class UtilisateurBo implements IUtilisateurBo {
         return utilisateurDao.findByPseudo(pPseudo);
     }
 
-    public List<Utilisateur> containsName(String pName) {
-        return utilisateurDao.containsName(pName);
-    }
-
-    public List<Utilisateur> containsPseudo(String pPseudo) {
-        return utilisateurDao.containsPseudo(pPseudo);
-    }
-
     public List<Utilisateur> findAll() {
         return utilisateurDao.findAll();
     }

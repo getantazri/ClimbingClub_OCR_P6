@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class HomeServlet extends HttpServlet {
 
-    private static final String JSP_FILE = "index.jsp";
+    private static final String JSP_FILE = "/index.jsp";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

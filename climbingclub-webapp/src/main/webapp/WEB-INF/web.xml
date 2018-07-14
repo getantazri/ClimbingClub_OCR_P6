@@ -40,12 +40,12 @@
     <!-- =============================================================== -->
     <!-- Mapping et configuration des Servlets -->
     <!-- =============================================================== -->
-    <!-- <servlet>
+    <servlet>
         <servlet-name>HomeServlet</servlet-name>
         <servlet-class>com.antazri.climbingclub.webapp.servlet.HomeServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>HomeServlet</servlet-name>
         <url-pattern>/</url-pattern>
-    </servlet-mapping> -->
+    </servlet-mapping>
 </web-app>

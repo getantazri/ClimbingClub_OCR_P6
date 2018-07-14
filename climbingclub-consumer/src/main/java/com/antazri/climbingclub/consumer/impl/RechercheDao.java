@@ -16,72 +16,7 @@ import java.util.List;
  */
 public class RechercheDao extends AbstractDao implements IRechercheDao {
 
-    public ResultatRecherche rechercher(int pType, String pNom, String pNomRegion, String pNomCotation) {
-        // Initialisation de l'objet ResultatRecherche à retourner et de la List à setter
-        ResultatRecherche resultatRecherche = new ResultatRecherche();
-
-        ResultatRecherche results = new ResultatRecherche();
-
-        if (pType != 0) {
-            switch (pType) {
-                case 1 :
-                    List<Topo> topos = rechercherTopo(pNom, pNomRegion);
-                    for (Topo topo : topos) {
-                        resultatRecherche.getResults().add(topo);
-                    }
-                    break;
-
-                case 2 :
-                    List<Spot> spots = rechercherSpot(pNom);
-                    for (Spot spot : spots) {
-                        resultatRecherche.getResults().add(spot);
-                    }
-                    break;
-
-                case 3 :
-                    List<Secteur> secteurs = rechercherSecteur(pNom);
-                    for (Secteur secteur : secteurs) {
-                        resultatRecherche.getResults().add(secteur);
-                    }
-                    break;
-
-                case 4 :
-                    List<Voie> voies = rechercherVoie(pNom, pNomCotation);
-                    for (Voie voie : voies) {
-                        resultatRecherche.getResults().add(voie);
-                    }
-                    break;
-
-                default:
-                    rechercherTopo(pNom, pNomRegion);
-                    rechercherSpot(pNom);
-                    rechercherSecteur(pNom);
-                    rechercherVoie(pNom, pNomCotation);
-            }
-        } else {
-            List<Topo> topos = rechercherTopo(pNom, pNomRegion);
-            for (Topo topo : topos) {
-                resultatRecherche.getResults().add(topo);
-            }
-
-            List<Spot> spots = rechercherSpot(pNom);
-            for (Spot spot : spots) {
-                resultatRecherche.getResults().add(spot);
-            }
-
-            List<Secteur> secteurs = rechercherSecteur(pNom);
-            for (Secteur secteur : secteurs) {
-                resultatRecherche.getResults().add(secteur);
-            }
-
-            List<Voie> voies = rechercherVoie(pNom, pNomCotation);
-            for (Voie voie : voies) {
-                resultatRecherche.getResults().add(voie);
-            }
-        }
-
-        return results;
-    }
+    private final String allAnswers = "Toutes";
 
     /**
      * La méthode rechercherTopo permet de retourner les instances de Topo ayant le paramètre pNom dans leur nom et/ou selon une certaine région puis sont
@@ -96,7 +31,7 @@ public class RechercheDao extends AbstractDao implements IRechercheDao {
         // Requête SQL
         String vSql;
 
-        if (pNomRegion != "Toutes") {
+        if (!allAnswers.equals(pNomRegion)) {
             vSql = "SELECT * FROM public.topo " +
                     "JOIN public.region ON topo.region_id = region.region_id " +
                     "WHERE topo.topo_nom LIKE :nom " +
@@ -164,7 +99,7 @@ public class RechercheDao extends AbstractDao implements IRechercheDao {
         // Requête SQL
         String vSql;
 
-        if (pNomCotation != "Toutes") {
+        if (!allAnswers.equals(pNomCotation)) {
             vSql = "SELECT * FROM public.voie " +
                     "JOIN public.cotation ON voie.cotation_id = cotation.cotation_id " +
                     "WHERE voie.voie_nom LIKE :nom " +

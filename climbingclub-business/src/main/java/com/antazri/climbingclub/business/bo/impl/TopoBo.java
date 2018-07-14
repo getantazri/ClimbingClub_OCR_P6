@@ -38,10 +38,6 @@ public class TopoBo implements ITopoBo {
         return topoDao.findByRegion(pRegion);
     }
 
-    public List<Topo> containsName(String pName) {
-        return topoDao.containsName(pName);
-    }
-
     public List<Topo> findAll() {
         return topoDao.findAll();
     }

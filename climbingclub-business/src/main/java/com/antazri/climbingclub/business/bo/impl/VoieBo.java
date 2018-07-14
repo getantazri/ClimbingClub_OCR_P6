@@ -42,10 +42,6 @@ public class VoieBo implements IVoieBo {
         return voieDao.findAll();
     }
 
-    public List<Voie> containsName(String pName) {
-        return voieDao.containsName(pName);
-    }
-
     public int create(final Voie pVoie) {
         TransactionTemplate vTransactionTemplate = new TransactionTemplate(platformTransactionManager);
         return vTransactionTemplate.execute(new TransactionCallback<Integer>() {

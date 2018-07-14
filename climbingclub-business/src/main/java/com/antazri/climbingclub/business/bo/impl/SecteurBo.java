@@ -33,10 +33,6 @@ public class SecteurBo implements ISecteurBo {
         return secteurDao.findByName(pName);
     }
 
-    public List<Secteur> containsName(String pName) {
-        return secteurDao.containsName(pName);
-    }
-
     public List<Secteur> findAll() {
         return secteurDao.findAll();
     }

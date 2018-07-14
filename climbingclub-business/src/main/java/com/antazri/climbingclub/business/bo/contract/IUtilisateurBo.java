@@ -11,8 +11,6 @@ public interface IUtilisateurBo {
     List<Utilisateur> findByStatut(Statut pStatut);
     Utilisateur findByName(String pName);
     Utilisateur findByPseudo(String pPseudo);
-    List<Utilisateur> containsName(String pName);
-    List<Utilisateur> containsPseudo(String pPseudo);
     List<Utilisateur> findAll();
     int create(Utilisateur pUtilisateur);
     int update(Utilisateur pUtilisateur);

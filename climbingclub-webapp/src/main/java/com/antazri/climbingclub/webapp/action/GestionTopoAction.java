@@ -1,11 +1,16 @@
 package com.antazri.climbingclub.webapp.action;
 
 import com.antazri.climbingclub.model.beans.Topo;
+import com.antazri.climbingclub.webapp.service.contract.IGestionTopoService;
 import com.opensymphony.xwork2.ActionSupport;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 public class GestionTopoAction extends ActionSupport {
+
+    @Autowired
+    private IGestionTopoService gestionTopoService;
 
     // ========== Attributs de la classe Action ==========
     private int id;
@@ -31,7 +36,8 @@ public class GestionTopoAction extends ActionSupport {
 
     // ========== Méthodes ==========
 
-    public String doList() {
-        return "";
+    public List<Topo> doList() {
+        listTopos = gestionTopoService.findAllTopo();
+        return getListTopos();
     }
 }

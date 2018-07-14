@@ -33,14 +33,6 @@ public class CompteUtilisateurService implements ICompteUtilisateurService {
         return utilisateurBo.findByPseudo(pPseudo);
     }
 
-    public List<Utilisateur> containsName(String pName) {
-        return utilisateurBo.containsName(pName);
-    }
-
-    public List<Utilisateur> containsPseudo(String pPseudo) {
-        return utilisateurBo.containsPseudo(pPseudo);
-    }
-
     public List<Utilisateur> findAllUtilisateur() {
         return utilisateurBo.findAll();
     }

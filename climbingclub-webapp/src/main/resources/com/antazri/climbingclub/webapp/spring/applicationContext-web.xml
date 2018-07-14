@@ -22,7 +22,7 @@
     <bean id="gestionSpotService" class="com.antazri.climbingclub.webapp.service.impl.GestionSpotService" />
     <bean id="gestionSecteurService" class="com.antazri.climbingclub.webapp.service.impl.GestionSecteurService" />
     <bean id="gestionVoieService" class="com.antazri.climbingclub.webapp.service.impl.GestionVoieService" />
-    <bean id="MoteurRechercheService" class="com.antazri.climbingclub.webapp.service.impl.MoteurRechercheService" />
+    <bean id="moteurRechercheService" class="com.antazri.climbingclub.webapp.service.impl.MoteurRechercheService" />
     <bean id="reservationService" class="com.antazri.climbingclub.webapp.service.impl.ReservationService" />
 
 </beans>
