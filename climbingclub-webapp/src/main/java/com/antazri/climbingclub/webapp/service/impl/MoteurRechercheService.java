@@ -25,86 +25,49 @@ public class MoteurRechercheService implements IMoteurRechercheService {
      * @param pNomCotation est le nom d'un élément Cotation lié à l'objet Voie
      * @return un objet ResultatRecherche contenant l'ensemble des instances remontées depuis la base de données
      */
-    public ResultatRecherche find(String pType, String pNom, String pNomRegion, String pNomCotation) {
+    public ResultatRecherche find(String pType, String pNom, String pNomRegion, String pNomCotation, int pHauteurMin, int pHauteurMax) {
         // Initialisation de l'objet ResultatRecherche à retourner et de la List à setter
         ResultatRecherche results = new ResultatRecherche();
 
-        switch (pType) {
-            case "Topo" :
-                List<Topo> topos = rechercheBo.rechercherTopo(pNom, pNomRegion);
-                if (!topos.isEmpty()) {
-                    results.addAllResults(topos);
-                }
-                break;
+        if ("Topo".equals(pType)) {
+            List<Topo> topos = rechercheBo.rechercherTopo(pNom, pNomRegion, pNomCotation, pHauteurMin, pHauteurMax);
+            results.addAllTopo(topos);
+        }
 
-            case "Spot" :
-                List<Spot> spots = rechercheBo.rechercherSpot(pNom);
-                if (!spots.isEmpty()) {
-                    results.addAllResults(spots);
-                }
-                break;
+        else if ("Spot".equals(pType)) {
+            List<Spot> spots = rechercheBo.rechercherSpot(pNom, pNomRegion, pNomCotation, pHauteurMin, pHauteurMax);
+            results.addAllSpot(spots);
+        }
 
-            case "Secteur" :
-                List<Secteur> secteurs = rechercheBo.rechercherSecteur(pNom);
-                if (!secteurs.isEmpty()) {
-                    results.addAllResults(secteurs);
-                }
-                break;
+        else if ("Secteur".equals(pType)) {
+            List<Secteur> secteurs = rechercheBo.rechercherSecteur(pNom, pNomRegion, pNomCotation, pHauteurMin, pHauteurMax);
+            results.addAllSecteur(secteurs);
+        }
 
-            case "Voie" :
-                List<Voie> voies = rechercheBo.rechercherVoie(pNom, pNomCotation);
-                if (!voies.isEmpty()) {
-                    results.addAllResults(voies);
-                }
-                break;
+        else if ("Voie".equals(pType)) {
+            List<Voie> voies = rechercheBo.rechercherVoie(pNom, pNomRegion, pNomCotation, pHauteurMin, pHauteurMax);
+            results.addAllVoie(voies);
+        }
 
-            default:
-                List<Topo> allTopos = rechercheBo.rechercherTopo(pNom, pNomRegion);
-                if (!allTopos.isEmpty()) {
-                    results.addAllResults(allTopos);
-                }
-
-                List<Spot> allSpots = rechercheBo.rechercherSpot(pNom);
-                if (!allSpots.isEmpty()) {
-                    results.addAllResults(allSpots);
-                }
-
-                List<Secteur> allSecteurs = rechercheBo.rechercherSecteur(pNom);
-                if (!allSecteurs.isEmpty()) {
-                    results.addAllResults(allSecteurs);
-                }
-
-                List<Voie> allVoies = rechercheBo.rechercherVoie(pNom, pNomCotation);
-                if (!allVoies.isEmpty()) {
-                    results.addAllResults(allVoies);
-                }
+        else {
+            findAllResults(results, pNom, pNomRegion, pNomCotation, pHauteurMin, pHauteurMax);
         }
 
         return results;
     }
 
-    public Object doTransformObject(Object object) {
-        System.out.println(object.getClass());
-        System.out.println("=====");
+    public void findAllResults(ResultatRecherche results, String pNom, String pNomRegion, String pNomCotation, int pHauteurMin, int pHauteurMax) {
+        List<Topo> allTopos = rechercheBo.rechercherTopo(pNom, pNomRegion, pNomCotation, pHauteurMin, pHauteurMax);
+        results.addAllTopo(allTopos);
 
-        if (object.getClass().getSimpleName().equals("Topo")) {
-            Topo topo = (Topo) object;
-            System.out.println("Transformé en topo !");
-            System.out.println(topo.getTopoNom());
-            return topo;
-        }
-        return object;
+        List<Spot> allSpots = rechercheBo.rechercherSpot(pNom, pNomRegion, pNomCotation, pHauteurMin, pHauteurMax);
+        results.addAllSpot(allSpots);
+
+        List<Secteur> allSecteurs = rechercheBo.rechercherSecteur(pNom, pNomRegion, pNomCotation, pHauteurMin, pHauteurMax);
+        results.addAllSecteur(allSecteurs);
+
+        List<Voie> allVoies = rechercheBo.rechercherVoie(pNom, pNomRegion, pNomCotation, pHauteurMin, pHauteurMax);
+        results.addAllVoie(allVoies);
     }
-
-    public String fromObjectToUrl(Object object) {
-        return "";
-    }
-
-    public void addObjectIntoResultsList(List<Object> objectsList, List<Object> resultsList) {
-        for (Object object : objectsList) {
-            resultsList.add(object);
-        }
-    }
-
 
 }

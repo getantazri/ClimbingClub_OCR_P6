@@ -6,8 +6,6 @@ import java.util.List;
 
 public interface IMoteurRechercheService {
 
-    public ResultatRecherche find(String pType, String pNom, String pNomRegion, String pNomCotation);
-    public Object doTransformObject(Object object);
-    public String fromObjectToUrl(Object object);
+    public ResultatRecherche find(String pType, String pNom, String pNomRegion, String pNomCotation, int pHauteurMin, int pHauteurMax);
 
 }

@@ -34,61 +34,28 @@ public class Main {
         System.out.println("======================================================================");
         System.out.println("======================================================================");
 
-        List<Topo> topos = rechercheDao.rechercherTopo("", "Toutes");
+        ResultatRecherche result = search.find("Spot", "", "Alsace", "Toutes", 0, 0);
 
-        if (!topos.isEmpty()) {
-            for (Topo topo : topos) {
-                System.out.println(topo.getTopoNom());
-            }
-        } else {
-            System.out.println("C'est vide ici");
+        for (Topo topo : result.getResultsTopo()) {
+            System.out.println("+ " + topo.getTopoId() + " : " + topo.getTopoNom());
         }
 
         System.out.println("===================================");
 
-        List<Spot> spots = rechercheDao.rechercherSpot("");
-
-        if (!spots.isEmpty()) {
-            for (Spot spot : spots) {
-                System.out.println(spot.getSpotNom());
-            }
-        } else {
-            System.out.println("C'est vide ici");
+        for (Spot spot : result.getResultsSpot()) {
+            System.out.println("+ " + spot.getSpotId() + " : " + spot.getSpotNom());
         }
 
         System.out.println("===================================");
 
-        List<Secteur> secteurs = rechercheDao.rechercherSecteur("");
-
-        if (!secteurs.isEmpty()) {
-            for (Secteur secteur : secteurs) {
-                System.out.println(secteur.getSecteurNom());
-            }
-        } else {
-            System.out.println("C'est vide ici");
+        for (Secteur secteur : result.getResultsSecteur()) {
+            System.out.println("+ " + secteur.getSecteurId() + " : " + secteur.getSecteurNom());
         }
 
         System.out.println("===================================");
 
-        List<Voie> voies = rechercheDao.rechercherVoie("", "Toutes");
-
-        if (!voies.isEmpty()) {
-            for (Voie voie : voies) {
-                System.out.println(voie.getVoieNom());
-            }
-        } else {
-            System.out.println("C'est vide ici");
-        }
-
-        System.out.println("===================================");
-
-        List<Object> objects = search.find("All", "", "Toutes", "Toutes").getResults();
-        if (!objects.isEmpty()) {
-                for (Object object : objects) {
-                    System.out.println(object.getClass().getSimpleName());
-                }
-        } else {
-            System.out.println("C'est vide ici");
+        for (Voie voie : result.getResultsVoie()) {
+            System.out.println("+ " + voie.getVoieId() + " : " + voie.getVoieNom());
         }
 
 
