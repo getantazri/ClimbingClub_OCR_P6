@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="s" uri="/struts-tags" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,5 +11,6 @@
 <body>
 <h1>Bienvenue sur l'application CClub</h1>
 <h2>qui implémente Struts 2</h2>
+<a href="<s:url action='topos_list' namespace="/topos" />">Topos</a>
 </body>
 </html>
