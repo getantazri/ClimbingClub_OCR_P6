@@ -1,8 +1,8 @@
 package com.antazri.climbingclub.webapp.service.impl;
 
-import com.antazri.climbingclub.business.bo.contract.ICotationBo;
-import com.antazri.climbingclub.business.bo.contract.ISecteurBo;
-import com.antazri.climbingclub.business.bo.contract.IVoieBo;
+import com.antazri.climbingclub.business.contract.ICotationBo;
+import com.antazri.climbingclub.business.contract.ISecteurBo;
+import com.antazri.climbingclub.business.contract.IVoieBo;
 import com.antazri.climbingclub.model.beans.Cotation;
 import com.antazri.climbingclub.model.beans.Secteur;
 import com.antazri.climbingclub.model.beans.Voie;

@@ -10,17 +10,17 @@
     <!-- =============================================================== -->
     <!-- Configuration des beans Bo -->
     <!-- =============================================================== -->
-    <bean id="commentaireBo" class="com.antazri.climbingclub.business.bo.impl.CommentaireBo" />
-    <bean id="cotationBo" class="com.antazri.climbingclub.business.bo.impl.CotationBo" />
-    <bean id="empruntBo" class="com.antazri.climbingclub.business.bo.impl.EmpruntBo" />
-    <bean id="rechercheBo" class="com.antazri.climbingclub.business.bo.impl.RechercheBo" />
-    <bean id="regionBo" class="com.antazri.climbingclub.business.bo.impl.RegionBo" />
-    <bean id="secteurBo" class="com.antazri.climbingclub.business.bo.impl.SecteurBo" />
-    <bean id="spotBo" class="com.antazri.climbingclub.business.bo.impl.SpotBo" />
-    <bean id="statutBo" class="com.antazri.climbingclub.business.bo.impl.StatutBo" />
-    <bean id="topoBo" class="com.antazri.climbingclub.business.bo.impl.TopoBo" />
-    <bean id="utilisateurBo" class="com.antazri.climbingclub.business.bo.impl.UtilisateurBo" />
-    <bean id="voieBo" class="com.antazri.climbingclub.business.bo.impl.VoieBo" />
+    <bean id="commentaireBo" class="com.antazri.climbingclub.business.impl.CommentaireBo" />
+    <bean id="cotationBo" class="com.antazri.climbingclub.business.impl.CotationBo" />
+    <bean id="empruntBo" class="com.antazri.climbingclub.business.impl.EmpruntBo" />
+    <bean id="rechercheBo" class="com.antazri.climbingclub.business.impl.RechercheBo" />
+    <bean id="regionBo" class="com.antazri.climbingclub.business.impl.RegionBo" />
+    <bean id="secteurBo" class="com.antazri.climbingclub.business.impl.SecteurBo" />
+    <bean id="spotBo" class="com.antazri.climbingclub.business.impl.SpotBo" />
+    <bean id="statutBo" class="com.antazri.climbingclub.business.impl.StatutBo" />
+    <bean id="topoBo" class="com.antazri.climbingclub.business.impl.TopoBo" />
+    <bean id="utilisateurBo" class="com.antazri.climbingclub.business.impl.UtilisateurBo" />
+    <bean id="voieBo" class="com.antazri.climbingclub.business.impl.VoieBo" />
 
     <!-- =============================================================== -->
     <!-- Configuration du Transaction Manager -->

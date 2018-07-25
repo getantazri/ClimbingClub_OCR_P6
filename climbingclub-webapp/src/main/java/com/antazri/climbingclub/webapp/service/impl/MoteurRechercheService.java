@@ -1,7 +1,7 @@
 package com.antazri.climbingclub.webapp.service.impl;
 
-import com.antazri.climbingclub.business.bo.contract.IRechercheBo;
-import com.antazri.climbingclub.business.bo.contract.ITopoBo;
+import com.antazri.climbingclub.business.contract.IRechercheBo;
+import com.antazri.climbingclub.business.contract.ITopoBo;
 import com.antazri.climbingclub.model.beans.*;
 import com.antazri.climbingclub.webapp.service.contract.IMoteurRechercheService;
 import org.springframework.beans.factory.annotation.Autowired;

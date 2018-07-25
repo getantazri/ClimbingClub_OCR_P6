@@ -1,9 +1,9 @@
 package com.antazri.climbingclub.webapp.service.impl;
 
-import com.antazri.climbingclub.business.bo.contract.ICommentaireBo;
-import com.antazri.climbingclub.business.bo.contract.ISpotBo;
-import com.antazri.climbingclub.business.bo.contract.ITopoBo;
-import com.antazri.climbingclub.business.bo.contract.IUtilisateurBo;
+import com.antazri.climbingclub.business.contract.ICommentaireBo;
+import com.antazri.climbingclub.business.contract.ISpotBo;
+import com.antazri.climbingclub.business.contract.ITopoBo;
+import com.antazri.climbingclub.business.contract.IUtilisateurBo;
 import com.antazri.climbingclub.model.beans.Commentaire;
 import com.antazri.climbingclub.model.beans.Spot;
 import com.antazri.climbingclub.model.beans.Topo;

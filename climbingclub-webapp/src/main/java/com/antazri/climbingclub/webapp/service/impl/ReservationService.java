@@ -1,8 +1,8 @@
 package com.antazri.climbingclub.webapp.service.impl;
 
-import com.antazri.climbingclub.business.bo.contract.IEmpruntBo;
-import com.antazri.climbingclub.business.bo.contract.ITopoBo;
-import com.antazri.climbingclub.business.bo.contract.IUtilisateurBo;
+import com.antazri.climbingclub.business.contract.IEmpruntBo;
+import com.antazri.climbingclub.business.contract.ITopoBo;
+import com.antazri.climbingclub.business.contract.IUtilisateurBo;
 import com.antazri.climbingclub.model.beans.Emprunt;
 import com.antazri.climbingclub.model.beans.Topo;
 import com.antazri.climbingclub.model.beans.Utilisateur;

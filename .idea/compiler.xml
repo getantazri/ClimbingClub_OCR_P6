@@ -13,13 +13,6 @@
         <module name="climbingclub-security" />
         <module name="climbingclub-technical" />
         <module name="climbingclub-webapp" />
-        <module name="climbingclubbatch" />
-        <module name="climbingclubbusiness" />
-        <module name="climbingclubconsumer" />
-        <module name="climbingclubmodel" />
-        <module name="climbingclubsecurity" />
-        <module name="climbingclubtechnical" />
-        <module name="climbingclubwebapp" />
       </profile>
     </annotationProcessing>
   </component>
