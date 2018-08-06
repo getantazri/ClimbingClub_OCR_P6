@@ -1,9 +1,9 @@
-package com.antazri.climbingclub.webapp.service.impl;
+package com.antazri.climbingclub.webapp.services.impl;
 
 import com.antazri.climbingclub.business.contract.IStatutBo;
 import com.antazri.climbingclub.business.contract.IUtilisateurBo;
 import com.antazri.climbingclub.model.beans.Utilisateur;
-import com.antazri.climbingclub.webapp.service.contract.ICompteUtilisateurService;
+import com.antazri.climbingclub.webapp.services.contract.ICompteUtilisateurService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;

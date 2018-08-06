@@ -17,12 +17,14 @@
     <!-- =============================================================== -->
     <!-- Configuration des beans Service -->
     <!-- =============================================================== -->
-    <bean id="compteUtilisateurService" class="com.antazri.climbingclub.webapp.service.impl.CompteUtilisateurService" />
-    <bean id="gestionTopoService" class="com.antazri.climbingclub.webapp.service.impl.GestionTopoService" />
-    <bean id="gestionSpotService" class="com.antazri.climbingclub.webapp.service.impl.GestionSpotService" />
-    <bean id="gestionSecteurService" class="com.antazri.climbingclub.webapp.service.impl.GestionSecteurService" />
-    <bean id="gestionVoieService" class="com.antazri.climbingclub.webapp.service.impl.GestionVoieService" />
-    <bean id="moteurRechercheService" class="com.antazri.climbingclub.webapp.service.impl.MoteurRechercheService" />
-    <bean id="reservationService" class="com.antazri.climbingclub.webapp.service.impl.ReservationService" />
+    <bean id="compteUtilisateurService" class="com.antazri.climbingclub.webapp.services.impl.CompteUtilisateurService" scope="prototype" />
+    <bean id="gestionTopoService" class="com.antazri.climbingclub.webapp.services.impl.GestionTopoService" scope="prototype" />
+    <bean id="gestionSpotService" class="com.antazri.climbingclub.webapp.services.impl.GestionSpotService" scope="prototype" />
+    <bean id="gestionSecteurService" class="com.antazri.climbingclub.webapp.services.impl.GestionSecteurService" scope="prototype" />
+    <bean id="gestionVoieService" class="com.antazri.climbingclub.webapp.services.impl.GestionVoieService" scope="prototype" />
+    <bean id="moteurRechercheService" class="com.antazri.climbingclub.webapp.services.impl.MoteurRechercheService" scope="prototype" />
+    <bean id="reservationService" class="com.antazri.climbingclub.webapp.services.impl.ReservationService" scope="prototype" />
+
+    <bean id="gestionTopoAction" class="com.antazri.climbingclub.webapp.action.GestionTopoAction" scope="prototype" />
 
 </beans>

@@ -1,4 +1,4 @@
-package com.antazri.climbingclub.webapp.service.impl;
+package com.antazri.climbingclub.webapp.services.impl;
 
 import com.antazri.climbingclub.business.contract.IRegionBo;
 import com.antazri.climbingclub.business.contract.ITopoBo;
@@ -6,7 +6,7 @@ import com.antazri.climbingclub.business.contract.IUtilisateurBo;
 import com.antazri.climbingclub.model.beans.Region;
 import com.antazri.climbingclub.model.beans.Topo;
 import com.antazri.climbingclub.model.beans.Utilisateur;
-import com.antazri.climbingclub.webapp.service.contract.IGestionTopoService;
+import com.antazri.climbingclub.webapp.services.contract.IGestionTopoService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;

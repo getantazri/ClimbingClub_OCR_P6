@@ -1,25 +1,20 @@
 package com.antazri.climbingclub.business.impl;
 
-import java.util.List;
-
+import com.antazri.climbingclub.business.contract.ITopoBo;
+import com.antazri.climbingclub.consumer.contract.ITopoDao;
+import com.antazri.climbingclub.model.beans.Region;
+import com.antazri.climbingclub.model.beans.Topo;
+import com.antazri.climbingclub.model.beans.Utilisateur;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.springframework.transaction.support.TransactionTemplate;
 
-import com.antazri.climbingclub.business.contract.ITopoBo;
-import com.antazri.climbingclub.consumer.contract.ITopoDao;
-import com.antazri.climbingclub.model.beans.Region;
-import com.antazri.climbingclub.model.beans.Topo;
-import com.antazri.climbingclub.model.beans.Utilisateur;
+import java.util.List;
 
-public class TopoBo implements ITopoBo {
-
-    @Autowired
-    private PlatformTransactionManager platformTransactionManager;
+public class TopoBo extends AbstractBo implements ITopoBo {
 
     @Autowired
     private ITopoDao topoDao;
@@ -51,7 +46,7 @@ public class TopoBo implements ITopoBo {
 
     @Transactional
     public int create(final Topo pTopo) {
-        TransactionTemplate vTransactionTemplate = new TransactionTemplate(platformTransactionManager);
+        TransactionTemplate vTransactionTemplate = new TransactionTemplate(getTransactionManager());
         return vTransactionTemplate.execute(new TransactionCallback<Integer>() {
             public Integer doInTransaction(TransactionStatus status) {
                 return topoDao.create(pTopo);
@@ -61,7 +56,7 @@ public class TopoBo implements ITopoBo {
 
     @Transactional
     public int update(final Topo pTopo) {
-        TransactionTemplate vTransactionTemplate = new TransactionTemplate(platformTransactionManager);
+        TransactionTemplate vTransactionTemplate = new TransactionTemplate(getTransactionManager());
         return vTransactionTemplate.execute(new TransactionCallback<Integer>() {
             public Integer doInTransaction(TransactionStatus status) {
                 return topoDao.update(pTopo);
@@ -71,7 +66,7 @@ public class TopoBo implements ITopoBo {
 
     @Transactional
     public void delete(final Topo pTopo) {
-        TransactionTemplate vTransactionTemplate = new TransactionTemplate(platformTransactionManager);
+        TransactionTemplate vTransactionTemplate = new TransactionTemplate(getTransactionManager());
         vTransactionTemplate.execute(new TransactionCallbackWithoutResult() {
             @Override
             protected void doInTransactionWithoutResult(TransactionStatus status) {

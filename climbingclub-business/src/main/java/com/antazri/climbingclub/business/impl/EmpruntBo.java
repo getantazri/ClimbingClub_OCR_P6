@@ -1,25 +1,20 @@
 package com.antazri.climbingclub.business.impl;
 
-import java.util.List;
-
+import com.antazri.climbingclub.business.contract.IEmpruntBo;
+import com.antazri.climbingclub.consumer.contract.IEmpruntDao;
+import com.antazri.climbingclub.model.beans.Emprunt;
+import com.antazri.climbingclub.model.beans.Topo;
+import com.antazri.climbingclub.model.beans.Utilisateur;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.springframework.transaction.support.TransactionTemplate;
 
-import com.antazri.climbingclub.business.contract.IEmpruntBo;
-import com.antazri.climbingclub.consumer.contract.IEmpruntDao;
-import com.antazri.climbingclub.model.beans.Emprunt;
-import com.antazri.climbingclub.model.beans.Topo;
-import com.antazri.climbingclub.model.beans.Utilisateur;
+import java.util.List;
 
-public class EmpruntBo implements IEmpruntBo {
-
-    @Autowired
-    private PlatformTransactionManager platformTransactionManager;
+public class EmpruntBo extends AbstractBo implements IEmpruntBo {
 
     @Autowired
     private IEmpruntDao empruntDao;
@@ -46,7 +41,7 @@ public class EmpruntBo implements IEmpruntBo {
 
     @Transactional
     public int create(final Emprunt pEmprunt) {
-        TransactionTemplate vTransactionTemplate = new TransactionTemplate(platformTransactionManager);
+        TransactionTemplate vTransactionTemplate = new TransactionTemplate(getTransactionManager());
         return vTransactionTemplate.execute(new TransactionCallback<Integer>() {
             public Integer doInTransaction(TransactionStatus status) {
                 return empruntDao.create(pEmprunt);
@@ -56,7 +51,7 @@ public class EmpruntBo implements IEmpruntBo {
 
     @Transactional
     public int update(final Emprunt pEmprunt) {
-        TransactionTemplate vTransactionTemplate = new TransactionTemplate(platformTransactionManager);
+        TransactionTemplate vTransactionTemplate = new TransactionTemplate(getTransactionManager());
         return vTransactionTemplate.execute(new TransactionCallback<Integer>() {
             public Integer doInTransaction(TransactionStatus status) {
                 return empruntDao.update(pEmprunt);
@@ -66,7 +61,7 @@ public class EmpruntBo implements IEmpruntBo {
 
     @Transactional
     public void delete(final Emprunt pEmprunt) {
-        TransactionTemplate vTransactionTemplate = new TransactionTemplate(platformTransactionManager);
+        TransactionTemplate vTransactionTemplate = new TransactionTemplate(getTransactionManager());
         vTransactionTemplate.execute(new TransactionCallbackWithoutResult() {
             @Override
             protected void doInTransactionWithoutResult(TransactionStatus status) {

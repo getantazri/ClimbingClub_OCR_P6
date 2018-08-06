@@ -1,10 +1,10 @@
-package com.antazri.climbingclub.webapp.service.impl;
+package com.antazri.climbingclub.webapp.services.impl;
 
 import com.antazri.climbingclub.business.contract.ISpotBo;
 import com.antazri.climbingclub.business.contract.ITopoBo;
 import com.antazri.climbingclub.model.beans.Spot;
 import com.antazri.climbingclub.model.beans.Topo;
-import com.antazri.climbingclub.webapp.service.contract.IGestionSpotService;
+import com.antazri.climbingclub.webapp.services.contract.IGestionSpotService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;

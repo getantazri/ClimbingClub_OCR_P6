@@ -1,9 +1,9 @@
 package com.antazri.climbingclub.business.impl;
 
-import java.util.List;
-
+import com.antazri.climbingclub.business.contract.IRegionBo;
+import com.antazri.climbingclub.consumer.contract.IRegionDao;
+import com.antazri.climbingclub.model.beans.Region;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,14 +11,9 @@ import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.springframework.transaction.support.TransactionTemplate;
 
-import com.antazri.climbingclub.business.contract.IRegionBo;
-import com.antazri.climbingclub.consumer.contract.IRegionDao;
-import com.antazri.climbingclub.model.beans.Region;
+import java.util.List;
 
-public class RegionBo implements IRegionBo {
-
-    @Autowired
-    private PlatformTransactionManager platformTransactionManager;
+public class RegionBo extends AbstractBo implements IRegionBo {
 
     @Autowired
     private IRegionDao regionDao;
@@ -40,7 +35,7 @@ public class RegionBo implements IRegionBo {
 
     @Transactional
     public int create(final Region pRegion) {
-        TransactionTemplate vTransactionTemplate = new TransactionTemplate(platformTransactionManager);
+        TransactionTemplate vTransactionTemplate = new TransactionTemplate(getTransactionManager());
         vTransactionTemplate.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRES_NEW);
         return vTransactionTemplate.execute(new TransactionCallback<Integer>() {
             public Integer doInTransaction(TransactionStatus status) {
@@ -51,7 +46,7 @@ public class RegionBo implements IRegionBo {
 
     @Transactional
     public int update(final Region pRegion) {
-        TransactionTemplate vTransactionTemplate = new TransactionTemplate(platformTransactionManager);
+        TransactionTemplate vTransactionTemplate = new TransactionTemplate(getTransactionManager());
         vTransactionTemplate.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRES_NEW);
         return vTransactionTemplate.execute(new TransactionCallback<Integer>() {
             public Integer doInTransaction(TransactionStatus status) {
@@ -62,7 +57,7 @@ public class RegionBo implements IRegionBo {
 
     @Transactional
     public void delete(final Region pRegion) {
-        TransactionTemplate vTransactionTemplate = new TransactionTemplate(platformTransactionManager);
+        TransactionTemplate vTransactionTemplate = new TransactionTemplate(getTransactionManager());
         vTransactionTemplate.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRES_NEW);
         vTransactionTemplate.execute(new TransactionCallbackWithoutResult() {
             @Override

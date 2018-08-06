@@ -2,11 +2,9 @@ package com.antazri.climbingclub.consumer.impl;
 
 import com.antazri.climbingclub.consumer.contract.ISpotDao;
 import com.antazri.climbingclub.consumer.rowmapper.SpotRM;
-import com.antazri.climbingclub.model.beans.Region;
 import com.antazri.climbingclub.model.beans.Spot;
 import com.antazri.climbingclub.model.beans.Topo;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -17,7 +15,6 @@ import java.util.List;
  * @author Anthony T
  * @version 1.0
  */
-@Repository
 public class SpotDao extends AbstractDao implements ISpotDao {
 
     /**

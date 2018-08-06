@@ -1,23 +1,18 @@
 package com.antazri.climbingclub.business.impl;
 
-import java.util.List;
-
+import com.antazri.climbingclub.business.contract.ICotationBo;
+import com.antazri.climbingclub.consumer.contract.ICotationDao;
+import com.antazri.climbingclub.model.beans.Cotation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.springframework.transaction.support.TransactionTemplate;
 
-import com.antazri.climbingclub.business.contract.ICotationBo;
-import com.antazri.climbingclub.consumer.contract.ICotationDao;
-import com.antazri.climbingclub.model.beans.Cotation;
+import java.util.List;
 
-public class CotationBo implements ICotationBo {
-
-    @Autowired
-    private PlatformTransactionManager platformTransactionManager;
+public class CotationBo extends AbstractBo implements ICotationBo {
 
     @Autowired
     private ICotationDao cotationDao;
@@ -39,7 +34,7 @@ public class CotationBo implements ICotationBo {
 
     @Transactional
     public int create(final Cotation pCotation) {
-        TransactionTemplate vTransactionTemplate = new TransactionTemplate(platformTransactionManager);
+        TransactionTemplate vTransactionTemplate = new TransactionTemplate(getTransactionManager());
         return vTransactionTemplate.execute(new TransactionCallback<Integer>() {
             public Integer doInTransaction(TransactionStatus status) {
                 return cotationDao.create(pCotation);
@@ -49,7 +44,7 @@ public class CotationBo implements ICotationBo {
 
     @Transactional
     public int update(final Cotation pCotation) {
-        TransactionTemplate vTransactionTemplate = new TransactionTemplate(platformTransactionManager);
+        TransactionTemplate vTransactionTemplate = new TransactionTemplate(getTransactionManager());
         return vTransactionTemplate.execute(new TransactionCallback<Integer>() {
             public Integer doInTransaction(TransactionStatus status) {
                 return cotationDao.update(pCotation);
@@ -59,7 +54,7 @@ public class CotationBo implements ICotationBo {
 
     @Transactional
     public void delete(final Cotation pCotation) {
-        TransactionTemplate vTranscationTemplate = new TransactionTemplate(platformTransactionManager);
+        TransactionTemplate vTranscationTemplate = new TransactionTemplate(getTransactionManager());
         vTranscationTemplate.execute(new TransactionCallbackWithoutResult() {
             @Override
             protected void doInTransactionWithoutResult(TransactionStatus status) {

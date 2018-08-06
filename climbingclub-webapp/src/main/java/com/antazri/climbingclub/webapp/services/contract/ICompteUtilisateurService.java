@@ -1,6 +1,5 @@
-package com.antazri.climbingclub.webapp.service.contract;
+package com.antazri.climbingclub.webapp.services.contract;
 
-import com.antazri.climbingclub.model.beans.Statut;
 import com.antazri.climbingclub.model.beans.Utilisateur;
 
 import java.util.List;

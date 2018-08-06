@@ -4,7 +4,6 @@ import com.antazri.climbingclub.consumer.contract.IStatutDao;
 import com.antazri.climbingclub.consumer.rowmapper.StatutRM;
 import com.antazri.climbingclub.model.beans.Statut;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -15,7 +14,6 @@ import java.util.List;
  * @author Anthony T
  * @version 1.0
  */
-@Repository
 public class StatutDao extends AbstractDao implements IStatutDao {
 
     /**

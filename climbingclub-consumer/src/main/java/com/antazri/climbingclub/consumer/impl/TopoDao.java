@@ -2,12 +2,10 @@ package com.antazri.climbingclub.consumer.impl;
 
 import com.antazri.climbingclub.consumer.contract.ITopoDao;
 import com.antazri.climbingclub.consumer.rowmapper.TopoRM;
-import com.antazri.climbingclub.consumer.rowmapper.UtilisateurRM;
 import com.antazri.climbingclub.model.beans.Region;
 import com.antazri.climbingclub.model.beans.Topo;
 import com.antazri.climbingclub.model.beans.Utilisateur;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -18,7 +16,6 @@ import java.util.List;
  * @author Anthony T
  * @version 1.0
  */
-@Repository
 public class TopoDao extends AbstractDao implements ITopoDao {
 
     /**

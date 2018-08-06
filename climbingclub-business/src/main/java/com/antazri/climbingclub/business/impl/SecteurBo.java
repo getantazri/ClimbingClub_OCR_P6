@@ -1,8 +1,11 @@
 package com.antazri.climbingclub.business.impl;
 
-import java.util.List;
-
+import com.antazri.climbingclub.business.contract.ISecteurBo;
+import com.antazri.climbingclub.consumer.contract.ISecteurDao;
+import com.antazri.climbingclub.model.beans.Secteur;
+import com.antazri.climbingclub.model.beans.Spot;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,15 +13,9 @@ import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.springframework.transaction.support.TransactionTemplate;
 
-import com.antazri.climbingclub.business.contract.ISecteurBo;
-import com.antazri.climbingclub.consumer.contract.ISecteurDao;
-import com.antazri.climbingclub.model.beans.Secteur;
-import com.antazri.climbingclub.model.beans.Spot;
+import java.util.List;
 
-public class SecteurBo implements ISecteurBo {
-
-    @Autowired
-    private PlatformTransactionManager platformTransactionManager;
+public class SecteurBo extends AbstractBo implements ISecteurBo {
 
     @Autowired
     private ISecteurDao secteurDao;
@@ -45,7 +42,7 @@ public class SecteurBo implements ISecteurBo {
 
     @Transactional
     public int create(final Secteur pSecteur) {
-        TransactionTemplate vTransactionTemplate = new TransactionTemplate(platformTransactionManager);
+        TransactionTemplate vTransactionTemplate = new TransactionTemplate(getTransactionManager());
         return vTransactionTemplate.execute(new TransactionCallback<Integer>() {
             public Integer doInTransaction(TransactionStatus status) {
                 return secteurDao.create(pSecteur);
@@ -55,7 +52,7 @@ public class SecteurBo implements ISecteurBo {
 
     @Transactional
     public int update(final Secteur pSecteur) {
-        TransactionTemplate vTransactionTemplate = new TransactionTemplate(platformTransactionManager);
+        TransactionTemplate vTransactionTemplate = new TransactionTemplate(getTransactionManager());
         return vTransactionTemplate.execute(new TransactionCallback<Integer>() {
             public Integer doInTransaction(TransactionStatus status) {
                 return secteurDao.update(pSecteur);
@@ -65,7 +62,7 @@ public class SecteurBo implements ISecteurBo {
 
     @Transactional
     public void delete(final Secteur pSecteur) {
-        TransactionTemplate vTransactionTemplate = new TransactionTemplate(platformTransactionManager);
+        TransactionTemplate vTransactionTemplate = new TransactionTemplate(getTransactionManager());
         vTransactionTemplate.execute(new TransactionCallbackWithoutResult() {
             @Override
             protected void doInTransactionWithoutResult(TransactionStatus status) {

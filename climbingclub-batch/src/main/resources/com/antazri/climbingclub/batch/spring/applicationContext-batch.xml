@@ -7,15 +7,6 @@
     http://www.springframework.org/schema/context
     http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <!-- DataSource configuration beans -->
-    <bean id="dataSourceConfig" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
-        <property name="location" value="classpath:/com/antazri/climbingclub/consumer/db/db.properties" />
-    </bean>
 
-    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSourceFactory"
-          factory-method="createDataSource"
-          destroy-method="close">
-        <constructor-arg ref="dataSourceConfig" />
-    </bean>
 
 </beans>

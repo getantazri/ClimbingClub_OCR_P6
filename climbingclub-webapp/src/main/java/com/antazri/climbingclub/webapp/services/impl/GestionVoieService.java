@@ -1,4 +1,4 @@
-package com.antazri.climbingclub.webapp.service.impl;
+package com.antazri.climbingclub.webapp.services.impl;
 
 import com.antazri.climbingclub.business.contract.ICotationBo;
 import com.antazri.climbingclub.business.contract.ISecteurBo;
@@ -6,7 +6,7 @@ import com.antazri.climbingclub.business.contract.IVoieBo;
 import com.antazri.climbingclub.model.beans.Cotation;
 import com.antazri.climbingclub.model.beans.Secteur;
 import com.antazri.climbingclub.model.beans.Voie;
-import com.antazri.climbingclub.webapp.service.contract.IGestionVoieService;
+import com.antazri.climbingclub.webapp.services.contract.IGestionVoieService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;

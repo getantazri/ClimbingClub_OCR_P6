@@ -1,17 +1,12 @@
 package com.antazri.climbingclub.business.impl;
 
-import java.util.List;
-
+import com.antazri.climbingclub.business.contract.IRechercheBo;
+import com.antazri.climbingclub.consumer.contract.IRechercheDao;
+import com.antazri.climbingclub.model.beans.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.antazri.climbingclub.business.contract.IRechercheBo;
-import com.antazri.climbingclub.consumer.contract.IRechercheDao;
-import com.antazri.climbingclub.model.beans.Secteur;
-import com.antazri.climbingclub.model.beans.Spot;
-import com.antazri.climbingclub.model.beans.Topo;
-import com.antazri.climbingclub.model.beans.Utilisateur;
-import com.antazri.climbingclub.model.beans.Voie;
+import java.util.List;
 
 public class RechercheBo implements IRechercheBo {
 

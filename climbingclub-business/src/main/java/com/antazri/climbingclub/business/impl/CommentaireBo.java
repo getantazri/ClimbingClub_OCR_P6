@@ -1,29 +1,28 @@
 package com.antazri.climbingclub.business.impl;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.support.TransactionCallback;
-import org.springframework.transaction.support.TransactionCallbackWithoutResult;
-import org.springframework.transaction.support.TransactionTemplate;
-
 import com.antazri.climbingclub.business.contract.ICommentaireBo;
 import com.antazri.climbingclub.consumer.contract.ICommentaireDao;
 import com.antazri.climbingclub.model.beans.Commentaire;
 import com.antazri.climbingclub.model.beans.Spot;
 import com.antazri.climbingclub.model.beans.Topo;
 import com.antazri.climbingclub.model.beans.Utilisateur;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionCallback;
+import org.springframework.transaction.support.TransactionCallbackWithoutResult;
+import org.springframework.transaction.support.TransactionTemplate;
 
-public class CommentaireBo implements ICommentaireBo {
+import java.util.List;
 
-    @Autowired
-    private PlatformTransactionManager platformTransactionManager;
+public class CommentaireBo extends AbstractBo implements ICommentaireBo {
 
-    @Autowired
     private ICommentaireDao commentaireDao;
+
+    @Autowired
+    public void setCommentaireDao(ICommentaireDao commentaireDao) {
+        this.commentaireDao = commentaireDao;
+    }
 
     @Transactional
     public Commentaire findById(int pId) {
@@ -52,7 +51,7 @@ public class CommentaireBo implements ICommentaireBo {
 
     @Transactional
     public int create(final Commentaire pCommentaire) {
-        TransactionTemplate vTransactionTemplate = new TransactionTemplate(platformTransactionManager);
+        TransactionTemplate vTransactionTemplate = new TransactionTemplate(getTransactionManager());
         return vTransactionTemplate.execute(new TransactionCallback<Integer>() {
             public Integer doInTransaction(TransactionStatus status) {
                 return commentaireDao.create(pCommentaire);
@@ -62,7 +61,7 @@ public class CommentaireBo implements ICommentaireBo {
 
     @Transactional
     public int update(final Commentaire pCommentaire) {
-        TransactionTemplate vTransactionTemplate = new TransactionTemplate(platformTransactionManager);
+        TransactionTemplate vTransactionTemplate = new TransactionTemplate(getTransactionManager());
         return vTransactionTemplate.execute(new TransactionCallback<Integer>() {
             public Integer doInTransaction(TransactionStatus status) {
                 return commentaireDao.update(pCommentaire);
@@ -72,7 +71,7 @@ public class CommentaireBo implements ICommentaireBo {
 
     @Transactional
     public void delete(final Commentaire pCommentaire) {
-        TransactionTemplate vTransactionTemplate = new TransactionTemplate(platformTransactionManager);
+        TransactionTemplate vTransactionTemplate = new TransactionTemplate(getTransactionManager());
         vTransactionTemplate.execute(new TransactionCallbackWithoutResult() {
             @Override
             protected void doInTransactionWithoutResult(TransactionStatus status) {

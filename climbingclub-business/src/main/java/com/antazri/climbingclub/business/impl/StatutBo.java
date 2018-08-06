@@ -1,23 +1,18 @@
 package com.antazri.climbingclub.business.impl;
 
-import java.util.List;
-
+import com.antazri.climbingclub.business.contract.IStatutBo;
+import com.antazri.climbingclub.consumer.contract.IStatutDao;
+import com.antazri.climbingclub.model.beans.Statut;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.springframework.transaction.support.TransactionTemplate;
 
-import com.antazri.climbingclub.business.contract.IStatutBo;
-import com.antazri.climbingclub.consumer.contract.IStatutDao;
-import com.antazri.climbingclub.model.beans.Statut;
+import java.util.List;
 
-public class StatutBo implements IStatutBo {
-
-    @Autowired
-    private PlatformTransactionManager platformTransactionManager;
+public class StatutBo extends AbstractBo implements IStatutBo {
 
     @Autowired
     private IStatutDao statutDao;
@@ -39,7 +34,7 @@ public class StatutBo implements IStatutBo {
 
     @Transactional
     public int create(final Statut pStatut) {
-        TransactionTemplate vTransactionTemplate = new TransactionTemplate(platformTransactionManager);
+        TransactionTemplate vTransactionTemplate = new TransactionTemplate(getTransactionManager());
         return vTransactionTemplate.execute(new TransactionCallback<Integer>() {
             public Integer doInTransaction(TransactionStatus status) {
                 return statutDao.create(pStatut);
@@ -49,7 +44,7 @@ public class StatutBo implements IStatutBo {
 
     @Transactional
     public int update(final Statut pStatut) {
-        TransactionTemplate vTransactionTemplate = new TransactionTemplate(platformTransactionManager);
+        TransactionTemplate vTransactionTemplate = new TransactionTemplate(getTransactionManager());
         return vTransactionTemplate.execute(new TransactionCallback<Integer>() {
             public Integer doInTransaction(TransactionStatus status) {
                 return statutDao.update(pStatut);
@@ -59,7 +54,7 @@ public class StatutBo implements IStatutBo {
 
     @Transactional
     public void delete(final Statut pStatut) {
-        TransactionTemplate vTransactionTemplate = new TransactionTemplate(platformTransactionManager);
+        TransactionTemplate vTransactionTemplate = new TransactionTemplate(getTransactionManager());
         vTransactionTemplate.execute(new TransactionCallbackWithoutResult() {
             @Override
             protected void doInTransactionWithoutResult(TransactionStatus status) {

@@ -1,8 +1,6 @@
-package com.antazri.climbingclub.webapp.service.contract;
+package com.antazri.climbingclub.webapp.services.contract;
 
 import com.antazri.climbingclub.model.beans.ResultatRecherche;
-
-import java.util.List;
 
 public interface IMoteurRechercheService {
 

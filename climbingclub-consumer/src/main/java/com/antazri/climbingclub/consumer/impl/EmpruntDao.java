@@ -6,7 +6,6 @@ import com.antazri.climbingclub.model.beans.Emprunt;
 import com.antazri.climbingclub.model.beans.Topo;
 import com.antazri.climbingclub.model.beans.Utilisateur;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -17,7 +16,6 @@ import java.util.List;
  * @author Anthony T
  * @version 1.0
  */
-@Repository
 public class EmpruntDao extends AbstractDao implements IEmpruntDao {
 
     /**

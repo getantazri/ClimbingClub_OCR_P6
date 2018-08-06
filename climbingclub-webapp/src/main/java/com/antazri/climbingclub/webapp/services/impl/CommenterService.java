@@ -1,4 +1,4 @@
-package com.antazri.climbingclub.webapp.service.impl;
+package com.antazri.climbingclub.webapp.services.impl;
 
 import com.antazri.climbingclub.business.contract.ICommentaireBo;
 import com.antazri.climbingclub.business.contract.ISpotBo;
@@ -8,7 +8,7 @@ import com.antazri.climbingclub.model.beans.Commentaire;
 import com.antazri.climbingclub.model.beans.Spot;
 import com.antazri.climbingclub.model.beans.Topo;
 import com.antazri.climbingclub.model.beans.Utilisateur;
-import com.antazri.climbingclub.webapp.service.contract.ICommenterService;
+import com.antazri.climbingclub.webapp.services.contract.ICommenterService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;

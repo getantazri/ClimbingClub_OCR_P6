@@ -1,24 +1,19 @@
 package com.antazri.climbingclub.business.impl;
 
-import java.util.List;
-
+import com.antazri.climbingclub.business.contract.ISpotBo;
+import com.antazri.climbingclub.consumer.contract.ISpotDao;
+import com.antazri.climbingclub.model.beans.Spot;
+import com.antazri.climbingclub.model.beans.Topo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.springframework.transaction.support.TransactionTemplate;
 
-import com.antazri.climbingclub.business.contract.ISpotBo;
-import com.antazri.climbingclub.consumer.contract.ISpotDao;
-import com.antazri.climbingclub.model.beans.Spot;
-import com.antazri.climbingclub.model.beans.Topo;
+import java.util.List;
 
-public class SpotBo implements ISpotBo {
-
-    @Autowired
-    private PlatformTransactionManager platformTransactionManager;
+public class SpotBo extends AbstractBo implements ISpotBo {
 
     @Autowired
     private ISpotDao spotDao;
@@ -50,7 +45,7 @@ public class SpotBo implements ISpotBo {
 
     @Transactional
     public int create(final Spot pSpot) {
-        TransactionTemplate vTransactionTemplate = new TransactionTemplate(platformTransactionManager);
+        TransactionTemplate vTransactionTemplate = new TransactionTemplate(getTransactionManager());
         return vTransactionTemplate.execute(new TransactionCallback<Integer>() {
             public Integer doInTransaction(TransactionStatus status) {
                 return spotDao.create(pSpot);
@@ -60,7 +55,7 @@ public class SpotBo implements ISpotBo {
 
     @Transactional
     public int update(final Spot pSpot) {
-        TransactionTemplate vTransactionTemplate = new TransactionTemplate(platformTransactionManager);
+        TransactionTemplate vTransactionTemplate = new TransactionTemplate(getTransactionManager());
         return vTransactionTemplate.execute(new TransactionCallback<Integer>() {
             public Integer doInTransaction(TransactionStatus status) {
                 return spotDao.update(pSpot);
@@ -70,7 +65,7 @@ public class SpotBo implements ISpotBo {
 
     @Transactional
     public void delete(final Spot pSpot) {
-        TransactionTemplate vTransactionTemplate = new TransactionTemplate(platformTransactionManager);
+        TransactionTemplate vTransactionTemplate = new TransactionTemplate(getTransactionManager());
         vTransactionTemplate.execute(new TransactionCallbackWithoutResult() {
             @Override
             protected void doInTransactionWithoutResult(TransactionStatus status) {

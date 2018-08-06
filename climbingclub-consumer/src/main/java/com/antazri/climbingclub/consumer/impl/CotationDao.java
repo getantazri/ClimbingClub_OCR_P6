@@ -4,7 +4,6 @@ import com.antazri.climbingclub.consumer.contract.ICotationDao;
 import com.antazri.climbingclub.consumer.rowmapper.CotationRM;
 import com.antazri.climbingclub.model.beans.Cotation;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -15,7 +14,6 @@ import java.util.List;
  * @author Anthony T
  * @version 1.0
  */
-@Repository
 public class CotationDao extends AbstractDao implements ICotationDao {
 
     /**

@@ -5,7 +5,6 @@ import com.antazri.climbingclub.consumer.rowmapper.UtilisateurRM;
 import com.antazri.climbingclub.model.beans.Statut;
 import com.antazri.climbingclub.model.beans.Utilisateur;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -16,7 +15,6 @@ import java.util.List;
  * @author Anthony T
  * @version 1.0
  */
-@Repository
 public class UtilisateurDao extends AbstractDao implements IUtilisateurDao {
 
     /**

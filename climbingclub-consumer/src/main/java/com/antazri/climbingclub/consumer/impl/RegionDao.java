@@ -4,10 +4,7 @@ import com.antazri.climbingclub.consumer.contract.IRegionDao;
 import com.antazri.climbingclub.consumer.rowmapper.RegionRM;
 import com.antazri.climbingclub.model.beans.Region;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
-import org.springframework.stereotype.Repository;
 
-import java.sql.Types;
 import java.util.List;
 
 /**
@@ -17,7 +14,6 @@ import java.util.List;
  * @author Anthony T
  * @version 1.0
  */
-@Repository
 public class RegionDao extends AbstractDao implements IRegionDao {
 
     /**
