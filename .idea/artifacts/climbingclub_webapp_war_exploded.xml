@@ -5,6 +5,10 @@
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
           <element id="module-output" name="climbingclub-webapp" />
+          <element id="module-output" name="climbingclub-business" />
+          <element id="module-output" name="climbingclub-model" />
+          <element id="module-output" name="climbingclub-technical" />
+          <element id="module-output" name="climbingclub-consumer" />
         </element>
         <element id="directory" name="lib">
           <element id="library" level="project" name="Maven: org.apache.logging.log4j:log4j-api:2.11.0" />

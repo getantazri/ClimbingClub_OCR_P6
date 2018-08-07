@@ -5,6 +5,6 @@
     <title>TOPO</title>
 </head>
 <body>
-
+<s:property value="topo.topoNom" />
 </body>
 </html>

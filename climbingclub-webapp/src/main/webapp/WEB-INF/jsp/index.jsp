@@ -11,7 +11,7 @@
 <body>
 <h1>Bienvenue sur l'application CClub</h1>
 <h2>qui implémente Struts2</h2>
-<s:a action="doToposList">Liste des topos</s:a>
+<s:a action="doToposList" namespace="/topos">Liste des topos</s:a>
 
 </body>
 </html>

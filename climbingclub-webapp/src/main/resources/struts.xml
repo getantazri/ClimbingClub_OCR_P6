@@ -12,11 +12,24 @@
             <result>/WEB-INF/jsp/index.jsp</result>
         </action>
 
-        <!-- Action TOPOSLIST -->
+
+    </package>
+
+    <package name="doToposList" extends="cclub-default" namespace="/topos">
+        <!-- Action TOPOS LIST -->
         <action name="doToposList"
                 class="com.antazri.climbingclub.webapp.action.GestionTopoAction"
                 method="doList">
             <result>/WEB-INF/jsp/topos/topos.jsp</result>
+        </action>
+    </package>
+
+    <package name="topos" extends="cclub-default" namespace="/topos/topo">
+        <!-- Action TOPO DETAILS -->
+        <action name="doTopoDetails"
+                class="com.antazri.climbingclub.webapp.action.GestionTopoAction"
+                method="doDetails">
+            <result>/WEB-INF/jsp/topos/topo.jsp</result>
         </action>
     </package>
 </struts>
