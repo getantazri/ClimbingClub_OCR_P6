@@ -45,7 +45,7 @@ public class TopoDao extends AbstractDao implements ITopoDao {
      */
     public List<Topo> findByUser(Utilisateur pUtilisateur) {
         // Requête SQL
-        String vSql = "SELECT * FROM public.topo WHERE topo.utilisateur_id = :id";
+        String vSql = "SELECT * FROM public.topo WHERE topo.utilisateur_id = :id ORDER BY topo.topo_nom ASC";
 
         // Définition des paramètres de la requêtes
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
@@ -81,7 +81,7 @@ public class TopoDao extends AbstractDao implements ITopoDao {
      */
     public List<Topo> findByRegion(Region pRegion) {
         // Requête SQL
-        String vSql = "SELECT * FROM public.topo WHERE topo.region_id = :id";
+        String vSql = "SELECT * FROM public.topo WHERE topo.region_id = :id ORDER BY topo.topo_nom ASC";
 
         // Définition des paramètres de la requêtes
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
@@ -98,7 +98,7 @@ public class TopoDao extends AbstractDao implements ITopoDao {
      */
     public List<Topo> findAll() {
         // Requête SQL
-        String vSql = "SELECT * FROM public.topo";
+        String vSql = "SELECT * FROM public.topo ORDER BY topo.topo_nom ASC";
 
         return getJdbcTemplate().query(vSql, new TopoRM());
     }

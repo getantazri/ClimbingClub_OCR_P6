@@ -6,6 +6,7 @@ import com.antazri.climbingclub.model.beans.Region;
 import com.antazri.climbingclub.model.beans.Topo;
 import com.antazri.climbingclub.model.beans.Utilisateur;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionCallback;
@@ -35,8 +36,13 @@ public class TopoBo extends AbstractBo implements ITopoBo {
     }
 
     @Transactional
-    public List<Topo> findByRegion(Region pRegion) {
-        return topoDao.findByRegion(pRegion);
+    public List<Topo> findByRegion(Region pRegion) throws EmptyResultDataAccessException{
+        try {
+            return topoDao.findByRegion(pRegion);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Transactional

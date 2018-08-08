@@ -46,23 +46,12 @@ public class GestionTopoService implements IGestionTopoService {
         return topoBo.findAll();
     }
 
-    public int addTopo(int pUtilisateurId, String pName, boolean pDisponible, int pRegionId) {
-        Topo topo = new Topo();
-        topo.setProprietaire(utilisateurBo.findById(pUtilisateurId));
-        topo.setTopoNom(pName);
-        topo.setDisponible(pDisponible);
-        topo.setRegion(regionBo.findById(pRegionId));
-
-        return topoBo.create(topo);
+    public int addTopo(Topo pTopo) {
+        return topoBo.create(pTopo);
     }
 
-    public int updateTopo(int pTopoId, String pName, boolean pDisponible, int pRegionId) {
-        Topo topo = topoBo.findById(pTopoId);
-        topo.setTopoNom(pName);
-        topo.setDisponible(pDisponible);
-        topo.setRegion(regionBo.findById(pRegionId));
-
-        return topoBo.update(topo);
+    public int updateTopo(Topo pTopo) {
+        return topoBo.update(pTopo);
     }
 
     public void deleteTopo(int pTopoId) {

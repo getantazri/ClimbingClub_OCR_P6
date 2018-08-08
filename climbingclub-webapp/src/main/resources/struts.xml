@@ -5,7 +5,7 @@
         "http://struts.apache.org/dtds/struts-2.5.dtd">
 
 <struts>
-    <package name="cclub-default" extends="struts-default">
+    <package name="cclub-default" extends="struts-default" namespace="/">
         <!-- Action INDEX par défaut -->
         <default-action-ref name="index" />
         <action name="index">
@@ -15,21 +15,90 @@
 
     </package>
 
-    <package name="doToposList" extends="cclub-default" namespace="/topos">
+    <package name="topos" extends="cclub-default" namespace="/topos">
         <!-- Action TOPOS LIST -->
         <action name="doToposList"
                 class="com.antazri.climbingclub.webapp.action.GestionTopoAction"
-                method="doList">
+                method="doListAllTopos">
+            <interceptor-ref name="store">
+                <param name="operationMode">RETRIEVE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack" />
+
             <result>/WEB-INF/jsp/topos/topos.jsp</result>
         </action>
-    </package>
 
-    <package name="topos" extends="cclub-default" namespace="/topos/topo">
         <!-- Action TOPO DETAILS -->
         <action name="doTopoDetails"
                 class="com.antazri.climbingclub.webapp.action.GestionTopoAction"
-                method="doDetails">
-            <result>/WEB-INF/jsp/topos/topo.jsp</result>
+                method="doTopoDetails">
+            <result name="success">/WEB-INF/jsp/topos/topo.jsp</result>
+            <result name="error">/WEB-INF/jsp/topos/topos.jsp</result>
+
+            <interceptor-ref name="store">
+                <param name="operationMode">RETRIEVE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack" />
+
+        </action>
+
+        <!-- Action ADD TOPO -->
+        <action name="doAddTopo"
+                class="com.antazri.climbingclub.webapp.action.GestionTopoAction"
+                method="doAddTopo">
+
+            <interceptor-ref name="store">
+                <param name="operationMode">STORE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack" />
+
+            <result name="input">/WEB-INF/jsp/topos/add_topo.jsp</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">doTopoDetails</param>
+                <param name="topoId">${topo.topoId}</param>
+            </result>
+            <result name="error">/WEB-INF/jsp/topos/topos.jsp</result>
+        </action>
+
+        <!-- Action UPDATE TOPO -->
+        <action name="doUpdateTopo"
+                class="com.antazri.climbingclub.webapp.action.GestionTopoAction"
+                method="doUpdateTopo">
+            <interceptor-ref name="store">
+                <param name="operationMode">STORE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack" />
+
+            <result name="input">/WEB-INF/jsp/topos/update_topo.jsp</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">doTopoDetails</param>
+                <param name="topoId">${topo.topoId}</param>
+            </result>
+            <result name="error">/WEB-INF/jsp/topos/topos.jsp</result>
+        </action>
+
+        <!-- Action UPDATE TOPO -->
+        <action name="doDeleteTopo"
+                class="com.antazri.climbingclub.webapp.action.GestionTopoAction"
+                method="doDeleteTopo">
+            <interceptor-ref name="store">
+                <param name="operationMode">STORE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack" />
+
+            <result name="input">/WEB-INF/jsp/topos/topo.jsp</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">doListAllTopos</param>
+                <param name="topoId">${topo.topoId}</param>
+            </result>
+            <result name="error">/WEB-INF/jsp/topos/topos.jsp</result>
+        </action>
+    </package>
+
+    <package name="regions" extends="cclub-default" namespace="/regions">
+        <!-- Action REGIONS LIST -->
+        <action name="allRegions">
+            <result>/WEB-INF/jsp/regions/regions.jsp</result>
         </action>
     </package>
 </struts>
