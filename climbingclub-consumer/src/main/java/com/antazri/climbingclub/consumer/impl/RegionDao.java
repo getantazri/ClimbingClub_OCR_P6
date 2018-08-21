@@ -60,7 +60,7 @@ public class RegionDao extends AbstractDao implements IRegionDao {
      */
     public List<Region> findAll() {
         //Requête SQL
-        String vSql = "SELECT * FROM public.region";
+        String vSql = "SELECT * FROM public.region ORDER BY region.region_nom ASC";
 
         // Retourne une List<Region> contenant toutes les régions
         return getJdbcTemplate().query(vSql, new RegionRM());

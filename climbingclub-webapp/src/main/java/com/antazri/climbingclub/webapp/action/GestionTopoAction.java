@@ -2,9 +2,11 @@ package com.antazri.climbingclub.webapp.action;
 
 import com.antazri.climbingclub.business.contract.IRegionBo;
 import com.antazri.climbingclub.model.beans.Region;
+import com.antazri.climbingclub.model.beans.Spot;
 import com.antazri.climbingclub.model.beans.Topo;
 import com.antazri.climbingclub.model.beans.Utilisateur;
 import com.antazri.climbingclub.webapp.services.contract.ICompteUtilisateurService;
+import com.antazri.climbingclub.webapp.services.contract.IGestionSpotService;
 import com.antazri.climbingclub.webapp.services.contract.IGestionTopoService;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
@@ -24,6 +26,9 @@ public class GestionTopoAction extends ActionSupport {
     @Autowired
     private ICompteUtilisateurService compteUtilisateurService;
 
+    @Autowired
+    private IGestionSpotService gestionSpotService;
+
     // =======================================================================
     // Attributs et paramètres de l'action
     // =======================================================================
@@ -34,34 +39,11 @@ public class GestionTopoAction extends ActionSupport {
     private List<Topo> topos;
     private Region region;
     private List<Region> regions;
+    private List<Spot> spots;
 
     // =======================================================================
-    // Getters et Setters des attributs l'action
+    // Getters et Setters des attributs de l'action
     // =======================================================================
-
-    public IGestionTopoService getGestionTopoService() {
-        return gestionTopoService;
-    }
-
-    public void setGestionTopoService(IGestionTopoService gestionTopoService) {
-        this.gestionTopoService = gestionTopoService;
-    }
-
-    public IRegionBo getRegionBo() {
-        return regionBo;
-    }
-
-    public void setRegionBo(IRegionBo regionBo) {
-        this.regionBo = regionBo;
-    }
-
-    public ICompteUtilisateurService getCompteUtilisateurService() {
-        return compteUtilisateurService;
-    }
-
-    public void setCompteUtilisateurService(ICompteUtilisateurService compteUtilisateurService) {
-        this.compteUtilisateurService = compteUtilisateurService;
-    }
 
     public int getTopoId() {
         return topoId;
@@ -119,6 +101,14 @@ public class GestionTopoAction extends ActionSupport {
         this.regions = regions;
     }
 
+    public List<Spot> getSpots() {
+        return spots;
+    }
+
+    public void setSpots(List<Spot> spots) {
+        this.spots = spots;
+    }
+
     // =======================================================================
     // Méthodes / Actions
     // =======================================================================
@@ -137,6 +127,15 @@ public class GestionTopoAction extends ActionSupport {
         if (topo == null) {
             addActionError("Vous devez spécifié un ID existant");
             return ActionSupport.ERROR;
+        }
+
+        topo.setProprietaire(compteUtilisateurService.findUtilisateurById(topo.getProprietaire().getUtilisateurId()));
+        topo.setRegion(regionBo.findById(topo.getRegion().getRegionId()));
+        this.setSpots(gestionSpotService.findSpotByTopo(topo));
+
+        if (spots.isEmpty()) {
+            spots = null;
+            addActionMessage("Aucun spot n'a été ajouté à ce topo");
         }
 
         return ActionSupport.SUCCESS;

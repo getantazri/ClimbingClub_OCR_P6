@@ -31,7 +31,8 @@
         <div class="container">
             <div class="navbar-brand">
                 <a class="navbar-item" href="/">
-                    <img src="${pageContext.request.contextPath}/img/logo.png" alt="ClimbingClub - Projet 6 @ Openclassrooms" width="170" height="28">
+                    <img src="${pageContext.request.contextPath}/img/logo.png"
+                         alt="ClimbingClub - Projet 6 @ Openclassrooms" width="170" height="28">
                 </a>
                 <!--<div class="navbar-burger burger" data-target="navbarExampleTransparentExample">
                   <span></span>
@@ -43,8 +44,9 @@
             <div class="navbar-menu">
                 <div class="navbar-start">
                     <s:a action="doToposList" cssClass="navbar-item" namespace="/topos">Topos</s:a>
-                    <s:a action="allRegions"  cssClass="navbar-item" namespace="/regions">En région</s:a>
+                    <s:a action="enRegion" cssClass="navbar-item" namespace="/regions">En région</s:a>
                     <a class="navbar-item" href="#">Mes réservations</a>
+                    <s:a action="doAddTopo" cssClass="navbar-item" namespace="/topos">Ajouter un topo</s:a>
                     <a class="navbar-item" href="#"><i class="fab fa-facebook-square"></i></a>
                     <a class="navbar-item" href="#"><i class="fab fa-twitter"></i></a>
                     <a class="navbar-item" href="#"><i class="fab fa-instagram"></i></a>
@@ -84,19 +86,19 @@
         <div class="container has-text-centered">
             <h1 class="title"><span class="hp-title">Où grimperez-vous</span><br/><span class="hp-title">demain ?</span>
             </h1>
-            <s:select list="regions"
-            <div class="field is-grouped is-grouped-centered has-addons">
-                <div class="hp-form control has-icons-left has-icons-right">
-                    <input class="input is-large" type="email" placeholder="Les Alpes ? La Réunion ?">
-                    <span class="icon is-left">
-            <i class="fas fa-search fa-sm"></i>
-            </span>
+            <!--<div class="field is-grouped is-grouped-centered has-addons">
+                <div class="hp-form control">
+                    <select class="input is-large">
+                        <s:iterator value="regions">
+                            <option value="region.regionId"><s:property value="region.regionNom"/></option>
+                        </s:iterator>
+                    </select>
                 </div>
                 <div class="control">
                     <a class="button is-black is-large">
                         <span class="btn-hp-form">En route !</span>
                     </a>
-                </div>
+                </div>-->
             </div>
         </div>
     </div>
@@ -114,7 +116,8 @@
                 <div class="column is-one-quarter is-offset-1">
 
                     <figure class="image is-3by4">
-                        <img class="hp-img-bg" src="${pageContext.request.contextPath}/img/hp-001.jpg" title="Inscrivez-vous et partagez"
+                        <img class="hp-img-bg" src="${pageContext.request.contextPath}/img/hp-001.jpg"
+                             title="Inscrivez-vous et partagez"
                              alt="Inscrivez-vous et partagez"/>
                     </figure>
 
@@ -191,7 +194,7 @@
     <div class="content has-text-centered is-small">
         <p class="navbar-menu menu-footer">
             <s:a action="doToposList" cssClass="navbar-item" namespace="/topos">Topos</s:a>
-            <s:a action="allRegions"  cssClass="navbar-item" namespace="/regions">En région</s:a>
+            <s:a action="enRegion" cssClass="navbar-item" namespace="/regions">En région</s:a>
             <a class="navbar-item" href="#">Mes réservations</a>
             <a class="navbar-item" href="#"><i class="fab fa-facebook-square"></i></a>
             <a class="navbar-item" href="#"><i class="fab fa-twitter"></i></a>

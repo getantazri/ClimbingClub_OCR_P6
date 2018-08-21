@@ -8,10 +8,11 @@
     <package name="cclub-default" extends="struts-default" namespace="/">
         <!-- Action INDEX par défaut -->
         <default-action-ref name="index" />
-        <action name="index">
+        <action name="index"
+                class="com.antazri.climbingclub.webapp.action.HomepageAction"
+                method="execute">
             <result>/WEB-INF/jsp/index.jsp</result>
         </action>
-
 
     </package>
 
@@ -20,10 +21,6 @@
         <action name="doToposList"
                 class="com.antazri.climbingclub.webapp.action.GestionTopoAction"
                 method="doListAllTopos">
-            <interceptor-ref name="store">
-                <param name="operationMode">RETRIEVE</param>
-            </interceptor-ref>
-            <interceptor-ref name="defaultStack" />
 
             <result>/WEB-INF/jsp/topos/topos.jsp</result>
         </action>
@@ -96,9 +93,19 @@
     </package>
 
     <package name="regions" extends="cclub-default" namespace="/regions">
-        <!-- Action REGIONS LIST -->
-        <action name="allRegions">
+        <!-- Action EN REGION page access -->
+        <action name="enRegion">
             <result>/WEB-INF/jsp/regions/regions.jsp</result>
+        </action>
+        <!-- Action REGIONS LIST -->
+        <action name="doRegionDetails">
+        </action>
+
+        <!-- Action REGIONS LIST -->
+        <action name="doRegionsList"
+                class="com.antazri.climbingclub.webapp.action.NavigationAction"
+                method="doRegionsList">
+
         </action>
     </package>
 </struts>

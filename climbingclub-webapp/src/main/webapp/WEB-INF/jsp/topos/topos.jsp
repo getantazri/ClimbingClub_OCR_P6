@@ -43,7 +43,7 @@
             <div class="navbar-menu">
                 <div class="navbar-start">
                     <s:a action="doToposList" cssClass="navbar-item" namespace="/topos">Topos</s:a>
-                    <s:a action="allRegions"  cssClass="navbar-item" namespace="/regions">En région</s:a>
+                    <s:a action="enRegion"  cssClass="navbar-item" namespace="/regions">En région</s:a>
                     <a class="navbar-item" href="#">Mes réservations</a>
                     <a class="navbar-item" href="#"><i class="fab fa-facebook-square"></i></a>
                     <a class="navbar-item" href="#"><i class="fab fa-twitter"></i></a>
@@ -183,7 +183,7 @@
     <div class="content has-text-centered is-small">
         <p class="navbar-menu menu-footer">
             <s:a action="doToposList" cssClass="navbar-item" namespace="/topos">Topos</s:a>
-            <s:a action="allRegions"  cssClass="navbar-item" namespace="/regions">En région</s:a>
+            <s:a action="enRegion"  cssClass="navbar-item" namespace="/regions">En région</s:a>
             <a class="navbar-item" href="#">Mes réservations</a>
             <a class="navbar-item" href="#"><i class="fab fa-facebook-square"></i></a>
             <a class="navbar-item" href="#"><i class="fab fa-twitter"></i></a>

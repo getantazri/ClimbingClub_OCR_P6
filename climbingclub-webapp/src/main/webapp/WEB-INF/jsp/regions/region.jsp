@@ -89,7 +89,7 @@
 
         <section class="section">
 
-            <h1 class="title"><s:property value="topo.topoNom" /></h1>
+            <h1 class="title"><s:property value="region.regionNom" /></h1>
 
             <h2 class="subtitle">Fiche détaillée</h2>
 
@@ -97,53 +97,6 @@
 
                 <div class="column">
 
-                    <div class="columns is-mobile is-centered">
-                        <div class="column is-half">
-                            <p class="is-primary">
-                                <span><s:property value="topo.region.regionNom" /></span><br />
-                                <span><s:property value="topo.proprietaire.pseudo" /></span><br />
-                                <s:if test="%{disponible == true}">
-                                    <span>Disponible &nbsp; <i class="fas fa-check has-text-success"></i></span>
-                                </s:if>
-                                <s:else>
-                                    <span>Indisponible &nbsp; <i class="fas fa-times has-text-danger"></i></span>
-                                </s:else>
-                            </p>
-                        </div>
-                    </div>
-
-                    <s:if test="%{spots == null}">
-                        <div class="notification is-danger"><s:actionmessage /></div>
-                    </s:if>
-                    <s:else>
-                        <table class="table is-striped is-hoverable is-fullwidth topo-list">
-
-                            <thead>
-                            <tr>
-                                <td>Nom</td>
-                                <td>Hauteur</td>
-                                <td>Description</td>
-                            </tr>
-                            </thead>
-
-                            <tbody>
-                            <s:iterator value="spots">
-                                <tr>
-                                    <td>
-                                        <s:property value="spotNom" />
-                                    </td>
-                                    <td>
-                                        <s:property value="hauteur" />
-                                    </td>
-                                    <td>
-                                        <s:property value="spotDescription" />
-                                    </td>
-                                </tr>
-                            </s:iterator>
-                            </tbody>
-
-                        </table>
-                    </s:else>
 
                 </div>
 
