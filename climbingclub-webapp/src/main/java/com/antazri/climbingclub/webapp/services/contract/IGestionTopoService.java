@@ -14,8 +14,8 @@ public interface IGestionTopoService {
     List<Topo> findTopoByRegion(Region pRegion);
     List<Topo> findAllDisponible();
     List<Topo> findAllTopo();
-    int addTopo(Topo pTopo);
-    int updateTopo(Topo pTopo);
+    int addTopo(String pName, int pRegionId, int pUtilisateurId);
+    int updateTopo(int pId, String pName, int pRegionId, int pUtilisateurId);
     void deleteTopo(int pTopoId);
 
 }

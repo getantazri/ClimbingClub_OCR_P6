@@ -1,87 +1,7 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page pageEncoding="UTF-8" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 
-<!doctype html>
-
-<html lang="fr">
-<head>
-    <meta charset="utf-8">
-
-    <title>ClimbingClub Web Application</title>
-    <meta name="description" content="Projet 6 du parcours Développeur Java @ Openclassrooms">
-    <meta name="author" content="Climbingclub Web Application">
-
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bulma.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css?v=1.0">
-
-    <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,600,700" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
-
-
-
-    <!--[if lt IE 9]>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
-    <![endif]-->
-
-</head>
-<body>
-<header>
-    <nav class="navbar is-fixed-top has-shadow is-spaced" role="navigation">
-        <div class="container">
-            <div class="navbar-brand">
-                <a class="navbar-item" href="/">
-                    <img src="${pageContext.request.contextPath}/img/logo.png" alt="ClimbingClub - Projet 6 @ Openclassrooms" width="170" height="28">
-                </a>
-                <!--<div class="navbar-burger burger" data-target="navbarExampleTransparentExample">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>-->
-            </div>
-
-            <div class="navbar-menu">
-                <div class="navbar-start">
-                    <s:a action="doToposList" cssClass="navbar-item" namespace="/topos">Topos</s:a>
-                    <s:a action="enRegion"  cssClass="navbar-item" namespace="/regions">En région</s:a>
-                    <a class="navbar-item" href="#">Mes réservations</a>
-                    <a class="navbar-item" href="#"><i class="fab fa-facebook-square"></i></a>
-                    <a class="navbar-item" href="#"><i class="fab fa-twitter"></i></a>
-                    <a class="navbar-item" href="#"><i class="fab fa-instagram"></i></a>
-                </div>
-            </div>
-
-            <div class="navbar-end">
-                <div class="navbar-item">
-                    <div class="field is-grouped">
-                        <p class="control">
-                            <a class="button is-primary is-small" title="Rechercher">
-                  <span class="icon">
-                    <i class="fas fa-search" aria-hidden="true"></i>
-                  </span>
-                            </a>
-                        </p>
-                        <p class="control">
-                            <a class="button is-danger is-small" title="Mon compte">
-                  <span class="icon">
-                    <i class="fas fa-user" aria-hidden="true"></i>
-                  </span>
-                                <span><b>Mon compte</b></span>
-                            </a>
-                        </p>
-                        <!-- <p class="control">
-                          <a class="button is-dark" title="Retrouvez le projet sur Github">
-                            <span class="icon">
-                              <i class="fab fa-github" aria-hidden="true"></i>
-                            </span>
-                          </a>
-                        </p> -->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </nav>
-</header>
+<%@include file="../../_include/header.jsp" %>
 
 <div class="container">
 
@@ -89,31 +9,50 @@
 
         <section class="section">
 
-            <h1 class="title"><s:property value="topo.topoNom" /></h1>
-
-            <h2 class="subtitle">Fiche détaillée</h2>
+            <h1 class="title"><s:property value="topo.topoNom"/></h1>
+            <span><s:a action="doUpdateTopo" namespace="/topos">
+                <s:param name="topoId" value="topo.topoId" />
+                Modifier le topo
+            </s:a> </span>
 
             <div class="columns">
 
                 <div class="column">
 
-                    <div class="columns is-mobile is-centered">
-                        <div class="column is-half">
-                            <p class="is-primary">
-                                <span><s:property value="topo.region.regionNom" /></span><br />
-                                <span><s:property value="topo.proprietaire.pseudo" /></span><br />
-                                <s:if test="%{disponible == true}">
-                                    <span>Disponible &nbsp; <i class="fas fa-check has-text-success"></i></span>
-                                </s:if>
-                                <s:else>
-                                    <span>Indisponible &nbsp; <i class="fas fa-times has-text-danger"></i></span>
-                                </s:else>
-                            </p>
+                    <nav class="level is-mobile">
+                        <div class="level-item has-text-centered">
+                            <div>
+                                <p class="heading">Région</p>
+                                <p class="title"><s:property value="topo.region.regionNom"/></p>
+                            </div>
                         </div>
-                    </div>
+                        <div class="level-item has-text-centered">
+                            <div>
+                                <p class="heading">Propriétaire</p>
+                                <p class="title"><s:property value="topo.proprietaire.pseudo"/></p>
+                            </div>
+                        </div>
+                        <div class="level-item has-text-centered">
+                            <div>
+                                <p class="heading">Disponible</p>
+                                <p class="title">
+
+                                    <s:if test="%{topo.disponible == true}">
+                                        <i class="fas fa-check has-text-success"></i>
+                                    </s:if>
+                                    <s:else>
+                                        <i class="fas fa-times has-text-danger"></i>
+                                    </s:else>
+
+                                </p>
+                            </div>
+                        </div>
+                    </nav>
+
+                    <h2 class="subtitle">Liste des spots</h2>
 
                     <s:if test="%{spots == null}">
-                        <div class="notification is-danger"><s:actionmessage /></div>
+                        <div class="notification is-danger"><s:actionmessage/></div>
                     </s:if>
                     <s:else>
                         <table class="table is-striped is-hoverable is-fullwidth topo-list">
@@ -130,13 +69,13 @@
                             <s:iterator value="spots">
                                 <tr>
                                     <td>
-                                        <s:property value="spotNom" />
+                                        <s:property value="spotNom"/>
                                     </td>
                                     <td>
-                                        <s:property value="hauteur" />
+                                        <s:property value="hauteur"/>
                                     </td>
                                     <td>
-                                        <s:property value="spotDescription" />
+                                        <s:property value="spotDescription"/>
                                     </td>
                                 </tr>
                             </s:iterator>
@@ -155,25 +94,6 @@
 
 </div>
 
-<footer class="footer">
-    <div class="content has-text-centered is-small">
-        <p class="navbar-menu menu-footer">
-            <s:a action="doToposList" cssClass="navbar-item" namespace="/topos">Topos</s:a>
-            <s:a action="enRegion"  cssClass="navbar-item" namespace="/regions">En région</s:a>
-            <a class="navbar-item" href="#">Mes réservations</a>
-            <a class="navbar-item" href="#"><i class="fab fa-facebook-square"></i></a>
-            <a class="navbar-item" href="#"><i class="fab fa-twitter"></i></a>
-            <a class="navbar-item" href="#"><i class="fab fa-instagram"></i></a>
-        </p>
-        <p>
-            <strong>ClimbingClub</strong> by <a href="https://www.antazri.xyz">Anthony Tazzari</a><br />
-            <strong>Projet 6</strong> Parcours <strong>Développeur d'Application Java</strong> @ <a href="http://www.openclassrooms.com" target="_blank">Openclassrooms</a> - 2018
-        </p>
-    </div>
-</footer>
+<%@include file="../../_include/footer.jsp" %>
 
-<!-- Load JavaScript file -->
-<script src="js/scripts.js"></script>
-</body>
-</html>
 

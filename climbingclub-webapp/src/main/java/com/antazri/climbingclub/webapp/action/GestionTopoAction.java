@@ -114,10 +114,7 @@ public class GestionTopoAction extends ActionSupport {
     // =======================================================================
     public String doListAllTopos() {
         this.setTopos(gestionTopoService.findAllTopo());
-        for (Topo topo : topos) {
-            topo.setProprietaire(compteUtilisateurService.findUtilisateurById(topo.getProprietaire().getUtilisateurId()));
-            topo.setRegion(regionBo.findById(topo.getRegion().getRegionId()));
-        }
+
         return ActionSupport.SUCCESS;
     }
 
@@ -129,8 +126,6 @@ public class GestionTopoAction extends ActionSupport {
             return ActionSupport.ERROR;
         }
 
-        topo.setProprietaire(compteUtilisateurService.findUtilisateurById(topo.getProprietaire().getUtilisateurId()));
-        topo.setRegion(regionBo.findById(topo.getRegion().getRegionId()));
         this.setSpots(gestionSpotService.findSpotByTopo(topo));
 
         if (spots.isEmpty()) {
@@ -155,6 +150,7 @@ public class GestionTopoAction extends ActionSupport {
 
         return ActionSupport.SUCCESS;
     }
+
     public String doFindTopoByRegion() {
         String vResult = ActionSupport.INPUT;
 
@@ -177,29 +173,32 @@ public class GestionTopoAction extends ActionSupport {
     public String doAddTopo() {
         String vResult = ActionSupport.INPUT;
 
-        if (this.topo != null) {
-            try {
-                this.topo.setProprietaire(compteUtilisateurService.findUtilisateurById(topo.getProprietaire().getUtilisateurId()));
-                this.topo.setRegion(regionBo.findById(topo.getRegion().getRegionId()));
-            } catch (Exception pE) {
-                this.addFieldError("topo.region.regionId", pE.getMessage());
-            }
-
-            if (!this.hasErrors()) {
-                try {
-                    gestionTopoService.addTopo(topo);
-                    vResult = ActionSupport.SUCCESS;
-                    addActionMessage("Topo ajouté");
-                    this.setTopo(gestionTopoService.findTopoByName(topo.getTopoNom()));
-                } catch (Exception pE) {
-                    this.addActionError("Erreur dans l'ajout de votre topo");
-                    vResult = ActionSupport.ERROR;
-                }
-            }
-        }
-
         if (vResult.equals(ActionSupport.INPUT)) {
             regions = regionBo.findAll();
+        }
+
+        if (this.topo != null) {
+            try {
+                if (topo.getTopoNom().replace(" ", "").length() < 3) {
+                    addActionError("Le nom de votre topo n'est pas valide");
+                    vResult = ActionSupport.INPUT;
+                } else {
+                    int row = gestionTopoService.addTopo(topo.getTopoNom(), topo.getRegion().getRegionId(), topo.getProprietaire().getUtilisateurId());
+
+                    if (row == 1) {
+                        vResult = ActionSupport.SUCCESS;
+                        addActionMessage("Topo ajouté");
+                        this.setTopo(gestionTopoService.findTopoByName(topo.getTopoNom()));
+                    } else {
+                        addActionError("Votre topo n'a pas été ajouté");
+                        vResult = ActionSupport.ERROR;
+                    }
+                }
+
+            } catch (Exception pE) {
+                this.addActionError("Erreur dans l'ajout de votre topo");
+                vResult = ActionSupport.ERROR;
+            }
         }
 
         return vResult;
@@ -208,9 +207,15 @@ public class GestionTopoAction extends ActionSupport {
     public String doUpdateTopo() {
         String vResult = ActionSupport.INPUT;
 
+        if (vResult.equals(ActionSupport.INPUT)) {
+            regions = regionBo.findAll();
+        }
+
         if (topoId > 0) {
             this.setTopo(gestionTopoService.findTopoById(topoId));
         }
+
+
 
         return vResult;
     }
@@ -228,6 +233,4 @@ public class GestionTopoAction extends ActionSupport {
 
         return vResult;
     }
-
-
 }

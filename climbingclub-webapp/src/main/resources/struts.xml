@@ -8,9 +8,7 @@
     <package name="cclub-default" extends="struts-default" namespace="/">
         <!-- Action INDEX par défaut -->
         <default-action-ref name="index" />
-        <action name="index"
-                class="com.antazri.climbingclub.webapp.action.HomepageAction"
-                method="execute">
+        <action name="index">
             <result>/WEB-INF/jsp/index.jsp</result>
         </action>
 
@@ -54,7 +52,7 @@
                 <param name="actionName">doTopoDetails</param>
                 <param name="topoId">${topo.topoId}</param>
             </result>
-            <result name="error">/WEB-INF/jsp/topos/topos.jsp</result>
+            <result name="error">/WEB-INF/jsp/topos/add_topo.jsp</result>
         </action>
 
         <!-- Action UPDATE TOPO -->
@@ -94,7 +92,7 @@
 
     <package name="regions" extends="cclub-default" namespace="/regions">
         <!-- Action EN REGION page access -->
-        <action name="enRegion">
+        <action name="doRegions">
             <result>/WEB-INF/jsp/regions/regions.jsp</result>
         </action>
         <!-- Action REGIONS LIST -->
@@ -106,6 +104,29 @@
                 class="com.antazri.climbingclub.webapp.action.NavigationAction"
                 method="doRegionsList">
 
+        </action>
+    </package>
+
+    <package name="public" extends="cclub-default" namespace="/login">
+        <action name="login">
+            <result>/WEB-INF/jsp/login.jsp</result>
+        </action>
+        <action name="logout">
+            <result type="redirectAction">/login/login</result>
+        </action>
+    </package>
+
+    <package name="user" extends="public" namespace="/compte">
+        <action name="compte">
+            <result>/WEB-INF/jsp/user/compte.jsp</result>
+            <result name="error" type="redirectAction">/login/login</result>
+        </action>
+    </package>
+
+    <package name="admin" extends="user" namespace="/admin">
+        <action name="admin">
+            <result>/WEB-INF/jsp/admin/</result>
+            <result name="error" type="redirectAction">/login/login</result>
         </action>
     </package>
 </struts>

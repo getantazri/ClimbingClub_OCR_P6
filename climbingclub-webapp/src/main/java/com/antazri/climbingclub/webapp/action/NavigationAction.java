@@ -2,6 +2,7 @@ package com.antazri.climbingclub.webapp.action;
 
 import com.antazri.climbingclub.business.contract.IRegionBo;
 import com.antazri.climbingclub.model.beans.Region;
+import com.antazri.climbingclub.webapp.services.contract.ICompteUtilisateurService;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,9 @@ public class NavigationAction extends ActionSupport {
 
     @Autowired
     private IRegionBo regionBo;
+
+    @Autowired
+    private ICompteUtilisateurService compteUtilisateurService;
 
     // =======================================================================
     // Attributs de l'action
