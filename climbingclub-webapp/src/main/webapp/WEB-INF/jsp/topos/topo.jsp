@@ -10,10 +10,14 @@
         <section class="section">
 
             <h1 class="title"><s:property value="topo.topoNom"/></h1>
-            <span><s:a action="doUpdateTopo" namespace="/topos">
+            <s:a action="doUpdateTopo" namespace="/topos">
                 <s:param name="topoId" value="topo.topoId" />
                 Modifier le topo
-            </s:a> </span>
+            </s:a> -
+            <s:a action="doDeleteTopo" namespace="/topos">
+                <s:param name="topoId" value="topo.topoId" />
+                Supprimer le topo
+            </s:a>
 
             <div class="columns">
 

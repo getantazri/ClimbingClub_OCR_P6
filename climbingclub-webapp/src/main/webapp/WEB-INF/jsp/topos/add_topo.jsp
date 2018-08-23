@@ -17,7 +17,7 @@
 
                 <div class="column">
 
-                    <s:form action="doAddTopo">
+                    <s:form action="doAddTopo" method="POST">
                         <div class="field">
                             <div class="control">
                                 <span class="has-text-danger"><b><s:actionerror /></b></span>

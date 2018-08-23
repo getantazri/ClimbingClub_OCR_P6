@@ -69,7 +69,10 @@
                 <param name="actionName">doTopoDetails</param>
                 <param name="topoId">${topo.topoId}</param>
             </result>
-            <result name="error">/WEB-INF/jsp/topos/topos.jsp</result>
+            <result name="error" type="redirectAction">
+                <param name="actionName">doTopoDetails</param>
+                <param name="topoId">${topo.topoId}</param>
+            </result>
         </action>
 
         <!-- Action UPDATE TOPO -->

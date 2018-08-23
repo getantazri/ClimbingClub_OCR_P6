@@ -9,31 +9,32 @@
 
         <section class="section">
 
-            <h1 class="title">Ajouter un topo</h1>
+            <h1 class="title">Modifier un topo</h1>
 
-            <h2 class="subtitle">Partagez-le avec la communauté !</h2>
+            <h2 class="subtitle">"<s:property value="topo.topoNom" />"</h2>
 
             <div class="columns">
 
                 <div class="column">
 
-                    <s:form action="doAddTopo">
+                    <s:form action="doUpdateTopo" method="GET">
                         <div class="field">
                             <div class="control">
                                 <span class="has-text-danger"><s:actionerror /></span>
-                                <s:textfield name="topo.topoNom" value="%{topo.topoNom}" label="Nom" requiredLabel="true" />
+                                <s:textfield name="topo.topoNom" fieldValue="%{topo.topoNom}" label="Nom" requiredLabel="true" />
                             </div>
                         </div>
                         <div class="field">
                             <div class="control">
-                                <s:select name="region.regionId" label="Région" value="%{topo.region.regionNom}"
+                                <s:select name="region.regionId" label="Région" fieldValue="%{topo.region.regionNom}"
                                           list="regions" listKey="regionId" listValue="regionNom"
                                           emptyOption="false"
-                                          requiredLabel="true" />
+                                          requiredLabel="true"
+                                />
                             </div>
                         </div>
                         <label class="checkbox">
-                            <s:checkbox name="topo.disponible" value="%{topo.disponible}" label="Disponible" requiredLabel="true" />
+                            <s:checkbox name="topo.disponible" fieldValue="%{topo.disponible}" label="Disponible" requiredLabel="true" />
                         </label>
                         <div class="control add-space-top-bottom-10">
                             <s:submit value="Enregistrer les modifications"  cssClass="button is-primary" />

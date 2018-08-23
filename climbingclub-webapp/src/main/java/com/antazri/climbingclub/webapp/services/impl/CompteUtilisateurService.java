@@ -4,6 +4,7 @@ import com.antazri.climbingclub.business.contract.IStatutBo;
 import com.antazri.climbingclub.business.contract.IUtilisateurBo;
 import com.antazri.climbingclub.model.beans.Utilisateur;
 import com.antazri.climbingclub.webapp.services.contract.ICompteUtilisateurService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -65,5 +66,22 @@ public class CompteUtilisateurService implements ICompteUtilisateurService {
 
     public void deleteUtilisateur(int pId) {
         utilisateurBo.delete(utilisateurBo.findById(pId));
+    }
+
+    @Override
+    public Utilisateur login(String pPseudo, String pPassword) {
+        Utilisateur vUtilisateur = new Utilisateur();
+
+        if (!StringUtils.isAllEmpty(pPseudo, pPassword)) {
+            vUtilisateur = utilisateurBo.findByPseudo(pPseudo);
+
+            if (vUtilisateur.getPassword().equals(pPassword)) {
+                return vUtilisateur;
+            } else {
+                vUtilisateur.setUtilisateurId(-1);
+            }
+        }
+
+        return vUtilisateur;
     }
 }

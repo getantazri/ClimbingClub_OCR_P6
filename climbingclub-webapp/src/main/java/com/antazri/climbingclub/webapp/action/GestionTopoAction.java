@@ -36,6 +36,7 @@ public class GestionTopoAction extends ActionSupport {
     private String topoNom;
     private Utilisateur proprietaire;
     private Topo topo;
+    private Topo comparedTopo;
     private List<Topo> topos;
     private Region region;
     private List<Region> regions;
@@ -44,7 +45,6 @@ public class GestionTopoAction extends ActionSupport {
     // =======================================================================
     // Getters et Setters des attributs de l'action
     // =======================================================================
-
     public int getTopoId() {
         return topoId;
     }
@@ -107,6 +107,14 @@ public class GestionTopoAction extends ActionSupport {
 
     public void setSpots(List<Spot> spots) {
         this.spots = spots;
+    }
+
+    public Topo getComparedTopo() {
+        return comparedTopo;
+    }
+
+    public void setComparedTopo(Topo comparedTopo) {
+        this.comparedTopo = comparedTopo;
     }
 
     // =======================================================================
@@ -207,17 +215,39 @@ public class GestionTopoAction extends ActionSupport {
     public String doUpdateTopo() {
         String vResult = ActionSupport.INPUT;
 
+        if (!vResult.equals(ActionSupport.INPUT)) {
+            try {
+                if (topo.getTopoNom().replace(" ", "").length() < 3) {
+                    addActionError("Le nom de votre topo n'est pas valide");
+                    vResult = ActionSupport.INPUT;
+                } else {
+                    int row = gestionTopoService.updateTopo(topo.getTopoId(), topo.getTopoNom(), topo.getRegion().getRegionId(), topo.getProprietaire().getUtilisateurId());
+
+                    if (row > 0) {
+                        vResult = ActionSupport.SUCCESS;
+                        addActionMessage("Topo mis à jour");
+                        this.setTopo(gestionTopoService.findTopoByName(topo.getTopoNom()));
+                    } else {
+                        addActionError("Votre topo n'a pas été mis à jour");
+                        vResult = ActionSupport.ERROR;
+                    }
+                }
+
+            } catch (Exception pE) {
+                this.addActionError("Erreur dans la mise à jour de votre topo");
+                vResult = ActionSupport.ERROR;
+            }
+        }
+
         if (vResult.equals(ActionSupport.INPUT)) {
             regions = regionBo.findAll();
+
+            if (topoId > 0) {
+                this.setTopo(gestionTopoService.findTopoById(topoId));
+            }
         }
 
-        if (topoId > 0) {
-            this.setTopo(gestionTopoService.findTopoById(topoId));
-        }
-
-
-
-        return vResult;
+        return ActionSupport.INPUT;
     }
 
     public String doDeleteTopo() {
