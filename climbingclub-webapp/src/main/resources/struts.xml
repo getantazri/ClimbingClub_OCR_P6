@@ -56,6 +56,22 @@
         </action>
 
         <!-- Action UPDATE TOPO -->
+        <action name="doGetTopoToUpdate"
+                class="com.antazri.climbingclub.webapp.action.GestionTopoAction"
+                method="doGetTopoToUpdate">
+            <interceptor-ref name="store">
+                <param name="operationMode">STORE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack" />
+
+            <result name="input">/WEB-INF/jsp/topos/update_topo.jsp</result>
+            <result name="error" type="redirectAction">
+                <param name="actionName">doTopoDetails</param>
+                <param name="topoId">${topo.topoId}</param>
+            </result>
+
+        </action>
+
         <action name="doUpdateTopo"
                 class="com.antazri.climbingclub.webapp.action.GestionTopoAction"
                 method="doUpdateTopo">

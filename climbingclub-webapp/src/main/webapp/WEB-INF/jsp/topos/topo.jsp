@@ -10,7 +10,7 @@
         <section class="section">
 
             <h1 class="title"><s:property value="topo.topoNom"/></h1>
-            <s:a action="doUpdateTopo" namespace="/topos">
+            <s:a action="doGetTopoToUpdate" namespace="/topos">
                 <s:param name="topoId" value="topo.topoId" />
                 Modifier le topo
             </s:a> -
