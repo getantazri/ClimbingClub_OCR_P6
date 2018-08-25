@@ -114,38 +114,37 @@
         <action name="doRegions">
             <result>/WEB-INF/jsp/regions/regions.jsp</result>
         </action>
-        <!-- Action REGIONS LIST -->
-        <action name="doRegionDetails">
-        </action>
 
-        <!-- Action REGIONS LIST -->
-        <action name="doRegionsList"
-                class="com.antazri.climbingclub.webapp.action.NavigationAction"
-                method="doRegionsList">
-
-        </action>
     </package>
 
     <package name="public" extends="cclub-default" namespace="/login">
-        <action name="login">
-            <result>/WEB-INF/jsp/login.jsp</result>
+        <action name="doLogin"
+                class="com.antazri.climbingclub.webapp.action.LoginAction"
+                method="doLogin">
+            <result name="input">/WEB-INF/jsp/login.jsp</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">/user/doGetCompte</param>
+            </result>
+            <result name="error">/WEB-INF/jsp/login.jsp</result>
         </action>
-        <action name="logout">
-            <result type="redirectAction">/login/login</result>
+        <action name="doLogout"
+                class="com.antazri.climbingclub.webapp.action.LoginAction"
+                method="doLogout">
+            <result type="redirectAction">/login/doLogin</result>
         </action>
     </package>
 
     <package name="user" extends="public" namespace="/compte">
-        <action name="compte">
-            <result>/WEB-INF/jsp/user/compte.jsp</result>
-            <result name="error" type="redirectAction">/login/login</result>
+        <action name="doGetCompte">
+            <result name="success">/WEB-INF/jsp/user/compte.jsp</result>
+            <result name="error" type="redirectAction">/login/doLogin</result>
         </action>
     </package>
 
     <package name="admin" extends="user" namespace="/admin">
-        <action name="admin">
+        <action name="doLoginAdmin">
             <result>/WEB-INF/jsp/admin/</result>
-            <result name="error" type="redirectAction">/login/login</result>
+            <result name="error" type="redirectAction">/login/doLogin</result>
         </action>
     </package>
 </struts>

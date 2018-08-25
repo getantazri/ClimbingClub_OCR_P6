@@ -5,11 +5,13 @@ import com.antazri.climbingclub.model.beans.Utilisateur;
 import com.antazri.climbingclub.webapp.services.contract.ICompteUtilisateurService;
 import com.antazri.climbingclub.webapp.services.contract.IGestionTopoService;
 import com.opensymphony.xwork2.ActionSupport;
+import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.Map;
 
-public class CompteUtilisateurAction extends ActionSupport {
+public class LoginAction extends ActionSupport implements SessionAware {
 
     @Autowired
     private ICompteUtilisateurService compteUtilisateurService;
@@ -24,11 +26,11 @@ public class CompteUtilisateurAction extends ActionSupport {
     // Attributs et paramètres de l'action
     // =======================================================================
     private int utilisateurId;
-    private String pseudo;
-    private String nom;
-    private String password;
+    private String pseudo = "";
+    private String password = "";
     private Utilisateur utilisateur;
     private List<Utilisateur> utilisateurs;
+    private Map<String, Object> session;
 
     // =======================================================================
     // Getters et Setters des attributs de l'action
@@ -47,14 +49,6 @@ public class CompteUtilisateurAction extends ActionSupport {
 
     public void setPseudo(String pseudo) {
         this.pseudo = pseudo;
-    }
-
-    public String getNom() {
-        return nom;
-    }
-
-    public void setNom(String nom) {
-        this.nom = nom;
     }
 
     public String getPassword() {
@@ -87,15 +81,36 @@ public class CompteUtilisateurAction extends ActionSupport {
     public String doLogin() {
         String vResult = ActionSupport.INPUT;
 
-        utilisateur = compteUtilisateurService.login(pseudo, password);
+        if (!getPseudo().isEmpty() && !getPassword().isEmpty()) {
 
-        if (utilisateur.getUtilisateurId() < 0) {
-            addActionError("Pseudo ou mot de passe incorrect");
-            vResult = ActionSupport.ERROR;
-        } else {
+            utilisateur = compteUtilisateurService.login(getPseudo(), getPassword());
 
+            if (utilisateur.getUtilisateurId() < 0) {
+                addActionError("Pseudo ou mot de passe incorrect");
+                vResult = ActionSupport.ERROR;
+            } else {
+                this.session.put("user", utilisateur);
+                vResult = ActionSupport.SUCCESS;
+            }
         }
 
         return vResult;
+    }
+
+    public String doLogout() {
+        this.session.remove("user");
+
+        return ActionSupport.SUCCESS;
+    }
+
+    public String doInscription() {
+        String vResult = ActionSupport.INPUT;
+
+        return vResult;
+    }
+
+    @Override
+    public void setSession(Map<String, Object> session) {
+        this.session = session;
     }
 }

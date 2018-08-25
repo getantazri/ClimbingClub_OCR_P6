@@ -11,13 +11,13 @@
     <meta name="description" content="Projet 6 du parcours Développeur Java @ Openclassrooms">
     <meta name="author" content="Climbingclub Web Application">
 
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
+          integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bulma.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css?v=1.0">
 
     <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,600,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
-
 
 
     <!--[if lt IE 9]>
@@ -31,7 +31,8 @@
         <div class="container">
             <div class="navbar-brand">
                 <a class="navbar-item" href="/">
-                    <img src="${pageContext.request.contextPath}/img/logo.png" alt="ClimbingClub - Projet 6 @ Openclassrooms" width="170" height="28">
+                    <img src="${pageContext.request.contextPath}/img/logo.png"
+                         alt="ClimbingClub - Projet 6 @ Openclassrooms" width="170" height="28">
                 </a>
                 <!--<div class="navbar-burger burger" data-target="navbarExampleTransparentExample">
                   <span></span>
@@ -43,7 +44,7 @@
             <div class="navbar-menu">
                 <div class="navbar-start">
                     <s:a action="doToposList" cssClass="navbar-item" namespace="/topos">Topos</s:a>
-                    <s:a action="doRegions"  cssClass="navbar-item" namespace="/regions">En région</s:a>
+                    <s:a action="doRegions" cssClass="navbar-item" namespace="/regions">En région</s:a>
                     <s:a action="doAddTopo" cssClass="navbar-item" namespace="/topos">Ajouter un topo</s:a>
                     <a class="navbar-item" href="#">Mes réservations</a>
                     <a class="navbar-item" href="#"><i class="fab fa-facebook-square"></i></a>
@@ -63,12 +64,24 @@
                             </a>
                         </p>
                         <p class="control">
-                            <a class="button is-danger is-small" title="Mon compte">
+                            <s:if test="%{#session.user != null}">
+                                <s:a action="doGetCompte" namespace="/compte" cssClass="button is-danger is-small"
+                                     title="Mon compte">
                   <span class="icon">
                     <i class="fas fa-user" aria-hidden="true"></i>
                   </span>
-                                <span><b>Mon compte</b></span>
-                            </a>
+                                    <span><b>Mon compte</b></span>
+                                </s:a>
+                            </s:if>
+                            <s:else>
+                                <s:a action="doLogin" namespace="/login" cssClass="button is-danger is-small"
+                                     title="Se connecter">
+                  <span class="icon">
+                    <i class="fas fa-user" aria-hidden="true"></i>
+                  </span>
+                                    <span><b>Se connecter</b></span>
+                                </s:a>
+                            </s:else>
                         </p>
                         <!-- <p class="control">
                           <a class="button is-dark" title="Retrouvez le projet sur Github">

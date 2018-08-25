@@ -16,32 +16,25 @@
                 <div class="column">
 
                     <h2 class="subtitle">Se connecter</h2>
+                    <s:actionerror />
 
-                    <form id="login-form" action="" method="POST"/>
-                    <div class="field">
-                        <p class="control has-icons-left">
-                            <input class="input" type="email" placeholder="Email" required>
-                            <span class="icon is-small is-left">
-                    <i class="fas fa-envelope"></i>
-                  </span>
-                        </p>
-                    </div>
-                    <div class="field">
-                        <p class="control has-icons-left">
-                            <input class="input" type="password" placeholder="Password" required>
-                            <span class="icon is-small is-left">
-                    <i class="fas fa-lock"></i>
-                  </span>
-                        </p>
-                    </div>
-                    <div class="field">
-                        <p class="control">
-                            <button class="button is-success">
-                                Se connecter
-                            </button>
-                        </p>
-                    </div>
-                    </form>
+                    <s:form action="doLogin" namespace="/login" method="POST">
+                        <div class="field">
+                            <p class="control">
+                                <s:textfield name="pseudo" label="Pseudo" requiredLabel="true" cssClass="input" type="text" />
+                            </p>
+                        </div>
+                        <div class="field">
+                            <p class="control">
+                                <s:textfield name="password" label="Password" requiredLabel="true" cssClass="input" type="password" />
+                            </p>
+                        </div>
+                        <div class="field">
+                            <p class="control add-space-top-bottom-10">
+                                <s:submit value="Se connecter"  cssClass="button is-primary" />
+                            </p>
+                        </div>
+                    </s:form>
 
                 </div>
 

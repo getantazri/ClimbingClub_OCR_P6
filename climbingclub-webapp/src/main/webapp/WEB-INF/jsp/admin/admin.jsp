@@ -9,7 +9,7 @@
 
         <section class="section">
 
-            <h1 class="title"><s:property value="#session.user.pseudo" /></h1>
+            <h1 class="title"><s:property value="utilisateur.pseudo" /></h1>
 
             <h2 class="subtitle">Fiche détaillée</h2>
 
@@ -17,11 +17,6 @@
 
                 <div class="column">
 
-                    <p class="control">
-                        <s:a action="doLogout" cssClass="button is-danger is-small" title="Se déconnecter">
-                            <span><b>Se déconnecter</b></span>
-                        </s:a>
-                    </p>
 
                 </div>
 
