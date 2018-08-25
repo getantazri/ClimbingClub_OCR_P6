@@ -34,7 +34,7 @@ public class LoginAction extends ActionSupport implements SessionAware {
 
     // =======================================================================
     // Getters et Setters des attributs de l'action
-    // ======================================================================
+    // =======================================================================
     public int getUtilisateurId() {
         return utilisateurId;
     }

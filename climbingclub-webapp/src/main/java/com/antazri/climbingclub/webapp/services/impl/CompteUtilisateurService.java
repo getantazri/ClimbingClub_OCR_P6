@@ -39,15 +39,24 @@ public class CompteUtilisateurService implements ICompteUtilisateurService {
 
     public int addUtilisateur(String pNom, String pPrenom, String pPseudo, String pPassword, String pEmail, String pTelephone, int statutId) {
         Utilisateur utilisateur = new Utilisateur();
-        utilisateur.setNom(pNom);
-        utilisateur.setPrenom(pPrenom);
-        utilisateur.setPseudo(pPseudo);
-        utilisateur.setPassword(pPassword);
-        utilisateur.setEmail(pEmail);
-        utilisateur.setTelephone(pTelephone);
-        utilisateur.setStatut(statutBo.findById(statutId));
 
-        return utilisateurBo.create(utilisateur);
+        if (StringUtils.isNoneBlank(pNom, pPrenom, pPseudo, pPassword, pEmail, pTelephone)) {
+            if (pPseudo.replace(" ", "").length() < 3) {
+                return -1;
+            } else {
+                utilisateur.setNom(pNom);
+                utilisateur.setPrenom(pPrenom);
+                utilisateur.setPseudo(pPseudo);
+                utilisateur.setPassword(pPassword);
+                utilisateur.setEmail(pEmail);
+                utilisateur.setTelephone(pTelephone);
+                utilisateur.setStatut(statutBo.findById(statutId));
+
+                return utilisateurBo.create(utilisateur);
+            }
+        } else {
+            return -1;
+        }
     }
 
     public int updateUtilisateur(int pId, String pNom, String pPrenom, String pPseudo, String pPassword, String pEmail, String pTelephone, int statutId) {
@@ -75,11 +84,14 @@ public class CompteUtilisateurService implements ICompteUtilisateurService {
         if (!StringUtils.isAllEmpty(pPseudo, pPassword)) {
             vUtilisateur = utilisateurBo.findByPseudo(pPseudo);
 
-            if (vUtilisateur.getPassword().equals(pPassword)) {
-                return vUtilisateur;
-            } else {
-                vUtilisateur.setUtilisateurId(-1);
+            if (vUtilisateur.getUtilisateurId() > 0) {
+                if (vUtilisateur.getPassword().equals(pPassword)) {
+                    return vUtilisateur;
+                } else {
+                    vUtilisateur.setUtilisateurId(-1);
+                }
             }
+
         }
 
         return vUtilisateur;

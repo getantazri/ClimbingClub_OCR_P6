@@ -16,7 +16,7 @@
                 <div class="column">
 
                     <h2 class="subtitle">Se connecter</h2>
-                    <s:actionerror />
+                    <span class="has-text-danger is-bold"><s:actionerror /></span>
 
                     <s:form action="doLogin" namespace="/login" method="POST">
                         <div class="field">
@@ -36,69 +36,6 @@
                         </div>
                     </s:form>
 
-                </div>
-
-                <div class="column">
-
-                    <h2 class="subtitle">S'inscrire</h2>
-
-                    <p>Vous n'êtes pas inscrit ? Rejoignez la communauté ClimbingClub pour partager
-                        votre passion pour l'escalade. Vous pourrez partager vos topos et réserver
-                        ceux des autres membres !</p>
-
-                    <form id="inscription-form" action="" method="POST">
-
-                        <div class="field">
-                            <label class="label is-small">Nom :</label>
-                            <p class="control">
-                                <input class="input" type="text" placeholder="Nom" required>
-                            </p>
-                        </div>
-                        <div class="field">
-                            <label class="label is-small">Prénom :</label>
-                            <p class="control">
-                                <input class="input" type="text" placeholder="Prénom" required>
-                            </p>
-                        </div>
-                        <div class="field">
-                            <label class="label is-small">Pseudonyme :</label>
-                            <p class="control">
-                                <input class="input" type="text" placeholder="Pseudonyme" required>
-                            </p>
-                        </div>
-                        <div class="field">
-                            <label class="label is-small">E-mail :</label>
-                            <p class="control">
-                                <input class="input" type="email" placeholder="E-mail" required>
-                            </p>
-                        </div>
-                        <div class="field">
-                            <label class="label is-small">Téléphone :</label>
-                            <p class="control">
-                                <input class="input" type="text" placeholder="Téléphone" required>
-                            </p>
-                        </div>
-                        <div class="field">
-                            <label class="label is-small">Mot de passe :</label>
-                            <p class="control">
-                                <input class="input" type="password" placeholder="Mot de passe" required>
-                            </p>
-                        </div>
-                        <div class="field">
-                            <label class="label is-small">Confirmer le mot de passe :</label>
-                            <p class="control">
-                                <input class="input" type="password" placeholder="Mot de passe" required>
-                            </p>
-                        </div>
-                        <div class="field">
-                            <p class="control">
-                                <button class="button is-success">
-                                    S'inscrire
-                                </button>
-                            </p>
-                        </div>
-
-                    </form>
                 </div>
 
             </div>

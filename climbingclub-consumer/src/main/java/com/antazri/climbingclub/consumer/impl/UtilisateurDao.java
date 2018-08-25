@@ -4,6 +4,7 @@ import com.antazri.climbingclub.consumer.contract.IUtilisateurDao;
 import com.antazri.climbingclub.consumer.rowmapper.UtilisateurRM;
 import com.antazri.climbingclub.model.beans.Statut;
 import com.antazri.climbingclub.model.beans.Utilisateur;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 
 import java.util.List;
@@ -25,6 +26,8 @@ public class UtilisateurDao extends AbstractDao implements IUtilisateurDao {
      * @see com.antazri.climbingclub.consumer.rowmapper.UtilisateurRM
      */
     public Utilisateur findById(int pId) {
+        Utilisateur vUtilisateur;
+
         // Requête SQL
         String vSql = "SELECT * FROM public.utilisateur WHERE utilisateur.utilisateur_id = :id";
 
@@ -32,7 +35,7 @@ public class UtilisateurDao extends AbstractDao implements IUtilisateurDao {
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
         vSqlParameters.addValue("id", pId);
 
-        return (Utilisateur) getNamedParameterJdbcTemplate().queryForObject(vSql, vSqlParameters, new UtilisateurRM());
+        return getResultUtilisateur(vSql, vSqlParameters);
     }
 
     /**
@@ -68,7 +71,7 @@ public class UtilisateurDao extends AbstractDao implements IUtilisateurDao {
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
         vSqlParameters.addValue("nom", pName);
 
-        return (Utilisateur) getNamedParameterJdbcTemplate().queryForObject(vSql, vSqlParameters, new UtilisateurRM());
+        return getResultUtilisateur(vSql, vSqlParameters);
     }
 
     /**
@@ -79,6 +82,8 @@ public class UtilisateurDao extends AbstractDao implements IUtilisateurDao {
      * @see com.antazri.climbingclub.consumer.rowmapper.UtilisateurRM
      */
     public Utilisateur findByPseudo(String pPseudo) {
+        Utilisateur vUtilisateur;
+
         // Requête SQL
         String vSql = "SELECT * FROM public.utilisateur WHERE utilisateur.pseudo = :pseudo";
 
@@ -86,7 +91,7 @@ public class UtilisateurDao extends AbstractDao implements IUtilisateurDao {
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
         vSqlParameters.addValue("pseudo", pPseudo);
 
-        return (Utilisateur) getNamedParameterJdbcTemplate().queryForObject(vSql, vSqlParameters, new UtilisateurRM());
+        return getResultUtilisateur(vSql, vSqlParameters);
     }
 
     /**
@@ -172,5 +177,19 @@ public class UtilisateurDao extends AbstractDao implements IUtilisateurDao {
         vSqlParameters.addValue("id", pUtilisateur.getUtilisateurId());
 
         getNamedParameterJdbcTemplate().update(vSql, vSqlParameters);
+    }
+
+    public Utilisateur getResultUtilisateur(String vSql, MapSqlParameterSource vSqlParameters) {
+        Utilisateur vUtilisateur;
+
+        try {
+            vUtilisateur = (Utilisateur) getNamedParameterJdbcTemplate().queryForObject(vSql, vSqlParameters, new UtilisateurRM());
+        } catch (EmptyResultDataAccessException pE) {
+            //pE.printStackTrace();
+            vUtilisateur = new Utilisateur();
+            vUtilisateur.setUtilisateurId(-1);
+        }
+
+        return vUtilisateur;
     }
 }

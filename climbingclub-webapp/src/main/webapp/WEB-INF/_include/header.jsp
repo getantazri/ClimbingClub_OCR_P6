@@ -81,6 +81,13 @@
                   </span>
                                     <span><b>Se connecter</b></span>
                                 </s:a>
+                                <s:a action="doGetInscription" namespace="/login" cssClass="button is-light is-small"
+                                     title="Mon compte">
+                  <span class="icon">
+                    <i class="fas fa-user" aria-hidden="true"></i>
+                  </span>
+                                    <span><b>Inscription</b></span>
+                                </s:a>
                             </s:else>
                         </p>
                         <!-- <p class="control">

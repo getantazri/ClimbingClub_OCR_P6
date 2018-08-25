@@ -118,23 +118,38 @@
     </package>
 
     <package name="public" extends="cclub-default" namespace="/login">
+        <!-- Action LOGIN -->
         <action name="doLogin"
                 class="com.antazri.climbingclub.webapp.action.LoginAction"
                 method="doLogin">
             <result name="input">/WEB-INF/jsp/login.jsp</result>
-            <result name="success" type="redirectAction">
-                <param name="actionName">/user/doGetCompte</param>
-            </result>
+            <result name="success" type="redirectAction">/compte/doGetCompte</result>
             <result name="error">/WEB-INF/jsp/login.jsp</result>
         </action>
+
+        <!-- Action LOGOUT -->
         <action name="doLogout"
                 class="com.antazri.climbingclub.webapp.action.LoginAction"
                 method="doLogout">
             <result type="redirectAction">/login/doLogin</result>
         </action>
+
+        <!-- Action INSCRIPTION -->
+        <action name="doGetInscription"
+                class="com.antazri.climbingclub.webapp.action.CompteUtilisateurAction"
+                method="doGetInscription">
+            <result name="success">/WEB-INF/jsp/inscription.jsp</result>
+        </action>
+        <action name="doInscription"
+                class="com.antazri.climbingclub.webapp.action.CompteUtilisateurAction"
+                method="doInscription">
+            <result name="success" type="redirectAction">/compte/doGetCompte</result>
+            <result name="error">/WEB-INF/jsp/inscription.jsp</result>
+        </action>
     </package>
 
     <package name="user" extends="public" namespace="/compte">
+        <!-- Action ACCES COMPTE -->
         <action name="doGetCompte">
             <result name="success">/WEB-INF/jsp/user/compte.jsp</result>
             <result name="error" type="redirectAction">/login/doLogin</result>
@@ -142,6 +157,7 @@
     </package>
 
     <package name="admin" extends="user" namespace="/admin">
+        <!-- Action ACCES ADMIN -->
         <action name="doLoginAdmin">
             <result>/WEB-INF/jsp/admin/</result>
             <result name="error" type="redirectAction">/login/doLogin</result>
