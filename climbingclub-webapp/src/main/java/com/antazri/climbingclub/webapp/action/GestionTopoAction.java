@@ -255,10 +255,18 @@ public class GestionTopoAction extends ActionSupport {
 
     public String doDeleteTopo() {
         String vResult;
+        int delete;
+
         if (this.topoId > 0) {
-            gestionTopoService.deleteTopo(topoId);
-            this.addActionMessage("Topo supprimé");
-            vResult = ActionSupport.SUCCESS;
+            delete = gestionTopoService.deleteTopo(topoId);
+
+            if (delete > 0) {
+                this.addActionMessage("Topo supprimé");
+                vResult = ActionSupport.SUCCESS;
+            } else {
+                this.addActionError("Le topo possède des spots : supprimez-les avant de supprimer le topo");
+                vResult = ActionSupport.ERROR;
+            }
         } else {
             this.addActionError("Le topo n'existe pas ou a déjà été supprimé");
             vResult = Action.ERROR;

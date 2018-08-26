@@ -18,6 +18,7 @@
                 <div class="column">
 
                     <s:form action="doAddTopo" method="POST">
+                        <s:hidden name="topo.proprietaire.utilisateurId" value="%{#session.user.utilisateurId}" />
                         <div class="field">
                             <div class="control">
                                 <span class="has-text-danger"><b><s:actionerror /></b></span>
@@ -41,11 +42,6 @@
                             </div>
                         </div>
 
-                        <div class="field">
-                            <div class="control">
-                                <s:textfield name="topo.proprietaire.utilisateurId" label="Propriétaire ID" requiredLabel="true" cssClass="input" type="text" value="1" />
-                            </div>
-                        </div>
                         <div class="control add-space-top-bottom-10">
                             <s:submit value="Ajouter"  cssClass="button is-primary" />
                         </div>

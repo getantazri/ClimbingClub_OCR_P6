@@ -45,7 +45,6 @@
                 <div class="navbar-start">
                     <s:a action="doToposList" cssClass="navbar-item" namespace="/topos">Topos</s:a>
                     <s:a action="doRegions" cssClass="navbar-item" namespace="/regions">En région</s:a>
-                    <s:a action="doAddTopo" cssClass="navbar-item" namespace="/topos">Ajouter un topo</s:a>
                     <a class="navbar-item" href="#">Mes réservations</a>
                     <a class="navbar-item" href="#"><i class="fab fa-facebook-square"></i></a>
                     <a class="navbar-item" href="#"><i class="fab fa-twitter"></i></a>
@@ -65,12 +64,16 @@
                         </p>
                         <p class="control">
                             <s:if test="%{#session.user != null}">
-                                <s:a action="doGetCompte" namespace="/compte" cssClass="button is-danger is-small"
+                                <s:a action="doGetCompte" namespace="/compte" cssClass="button is-light is-small"
                                      title="Mon compte">
                   <span class="icon">
                     <i class="fas fa-user" aria-hidden="true"></i>
                   </span>
                                     <span><b>Mon compte</b></span>
+                                </s:a>
+                                <s:a action="doLogout" namespace="/login" cssClass="button is-danger is-small"
+                                     title="Se déconnecter">
+                                    <span><b>Se déconnecter</b></span>
                                 </s:a>
                             </s:if>
                             <s:else>
@@ -83,9 +86,6 @@
                                 </s:a>
                                 <s:a action="doGetInscription" namespace="/login" cssClass="button is-light is-small"
                                      title="Mon compte">
-                  <span class="icon">
-                    <i class="fas fa-user" aria-hidden="true"></i>
-                  </span>
                                     <span><b>Inscription</b></span>
                                 </s:a>
                             </s:else>

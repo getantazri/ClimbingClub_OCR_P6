@@ -95,17 +95,13 @@
         <action name="doDeleteTopo"
                 class="com.antazri.climbingclub.webapp.action.GestionTopoAction"
                 method="doDeleteTopo">
-            <interceptor-ref name="store">
-                <param name="operationMode">STORE</param>
-            </interceptor-ref>
-            <interceptor-ref name="defaultStack" />
 
-            <result name="input">/WEB-INF/jsp/topos/topo.jsp</result>
             <result name="success" type="redirectAction">
-                <param name="actionName">doListAllTopos</param>
-                <param name="topoId">${topo.topoId}</param>
+                <param name="actionName">doGetCompte</param>
             </result>
-            <result name="error">/WEB-INF/jsp/topos/topos.jsp</result>
+            <result name="error" type="redirectAction">
+                <param name="actionName">doGetCompte</param>
+            </result>
         </action>
     </package>
 
@@ -150,7 +146,9 @@
 
     <package name="user" extends="public" namespace="/compte">
         <!-- Action ACCES COMPTE -->
-        <action name="doGetCompte">
+        <action name="doGetCompte"
+                class="com.antazri.climbingclub.webapp.action.LoginAction"
+                method="doGetCompte">
             <result name="success">/WEB-INF/jsp/user/compte.jsp</result>
             <result name="error" type="redirectAction">/login/doLogin</result>
         </action>
@@ -159,7 +157,7 @@
     <package name="admin" extends="user" namespace="/admin">
         <!-- Action ACCES ADMIN -->
         <action name="doLoginAdmin">
-            <result>/WEB-INF/jsp/admin/</result>
+            <result name="success">/WEB-INF/jsp/admin/</result>
             <result name="error" type="redirectAction">/login/doLogin</result>
         </action>
     </package>

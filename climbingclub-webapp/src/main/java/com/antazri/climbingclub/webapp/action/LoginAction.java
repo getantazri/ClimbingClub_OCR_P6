@@ -1,13 +1,13 @@
 package com.antazri.climbingclub.webapp.action;
 
 import com.antazri.climbingclub.business.contract.IRegionBo;
-import com.antazri.climbingclub.model.beans.Utilisateur;
-import com.antazri.climbingclub.webapp.services.contract.ICompteUtilisateurService;
-import com.antazri.climbingclub.webapp.services.contract.IGestionTopoService;
+import com.antazri.climbingclub.model.beans.*;
+import com.antazri.climbingclub.webapp.services.contract.*;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +18,15 @@ public class LoginAction extends ActionSupport implements SessionAware {
 
     @Autowired
     private IGestionTopoService gestionTopoService;
+
+    @Autowired
+    private IGestionSpotService gestionSpotService;
+
+    @Autowired
+    private IGestionSecteurService gestionSecteurService;
+
+    @Autowired
+    private IGestionVoieService gestionVoieService;
 
     @Autowired
     private IRegionBo regionBo;
@@ -31,6 +40,11 @@ public class LoginAction extends ActionSupport implements SessionAware {
     private Utilisateur utilisateur;
     private List<Utilisateur> utilisateurs;
     private Map<String, Object> session;
+    private List<Topo> topos;
+    private List<Spot> spots;
+    private List<Secteur> secteurs;
+    private List<Voie> voies;
+
 
     // =======================================================================
     // Getters et Setters des attributs de l'action
@@ -75,6 +89,38 @@ public class LoginAction extends ActionSupport implements SessionAware {
         this.utilisateurs = utilisateurs;
     }
 
+    public List<Topo> getTopos() {
+        return topos;
+    }
+
+    public void setTopos(List<Topo> topos) {
+        this.topos = topos;
+    }
+
+    public List<Spot> getSpots() {
+        return spots;
+    }
+
+    public void setSpots(List<Spot> spots) {
+        this.spots = spots;
+    }
+
+    public List<Secteur> getSecteurs() {
+        return secteurs;
+    }
+
+    public void setSecteurs(List<Secteur> secteurs) {
+        this.secteurs = secteurs;
+    }
+
+    public List<Voie> getVoies() {
+        return voies;
+    }
+
+    public void setVoies(List<Voie> voies) {
+        this.voies = voies;
+    }
+
     // =======================================================================
     // Méthodes de l'action
     // =======================================================================
@@ -103,10 +149,40 @@ public class LoginAction extends ActionSupport implements SessionAware {
         return ActionSupport.SUCCESS;
     }
 
-    public String doInscription() {
-        String vResult = ActionSupport.INPUT;
+    public String doGetCompte() {
+        utilisateur = (Utilisateur) session.get("user");
+        topos = new ArrayList<>();
+        spots = new ArrayList<>();
+        secteurs = new ArrayList<>();
+        voies = new ArrayList<>();
 
-        return vResult;
+        topos = gestionTopoService.findTopoByUser(utilisateur);
+
+        for(Topo topo : topos) {
+            List<Spot> tmp = gestionSpotService.findSpotByTopo(topo);
+
+            for(Spot spot : tmp) {
+                spots.add(spot);
+            }
+        }
+
+        for(Spot spot : spots) {
+            List<Secteur> tmp = gestionSecteurService.findSecteurBySpot(spot);
+
+            for(Secteur secteur : tmp) {
+                secteurs.add(secteur);
+            }
+        }
+
+        for(Secteur secteur : secteurs) {
+            List<Voie> tmp = gestionVoieService.findVoieBySecteur(secteur);
+
+            for(Voie voie : tmp) {
+                voies.add(voie);
+            }
+        }
+
+        return ActionSupport.SUCCESS;
     }
 
     @Override

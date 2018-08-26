@@ -1,6 +1,7 @@
 package com.antazri.climbingclub.webapp.services.contract;
 
 import com.antazri.climbingclub.model.beans.Region;
+import com.antazri.climbingclub.model.beans.Spot;
 import com.antazri.climbingclub.model.beans.Topo;
 import com.antazri.climbingclub.model.beans.Utilisateur;
 
@@ -16,6 +17,6 @@ public interface IGestionTopoService {
     List<Topo> findAllTopo();
     int addTopo(String pName, int pRegionId, int pUtilisateurId);
     int updateTopo(int pId, String pName, int pRegionId, int pUtilisateurId);
-    void deleteTopo(int pTopoId);
-
+    int deleteTopo(int pTopoId);
+    List<Spot> hasSpots(Topo pTopo);
 }

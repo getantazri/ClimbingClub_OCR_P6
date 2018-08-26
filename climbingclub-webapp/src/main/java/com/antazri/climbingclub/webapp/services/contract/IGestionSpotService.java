@@ -1,5 +1,6 @@
 package com.antazri.climbingclub.webapp.services.contract;
 
+import com.antazri.climbingclub.model.beans.Secteur;
 import com.antazri.climbingclub.model.beans.Spot;
 import com.antazri.climbingclub.model.beans.Topo;
 
@@ -13,5 +14,6 @@ public interface IGestionSpotService {
     List<Spot> findAllSpot();
     int addSpot(String pName, String pDescription, int pHauteur, int pTopoId);
     int updateSpot(int pSpotId, String pName, String pDescription, int pHauteur);
-    void deleteSpot(int pId);
+    int deleteSpot(int pId);
+    List<Secteur> hasSecteurs(Spot pSpot);
 }

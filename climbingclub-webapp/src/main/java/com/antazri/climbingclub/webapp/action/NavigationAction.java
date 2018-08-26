@@ -62,19 +62,6 @@ public class NavigationAction extends ActionSupport {
     // =======================================================================
     // Méthodes
     // =======================================================================
-
-
-    @Override
-    public String execute() throws Exception {
-        this.regions = regionBo.findAll();
-        return ActionSupport.SUCCESS;
-    }
-
-    public String doRegionsList() {
-
-        return Action.SUCCESS;
-    }
-
     public String doRegionDetails() {
         if(region != null) {
             return Action.SUCCESS;

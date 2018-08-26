@@ -15,4 +15,5 @@ public interface ICompteUtilisateurService {
     int updateUtilisateur(int pId, String pNom, String pPrenom, String pPseudo, String pPassword, String pEmail, String pTelephone, int statutId);
     void deleteUtilisateur(int pId);
     Utilisateur login(String pPseudo, String pPassword);
+    int updateStatut(int pUtilisateurId, int pStatutId);
 }

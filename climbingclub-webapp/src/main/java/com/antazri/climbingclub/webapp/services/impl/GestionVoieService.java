@@ -31,15 +31,38 @@ public class GestionVoieService implements IGestionVoieService {
     }
 
     public List<Voie> findVoieBySecteur(Secteur pSecteur) {
-        return voieBo.findBySecteur(pSecteur);
+
+        List<Voie> voies = voieBo.findAll();
+
+        for(Voie voie : voies) {
+            voie.setSecteur(secteurBo.findById(pSecteur.getSecteurId()));
+            voie.setCotation(cotationBo.findById(voie.getCotation().getCotationId()));
+        }
+
+        return voies;
     }
 
     public List<Voie> findVoieByCotation(Cotation pCotation) {
-        return voieBo.findByCotation(pCotation);
+
+        List<Voie> voies = voieBo.findAll();
+
+        for(Voie voie : voies) {
+            voie.setSecteur(secteurBo.findById(voie.getSecteur().getSecteurId()));
+            voie.setCotation(cotationBo.findById(pCotation.getCotationId()));
+        }
+
+        return voies;
     }
 
     public List<Voie> findAllVoie() {
-        return voieBo.findAll();
+        List<Voie> voies = voieBo.findAll();
+
+        for(Voie voie : voies) {
+            voie.setSecteur(secteurBo.findById(voie.getSecteur().getSecteurId()));
+            voie.setCotation(cotationBo.findById(voie.getCotation().getCotationId()));
+        }
+
+        return voies;
     }
 
     public int addVoie(String pName, int pNbrPoints, String pDescription, int pSecteurId, int pCotationId) {

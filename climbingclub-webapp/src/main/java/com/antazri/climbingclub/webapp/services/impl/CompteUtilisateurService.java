@@ -96,4 +96,9 @@ public class CompteUtilisateurService implements ICompteUtilisateurService {
 
         return vUtilisateur;
     }
+
+    @Override
+    public int updateStatut(int pUtilisateurId, int pStatutId) {
+        return 0;
+    }
 }
