@@ -148,7 +148,6 @@
             <result name="success" type="redirectAction">
                 <param name="actionName">doSpotDetails</param>
                 <param name="spotId">${spot.spotId}</param>
-                <param name="topoId">${topo.topoId}</param>
             </result>
             <result name="error">/WEB-INF/jsp/spots/add_spot.jsp</result>
         </action>
@@ -167,7 +166,6 @@
             <result name="error" type="redirectAction">
                 <param name="actionName">doSpotDetails</param>
                 <param name="spotId">${spot.spotId}</param>
-                <param name="topoId">${topo.topoId}</param>
             </result>
         </action>
 

@@ -114,10 +114,6 @@ public class GestionSpotAction extends ActionSupport {
     public String doAddSpot() {
         String vResult = ActionSupport.INPUT;
 
-        if(vResult.equals(ActionSupport.INPUT)) {
-            topo = gestionTopoService.findTopoById(topoId);
-        }
-
         if (this.spot != null) {
             try {
                 if (spot.getSpotNom().replace(" ", "").length() < 3) {

@@ -7,6 +7,7 @@ import com.antazri.climbingclub.model.beans.Secteur;
 import com.antazri.climbingclub.model.beans.Spot;
 import com.antazri.climbingclub.model.beans.Topo;
 import com.antazri.climbingclub.webapp.services.contract.IGestionSpotService;
+import com.antazri.climbingclub.webapp.services.contract.IGestionTopoService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -17,24 +18,30 @@ public class GestionSpotService implements IGestionSpotService {
     private ISpotBo spotBo;
 
     @Autowired
-    private ITopoBo topoBo;
+    private IGestionTopoService gestionTopoService;
 
     @Autowired
     private ISecteurBo secteurBo;
 
     public Spot findSpotById(int pId) {
-        return spotBo.findById(pId);
+        Spot spot = spotBo.findById(pId);
+        spot.setTopo(gestionTopoService.findTopoById(spot.getTopo().getTopoId()));
+
+        return spot;
     }
 
     public Spot findSpotByName(String pName) {
-        return spotBo.findByName(pName);
+        Spot spot = spotBo.findByName(pName);
+        spot.setTopo(gestionTopoService.findTopoById(spot.getTopo().getTopoId()));
+
+        return spot;
     }
 
     public List<Spot> findSpotByTopo(Topo pTopo) {
         List<Spot> spots = spotBo.findByTopo(pTopo);
 
         for(Spot spot : spots) {
-            spot.setTopo(topoBo.findById(spot.getTopo().getTopoId()));
+            spot.setTopo(gestionTopoService.findTopoById(spot.getTopo().getTopoId()));
         }
 
         return spots;
@@ -44,7 +51,7 @@ public class GestionSpotService implements IGestionSpotService {
         List<Spot> spots = spotBo.findAll();
 
         for(Spot spot : spots) {
-            spot.setTopo(topoBo.findById(spot.getTopo().getTopoId()));
+            spot.setTopo(gestionTopoService.findTopoById(spot.getTopo().getTopoId()));
         }
 
         return spots;
@@ -55,7 +62,7 @@ public class GestionSpotService implements IGestionSpotService {
         spot.setSpotNom(pName);
         spot.setSpotDescription(pDescription);
         spot.setHauteur(pHauteur);
-        spot.setTopo(topoBo.findById(pTopoId));
+        spot.setTopo(gestionTopoService.findTopoById(pTopoId));
 
         return spotBo.create(spot);
     }

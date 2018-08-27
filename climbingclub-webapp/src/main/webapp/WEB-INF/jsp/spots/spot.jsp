@@ -10,10 +10,10 @@
         <section class="section">
 
             <h1 class="title"><s:property value="spot.spotNom"/> &nbsp;
-                <s:if test="%{#session.user.utilisateurId == topo.proprietaire.utilisateurId}">
+                <s:if test="%{#session.user.utilisateurId == spot.topo.proprietaire.utilisateurId}">
                     <s:a action="doAddSpot" namespace="/spots" cssClass="button is-primary is-small">
                         <s:param name="topoId" value="topo.topoId" />
-                        <span><b>Ajouter un spot</b></span>
+                        <span><b>Ajouter un secteur</b></span>
                     </s:a>
                     <s:a action="doGetSpotToUpdate" namespace="/spots" cssClass="button is-info is-small">
                         <s:param name="spotId" value="spot.spotId" />
@@ -33,16 +33,16 @@
                 <div class="column">
 
                     <nav class="level is-mobile">
-                        <div class="level-item has-text-left">
+                        <div class="level-item has-text-centered">
                             <div>
                                 <p class="heading">Topo</p>
-                                <p class="title"><s:property value="%{topo.topoNom}"/></p>
+                                <p class="title"><s:property value="spot.topo.topoNom"/></p>
                             </div>
                         </div>
                         <div class="level-item has-text-centered">
                             <div>
                                 <p class="heading">Région</p>
-                                <p class="title"><s:property value="topo.region.regionNom"/></p>
+                                <p class="title"><s:property value="%{spot.topo.region.regionNom}"/></p>
                             </div>
                         </div>
                     </nav>
