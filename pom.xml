@@ -152,6 +152,13 @@
                 <version>1.2</version>
             </dependency>
 
+            <!-- JBCrypt dependency -->
+            <dependency>
+                <groupId>org.mindrot</groupId>
+                <artifactId>jbcrypt</artifactId>
+                <version>0.4</version>
+            </dependency>
+
             <!-- JUnit dependency -->
             <dependency>
                 <groupId>junit</groupId>

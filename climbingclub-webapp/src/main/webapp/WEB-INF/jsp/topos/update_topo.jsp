@@ -9,7 +9,7 @@
 
         <section class="section">
 
-            <h1 class="title">Modifier un topo</h1>
+            <h1 class="title">Modifier le Topo</h1>
 
             <h2 class="subtitle">"<s:property value="topo.topoNom" />"</h2>
 

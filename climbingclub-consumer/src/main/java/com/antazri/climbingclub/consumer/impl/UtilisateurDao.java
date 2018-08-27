@@ -141,7 +141,6 @@ public class UtilisateurDao extends AbstractDao implements IUtilisateurDao {
                 + "SET nom = :nom, "
                 + "prenom = :prenom, "
                 + "pseudo = :pseudo, "
-                + "password = :password, "
                 + "email = :email, "
                 + "telephone = :telephone, "
                 + "statut_id = :statutId "
@@ -152,7 +151,6 @@ public class UtilisateurDao extends AbstractDao implements IUtilisateurDao {
         vSqlParameters.addValue("nom", pUtilisateur.getNom());
         vSqlParameters.addValue("prenom", pUtilisateur.getPrenom());
         vSqlParameters.addValue("pseudo", pUtilisateur.getPseudo());
-        vSqlParameters.addValue("password", pUtilisateur.getPassword());
         vSqlParameters.addValue("email", pUtilisateur.getEmail());
         vSqlParameters.addValue("telephone", pUtilisateur.getTelephone());
         vSqlParameters.addValue("statutId", pUtilisateur.getStatut().getStatutId());

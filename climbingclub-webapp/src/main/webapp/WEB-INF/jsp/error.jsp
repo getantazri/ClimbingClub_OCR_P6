@@ -17,7 +17,9 @@
 
                 <div class="column">
 
-                    <div class="notification is-danger"><s:actionmessage/></div>
+                    <div class="notification is-danger"><s:actionerror /></div>
+
+                    <div class="notification is-light"><s:actionmessage /></div>
 
                 </div>
 

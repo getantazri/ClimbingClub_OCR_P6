@@ -12,8 +12,10 @@ public interface ICompteUtilisateurService {
     Utilisateur findUtilisateurByPseudo(String pPseudo);
     List<Utilisateur> findAllUtilisateur();
     int addUtilisateur(String pNom, String pPrenom, String pPseudo, String pPassword, String pEmail, String pTelephone, int statutId);
-    int updateUtilisateur(int pId, String pNom, String pPrenom, String pPseudo, String pPassword, String pEmail, String pTelephone, int statutId);
+    int updateUtilisateur(int pId, String pNom, String pPrenom, String pPseudo, String pEmail, String pTelephone, int statutId);
     void deleteUtilisateur(int pId);
     Utilisateur login(String pPseudo, String pPassword);
     int updateStatut(int pUtilisateurId, int pStatutId);
+    String hashPassword(String pPlainPassword);
+    int verifyPassword(String pPlainPassword, String pHashedPassword);
 }

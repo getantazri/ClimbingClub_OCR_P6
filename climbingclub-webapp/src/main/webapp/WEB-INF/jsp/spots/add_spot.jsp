@@ -9,36 +9,31 @@
 
         <section class="section">
 
-            <h1 class="title">Ajouter un Topo</h1>
+            <h1 class="title">Ajouter un Spot</h1>
 
-            <h2 class="subtitle">Partagez-le avec la communauté !</h2>
+            <h2 class="subtitle">pour le topo "<s:property value="topo.topoNom" />"</h2>
 
             <div class="columns">
 
                 <div class="column">
 
-                    <s:form action="doAddTopo" method="POST">
-                        <s:hidden name="topo.proprietaire.utilisateurId" value="%{#session.user.utilisateurId}" />
+                    <span class="has-text-danger"><b><s:actionerror /></b></span>
+
+                    <s:form action="doAddSpot" method="POST">
+                        <s:hidden name="topoId" value="topoId" />
                         <div class="field">
                             <div class="control">
-                                <span class="has-text-danger"><b><s:actionerror /></b></span>
-                                <s:textfield name="topo.topoNom" label="Nom" requiredLabel="true" cssClass="input" type="text" />
+                                <s:textfield name="spot.spotNom" label="Nom" requiredLabel="true" cssClass="input" type="text" />
                             </div>
                         </div>
                         <div class="field">
                             <div class="control">
-                                <s:select name="topo.region.regionId" label="Région"
-                                          list="regions" listKey="regionId" listValue="regionNom"
-                                          emptyOption="false"
-                                          requiredLabel="true"
-                                          cssClass="select" />
+                                <s:textarea name="spot.spotDescription" label="Description" requiredLabel="true" cssClass="textarea" />
                             </div>
                         </div>
                         <div class="field">
                             <div class="control">
-                                <label class="checkbox">
-                                    <s:checkbox name="topo.disponible" label="Disponible" requiredLabel="true" />
-                                </label>
+                                <s:textfield name="spot.hauteur" label="Hauteur" requiredLabel="true" cssClass="input" type="text" />
                             </div>
                         </div>
 

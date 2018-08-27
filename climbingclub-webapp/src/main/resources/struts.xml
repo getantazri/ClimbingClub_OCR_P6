@@ -5,6 +5,9 @@
         "http://struts.apache.org/dtds/struts-2.5.dtd">
 
 <struts>
+    <!-- =============================================================== -->
+    <!-- Package CCLUB DEFAULT -->
+    <!-- =============================================================== -->
     <package name="cclub-default" extends="struts-default" namespace="/">
         <!-- Action INDEX par défaut -->
         <default-action-ref name="index" />
@@ -12,8 +15,15 @@
             <result>/WEB-INF/jsp/index.jsp</result>
         </action>
 
+        <action name="error">
+            <result>/WEB-INF/jsp/error.jsp</result>
+        </action>
+
     </package>
 
+    <!-- =============================================================== -->
+    <!-- Package TOPOS -->
+    <!-- =============================================================== -->
     <package name="topos" extends="cclub-default" namespace="/topos">
         <!-- Action TOPOS LIST -->
         <action name="doToposList"
@@ -27,13 +37,12 @@
         <action name="doTopoDetails"
                 class="com.antazri.climbingclub.webapp.action.GestionTopoAction"
                 method="doTopoDetails">
-            <result name="success">/WEB-INF/jsp/topos/topo.jsp</result>
-            <result name="error">/WEB-INF/jsp/topos/topos.jsp</result>
-
             <interceptor-ref name="store">
                 <param name="operationMode">RETRIEVE</param>
             </interceptor-ref>
             <interceptor-ref name="defaultStack" />
+            <result name="success">/WEB-INF/jsp/topos/topo.jsp</result>
+            <result name="error">/WEB-INF/jsp/topos/topos.jsp</result>
 
         </action>
 
@@ -91,20 +100,117 @@
             </result>
         </action>
 
-        <!-- Action UPDATE TOPO -->
+        <!-- Action DELETE TOPO -->
         <action name="doDeleteTopo"
                 class="com.antazri.climbingclub.webapp.action.GestionTopoAction"
                 method="doDeleteTopo">
 
+            <result name="success" type="redirect">/compte/doGetCompte.action</result>
+            <result name="error" type="redirect">/compte/doGetCompte.action</result>
+        </action>
+    </package>
+
+    <!-- =============================================================== -->
+    <!-- Package SPOTS -->
+    <!-- =============================================================== -->
+    <package name="spots" extends="cclub-default" namespace="/spots">
+        <!-- Action SPOTS LIST -->
+        <action name="doListAllSpot"
+                class="com.antazri.climbingclub.webapp.action.GestionSpotAction"
+                method="doListAllSpot">
+        </action>
+
+        <!-- Action SPOT DETAILS -->
+        <action name="doSpotDetails"
+                class="com.antazri.climbingclub.webapp.action.GestionSpotAction"
+                method="doSpotDetails">
+
+            <interceptor-ref name="store">
+                <param name="operationMode">RETRIEVE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack" />
+
+            <result name="success">/WEB-INF/jsp/spots/spot.jsp</result>
+            <result name="error">/WEB-INF/jsp/error.jsp</result>
+        </action>
+
+        <!-- Action ADD SPOT -->
+        <action name="doAddSpot"
+                class="com.antazri.climbingclub.webapp.action.GestionSpotAction"
+                method="doAddSpot">
+
+            <interceptor-ref name="store">
+                <param name="operationMode">STORE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack" />
+
+            <result name="input">/WEB-INF/jsp/spots/add_spot.jsp</result>
             <result name="success" type="redirectAction">
-                <param name="actionName">doGetCompte</param>
+                <param name="actionName">doSpotDetails</param>
+                <param name="spotId">${spot.spotId}</param>
+                <param name="topoId">${topo.topoId}</param>
+            </result>
+            <result name="error">/WEB-INF/jsp/spots/add_spot.jsp</result>
+        </action>
+
+        <!-- Action GET SPOT TO UPDATE -->
+        <action name="doGetSpotToUpdate"
+                class="com.antazri.climbingclub.webapp.action.GestionSpotAction"
+                method="doGetSpotToUpdate">
+
+            <interceptor-ref name="store">
+                <param name="operationMode">STORE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack" />
+
+            <result name="input">/WEB-INF/jsp/spots/update_spot.jsp</result>
+            <result name="error" type="redirectAction">
+                <param name="actionName">doSpotDetails</param>
+                <param name="spotId">${spot.spotId}</param>
+                <param name="topoId">${topo.topoId}</param>
+            </result>
+        </action>
+
+        <!-- Action UPDATE SPOT -->
+        <action name="doUpdateSpot"
+                class="com.antazri.climbingclub.webapp.action.GestionSpotAction"
+                method="doUpdateSpot">
+            <interceptor-ref name="store">
+                <param name="operationMode">STORE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack" />
+
+            <result name="input">/WEB-INF/jsp/spots/update_spot.jsp</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">doSpotDetails</param>
+                <param name="spotId">${spot.spotId}</param>
+                <param name="topoId">${topo.topoId}</param>
             </result>
             <result name="error" type="redirectAction">
-                <param name="actionName">doGetCompte</param>
+                <param name="actionName">doSpotDetails</param>
+                <param name="spotId">${spot.spotId}</param>
+                <param name="topoId">${topo.topoId}</param>
+            </result>
+        </action>
+
+        <!-- Action DELETE SPOT -->
+        <action name="doDeleteSpot"
+                class="com.antazri.climbingclub.webapp.action.GestionSpotAction"
+                method="doDeleteSpot">
+            <result name="success" type="redirectAction">
+                <param name="actionName">doTopoDetails</param>
+                <param name="topoId">${topo.topoId}</param>
+            </result>
+            <result name="error" type="redirectAction">
+                <param name="actionName">doTopoDetails</param>
+                <param name="topoId">${topo.topoId}</param>
             </result>
         </action>
     </package>
 
+    <!-- =============================================================== -->
+    <!-- Package REGIONS -->
+    <!-- =============================================================== -->
     <package name="regions" extends="cclub-default" namespace="/regions">
         <!-- Action EN REGION page access -->
         <action name="doRegions">
@@ -113,6 +219,9 @@
 
     </package>
 
+    <!-- =============================================================== -->
+    <!-- Package PUBLIC -->
+    <!-- =============================================================== -->
     <package name="public" extends="cclub-default" namespace="/login">
         <!-- Action LOGIN -->
         <action name="doLogin"
@@ -144,6 +253,9 @@
         </action>
     </package>
 
+    <!-- =============================================================== -->
+    <!-- Package USER -->
+    <!-- =============================================================== -->
     <package name="user" extends="public" namespace="/compte">
         <!-- Action ACCES COMPTE -->
         <action name="doGetCompte"
@@ -154,6 +266,9 @@
         </action>
     </package>
 
+    <!-- =============================================================== -->
+    <!-- Package ADMIN -->
+    <!-- =============================================================== -->
     <package name="admin" extends="user" namespace="/admin">
         <!-- Action ACCES ADMIN -->
         <action name="doLoginAdmin">

@@ -9,15 +9,24 @@
 
         <section class="section">
 
-            <h1 class="title"><s:property value="topo.topoNom"/></h1>
-            <s:a action="doGetTopoToUpdate" namespace="/topos">
-                <s:param name="topoId" value="topo.topoId" />
-                Modifier le topo
-            </s:a> -
-            <s:a action="doDeleteTopo" namespace="/topos">
-                <s:param name="topoId" value="topo.topoId" />
-                Supprimer le topo
-            </s:a>
+            <h1 class="title"><s:property value="topo.topoNom"/> &nbsp;
+            <s:if test="%{#session.user.utilisateurId == topo.proprietaire.utilisateurId}">
+                <s:a action="doAddSpot" namespace="/spots" cssClass="button is-primary is-small">
+                    <s:param name="topoId" value="topo.topoId" />
+                    <span><b>Ajouter un spot</b></span>
+                </s:a>
+                <s:a action="doGetTopoToUpdate" namespace="/topos" cssClass="button is-info is-small">
+                    <s:param name="topoId" value="topo.topoId" />
+                    <span><b>Modifier le topo</b></span>
+                </s:a>
+                <s:a action="doDeleteTopo" namespace="/topos" cssClass="button is-danger is-small">
+                    <s:param name="topoId" value="topo.topoId" />
+                    <span><b>Supprimer le topo</b></span>
+                </s:a>
+            </s:if>
+            </h1>
+
+            <div class="columns"><div class="column"></div></div>
 
             <div class="columns">
 
@@ -53,6 +62,16 @@
                         </div>
                     </nav>
 
+                </div>
+
+            </div>
+
+            <div class="columns"><div class="column"></div></div>
+
+            <div class="columns">
+
+                <div class="column">
+
                     <h2 class="subtitle">Liste des spots</h2>
 
                     <s:if test="%{spots == null}">
@@ -73,7 +92,10 @@
                             <s:iterator value="spots">
                                 <tr>
                                     <td>
-                                        <s:property value="spotNom"/>
+                                        <s:a action="doSpotDetails" namespace="/spots">
+                                            <s:param name="spotId" value="spotId" />
+                                            <s:property value="spotNom" />
+                                        </s:a>
                                     </td>
                                     <td>
                                         <s:property value="hauteur"/>

@@ -98,5 +98,10 @@
             <artifactId>jstl</artifactId>
         </dependency>
 
+        <!-- JBCrypt dependency -->
+        <dependency>
+            <groupId>org.mindrot</groupId>
+            <artifactId>jbcrypt</artifactId>
+        </dependency>
     </dependencies>
 </project>

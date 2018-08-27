@@ -33,10 +33,8 @@ public class GestionTopoAction extends ActionSupport {
     // Attributs et paramètres de l'action
     // =======================================================================
     private int topoId;
-    private String topoNom;
     private Utilisateur proprietaire;
     private Topo topo;
-    private Topo comparedTopo;
     private List<Topo> topos;
     private Region region;
     private List<Region> regions;
@@ -51,14 +49,6 @@ public class GestionTopoAction extends ActionSupport {
 
     public void setTopoId(int topoId) {
         this.topoId = topoId;
-    }
-
-    public String getTopoNom() {
-        return topoNom;
-    }
-
-    public void setTopoNom(String topoNom) {
-        this.topoNom = topoNom;
     }
 
     public Utilisateur getProprietaire() {
@@ -107,14 +97,6 @@ public class GestionTopoAction extends ActionSupport {
 
     public void setSpots(List<Spot> spots) {
         this.spots = spots;
-    }
-
-    public Topo getComparedTopo() {
-        return comparedTopo;
-    }
-
-    public void setComparedTopo(Topo comparedTopo) {
-        this.comparedTopo = comparedTopo;
     }
 
     // =======================================================================

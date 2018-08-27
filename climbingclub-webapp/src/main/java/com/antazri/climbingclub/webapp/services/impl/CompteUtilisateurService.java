@@ -5,6 +5,7 @@ import com.antazri.climbingclub.business.contract.IUtilisateurBo;
 import com.antazri.climbingclub.model.beans.Utilisateur;
 import com.antazri.climbingclub.webapp.services.contract.ICompteUtilisateurService;
 import org.apache.commons.lang3.StringUtils;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -47,7 +48,7 @@ public class CompteUtilisateurService implements ICompteUtilisateurService {
                 utilisateur.setNom(pNom);
                 utilisateur.setPrenom(pPrenom);
                 utilisateur.setPseudo(pPseudo);
-                utilisateur.setPassword(pPassword);
+                utilisateur.setPassword(hashPassword(pPassword));
                 utilisateur.setEmail(pEmail);
                 utilisateur.setTelephone(pTelephone);
                 utilisateur.setStatut(statutBo.findById(statutId));
@@ -59,18 +60,17 @@ public class CompteUtilisateurService implements ICompteUtilisateurService {
         }
     }
 
-    public int updateUtilisateur(int pId, String pNom, String pPrenom, String pPseudo, String pPassword, String pEmail, String pTelephone, int statutId) {
+    public int updateUtilisateur(int pId, String pNom, String pPrenom, String pPseudo, String pEmail, String pTelephone, int statutId) {
         Utilisateur utilisateur = utilisateurBo.findById(pId);
 
         utilisateur.setNom(pNom);
         utilisateur.setPrenom(pPrenom);
         utilisateur.setPseudo(pPseudo);
-        utilisateur.setPassword(pPassword);
         utilisateur.setEmail(pEmail);
         utilisateur.setTelephone(pTelephone);
         utilisateur.setStatut(statutBo.findById(statutId));
 
-        return utilisateurBo.create(utilisateur);
+        return utilisateurBo.update(utilisateur);
     }
 
     public void deleteUtilisateur(int pId) {
@@ -84,21 +84,38 @@ public class CompteUtilisateurService implements ICompteUtilisateurService {
         if (!StringUtils.isAllEmpty(pPseudo, pPassword)) {
             vUtilisateur = utilisateurBo.findByPseudo(pPseudo);
 
-            if (vUtilisateur.getUtilisateurId() > 0) {
-                if (vUtilisateur.getPassword().equals(pPassword)) {
-                    return vUtilisateur;
-                } else {
-                    vUtilisateur.setUtilisateurId(-1);
-                }
+            if (verifyPassword(pPassword, vUtilisateur.getPassword()) > 0) {
+                return vUtilisateur;
             }
-
         }
 
+        vUtilisateur.setUtilisateurId(-1);
         return vUtilisateur;
+
     }
 
     @Override
     public int updateStatut(int pUtilisateurId, int pStatutId) {
-        return 0;
+        Utilisateur vUtilsateur = findUtilisateurById(pUtilisateurId);
+
+        if (vUtilsateur != null) {
+            vUtilsateur.setStatut(statutBo.findById(pStatutId));
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+    @Override
+    public String hashPassword(String pPlainPassword) {
+        return BCrypt.hashpw(pPlainPassword, BCrypt.gensalt());
+    }
+
+    @Override
+    public int verifyPassword(String pPlainPassword, String pHashedPassword) {
+        if (BCrypt.checkpw(pPlainPassword, pHashedPassword)) {
+            return 1;
+        } else
+            return 0;
     }
 }

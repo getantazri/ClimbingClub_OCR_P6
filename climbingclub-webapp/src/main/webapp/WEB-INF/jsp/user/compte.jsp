@@ -105,20 +105,23 @@
                             <s:iterator value="spots">
                                 <tr>
                                     <td>
-                                        <s:property value="spotNom"/>
+                                        <s:a action="doSpotDetails" namespace="/spots">
+                                            <s:param name="spotId" value="spotId" />
+                                            <s:property value="spotNom" />
+                                        </s:a>
                                     </td>
                                     <td>
                                         <s:property value="topo.topoNom"/>
                                     </td>
                                     <td>
-                                        <s:a action="doGetTopoToUpdate" namespace="/topos">
-                                            <s:param name="topoId" value="topoId"/>
+                                        <s:a action="doGetSpotToUpdate" namespace="/spots">
+                                            <s:param name="spotId" value="spotId"/>
                                             <i class="far fa-edit has-text-primary has-text-centered"></i>
                                         </s:a>
                                     </td>
                                     <td>
-                                        <s:a action="doDeleteTopo" namespace="/topos">
-                                            <s:param name="topoId" value="topoId"/>
+                                        <s:a action="doDeleteSpot" namespace="/spots">
+                                            <s:param name="spotId" value="spotId"/>
                                             <i class="fas fa-times has-text-danger has-text-centered"></i>
                                         </s:a>
                                     </td>

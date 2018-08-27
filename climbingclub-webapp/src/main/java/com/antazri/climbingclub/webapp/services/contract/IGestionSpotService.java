@@ -14,6 +14,6 @@ public interface IGestionSpotService {
     List<Spot> findAllSpot();
     int addSpot(String pName, String pDescription, int pHauteur, int pTopoId);
     int updateSpot(int pSpotId, String pName, String pDescription, int pHauteur);
-    int deleteSpot(int pId);
+    int deleteSpot(int pSpotId);
     List<Secteur> hasSecteurs(Spot pSpot);
 }

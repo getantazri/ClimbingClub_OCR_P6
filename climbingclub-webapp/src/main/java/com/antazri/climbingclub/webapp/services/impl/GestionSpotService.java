@@ -69,10 +69,15 @@ public class GestionSpotService implements IGestionSpotService {
         return spotBo.update(spot);
     }
 
-    public int deleteSpot(int pId) {
+    public int deleteSpot(int pSpotId) {
+        List<Secteur> secteurs = hasSecteurs(spotBo.findById(pSpotId));
 
-        spotBo.delete(spotBo.findById(pId));
-        return 1;
+        if (secteurs.isEmpty()) {
+            spotBo.delete(spotBo.findById(pSpotId));
+            return 1;
+        } else {
+            return 0;
+        }
     }
 
     @Override

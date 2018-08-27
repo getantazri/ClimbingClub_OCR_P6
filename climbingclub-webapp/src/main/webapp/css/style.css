@@ -131,6 +131,10 @@ footer {
     text-transform: uppercase;
 }
 
+.title {
+    text-transform: uppercase;
+}
+
 /* LOGIN */
 form {
     width: 70%;
