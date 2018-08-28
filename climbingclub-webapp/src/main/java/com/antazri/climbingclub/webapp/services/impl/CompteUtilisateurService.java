@@ -96,10 +96,10 @@ public class CompteUtilisateurService implements ICompteUtilisateurService {
 
     @Override
     public int updateStatut(int pUtilisateurId, int pStatutId) {
-        Utilisateur vUtilsateur = findUtilisateurById(pUtilisateurId);
+        Utilisateur vUtilisateur = findUtilisateurById(pUtilisateurId);
 
-        if (vUtilsateur != null) {
-            vUtilsateur.setStatut(statutBo.findById(pStatutId));
+        if (vUtilisateur != null) {
+            vUtilisateur.setStatut(statutBo.findById(pStatutId));
             return 1;
         } else {
             return 0;
@@ -113,9 +113,14 @@ public class CompteUtilisateurService implements ICompteUtilisateurService {
 
     @Override
     public int verifyPassword(String pPlainPassword, String pHashedPassword) {
-        if (BCrypt.checkpw(pPlainPassword, pHashedPassword)) {
-            return 1;
-        } else
+        try {
+            if (BCrypt.checkpw(pPlainPassword, pHashedPassword)) {
+                return 1;
+            } else
+                return 0;
+        } catch (NullPointerException pE) {
             return 0;
+        }
+
     }
 }
