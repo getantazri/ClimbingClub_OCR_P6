@@ -18,9 +18,11 @@
                 <div class="column">
 
                     <span class="has-text-danger"><b><s:actionerror /></b></span>
+                    <span class="has-text-info"><b><s:actionmessage /></b></span>
 
                     <s:form action="doUpdateSpot" method="POST">
-                        <s:hidden name="topoId" value="topoId" />
+                        <s:hidden name="spot.spotId" value="%{spot.spotId}" />
+                        <s:hidden name="spot.topo.topoId" value="%{spot.topo.topoId}" />
                         <div class="field">
                             <div class="control">
                                 <s:textfield name="spot.spotNom" fieldValue="%{spot.spotNom}" label="Nom" requiredLabel="true" cssClass="input" type="text" />
@@ -38,7 +40,7 @@
                         </div>
 
                         <div class="control add-space-top-bottom-10">
-                            <s:submit value="Ajouter"  cssClass="button is-primary" />
+                            <s:submit value="Enregistrer les modifications"  cssClass="button is-primary" />
                         </div>
                     </s:form>
                 </div>

@@ -45,6 +45,12 @@
                                 <p class="title"><s:property value="%{spot.topo.region.regionNom}"/></p>
                             </div>
                         </div>
+                        <div class="level-item has-text-centered">
+                            <div>
+                                <p class="heading">Hauteur</p>
+                                <p class="title"><s:property value="%{spot.hauteur}"/>m</p>
+                            </div>
+                        </div>
                     </nav>
 
                 </div>

@@ -143,17 +143,17 @@ public class GestionSpotAction extends ActionSupport {
     }
 
     public String doGetSpotToUpdate() {
-        topo = gestionTopoService.findTopoById(topoId);
 
         if (spotId > 0) {
             spot = gestionSpotService.findSpotById(spotId);
+            topo = gestionTopoService.findTopoById(spot.getTopo().getTopoId());
         }
 
         return ActionSupport.INPUT;
     }
 
     public String doUpdateSpot() {
-        String vResult = ActionSupport.INPUT;
+        String vResult;
 
         try {
             if (spot.getSpotNom().replace(" ", "").length() < 3) {
