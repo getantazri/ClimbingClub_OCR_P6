@@ -20,7 +20,7 @@
                     <span class="has-text-danger"><b><s:actionerror /></b></span>
 
                     <s:form action="doAddSpot" method="POST">
-                        <s:hidden name="topoId" value="topoId" />
+                        <s:hidden name="topoId" value="%{topo.topoId}" />
                         <div class="field">
                             <div class="control">
                                 <s:textfield name="spot.spotNom" label="Nom" requiredLabel="true" cssClass="input" type="text" />
@@ -33,7 +33,7 @@
                         </div>
                         <div class="field">
                             <div class="control">
-                                <s:textfield name="spot.hauteur" label="Hauteur" requiredLabel="true" cssClass="input" type="text" />
+                                <s:textfield name="spot.hauteur" label="Hauteur" requiredLabel="true" cssClass="input" type="number" />
                             </div>
                         </div>
 

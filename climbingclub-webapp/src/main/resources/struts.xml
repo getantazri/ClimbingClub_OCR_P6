@@ -37,10 +37,7 @@
         <action name="doTopoDetails"
                 class="com.antazri.climbingclub.webapp.action.GestionTopoAction"
                 method="doTopoDetails">
-            <interceptor-ref name="store">
-                <param name="operationMode">RETRIEVE</param>
-            </interceptor-ref>
-            <interceptor-ref name="defaultStack" />
+
             <result name="success">/WEB-INF/jsp/topos/topo.jsp</result>
             <result name="error">/WEB-INF/jsp/topos/topos.jsp</result>
 
@@ -50,11 +47,6 @@
         <action name="doAddTopo"
                 class="com.antazri.climbingclub.webapp.action.GestionTopoAction"
                 method="doAddTopo">
-
-            <interceptor-ref name="store">
-                <param name="operationMode">STORE</param>
-            </interceptor-ref>
-            <interceptor-ref name="defaultStack" />
 
             <result name="input">/WEB-INF/jsp/topos/add_topo.jsp</result>
             <result name="success" type="redirectAction">
@@ -68,10 +60,6 @@
         <action name="doGetTopoToUpdate"
                 class="com.antazri.climbingclub.webapp.action.GestionTopoAction"
                 method="doGetTopoToUpdate">
-            <interceptor-ref name="store">
-                <param name="operationMode">STORE</param>
-            </interceptor-ref>
-            <interceptor-ref name="defaultStack" />
 
             <result name="input">/WEB-INF/jsp/topos/update_topo.jsp</result>
             <result name="error" type="redirectAction">
@@ -84,10 +72,6 @@
         <action name="doUpdateTopo"
                 class="com.antazri.climbingclub.webapp.action.GestionTopoAction"
                 method="doUpdateTopo">
-            <interceptor-ref name="store">
-                <param name="operationMode">STORE</param>
-            </interceptor-ref>
-            <interceptor-ref name="defaultStack" />
 
             <result name="input">/WEB-INF/jsp/topos/update_topo.jsp</result>
             <result name="success" type="redirectAction">
@@ -125,11 +109,6 @@
                 class="com.antazri.climbingclub.webapp.action.GestionSpotAction"
                 method="doSpotDetails">
 
-            <interceptor-ref name="store">
-                <param name="operationMode">RETRIEVE</param>
-            </interceptor-ref>
-            <interceptor-ref name="defaultStack" />
-
             <result name="success">/WEB-INF/jsp/spots/spot.jsp</result>
             <result name="error">/WEB-INF/jsp/error.jsp</result>
         </action>
@@ -139,15 +118,11 @@
                 class="com.antazri.climbingclub.webapp.action.GestionSpotAction"
                 method="doAddSpot">
 
-            <interceptor-ref name="store">
-                <param name="operationMode">STORE</param>
-            </interceptor-ref>
-            <interceptor-ref name="defaultStack" />
-
             <result name="input">/WEB-INF/jsp/spots/add_spot.jsp</result>
             <result name="success" type="redirectAction">
                 <param name="actionName">doSpotDetails</param>
                 <param name="spotId">${spot.spotId}</param>
+                <param name="topoId">${topoId}</param>
             </result>
             <result name="error">/WEB-INF/jsp/spots/add_spot.jsp</result>
         </action>
@@ -157,15 +132,11 @@
                 class="com.antazri.climbingclub.webapp.action.GestionSpotAction"
                 method="doGetSpotToUpdate">
 
-            <interceptor-ref name="store">
-                <param name="operationMode">STORE</param>
-            </interceptor-ref>
-            <interceptor-ref name="defaultStack" />
-
             <result name="input">/WEB-INF/jsp/spots/update_spot.jsp</result>
             <result name="error" type="redirectAction">
                 <param name="actionName">doSpotDetails</param>
                 <param name="spotId">${spot.spotId}</param>
+                <param name="topoId">${topoId}</param>
             </result>
         </action>
 
@@ -173,10 +144,6 @@
         <action name="doUpdateSpot"
                 class="com.antazri.climbingclub.webapp.action.GestionSpotAction"
                 method="doUpdateSpot">
-            <interceptor-ref name="store">
-                <param name="operationMode">STORE</param>
-            </interceptor-ref>
-            <interceptor-ref name="defaultStack" />
 
             <result name="input">/WEB-INF/jsp/spots/update_spot.jsp</result>
             <result name="success" type="redirectAction">

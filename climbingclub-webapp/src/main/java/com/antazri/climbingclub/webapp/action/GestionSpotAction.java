@@ -112,33 +112,34 @@ public class GestionSpotAction extends ActionSupport {
     }
 
     public String doAddSpot() {
-        String vResult = ActionSupport.INPUT;
 
-        if (this.spot != null) {
+        topo = gestionTopoService.findTopoById(topoId);
+
+        if (spot != null) {
             try {
                 if (spot.getSpotNom().replace(" ", "").length() < 3) {
                     addActionError("Le nom de votre spot n'est pas valide");
-                    vResult = ActionSupport.INPUT;
+                    return ActionSupport.INPUT;
                 } else {
                     int row = gestionSpotService.addSpot(spot.getSpotNom(), spot.getSpotDescription(), spot.getHauteur(), topo.getTopoId());
 
-                    if (row == 1) {
-                        vResult = ActionSupport.SUCCESS;
+                    if (row > 0) {
                         addActionMessage("Spot ajouté");
                         this.setSpot(gestionSpotService.findSpotByName(spot.getSpotNom()));
+                        return ActionSupport.SUCCESS;
                     } else {
                         addActionError("Votre spot n'a pas été ajouté");
-                        vResult = ActionSupport.ERROR;
+                        return ActionSupport.ERROR;
                     }
                 }
 
             } catch (Exception pE) {
                 this.addActionError("Erreur dans l'ajout de votre spot");
-                vResult = ActionSupport.ERROR;
+                return ActionSupport.ERROR;
             }
         }
 
-        return vResult;
+        return ActionSupport.INPUT;
     }
 
     public String doGetSpotToUpdate() {

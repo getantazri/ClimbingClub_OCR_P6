@@ -150,36 +150,41 @@ public class LoginAction extends ActionSupport implements SessionAware {
     }
 
     public String doGetCompte() {
-        utilisateur = (Utilisateur) session.get("user");
-        topos = new ArrayList<>();
-        spots = new ArrayList<>();
-        secteurs = new ArrayList<>();
-        voies = new ArrayList<>();
+        try {
+            utilisateur = (Utilisateur) session.get("user");
+            topos = new ArrayList<>();
+            spots = new ArrayList<>();
+            secteurs = new ArrayList<>();
+            voies = new ArrayList<>();
 
-        topos = gestionTopoService.findTopoByUser(utilisateur);
+            topos = gestionTopoService.findTopoByUser(utilisateur);
 
-        for(Topo topo : topos) {
-            List<Spot> tmp = gestionSpotService.findSpotByTopo(topo);
+            for(Topo topo : topos) {
+                List<Spot> tmp = gestionSpotService.findSpotByTopo(topo);
 
-            for(Spot spot : tmp) {
-                spots.add(spot);
+                for(Spot spot : tmp) {
+                    spots.add(spot);
+                }
             }
-        }
 
-        for(Spot spot : spots) {
-            List<Secteur> tmp = gestionSecteurService.findSecteurBySpot(spot);
+            for(Spot spot : spots) {
+                List<Secteur> tmp = gestionSecteurService.findSecteurBySpot(spot);
 
-            for(Secteur secteur : tmp) {
-                secteurs.add(secteur);
+                for(Secteur secteur : tmp) {
+                    secteurs.add(secteur);
+                }
             }
-        }
 
-        for(Secteur secteur : secteurs) {
-            List<Voie> tmp = gestionVoieService.findVoieBySecteur(secteur);
+            for(Secteur secteur : secteurs) {
+                List<Voie> tmp = gestionVoieService.findVoieBySecteur(secteur);
 
-            for(Voie voie : tmp) {
-                voies.add(voie);
+                for(Voie voie : tmp) {
+                    voies.add(voie);
+                }
             }
+        } catch(NullPointerException pE) {
+            addActionError("Vous devez vous connecter pour accéder à votre compte");
+            return ActionSupport.ERROR;
         }
 
         return ActionSupport.SUCCESS;
