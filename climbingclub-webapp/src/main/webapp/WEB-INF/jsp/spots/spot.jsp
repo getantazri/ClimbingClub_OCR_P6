@@ -36,7 +36,12 @@
                         <div class="level-item has-text-centered">
                             <div>
                                 <p class="heading">Topo</p>
-                                <p class="title"><s:property value="spot.topo.topoNom"/></p>
+                                <p class="title">
+                                    <s:a action="doTopoDetails" namespace="/topos" cssClass="no-color-change">
+                                        <s:param name="topoId" value="spot.topo.topoId"/>
+                                        <s:property value="spot.topo.topoNom"/>
+                                    </s:a>
+                                </p>
                             </div>
                         </div>
                         <div class="level-item has-text-centered">

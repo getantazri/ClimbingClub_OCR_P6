@@ -75,7 +75,7 @@
                     <h2 class="subtitle">Liste des spots</h2>
 
                     <s:if test="%{spots == null}">
-                        <div class="notification is-danger"><s:actionmessage/></div>
+                        <div class="notification is-info"><s:actionmessage/></div>
                     </s:if>
                     <s:else>
                         <table class="table is-striped is-hoverable is-fullwidth topo-list">

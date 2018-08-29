@@ -147,6 +147,9 @@ public class GestionSpotAction extends ActionSupport {
         if (spotId > 0) {
             spot = gestionSpotService.findSpotById(spotId);
             topo = gestionTopoService.findTopoById(spot.getTopo().getTopoId());
+        } else {
+            addActionError("Spot introuvable");
+            return ActionSupport.ERROR;
         }
 
         return ActionSupport.INPUT;

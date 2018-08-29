@@ -135,6 +135,10 @@ footer {
     text-transform: uppercase;
 }
 
+.no-color-change {
+    color: rgba(54, 54, 54, 1);
+}
+
 /* LOGIN */
 form {
     width: 70%;
