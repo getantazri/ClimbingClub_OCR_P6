@@ -23,6 +23,7 @@ public class GestionVoieService implements IGestionVoieService {
     private ICotationBo cotationBo;
 
     public Voie findVoieById(int pId) {
+
         return voieBo.findById(pId);
     }
 
@@ -32,7 +33,7 @@ public class GestionVoieService implements IGestionVoieService {
 
     public List<Voie> findVoieBySecteur(Secteur pSecteur) {
 
-        List<Voie> voies = voieBo.findAll();
+        List<Voie> voies = voieBo.findBySecteur(pSecteur);
 
         for(Voie voie : voies) {
             voie.setSecteur(secteurBo.findById(pSecteur.getSecteurId()));

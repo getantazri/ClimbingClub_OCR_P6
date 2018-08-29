@@ -150,10 +150,13 @@
                             <s:iterator value="secteurs">
                                 <tr>
                                     <td>
-                                        <s:property value="secteurNom"/>
+                                        <s:a action="doSecteurDetails" namespace="/secteurs">
+                                            <s:param name="secteur.secteurId" value="secteurId" />
+                                            <s:property value="secteurNom" />
+                                        </s:a>
                                     </td>
                                     <td>
-                                        <s:property value="spot.spotNom"/>
+                                        <s:property value="spot.spotNom" />
                                     </td>
                                     <td>
                                         <s:a action="doGetTopoToUpdate" namespace="/topos">

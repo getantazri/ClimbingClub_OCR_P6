@@ -39,7 +39,7 @@
                 method="doTopoDetails">
 
             <result name="success">/WEB-INF/jsp/topos/topo.jsp</result>
-            <result name="error">/WEB-INF/jsp/topos/topos.jsp</result>
+            <result name="error">/WEB-INF/jsp/error.jsp</result>
 
         </action>
 
@@ -98,12 +98,6 @@
     <!-- Package SPOTS -->
     <!-- =============================================================== -->
     <package name="spots" extends="cclub-default" namespace="/spots">
-        <!-- Action SPOTS LIST -->
-        <action name="doListAllSpot"
-                class="com.antazri.climbingclub.webapp.action.GestionSpotAction"
-                method="doListAllSpot">
-        </action>
-
         <!-- Action SPOT DETAILS -->
         <action name="doSpotDetails"
                 class="com.antazri.climbingclub.webapp.action.GestionSpotAction"
@@ -170,6 +164,49 @@
                 <param name="actionName">doTopoDetails</param>
                 <param name="topoId">${topo.topoId}</param>
             </result>
+        </action>
+    </package>
+
+    <!-- =============================================================== -->
+    <!-- Package SECTEURS -->
+    <!-- =============================================================== -->
+    <package name="secteurs" extends="cclub-default" namespace="/secteurs">
+        <!-- Action SECTEUR DETAILS -->
+        <action name="doSecteurDetails"
+                class="com.antazri.climbingclub.webapp.action.GestionSecteurAction"
+                method="doSecteurDetails">
+
+            <result name="success">/WEB-INF/jsp/secteurs/secteur.jsp</result>
+            <result name="error">/WEB-INF/jsp/error.jsp</result>
+        </action>
+
+        <!-- Action ADD SECTEUR -->
+        <action name="doAddSpot"
+                class="com.antazri.climbingclub.webapp.action.GestionSecteurAction"
+                method="doAddSecteur">
+
+        </action>
+
+        <!-- Action GET SECTEUR TO UPDATE -->
+        <action name="doGetSecteurToUpdate"
+                class="com.antazri.climbingclub.webapp.action.GestionSecteurAction"
+                method="doGetSecteurToUpdate">
+
+        </action>
+
+        <!-- Action UPDATE SECTEUR -->
+        <action name="doUpdateSecteur"
+                class="com.antazri.climbingclub.webapp.action.GestionSecteurAction"
+                method="doUpdateSecteur">
+
+        </action>
+
+        <!-- Action DELETE SECTEUR -->
+        <action name="doDeleteSecteur"
+                class="com.antazri.climbingclub.webapp.action.GestionSecteurAction"
+                method="doDeleteSecteur">
+
+
         </action>
     </package>
 

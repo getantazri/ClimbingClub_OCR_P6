@@ -87,12 +87,6 @@ public class GestionSpotAction extends ActionSupport {
     // =======================================================================
     // Méthodes de l'action
     // =======================================================================
-    public String doListAllSpot() {
-        spots = gestionSpotService.findAllSpot();
-
-        return ActionSupport.SUCCESS;
-    }
-
     public String doSpotDetails() {
         this.setSpot(gestionSpotService.findSpotById(spotId));
 

@@ -23,8 +23,10 @@ public class GestionSecteurService implements IGestionSecteurService {
     private IVoieBo voieBo;
 
     public Secteur findSecteurById(int pId) {
+        Secteur secteur = secteurBo.findById(pId);
+        secteur.setSpot(spotBo.findById(secteur.getSpot().getSpotId()));
 
-        return secteurBo.findById(pId);
+        return secteur;
     }
 
     public List<Secteur> findSecteurBySpot(Spot pSpot) {

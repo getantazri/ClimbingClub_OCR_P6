@@ -126,40 +126,6 @@ public class GestionTopoAction extends ActionSupport {
         return ActionSupport.SUCCESS;
     }
 
-    public String doFindTopoByName() {
-
-        if (topo == null) {
-            addActionError("Vous devez spécifié un ID existant");
-            return ActionSupport.ERROR;
-        }
-
-        return ActionSupport.SUCCESS;
-    }
-
-    public String doFindTopoByUser() {
-
-        return ActionSupport.SUCCESS;
-    }
-
-    public String doFindTopoByRegion() {
-        String vResult = ActionSupport.INPUT;
-
-        if (vResult.equals(ActionSupport.INPUT)) {
-            regions = regionBo.findAll();
-        }
-
-        if (topo != null) {
-            try {
-                Region vRegion = regionBo.findById(this.region.getRegionId());
-                topos = gestionTopoService.findTopoByRegion(vRegion);
-            } catch (Exception pE) {
-                this.addFieldError("topo.region.regionId", pE.getMessage());
-            }
-        }
-
-        return vResult;
-    }
-
     public String doAddTopo() {
         String vResult = ActionSupport.INPUT;
 
