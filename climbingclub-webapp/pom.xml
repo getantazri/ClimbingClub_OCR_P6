@@ -43,10 +43,6 @@
         </dependency>
         <dependency>
             <groupId>com.antazri</groupId>
-            <artifactId>climbingclub-security</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.antazri</groupId>
             <artifactId>climbingclub-business</artifactId>
         </dependency>
 

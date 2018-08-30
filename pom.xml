@@ -32,7 +32,6 @@
     <modules>
         <module>climbingclub-model</module>
         <module>climbingclub-technical</module>
-        <module>climbingclub-security</module>
         <module>climbingclub-consumer</module>
         <module>climbingclub-business</module>
         <module>climbingclub-batch</module>
@@ -53,11 +52,6 @@
             <dependency>
                 <groupId>com.antazri</groupId>
                 <artifactId>climbingclub-technical</artifactId>
-                <version>1.0-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>com.antazri</groupId>
-                <artifactId>climbingclub-security</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
             <dependency>
