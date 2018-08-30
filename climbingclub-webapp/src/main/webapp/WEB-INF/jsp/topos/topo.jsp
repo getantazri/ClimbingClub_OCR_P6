@@ -36,7 +36,12 @@
                         <div class="level-item has-text-centered">
                             <div>
                                 <p class="heading">Région</p>
-                                <p class="title"><s:property value="topo.region.regionNom"/></p>
+                                <p class="title">
+                                    <s:a action="doRegionDetails" namespace="/regions" cssClass="no-color-change">
+                                        <s:param name="region.regionId" value="topo.region.regionId"/>
+                                        <s:property value="topo.region.regionNom"/>
+                                    </s:a>
+                                </p>
                             </div>
                         </div>
                         <div class="level-item has-text-centered">

@@ -10,7 +10,7 @@
         <section class="section">
 
             <h1 class="title"><s:property value="secteur.secteurNom"/> &nbsp;
-                <s:if test="%{#session.user.utilisateurId == spot.topo.proprietaire.utilisateurId}">
+                <s:if test="%{#session.user.utilisateurId == secteur.spot.topo.proprietaire.utilisateurId}">
                     <s:a action="doAddSpot" namespace="/spots" cssClass="button is-primary is-small">
                         <s:param name="topoId" value="topo.topoId"/>
                         <span><b>Ajouter une voie</b></span>
@@ -49,7 +49,12 @@
                         <div class="level-item has-text-centered">
                             <div>
                                 <p class="heading">Région</p>
-                                <p class="title"><s:property value="%{secteur.spot.topo.region.regionNom}"/></p>
+                                <p class="title">
+                                    <s:a action="doRegionDetails" namespace="/regions" cssClass="no-color-change">
+                                        <s:param name="region.regionId" value="secteur.spot.topo.region.regionId"/>
+                                        <s:property value="secteur.spot.topo.region.regionNom"/>
+                                    </s:a>
+                                </p>
                             </div>
                         </div>
                     </nav>

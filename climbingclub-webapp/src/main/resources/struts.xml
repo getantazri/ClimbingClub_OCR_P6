@@ -181,10 +181,16 @@
         </action>
 
         <!-- Action ADD SECTEUR -->
-        <action name="doAddSpot"
+        <action name="doAddSecteur"
                 class="com.antazri.climbingclub.webapp.action.GestionSecteurAction"
                 method="doAddSecteur">
 
+            <result name="input">/WEB-INF/jsp/secteurs/add_secteur.jsp</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">doSecteurDetails</param>
+                <param name="secteur.secteurId">${secteur.secteurId}</param>
+            </result>
+            <result name="error">/WEB-INF/jsp/secteurs/add_secteur.jsp</result>
         </action>
 
         <!-- Action GET SECTEUR TO UPDATE -->

@@ -7,6 +7,7 @@ import com.antazri.climbingclub.model.beans.Secteur;
 import com.antazri.climbingclub.model.beans.Spot;
 import com.antazri.climbingclub.model.beans.Voie;
 import com.antazri.climbingclub.webapp.services.contract.IGestionSecteurService;
+import com.antazri.climbingclub.webapp.services.contract.IGestionSpotService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -17,14 +18,14 @@ public class GestionSecteurService implements IGestionSecteurService {
     private ISecteurBo secteurBo;
 
     @Autowired
-    private ISpotBo spotBo;
+    private IVoieBo voieBo;
 
     @Autowired
-    private IVoieBo voieBo;
+    private IGestionSpotService gestionSpotService;
 
     public Secteur findSecteurById(int pId) {
         Secteur secteur = secteurBo.findById(pId);
-        secteur.setSpot(spotBo.findById(secteur.getSpot().getSpotId()));
+        secteur.setSpot(gestionSpotService.findSpotById(secteur.getSpot().getSpotId()));
 
         return secteur;
     }
@@ -33,22 +34,24 @@ public class GestionSecteurService implements IGestionSecteurService {
         List<Secteur> secteurs = secteurBo.findBySpot(pSpot);
 
         for(Secteur secteur : secteurs) {
-            secteur.setSpot(spotBo.findById(secteur.getSpot().getSpotId()));
+            secteur.setSpot(gestionSpotService.findSpotById(secteur.getSpot().getSpotId()));
         }
 
         return secteurs;
     }
 
     public Secteur findSecteurByName(String pName) {
+        Secteur secteur = secteurBo.findByName(pName);
+        secteur.setSpot(gestionSpotService.findSpotById(secteur.getSpot().getSpotId()));
 
-        return secteurBo.findByName(pName);
+        return secteur;
     }
 
     public List<Secteur> findAllSecteur() {
         List<Secteur> secteurs = secteurBo.findAll();
 
         for(Secteur secteur : secteurs) {
-            secteur.setSpot(spotBo.findById(secteur.getSpot().getSpotId()));
+            secteur.setSpot(gestionSpotService.findSpotById(secteur.getSpot().getSpotId()));
         }
 
         return secteurs;
@@ -57,7 +60,7 @@ public class GestionSecteurService implements IGestionSecteurService {
     public int addSecteur(String pName, int pSpotId) {
         Secteur secteur = new Secteur();
         secteur.setSecteurNom(pName);
-        secteur.setSpot(spotBo.findById(pSpotId));
+        secteur.setSpot(gestionSpotService.findSpotById(pSpotId));
 
         return secteurBo.create(secteur);
     }

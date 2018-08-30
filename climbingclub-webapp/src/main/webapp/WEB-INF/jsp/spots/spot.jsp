@@ -11,8 +11,8 @@
 
             <h1 class="title"><s:property value="spot.spotNom"/> &nbsp;
                 <s:if test="%{#session.user.utilisateurId == spot.topo.proprietaire.utilisateurId}">
-                    <s:a action="doAddSpot" namespace="/spots" cssClass="button is-primary is-small">
-                        <s:param name="topoId" value="topo.topoId" />
+                    <s:a action="doAddSecteur" namespace="/secteurs" cssClass="button is-primary is-small">
+                        <s:param name="spot.spotId" value="spot.spotId" />
                         <span><b>Ajouter un secteur</b></span>
                     </s:a>
                     <s:a action="doGetSpotToUpdate" namespace="/spots" cssClass="button is-info is-small">
@@ -47,7 +47,12 @@
                         <div class="level-item has-text-centered">
                             <div>
                                 <p class="heading">Région</p>
-                                <p class="title"><s:property value="%{spot.topo.region.regionNom}"/></p>
+                                <p class="title">
+                                    <s:a action="doRegionDetails" namespace="/regions" cssClass="no-color-change">
+                                        <s:param name="region.regionId" value="spot.topo.region.regionId"/>
+                                        <s:property value="spot.topo.region.regionNom"/>
+                                    </s:a>
+                                </p>
                             </div>
                         </div>
                         <div class="level-item has-text-centered">
