@@ -15,7 +15,7 @@ public interface ICompteUtilisateurService {
     int updateUtilisateur(int pId, String pNom, String pPrenom, String pPseudo, String pEmail, String pTelephone, int statutId);
     void deleteUtilisateur(int pId);
     Utilisateur login(String pPseudo, String pPassword);
-    int updateStatut(int pUtilisateurId, int pStatutId);
+    boolean updateStatut(int pUtilisateurId, int pStatutId);
     String hashPassword(String pPlainPassword);
-    int verifyPassword(String pPlainPassword, String pHashedPassword);
+    boolean verifyPassword(String pPlainPassword, String pHashedPassword);
 }

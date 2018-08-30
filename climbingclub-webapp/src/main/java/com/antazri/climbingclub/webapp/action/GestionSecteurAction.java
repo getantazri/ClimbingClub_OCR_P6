@@ -8,6 +8,7 @@ import com.antazri.climbingclub.webapp.services.contract.IGestionSecteurService;
 import com.antazri.climbingclub.webapp.services.contract.IGestionSpotService;
 import com.antazri.climbingclub.webapp.services.contract.IGestionTopoService;
 import com.antazri.climbingclub.webapp.services.contract.IGestionVoieService;
+import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -172,7 +173,24 @@ public class GestionSecteurAction extends ActionSupport {
     }
 
     public String doDeleteSecteur() {
+        String vResult;
+        int delete;
 
-        return ActionSupport.SUCCESS;
+        if (secteur.getSecteurId() > 0) {
+            delete = gestionSecteurService.deleteSecteur(secteur.getSecteurId());
+
+            if (delete > 0) {
+                this.addActionMessage("Secteur supprimé");
+                vResult = ActionSupport.SUCCESS;
+            } else {
+                this.addActionError("Le secteur possède des voies : supprimez-les avant de supprimer le secteur");
+                vResult = ActionSupport.ERROR;
+            }
+        } else {
+            this.addActionError("Le secteur n'existe pas ou a déjà été supprimé");
+            vResult = Action.ERROR;
+        }
+
+        return vResult;
     }
 }

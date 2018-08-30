@@ -84,7 +84,7 @@ public class CompteUtilisateurService implements ICompteUtilisateurService {
         if (!StringUtils.isAllEmpty(pPseudo, pPassword)) {
             vUtilisateur = utilisateurBo.findByPseudo(pPseudo);
 
-            if (verifyPassword(pPassword, vUtilisateur.getPassword()) > 0) {
+            if (verifyPassword(pPassword, vUtilisateur.getPassword())) {
                 return vUtilisateur;
             }
         }
@@ -95,14 +95,14 @@ public class CompteUtilisateurService implements ICompteUtilisateurService {
     }
 
     @Override
-    public int updateStatut(int pUtilisateurId, int pStatutId) {
+    public boolean updateStatut(int pUtilisateurId, int pStatutId) {
         Utilisateur vUtilisateur = findUtilisateurById(pUtilisateurId);
 
         if (vUtilisateur != null) {
             vUtilisateur.setStatut(statutBo.findById(pStatutId));
-            return 1;
+            return true;
         } else {
-            return 0;
+            return false;
         }
     }
 
@@ -112,14 +112,14 @@ public class CompteUtilisateurService implements ICompteUtilisateurService {
     }
 
     @Override
-    public int verifyPassword(String pPlainPassword, String pHashedPassword) {
+    public boolean verifyPassword(String pPlainPassword, String pHashedPassword) {
         try {
             if (BCrypt.checkpw(pPlainPassword, pHashedPassword)) {
-                return 1;
+                return true;
             } else
-                return 0;
+                return false;
         } catch (NullPointerException pE) {
-            return 0;
+            return false;
         }
 
     }
