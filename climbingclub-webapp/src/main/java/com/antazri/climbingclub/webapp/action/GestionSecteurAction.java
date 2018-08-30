@@ -133,12 +133,42 @@ public class GestionSecteurAction extends ActionSupport {
 
     public String doGetSecteurToUpdate() {
 
-        return ActionSupport.SUCCESS;
+        if (secteur.getSecteurId() > 0) {
+            secteur = gestionSecteurService.findSecteurById(secteur.getSecteurId());
+        } else {
+            addActionError("Secteur introuvable");
+            return ActionSupport.ERROR;
+        }
+
+        return ActionSupport.INPUT;
     }
 
     public String doUpdateSecteur() {
+        String vResult;
 
-        return ActionSupport.SUCCESS;
+        try {
+            if (secteur.getSecteurNom().replace(" ", "").length() < 3) {
+                addActionError("Le nom de votre secteur n'est pas valide");
+                vResult = ActionSupport.INPUT;
+            } else {
+                int row = gestionSecteurService.updateSecteur(secteur.getSecteurId(), secteur.getSecteurNom());
+
+                if (row > 0) {
+                    vResult = ActionSupport.SUCCESS;
+                    addActionMessage("Secteur mis à jour");
+                    this.setSpot(gestionSpotService.findSpotByName(spot.getSpotNom()));
+                } else {
+                    addActionError("Votre secteur n'a pas été mis à jour");
+                    vResult = ActionSupport.ERROR;
+                }
+            }
+
+        } catch (Exception pE) {
+            this.addActionError("Erreur dans la mise à jour de votre secteur");
+            vResult = ActionSupport.ERROR;
+        }
+
+        return vResult;
     }
 
     public String doDeleteSecteur() {

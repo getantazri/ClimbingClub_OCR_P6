@@ -159,14 +159,14 @@
                                         <s:property value="spot.spotNom" />
                                     </td>
                                     <td>
-                                        <s:a action="doGetTopoToUpdate" namespace="/topos">
-                                            <s:param name="topoId" value="topoId"/>
+                                        <s:a action="doGetSecteurToUpdate" namespace="/secteurs">
+                                            <s:param name="secteur.secteurId" value="secteurId"/>
                                             <i class="far fa-edit has-text-primary has-text-centered"></i>
                                         </s:a>
                                     </td>
                                     <td>
-                                        <s:a action="doDeleteTopo" namespace="/topos">
-                                            <s:param name="topoId" value="topoId"/>
+                                        <s:a action="doDeleteSecteur" namespace="/secteurs">
+                                            <s:param name="secteur.secteurId" value="secteurId"/>
                                             <i class="fas fa-times has-text-danger has-text-centered"></i>
                                         </s:a>
                                     </td>

@@ -15,12 +15,12 @@
                         <s:param name="topoId" value="topo.topoId"/>
                         <span><b>Ajouter une voie</b></span>
                     </s:a>
-                    <s:a action="doGetSpotToUpdate" namespace="/spots" cssClass="button is-info is-small">
-                        <s:param name="spotId" value="spot.spotId"/>
+                    <s:a action="doGetSecteurToUpdate" namespace="/secteurs" cssClass="button is-info is-small">
+                        <s:param name="secteur.secteurId" value="secteur.secteurId"/>
                         <span><b>Modifier le secteur</b></span>
                     </s:a>
-                    <s:a action="doDeleteSpot" namespace="/spots" cssClass="button is-danger is-small">
-                        <s:param name="spotId" value="spot.spotId"/>
+                    <s:a action="doDeleteSecteur" namespace="/secteurs" cssClass="button is-danger is-small">
+                        <s:param name="secteur.secteurId" value="secteur.secteurId"/>
                         <span><b>Supprimer le secteur</b></span>
                     </s:a>
                 </s:if>

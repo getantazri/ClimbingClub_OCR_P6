@@ -156,6 +156,7 @@
         <action name="doDeleteSpot"
                 class="com.antazri.climbingclub.webapp.action.GestionSpotAction"
                 method="doDeleteSpot">
+
             <result name="success" type="redirectAction">
                 <param name="actionName">doTopoDetails</param>
                 <param name="topoId">${topo.topoId}</param>
@@ -198,6 +199,11 @@
                 class="com.antazri.climbingclub.webapp.action.GestionSecteurAction"
                 method="doGetSecteurToUpdate">
 
+            <result name="input">/WEB-INF/jsp/secteurs/update_secteur.jsp</result>
+            <result name="error" type="redirectAction">
+                <param name="actionName">doSecteurDetails</param>
+                <param name="secteur.secteurId">${secteur.secteurId}</param>
+            </result>
         </action>
 
         <!-- Action UPDATE SECTEUR -->
@@ -205,6 +211,15 @@
                 class="com.antazri.climbingclub.webapp.action.GestionSecteurAction"
                 method="doUpdateSecteur">
 
+            <result name="input">/WEB-INF/jsp/secteurs/update_secteur.jsp</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">doSecteurDetails</param>
+                <param name="secteur.secteurId">${secteur.secteurId}</param>
+            </result>
+            <result name="error" type="redirectAction">
+                <param name="actionName">doSecteurDetails</param>
+                <param name="secteur.secteurId">${secteur.secteurId}</param>
+            </result>
         </action>
 
         <!-- Action DELETE SECTEUR -->
@@ -212,7 +227,16 @@
                 class="com.antazri.climbingclub.webapp.action.GestionSecteurAction"
                 method="doDeleteSecteur">
 
-
+            <result name="success" type="redirectAction">
+                <param name="actionName">doSpotDetails</param>
+                <param name="spotId">${spot.spotId}</param>
+                <param name="topoId">${topo.topoId}</param>
+            </result>
+            <result name="error" type="redirectAction">
+                <param name="actionName">doSpotDetails</param>
+                <param name="spotId">${spot.spotId}</param>
+                <param name="topoId">${topo.topoId}</param>
+            </result>
         </action>
     </package>
 
