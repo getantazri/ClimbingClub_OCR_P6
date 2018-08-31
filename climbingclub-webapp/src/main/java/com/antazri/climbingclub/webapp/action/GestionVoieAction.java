@@ -148,6 +148,8 @@ public class GestionVoieAction extends ActionSupport {
     }
 
     public String doGetVoieToUpdate() {
+        cotations = cotationBo.findAll();
+
         if (voieId > 0) {
             voie = gestionVoieService.findVoieById(voieId);
         } else {
@@ -160,6 +162,7 @@ public class GestionVoieAction extends ActionSupport {
 
     public String doUpdateVoie() {
         String vResult;
+
 
         try {
             if (voie.getVoieNom().replace(" ", "").length() < 3) {

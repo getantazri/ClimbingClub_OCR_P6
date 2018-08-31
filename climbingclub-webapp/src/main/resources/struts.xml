@@ -266,11 +266,12 @@
             <result name="error">/WEB-INF/jsp/voies/add_voie.jsp</result>
         </action>
 
-        <!-- Action ADD VOIE -->
+        <!-- Action GET VOIE TO UPDATE -->
         <action name="doGetVoieToUpdate"
                 class="com.antazri.climbingclub.webapp.action.GestionVoieAction"
                 method="doGetVoieToUpdate">
 
+            <result name="input">/WEB-INF/jsp/voies/update_voie.jsp</result>
             <result name="success">/WEB-INF/jsp/voies/update_voie.jsp</result>
             <result name="error" type="redirectAction">
                 <param name="actionName">doVoieDetails</param>
@@ -278,12 +279,12 @@
             </result>
         </action>
 
-        <!-- Action ADD VOIE -->
+        <!-- Action UPDATE VOIE -->
         <action name="doUpdateVoie"
                 class="com.antazri.climbingclub.webapp.action.GestionVoieAction"
                 method="doUpdateVoie">
 
-            <result name="input">/WEB-INF/jsp/secteurs/update_secteur.jsp</result>
+            <result name="input">/WEB-INF/jsp/voies/update_voie.jsp</result>
             <result name="success" type="redirectAction">
                 <param name="actionName">doVoieDetails</param>
                 <param name="voieId">${voie.voieId}</param>
@@ -294,7 +295,7 @@
             </result>
         </action>
 
-        <!-- Action ADD VOIE -->
+        <!-- Action DELETE VOIE -->
         <action name="doDeleteVoie"
                 class="com.antazri.climbingclub.webapp.action.GestionVoieAction"
                 method="doDeleteVoie">
