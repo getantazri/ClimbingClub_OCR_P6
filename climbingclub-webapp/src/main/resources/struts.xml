@@ -241,6 +241,76 @@
     </package>
 
     <!-- =============================================================== -->
+    <!-- Package VOIES -->
+    <!-- =============================================================== -->
+    <package name="voies" extends="cclub-default" namespace="/voies">
+        <!-- Action VOIE DETAILS -->
+        <action name="doVoieDetails"
+                class="com.antazri.climbingclub.webapp.action.GestionVoieAction"
+                method="doVoieDetails">
+
+            <result name="success">/WEB-INF/jsp/voies/voie.jsp</result>
+            <result name="error">/WEB-INF/jsp/error.jsp</result>
+        </action>
+
+        <!-- Action ADD VOIE -->
+        <action name="doAddVoie"
+                class="com.antazri.climbingclub.webapp.action.GestionVoieAction"
+                method="doAddVoie">
+
+            <result name="input">/WEB-INF/jsp/voies/add_voie.jsp</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">doVoieDetails</param>
+                <param name="voieId">${voie.voieId}</param>
+            </result>
+            <result name="error">/WEB-INF/jsp/voies/add_voie.jsp</result>
+        </action>
+
+        <!-- Action ADD VOIE -->
+        <action name="doGetVoieToUpdate"
+                class="com.antazri.climbingclub.webapp.action.GestionVoieAction"
+                method="doGetVoieToUpdate">
+
+            <result name="success">/WEB-INF/jsp/voies/update_voie.jsp</result>
+            <result name="error" type="redirectAction">
+                <param name="actionName">doVoieDetails</param>
+                <param name="voieId">${voie.voieId}</param>
+            </result>
+        </action>
+
+        <!-- Action ADD VOIE -->
+        <action name="doUpdateVoie"
+                class="com.antazri.climbingclub.webapp.action.GestionVoieAction"
+                method="doUpdateVoie">
+
+            <result name="input">/WEB-INF/jsp/secteurs/update_secteur.jsp</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">doVoieDetails</param>
+                <param name="voieId">${voie.voieId}</param>
+            </result>
+            <result name="error" type="redirectAction">
+                <param name="actionName">doVoieDetails</param>
+                <param name="voieId">${voie.voieId}</param>
+            </result>
+        </action>
+
+        <!-- Action ADD VOIE -->
+        <action name="doDeleteVoie"
+                class="com.antazri.climbingclub.webapp.action.GestionVoieAction"
+                method="doDeleteVoie">
+
+            <result name="success" type="redirectAction">
+                <param name="actionName">doSecteurDetails</param>
+                <param name="secteur.secteurId">${secteur.secteurId}</param>
+            </result>
+            <result name="error" type="redirectAction">
+                <param name="actionName">doSecteurDetails</param>
+                <param name="secteur.secteurId">${secteur.secteurId}</param>
+            </result>
+        </action>
+    </package>
+
+    <!-- =============================================================== -->
     <!-- Package REGIONS -->
     <!-- =============================================================== -->
     <package name="regions" extends="cclub-default" namespace="/regions">

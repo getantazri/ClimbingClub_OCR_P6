@@ -15,5 +15,5 @@ public interface IGestionVoieService {
     List<Voie> findAllVoie();
     int addVoie(String pName, int pNbrPoints, String pDescription, int pSecteurId, int pCotationId);
     int updateVoie(int pVoieId, String pName, int pNbrPoints, String pDescription, int pSecteurId, int pCotationId);
-    void deleteVoie(int pVoieId);
+    int deleteVoie(int pVoieId);
 }

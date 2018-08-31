@@ -73,9 +73,14 @@ public class GestionSecteurService implements IGestionSecteurService {
     }
 
     public int deleteSecteur(int pSecteurId) {
+        List<Voie> voies = hasVoies(secteurBo.findById(pSecteurId));
 
-        secteurBo.delete(secteurBo.findById(pSecteurId));
-        return 1;
+        if (voies.isEmpty()) {
+            secteurBo.delete(secteurBo.findById(pSecteurId));
+            return 1;
+        } else {
+            return 0;
+        }
     }
 
     @Override

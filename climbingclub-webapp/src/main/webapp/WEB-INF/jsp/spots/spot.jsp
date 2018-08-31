@@ -26,7 +26,9 @@
                 </s:if>
             </h1>
 
-            <div class="columns"><div class="column"></div></div>
+            <div class="columns">
+                <div class="column"></div>
+            </div>
 
             <div class="columns">
 
@@ -67,7 +69,25 @@
 
             </div>
 
-            <div class="columns"><div class="column"></div></div>
+            <div class="columns">
+                <div class="column"></div>
+            </div>
+
+            <div class="columns">
+
+                <div class="column">
+
+                    <h2 class="subtitle">Description</h2>
+
+                    <p><s:property value="spot.spotDescription" /></p>
+
+                </div>
+
+            </div>
+
+            <div class="columns">
+                <div class="column"></div>
+            </div>
 
             <div class="columns">
 

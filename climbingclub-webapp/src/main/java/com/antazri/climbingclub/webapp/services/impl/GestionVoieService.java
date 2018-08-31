@@ -1,11 +1,11 @@
 package com.antazri.climbingclub.webapp.services.impl;
 
 import com.antazri.climbingclub.business.contract.ICotationBo;
-import com.antazri.climbingclub.business.contract.ISecteurBo;
 import com.antazri.climbingclub.business.contract.IVoieBo;
 import com.antazri.climbingclub.model.beans.Cotation;
 import com.antazri.climbingclub.model.beans.Secteur;
 import com.antazri.climbingclub.model.beans.Voie;
+import com.antazri.climbingclub.webapp.services.contract.IGestionSecteurService;
 import com.antazri.climbingclub.webapp.services.contract.IGestionVoieService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -17,18 +17,25 @@ public class GestionVoieService implements IGestionVoieService {
     private IVoieBo voieBo;
 
     @Autowired
-    private ISecteurBo secteurBo;
-
-    @Autowired
     private ICotationBo cotationBo;
 
-    public Voie findVoieById(int pId) {
+    @Autowired
+    private IGestionSecteurService gestionSecteurService;
 
-        return voieBo.findById(pId);
+    public Voie findVoieById(int pId) {
+        Voie voie = voieBo.findById(pId);
+        voie.setSecteur(gestionSecteurService.findSecteurById(voie.getSecteur().getSecteurId()));
+        voie.setCotation(cotationBo.findById(voie.getCotation().getCotationId()));
+
+        return voie;
     }
 
     public Voie findVoieByName(String pName) {
-        return voieBo.findByName(pName);
+        Voie voie = voieBo.findByName(pName);
+        voie.setSecteur(gestionSecteurService.findSecteurById(voie.getSecteur().getSecteurId()));
+        voie.setCotation(cotationBo.findById(voie.getCotation().getCotationId()));
+
+        return voie;
     }
 
     public List<Voie> findVoieBySecteur(Secteur pSecteur) {
@@ -36,7 +43,7 @@ public class GestionVoieService implements IGestionVoieService {
         List<Voie> voies = voieBo.findBySecteur(pSecteur);
 
         for(Voie voie : voies) {
-            voie.setSecteur(secteurBo.findById(pSecteur.getSecteurId()));
+            voie.setSecteur(gestionSecteurService.findSecteurById(pSecteur.getSecteurId()));
             voie.setCotation(cotationBo.findById(voie.getCotation().getCotationId()));
         }
 
@@ -48,7 +55,7 @@ public class GestionVoieService implements IGestionVoieService {
         List<Voie> voies = voieBo.findAll();
 
         for(Voie voie : voies) {
-            voie.setSecteur(secteurBo.findById(voie.getSecteur().getSecteurId()));
+            voie.setSecteur(gestionSecteurService.findSecteurById(voie.getSecteur().getSecteurId()));
             voie.setCotation(cotationBo.findById(pCotation.getCotationId()));
         }
 
@@ -59,7 +66,7 @@ public class GestionVoieService implements IGestionVoieService {
         List<Voie> voies = voieBo.findAll();
 
         for(Voie voie : voies) {
-            voie.setSecteur(secteurBo.findById(voie.getSecteur().getSecteurId()));
+            voie.setSecteur(gestionSecteurService.findSecteurById(voie.getSecteur().getSecteurId()));
             voie.setCotation(cotationBo.findById(voie.getCotation().getCotationId()));
         }
 
@@ -71,7 +78,7 @@ public class GestionVoieService implements IGestionVoieService {
         voie.setVoieNom(pName);
         voie.setNombrePoints(pNbrPoints);
         voie.setVoieDescription(pDescription);
-        voie.setSecteur(secteurBo.findById(pSecteurId));
+        voie.setSecteur(gestionSecteurService.findSecteurById(pSecteurId));
         voie.setCotation(cotationBo.findById(pCotationId));
 
         return voieBo.create(voie);
@@ -82,13 +89,19 @@ public class GestionVoieService implements IGestionVoieService {
         voie.setVoieNom(pName);
         voie.setNombrePoints(pNbrPoints);
         voie.setVoieDescription(pDescription);
-        voie.setSecteur(secteurBo.findById(pSecteurId));
+        voie.setSecteur(gestionSecteurService.findSecteurById(pSecteurId));
         voie.setCotation(cotationBo.findById(pCotationId));
 
         return voieBo.update(voie);
     }
 
-    public void deleteVoie(int pVoieId) {
-        voieBo.delete(voieBo.findById(pVoieId));
+    public int deleteVoie(int pVoieId) {
+        try {
+            voieBo.delete(voieBo.findById(pVoieId));
+            return 1;
+        } catch (Exception pE) {
+            pE.printStackTrace();
+            return 0;
+        }
     }
 }

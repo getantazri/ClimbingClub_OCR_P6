@@ -11,8 +11,8 @@
 
             <h1 class="title"><s:property value="secteur.secteurNom"/> &nbsp;
                 <s:if test="%{#session.user.utilisateurId == secteur.spot.topo.proprietaire.utilisateurId}">
-                    <s:a action="doAddSpot" namespace="/spots" cssClass="button is-primary is-small">
-                        <s:param name="topoId" value="topo.topoId"/>
+                    <s:a action="doAddVoie" namespace="/voies" cssClass="button is-primary is-small">
+                        <s:param name="secteurId" value="secteur.secteurId"/>
                         <span><b>Ajouter une voie</b></span>
                     </s:a>
                     <s:a action="doGetSecteurToUpdate" namespace="/secteurs" cssClass="button is-info is-small">

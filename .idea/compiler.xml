@@ -10,10 +10,12 @@
         <module name="climbingclub-business" />
         <module name="climbingclub-consumer" />
         <module name="climbingclub-model" />
-        <module name="climbingclub-security" />
         <module name="climbingclub-technical" />
         <module name="climbingclub-webapp" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="climbingclub-security" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

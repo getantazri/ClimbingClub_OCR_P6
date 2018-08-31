@@ -195,20 +195,23 @@
                             <s:iterator value="voies">
                                 <tr>
                                     <td>
-                                        <s:property value="voieNom"/>
+                                        <s:a action="doVoieDetails" namespace="/voies">
+                                            <s:param name="voieId" value="voieId" />
+                                            <s:property value="voieNom" />
+                                        </s:a>
                                     </td>
                                     <td>
                                         <s:property value="secteur.secteurNom"/>
                                     </td>
                                     <td>
-                                        <s:a action="doGetTopoToUpdate" namespace="/topos">
-                                            <s:param name="topoId" value="topoId"/>
+                                        <s:a action="doGetVoieToUpdate" namespace="/voies">
+                                            <s:param name="voieId" value="voieId"/>
                                             <i class="far fa-edit has-text-primary has-text-centered"></i>
                                         </s:a>
                                     </td>
                                     <td>
-                                        <s:a action="doDeleteTopo" namespace="/topos">
-                                            <s:param name="topoId" value="topoId"/>
+                                        <s:a action="doDeleteVoie" namespace="/voies">
+                                            <s:param name="voieId" value="voieId"/>
                                             <i class="fas fa-times has-text-danger has-text-centered"></i>
                                         </s:a>
                                     </td>
