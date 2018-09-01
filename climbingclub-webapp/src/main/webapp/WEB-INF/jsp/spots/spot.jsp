@@ -12,15 +12,15 @@
             <h1 class="title"><s:property value="spot.spotNom"/> &nbsp;
                 <s:if test="%{#session.user.utilisateurId == spot.topo.proprietaire.utilisateurId}">
                     <s:a action="doAddSecteur" namespace="/secteurs" cssClass="button is-primary is-small">
-                        <s:param name="spot.spotId" value="spot.spotId" />
+                        <s:param name="spot.spotId" value="spot.spotId"/>
                         <span><b>Ajouter un secteur</b></span>
                     </s:a>
                     <s:a action="doGetSpotToUpdate" namespace="/spots" cssClass="button is-info is-small">
-                        <s:param name="spotId" value="spot.spotId" />
+                        <s:param name="spotId" value="spot.spotId"/>
                         <span><b>Modifier le spot</b></span>
                     </s:a>
                     <s:a action="doDeleteSpot" namespace="/spots" cssClass="button is-danger is-small">
-                        <s:param name="spotId" value="spot.spotId" />
+                        <s:param name="spotId" value="spot.spotId"/>
                         <span><b>Supprimer le spot</b></span>
                     </s:a>
                 </s:if>
@@ -79,7 +79,7 @@
 
                     <h2 class="subtitle">Description</h2>
 
-                    <p><s:property value="spot.spotDescription" /></p>
+                    <p><s:property value="spot.spotDescription"/></p>
 
                 </div>
 
@@ -112,8 +112,8 @@
                                 <tr>
                                     <td>
                                         <s:a action="doSecteurDetails" namespace="/secteurs">
-                                            <s:param name="secteur.secteurId" value="secteurId" />
-                                            <s:property value="secteurNom" />
+                                            <s:param name="secteur.secteurId" value="secteurId"/>
+                                            <s:property value="secteurNom"/>
                                         </s:a>
                                     </td>
                                 </tr>
@@ -124,6 +124,70 @@
                     </s:else>
 
                 </div>
+
+            </div>
+
+            <div class="columns">
+                <div class="column"></div>
+            </div>
+
+            <div class="columns">
+
+                <em class="column">
+
+                    <h2 class="subtitle">Commentaires</h2>
+
+                    <s:if test="%{commentaires == null}">
+                    <p><em>Aucun commentaire</em></p>
+                    </s:if>
+                    <s:else>
+                    <table class="table is-striped is-hoverable is-fullwidth topo-list">
+
+                        <thead>
+                        <tr>
+                            <td>Utilisateur</td>
+                            <td>Commentaire</td>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <s:iterator value="commentaires">
+                            <tr>
+                                <td>
+                                    <span class="is-bold"><s:property value="utilisateur.pseudo"/></span>
+                                </td>
+                                <td>
+                                    <p><s:property value="contenu"/></p>
+                                </td>
+                            </tr>
+                        </s:iterator>
+                        </tbody>
+
+                    </table>
+                    </s:else>
+
+                    <hr/>
+
+                    <s:if test="%{#session.user != null}">
+                    <s:form action="doPostSpotCommentaire" method="post">
+                        <s:hidden name="utilisateur.utilisateurId" value="%{#session.user.utilisateurId}"/>
+                        <s:hidden name="spotId" value="%{spot.spotId}"/>
+                    <div class="field">
+                        <div class="control">
+                            <s:textarea name="commentaire.contenu" label="Commentaire" requiredLabel="true"
+                                        cssClass="textarea"/>
+                        </div>
+                    </div>
+
+                    <div class="control add-space-top-bottom-10">
+                        <s:submit value="Poster" cssClass="button is-primary"/>
+                    </div>
+                    </s:form>
+                    </s:if>
+                    <s:else>
+                    <p><span class="is-bold has-text-black">Vous devez être connecté pour poster un commentaire</span>
+                    </p>
+                    </s:else>
 
             </div>
 

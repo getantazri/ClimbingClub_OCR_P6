@@ -10,23 +10,25 @@
         <section class="section">
 
             <h1 class="title"><s:property value="topo.topoNom"/> &nbsp;
-            <s:if test="%{#session.user.utilisateurId == topo.proprietaire.utilisateurId}">
-                <s:a action="doAddSpot" namespace="/spots" cssClass="button is-primary is-small">
-                    <s:param name="topoId" value="topo.topoId" />
-                    <span><b>Ajouter un spot</b></span>
-                </s:a>
-                <s:a action="doGetTopoToUpdate" namespace="/topos" cssClass="button is-info is-small">
-                    <s:param name="topoId" value="topo.topoId" />
-                    <span><b>Modifier le topo</b></span>
-                </s:a>
-                <s:a action="doDeleteTopo" namespace="/topos" cssClass="button is-danger is-small">
-                    <s:param name="topoId" value="topo.topoId" />
-                    <span><b>Supprimer le topo</b></span>
-                </s:a>
-            </s:if>
+                <s:if test="%{#session.user.utilisateurId == topo.proprietaire.utilisateurId}">
+                    <s:a action="doAddSpot" namespace="/spots" cssClass="button is-primary is-small">
+                        <s:param name="topoId" value="topo.topoId"/>
+                        <span><b>Ajouter un spot</b></span>
+                    </s:a>
+                    <s:a action="doGetTopoToUpdate" namespace="/topos" cssClass="button is-info is-small">
+                        <s:param name="topoId" value="topo.topoId"/>
+                        <span><b>Modifier le topo</b></span>
+                    </s:a>
+                    <s:a action="doDeleteTopo" namespace="/topos" cssClass="button is-danger is-small">
+                        <s:param name="topoId" value="topo.topoId"/>
+                        <span><b>Supprimer le topo</b></span>
+                    </s:a>
+                </s:if>
             </h1>
 
-            <div class="columns"><div class="column"></div></div>
+            <div class="columns">
+                <div class="column"></div>
+            </div>
 
             <div class="columns">
 
@@ -71,7 +73,9 @@
 
             </div>
 
-            <div class="columns"><div class="column"></div></div>
+            <div class="columns">
+                <div class="column"></div>
+            </div>
 
             <div class="columns">
 
@@ -98,8 +102,8 @@
                                 <tr>
                                     <td>
                                         <s:a action="doSpotDetails" namespace="/spots">
-                                            <s:param name="spotId" value="spotId" />
-                                            <s:property value="spotNom" />
+                                            <s:param name="spotId" value="spotId"/>
+                                            <s:property value="spotNom"/>
                                         </s:a>
                                     </td>
                                     <td>
@@ -116,6 +120,70 @@
                     </s:else>
 
                 </div>
+
+            </div>
+
+            <div class="columns">
+                <div class="column"></div>
+            </div>
+
+            <div class="columns">
+
+                <em class="column">
+
+                    <h2 class="subtitle">Commentaires</h2>
+
+                    <s:if test="%{commentaires == null}">
+                    <p><em>Aucun commentaire</em></p>
+                    </s:if>
+                    <s:else>
+                    <table class="table is-striped is-hoverable is-fullwidth topo-list">
+
+                        <thead>
+                        <tr>
+                            <td>Utilisateur</td>
+                            <td>Commentaire</td>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <s:iterator value="commentaires">
+                            <tr>
+                                <td>
+                                    <span class="is-bold"><s:property value="utilisateur.pseudo"/></span>
+                                </td>
+                                <td>
+                                    <p><s:property value="contenu"/></p>
+                                </td>
+                            </tr>
+                        </s:iterator>
+                        </tbody>
+
+                    </table>
+                    </s:else>
+
+                    <hr/>
+
+                    <s:if test="%{#session.user != null}">
+                    <s:form action="doPostTopoCommentaire" method="post">
+                        <s:hidden name="utilisateur.utilisateurId" value="%{#session.user.utilisateurId}"/>
+                        <s:hidden name="topoId" value="%{topo.topoId}"/>
+                    <div class="field">
+                        <div class="control">
+                            <s:textarea name="commentaire.contenu" label="Commentaire" requiredLabel="true"
+                                        cssClass="textarea"/>
+                        </div>
+                    </div>
+
+                    <div class="control add-space-top-bottom-10">
+                        <s:submit value="Poster" cssClass="button is-primary"/>
+                    </div>
+                    </s:form>
+                    </s:if>
+                    <s:else>
+                    <p><span class="is-bold has-text-black">Vous devez être connecté pour poster un commentaire</span>
+                    </p>
+                    </s:else>
 
             </div>
 

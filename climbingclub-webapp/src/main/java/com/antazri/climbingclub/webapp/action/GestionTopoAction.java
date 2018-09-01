@@ -1,16 +1,13 @@
 package com.antazri.climbingclub.webapp.action;
 
 import com.antazri.climbingclub.business.contract.IRegionBo;
-import com.antazri.climbingclub.model.beans.Region;
-import com.antazri.climbingclub.model.beans.Spot;
-import com.antazri.climbingclub.model.beans.Topo;
-import com.antazri.climbingclub.model.beans.Utilisateur;
+import com.antazri.climbingclub.model.beans.*;
+import com.antazri.climbingclub.webapp.services.contract.ICommenterService;
 import com.antazri.climbingclub.webapp.services.contract.ICompteUtilisateurService;
 import com.antazri.climbingclub.webapp.services.contract.IGestionSpotService;
 import com.antazri.climbingclub.webapp.services.contract.IGestionTopoService;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
-import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -29,6 +26,9 @@ public class GestionTopoAction extends ActionSupport {
     @Autowired
     private IGestionSpotService gestionSpotService;
 
+    @Autowired
+    private ICommenterService commenterService;
+
     // =======================================================================
     // Attributs et paramètres de l'action
     // =======================================================================
@@ -39,6 +39,7 @@ public class GestionTopoAction extends ActionSupport {
     private Region region;
     private List<Region> regions;
     private List<Spot> spots;
+    private List<Commentaire> commentaires;
 
     // =======================================================================
     // Getters et Setters des attributs de l'action
@@ -99,6 +100,14 @@ public class GestionTopoAction extends ActionSupport {
         this.spots = spots;
     }
 
+    public List<Commentaire> getCommentaires() {
+        return commentaires;
+    }
+
+    public void setCommentaires(List<Commentaire> commentaires) {
+        this.commentaires = commentaires;
+    }
+
     // =======================================================================
     // Méthodes / Actions
     // =======================================================================
@@ -111,7 +120,7 @@ public class GestionTopoAction extends ActionSupport {
     public String doTopoDetails() {
         this.setTopo(gestionTopoService.findTopoById(topoId));
 
-        if (topo == null) {
+        if (topo == null || topo.getTopoId() == 0) {
             addActionError("Vous devez spécifié un ID existant");
             return ActionSupport.ERROR;
         }
@@ -121,6 +130,12 @@ public class GestionTopoAction extends ActionSupport {
         if (spots.isEmpty()) {
             spots = null;
             addActionMessage("Aucun spot n'a été ajouté à ce topo");
+        }
+
+        this.setCommentaires(commenterService.findCommentaireByTopo(topo));
+
+        if (commentaires.isEmpty()) {
+            commentaires = null;
         }
 
         return ActionSupport.SUCCESS;

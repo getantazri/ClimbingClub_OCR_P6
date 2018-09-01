@@ -108,7 +108,7 @@ public class GestionVoieAction extends ActionSupport {
     public String doVoieDetails() {
         this.setVoie(gestionVoieService.findVoieById(voieId));
 
-        if (this.voie == null) {
+        if (this.voie == null || voie.getVoieId() == 0) {
             addActionError("Vous devez spécifié un ID existant");
             return ActionSupport.ERROR;
         }

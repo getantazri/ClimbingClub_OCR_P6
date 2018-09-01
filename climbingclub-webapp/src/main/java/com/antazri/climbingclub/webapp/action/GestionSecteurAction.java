@@ -88,7 +88,7 @@ public class GestionSecteurAction extends ActionSupport {
     public String doSecteurDetails() {
         this.setSecteur(gestionSecteurService.findSecteurById(secteur.getSecteurId()));
 
-        if (secteur == null) {
+        if (secteur == null || secteur.getSecteurId() == 0) {
             addActionError("Vous devez spécifié un ID existant");
             return ActionSupport.ERROR;
         }

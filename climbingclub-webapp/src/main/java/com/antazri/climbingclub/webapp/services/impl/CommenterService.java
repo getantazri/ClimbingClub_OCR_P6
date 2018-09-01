@@ -28,42 +28,86 @@ public class CommenterService implements ICommenterService {
     private ITopoBo topoBo;
 
     public Commentaire findCommentaireById(int pId) {
-        return commentaireBo.findById(pId);
+        Commentaire commentaire = commentaireBo.findById(pId);
+        commentaire.setUtilisateur(utilisateurBo.findById(commentaire.getUtilisateur().getUtilisateurId()));
+
+        return commentaire;
     }
 
     public List<Commentaire> findCommentaireBySpot(Spot pSpot) {
-        return commentaireBo.findBySpot(pSpot);
+        List<Commentaire> commentaires = commentaireBo.findBySpot(pSpot);
+
+        for (Commentaire commentaire : commentaires) {
+            commentaire.setUtilisateur(utilisateurBo.findById(commentaire.getUtilisateur().getUtilisateurId()));
+            commentaire.setSpot(spotBo.findById(pSpot.getSpotId()));
+        }
+
+        return commentaires;
     }
 
     public List<Commentaire> findCommentaireByTopo(Topo pTopo) {
-        return commentaireBo.findByTopo(pTopo);
+        List<Commentaire> commentaires = commentaireBo.findByTopo(pTopo);
+
+        for (Commentaire commentaire : commentaires) {
+            commentaire.setUtilisateur(utilisateurBo.findById(commentaire.getUtilisateur().getUtilisateurId()));
+            commentaire.setTopo(topoBo.findById(pTopo.getTopoId()));
+        }
+
+        return commentaires;
     }
 
     public List<Commentaire> findCommentaireByUtilisateur(String pName) {
         Utilisateur utilisateur = utilisateurBo.findByName(pName);
+        List<Commentaire> commentaires = commentaireBo.findByUtilisateur(utilisateur);
 
-        return commentaireBo.findByUtilisateur(utilisateur);
+        for (Commentaire commentaire : commentaires) {
+            commentaire.setUtilisateur(utilisateur);
+
+            if (commentaire.getSpot().getSpotId() > 0) {
+                commentaire.setSpot(spotBo.findById(commentaire.getSpot().getSpotId()));
+            }
+
+            if (commentaire.getTopo().getTopoId() > 0) {
+                commentaire.setTopo(topoBo.findById(commentaire.getTopo().getTopoId()));
+            }
+        }
+
+        return commentaires;
     }
 
     public List<Commentaire> findAllCommentaire() {
-        return commentaireBo.findAll();
+        List<Commentaire> commentaires = commentaireBo.findAll();
+
+        for (Commentaire commentaire : commentaires) {
+            commentaire.setUtilisateur(utilisateurBo.findById(commentaire.getUtilisateur().getUtilisateurId()));
+
+            if (commentaire.getSpot().getSpotId() > 0) {
+                commentaire.setSpot(spotBo.findById(commentaire.getSpot().getSpotId()));
+            }
+
+            if (commentaire.getTopo().getTopoId() > 0) {
+                commentaire.setTopo(topoBo.findById(commentaire.getTopo().getTopoId()));
+            }
+        }
+
+        return commentaires;
     }
 
-    public int publishCommentaire(String pAuteur, String pContenu, int spotId, int topoId) {
+    public int publishCommentaire(int pUtilisateurId, String pContenu, int pSpotId, int pTopoId) {
         Commentaire commentaire = new Commentaire();
         commentaire.setContenu(pContenu);
-        commentaire.setUtilisateur(utilisateurBo.findByName(pAuteur));
+        commentaire.setUtilisateur(utilisateurBo.findById(pUtilisateurId));
 
-        if (spotId != 0) {
-            commentaire.setSpot(spotBo.findById(spotId));
+        if (pSpotId > 0) {
+            commentaire.setSpot(spotBo.findById(pSpotId));
         } else {
             Spot spot = new Spot();
             spot.setSpotId(0);
             commentaire.setSpot(spot);
         }
 
-        if (topoId != 0) {
-            commentaire.setTopo(topoBo.findById(topoId));
+        if (pTopoId > 0) {
+            commentaire.setTopo(topoBo.findById(pTopoId));
         } else {
             Topo topo = new Topo();
             topo.setTopoId(0);

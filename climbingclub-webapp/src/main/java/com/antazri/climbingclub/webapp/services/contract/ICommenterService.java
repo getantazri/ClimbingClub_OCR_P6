@@ -13,7 +13,7 @@ public interface ICommenterService {
     List<Commentaire> findCommentaireByTopo(Topo pTopo);
     List<Commentaire> findCommentaireByUtilisateur(String pName);
     List<Commentaire> findAllCommentaire();
-    int publishCommentaire(String pAuteur, String pContenu, int pSpotId, int pTopoId);
+    int publishCommentaire(int pUtilisateurId, String pContenu, int pSpotId, int pTopoId);
     int editCommentaire(int pCommentaireId, String pContenu);
     void deleteCommentaire(int pId);
 }

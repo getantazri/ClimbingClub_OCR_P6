@@ -1,8 +1,10 @@
 package com.antazri.climbingclub.webapp.action;
 
+import com.antazri.climbingclub.model.beans.Commentaire;
 import com.antazri.climbingclub.model.beans.Secteur;
 import com.antazri.climbingclub.model.beans.Spot;
 import com.antazri.climbingclub.model.beans.Topo;
+import com.antazri.climbingclub.webapp.services.contract.ICommenterService;
 import com.antazri.climbingclub.webapp.services.contract.IGestionSecteurService;
 import com.antazri.climbingclub.webapp.services.contract.IGestionSpotService;
 import com.antazri.climbingclub.webapp.services.contract.IGestionTopoService;
@@ -23,6 +25,9 @@ public class GestionSpotAction extends ActionSupport {
     @Autowired
     private IGestionSecteurService gestionSecteurService;
 
+    @Autowired
+    private ICommenterService commenterService;
+
     // =======================================================================
     // Attributs et paramètres de l'action
     // =======================================================================
@@ -32,6 +37,7 @@ public class GestionSpotAction extends ActionSupport {
     private Topo topo;
     private List<Spot> spots;
     private List<Secteur> secteurs;
+    private List<Commentaire> commentaires;
 
     // =======================================================================
     // Getters et Setters des attributs de l'action
@@ -84,13 +90,21 @@ public class GestionSpotAction extends ActionSupport {
         this.secteurs = secteurs;
     }
 
+    public List<Commentaire> getCommentaires() {
+        return commentaires;
+    }
+
+    public void setCommentaires(List<Commentaire> commentaires) {
+        this.commentaires = commentaires;
+    }
+
     // =======================================================================
     // Méthodes de l'action
     // =======================================================================
     public String doSpotDetails() {
         this.setSpot(gestionSpotService.findSpotById(spotId));
 
-        if (spot == null) {
+        if (spot == null || spot.getSpotId() == 0) {
             addActionError("Vous devez spécifié un ID existant");
             return ActionSupport.ERROR;
         }
@@ -100,6 +114,12 @@ public class GestionSpotAction extends ActionSupport {
         if (secteurs.isEmpty()) {
             secteurs = null;
             addActionMessage("Aucun secteur n'a été ajouté à ce spot");
+        }
+
+        this.setCommentaires(commenterService.findCommentaireBySpot(spot));
+
+        if (commentaires.isEmpty()) {
+            commentaires = null;
         }
 
         return ActionSupport.SUCCESS;
