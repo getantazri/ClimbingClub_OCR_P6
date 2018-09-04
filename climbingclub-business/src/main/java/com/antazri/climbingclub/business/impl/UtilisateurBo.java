@@ -13,6 +13,13 @@ import org.springframework.transaction.support.TransactionTemplate;
 
 import java.util.List;
 
+/**
+ * Implémentation de l'interface IUtilisateurBo. UtilisateurBo permet de transférer les données, récupérées avec l'objet UtilisateurDao de la couche consumer,
+ * via le transactionManager aux Services du module Webapp
+ *
+ * @author Anthony T
+ * @version 1.0
+ */
 public class UtilisateurBo extends AbstractBo implements IUtilisateurBo {
 
     @Autowired
