@@ -15,5 +15,5 @@ public interface ICommenterService {
     List<Commentaire> findAllCommentaire();
     int publishCommentaire(int pUtilisateurId, String pContenu, int pSpotId, int pTopoId);
     int editCommentaire(int pCommentaireId, String pContenu);
-    void deleteCommentaire(int pId);
+    int deleteCommentaire(int pId);
 }

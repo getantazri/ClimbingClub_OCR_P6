@@ -13,7 +13,6 @@ public interface IGestionTopoService {
     List<Topo> findTopoByUser(Utilisateur pUtilisateur);
     Topo findTopoByName(String pName);
     List<Topo> findTopoByRegion(Region pRegion);
-    List<Topo> findAllDisponible();
     List<Topo> findAllTopo();
     int addTopo(String pName, int pRegionId, int pUtilisateurId);
     int updateTopo(int pId, String pName, int pRegionId, int pUtilisateurId);

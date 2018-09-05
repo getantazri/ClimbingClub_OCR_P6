@@ -120,12 +120,12 @@ public class UtilisateurDao extends AbstractDao implements IUtilisateurDao {
                 + "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         return getJdbcTemplate().update(vSql, pUtilisateur.getNom(),
-                                        pUtilisateur.getPrenom(),
-                                        pUtilisateur.getPseudo(),
-                                        pUtilisateur.getPassword(),
-                                        pUtilisateur.getEmail(),
-                                        pUtilisateur.getTelephone(),
-                                        pUtilisateur.getStatut().getStatutId());
+                pUtilisateur.getPrenom(),
+                pUtilisateur.getPseudo(),
+                pUtilisateur.getPassword(),
+                pUtilisateur.getEmail(),
+                pUtilisateur.getTelephone(),
+                pUtilisateur.getStatut().getStatutId());
     }
 
     /**
@@ -177,6 +177,15 @@ public class UtilisateurDao extends AbstractDao implements IUtilisateurDao {
         getNamedParameterJdbcTemplate().update(vSql, vSqlParameters);
     }
 
+    /**
+     * La méthode getResultUtilisateur permet de récupérer un Utilisateur ou de renvoyer un objet Utilisateur vide pour effectuer des vérifications lors de la connexion à un compte
+     * avec la méthode doLogin (voir LoginAction.java dans le module Webapp)
+     *
+     * @param vSql est la requête envoyée à la base de données
+     * @param vSqlParameters sont les paramètres utilisés dans la requête vSql
+     * @return un objet Utilisateur configuré via le RowMapper "UtilisateurRM"
+     * @see com.antazri.climbingclub.consumer.rowmapper.UtilisateurRM
+     */
     public Utilisateur getResultUtilisateur(String vSql, MapSqlParameterSource vSqlParameters) {
         Utilisateur vUtilisateur;
 
