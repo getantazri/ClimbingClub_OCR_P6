@@ -32,6 +32,12 @@
     <!-- Dependencies Management -->
     <!-- =============================================================== -->
     <dependencies>
+        <!-- Apache Commons dependencies -->
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+        </dependency>
+
         <!-- Log4J2 dependencies -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
