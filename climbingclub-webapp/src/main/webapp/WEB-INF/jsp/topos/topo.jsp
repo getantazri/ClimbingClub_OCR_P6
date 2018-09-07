@@ -141,6 +141,9 @@
 
                         <thead>
                         <tr>
+                            <s:if test="%{#session.user.utilisateurId == 1 || #session.user.utilisateurId == commentaire.utilisateur.utilisateurId}">
+                                <td>Actions</td>
+                            </s:if>
                             <td>Utilisateur</td>
                             <td>Commentaire</td>
                         </tr>
@@ -149,6 +152,18 @@
                         <tbody>
                         <s:iterator value="commentaires">
                             <tr>
+                                <s:if test="%{#session.user.statut.statutId == 1 || #session.user.utilisateurId == commentaire.utilisateur.utilisateurId}">
+                                    <td>
+                                        <s:a action="doGetCommentaireToEdit">
+                                            <s:param name="commentaireId" value="commentaireId"/>
+                                            <i class="far fa-edit has-text-primary has-text-centered"></i>
+                                        </s:a>
+                                        <s:a action="doDeleteCommentaire">
+                                            <s:param name="commentaireId" value="commentaireId"/>
+                                            <i class="fas fa-times has-text-danger has-text-centered"></i>
+                                        </s:a>
+                                    </td>
+                                </s:if>
                                 <td>
                                     <span class="is-bold"><s:property value="utilisateur.pseudo"/></span>
                                 </td>

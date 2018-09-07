@@ -8,6 +8,7 @@ import com.antazri.climbingclub.webapp.services.contract.ICommenterService;
 import com.antazri.climbingclub.webapp.services.contract.ICompteUtilisateurService;
 import com.antazri.climbingclub.webapp.services.contract.IGestionSpotService;
 import com.antazri.climbingclub.webapp.services.contract.IGestionTopoService;
+import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -145,12 +146,73 @@ public class CommenterAction extends ActionSupport {
                     }
                 }
             } catch (Exception pE) {
-                this.addActionError("Erreur dans la publication de vote commentaire");
+                this.addActionError("Erreur dans la publication de votre commentaire");
                 return ActionSupport.ERROR;
             }
         }
 
         addActionError("Votre commentaire n'a pas été publié : il manque des éléments requis");
         return ActionSupport.ERROR;
+    }
+
+    public String doGetCommentaireToEdit() {
+
+        if (commentaireId > 0) {
+            commentaire = commenterService.findCommentaireById(commentaireId);
+        } else {
+            addActionError("Spot introuvable");
+            return ActionSupport.ERROR;
+        }
+
+        return ActionSupport.INPUT;
+    }
+
+    public String doEditCommentaire(int pRequest) {
+        try {
+            if (commentaire.getContenu().replace(" ", "").length() < 3 || commentaire.getContenu() == null) {
+                addActionError("Le contenu n'est pas valide");
+                return ActionSupport.ERROR;
+            } else {
+                int row = pRequest;
+
+                if (row > 0) {
+                    addActionMessage("Le commentaire a été édité");
+                    return ActionSupport.SUCCESS;
+                } else {
+                    addActionError("Le commentaire n'a pas été modifié");
+                    return ActionSupport.ERROR;
+                }
+            }
+        } catch (Exception pE) {
+            this.addActionError("Erreur dans la modification de votre commentaire");
+            return ActionSupport.ERROR;
+        }
+    }
+
+    public String doEditSpotCommentaire() {
+        return doEditCommentaire(commenterService.editCommentaire(commentaire.getCommentaireId(), commentaire.getContenu()));
+    }
+
+    public String doEditTopoCommentaire() {
+        return doEditCommentaire(commenterService.editCommentaire(commentaire.getCommentaireId(), commentaire.getContenu()));
+    }
+
+    public String doDeleteCommentaire() {
+        int delete;
+
+        if (commentaireId > 0) {
+            delete = commenterService.deleteCommentaire(commentaireId);
+
+            if (delete > 0) {
+                this.addActionMessage("Commentaire supprimé");
+                return ActionSupport.SUCCESS;
+            } else {
+                this.addActionError("Le commentaire n'existe pas ou a déjà été supprimé");
+                return Action.ERROR;
+            }
+        } else {
+            this.addActionError("Le commentaire n'existe pas ou a déjà été supprimé");
+            return Action.ERROR;
+        }
     }
 }

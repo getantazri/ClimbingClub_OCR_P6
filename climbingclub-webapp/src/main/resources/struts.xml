@@ -57,6 +57,59 @@
             </result>
         </action>
 
+        <!-- Action GET COMMENTAIRE TO EDIT -->
+        <action name="doGetCommentaireToEdit"
+                class="com.antazri.climbingclub.webapp.action.CommenterAction"
+                method="doGetCommentaireToEdit">
+            <result name="input">/WEB-INF/jsp</result>
+        </action>
+
+        <!-- Action EDIT SPOT COMMENTAIRE -->
+        <action name="doEditSpotCommentaire"
+                class="com.antazri.climbingclub.webapp.action.CommenterAction"
+                method="doEditSpotCommentaire">
+
+            <result name="input" type="redirectAction">
+                <param name="actionName">doSpotDetails</param>
+                <param name="spotId">${spotId}</param>
+            </result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">doSpotDetails</param>
+                <param name="spotId">${spotId}</param>
+            </result>
+            <result name="error" type="redirectAction">
+                <param name="actionName">doSpotDetails</param>
+                <param name="spotId">${spotId}</param>
+            </result>
+        </action>
+
+        <!-- Action EDIT TOPO COMMENTAIRE -->
+        <action name="doEditTopoCommentaire"
+                class="com.antazri.climbingclub.webapp.action.CommenterAction"
+                method="doEditTopoCommentaire">
+
+            <result name="input" type="redirectAction">
+                <param name="actionName">doTopoDetails</param>
+                <param name="topoId">${topoId}</param>
+            </result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">doTopoDetails</param>
+                <param name="topoId">${topoId}</param>
+            </result>
+            <result name="error" type="redirectAction">
+                <param name="actionName">doTopoDetails</param>
+                <param name="topoId">${topoId}</param>
+            </result>
+        </action>
+
+        <!-- Action DELETE COMMENTAIRE -->
+        <action name="doDeleteCommentaire"
+                class="com.antazri.climbingclub.webapp.action.CommenterAction"
+                method="doDeleteCommentaire">
+
+            <result name="success" type="redirect">/compte/doGetCompte.action</result>
+            <result name="error" type="redirect">error.action</result>
+        </action>
     </package>
 
     <!-- =============================================================== -->
@@ -350,6 +403,26 @@
     </package>
 
     <!-- =============================================================== -->
+    <!-- Package SEARCH -->
+    <!-- =============================================================== -->
+    <package name="search" extends="cclub-default" namespace="/search">
+        <!-- Action GET SEARCH -->
+        <action name="doSearch">
+            <result>/WEB-INF/jsp/search.jsp</result>
+        </action>
+    </package>
+
+    <!-- =============================================================== -->
+    <!-- Package RESERVATIONS -->
+    <!-- =============================================================== -->
+    <package name="reservations" extends="cclub-default" namespace="/reservations">
+        <!-- Action GET RSERVATIONS -->
+        <action name="doReservations">
+            <result>/WEB-INF/jsp/reservations/reservations.jsp</result>
+        </action>
+    </package>
+
+    <!-- =============================================================== -->
     <!-- Package PUBLIC -->
     <!-- =============================================================== -->
     <package name="public" extends="cclub-default" namespace="/login">
@@ -358,7 +431,7 @@
                 class="com.antazri.climbingclub.webapp.action.LoginAction"
                 method="doLogin">
             <result name="input">/WEB-INF/jsp/login.jsp</result>
-            <result name="success" type="redirectAction">/compte/doGetCompte</result>
+            <result name="success" type="redirect">/compte/doGetCompte.action</result>
             <result name="error">/WEB-INF/jsp/login.jsp</result>
         </action>
 
