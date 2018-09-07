@@ -1,5 +1,8 @@
 package com.antazri.climbingclub.model.beans;
 
+import java.time.LocalDateTime;
+import java.util.Date;
+
 public class Commentaire {
 
     private int commentaireId;
@@ -7,6 +10,7 @@ public class Commentaire {
     private Topo topo;
     private Utilisateur utilisateur;
     private String contenu;
+    private LocalDateTime datePublication;
 
     public int getCommentaireId() {
         return commentaireId;
@@ -46,5 +50,13 @@ public class Commentaire {
 
     public void setContenu(String contenu) {
         this.contenu = contenu;
+    }
+
+    public LocalDateTime getDatePublication() {
+        return datePublication;
+    }
+
+    public void setDatePublication(LocalDateTime datePublication) {
+        this.datePublication = datePublication;
     }
 }

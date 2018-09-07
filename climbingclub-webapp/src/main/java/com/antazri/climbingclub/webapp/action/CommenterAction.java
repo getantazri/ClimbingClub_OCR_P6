@@ -12,6 +12,8 @@ import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 public class CommenterAction extends ActionSupport {
@@ -120,14 +122,53 @@ public class CommenterAction extends ActionSupport {
     // Méthodes / Actions
     // =======================================================================
     public String doPostSpotCommentaire() {
-        return doPublishCommentaire(commenterService.publishCommentaire(utilisateur.getUtilisateurId(), commentaire.getContenu(), spotId, 0));
+        return doPublishCommentaire(commenterService.publishCommentaire(utilisateur.getUtilisateurId(), commentaire.getContenu(), spotId, 0, LocalDateTime.now()));
     }
 
     public String doPostTopoCommentaire() {
-        return doPublishCommentaire(commenterService.publishCommentaire(utilisateur.getUtilisateurId(), commentaire.getContenu(), 0, topoId));
+        return doPublishCommentaire(commenterService.publishCommentaire(utilisateur.getUtilisateurId(), commentaire.getContenu(), 0, topoId, LocalDateTime.now()));
     }
 
-    public String doPublishCommentaire(int pRequest) {
+    public String doGetCommentaireToEdit() {
+
+        if (commentaireId > 0) {
+            commentaire = commenterService.findCommentaireById(commentaireId);
+        } else {
+            addActionError("Spot introuvable");
+            return ActionSupport.ERROR;
+        }
+
+        return ActionSupport.INPUT;
+    }
+
+    public String doEditSpotCommentaire() {
+        return doEditCommentaire(commenterService.editCommentaire(commentaire.getCommentaireId(), commentaire.getContenu()));
+    }
+
+    public String doEditTopoCommentaire() {
+        return doEditCommentaire(commenterService.editCommentaire(commentaire.getCommentaireId(), commentaire.getContenu()));
+    }
+
+    public String doDeleteCommentaire() {
+        int delete;
+
+        if (commentaireId > 0) {
+            delete = commenterService.deleteCommentaire(commentaireId);
+
+            if (delete > 0) {
+                this.addActionMessage("Commentaire supprimé");
+                return ActionSupport.SUCCESS;
+            } else {
+                this.addActionError("Le commentaire n'existe pas ou a déjà été supprimé");
+                return Action.ERROR;
+            }
+        } else {
+            this.addActionError("Le commentaire n'existe pas ou a déjà été supprimé");
+            return Action.ERROR;
+        }
+    }
+
+    private String doPublishCommentaire(int pRequest) {
 
         if (commentaire != null) {
             try {
@@ -155,19 +196,7 @@ public class CommenterAction extends ActionSupport {
         return ActionSupport.ERROR;
     }
 
-    public String doGetCommentaireToEdit() {
-
-        if (commentaireId > 0) {
-            commentaire = commenterService.findCommentaireById(commentaireId);
-        } else {
-            addActionError("Spot introuvable");
-            return ActionSupport.ERROR;
-        }
-
-        return ActionSupport.INPUT;
-    }
-
-    public String doEditCommentaire(int pRequest) {
+    private String doEditCommentaire(int pRequest) {
         try {
             if (commentaire.getContenu().replace(" ", "").length() < 3 || commentaire.getContenu() == null) {
                 addActionError("Le contenu n'est pas valide");
@@ -186,33 +215,6 @@ public class CommenterAction extends ActionSupport {
         } catch (Exception pE) {
             this.addActionError("Erreur dans la modification de votre commentaire");
             return ActionSupport.ERROR;
-        }
-    }
-
-    public String doEditSpotCommentaire() {
-        return doEditCommentaire(commenterService.editCommentaire(commentaire.getCommentaireId(), commentaire.getContenu()));
-    }
-
-    public String doEditTopoCommentaire() {
-        return doEditCommentaire(commenterService.editCommentaire(commentaire.getCommentaireId(), commentaire.getContenu()));
-    }
-
-    public String doDeleteCommentaire() {
-        int delete;
-
-        if (commentaireId > 0) {
-            delete = commenterService.deleteCommentaire(commentaireId);
-
-            if (delete > 0) {
-                this.addActionMessage("Commentaire supprimé");
-                return ActionSupport.SUCCESS;
-            } else {
-                this.addActionError("Le commentaire n'existe pas ou a déjà été supprimé");
-                return Action.ERROR;
-            }
-        } else {
-            this.addActionError("Le commentaire n'existe pas ou a déjà été supprimé");
-            return Action.ERROR;
         }
     }
 }

@@ -45,7 +45,7 @@
                 <div class="navbar-start">
                     <s:a action="doToposList" cssClass="navbar-item" namespace="/topos">Topos</s:a>
                     <s:a action="doRegions" cssClass="navbar-item" namespace="/regions">En région</s:a>
-                    <a class="navbar-item" href="#">Mes réservations</a>
+                    <s:a action="doReservations" cssClass="navbar-item" namespace="/reservations">Mes réservations</s:a>
                     <a class="navbar-item" href="#"><i class="fab fa-facebook-square"></i></a>
                     <a class="navbar-item" href="#"><i class="fab fa-twitter"></i></a>
                     <a class="navbar-item" href="#"><i class="fab fa-instagram"></i></a>
@@ -56,11 +56,11 @@
                 <div class="navbar-item">
                     <div class="field is-grouped">
                         <p class="control">
-                            <a class="button is-primary is-small" title="Rechercher">
+                            <s:a action="doSearch" cssClass="button is-primary is-small" namespace="/search">
                   <span class="icon">
                     <i class="fas fa-search" aria-hidden="true"></i>
                   </span>
-                            </a>
+                            </s:a>
                         </p>
                         <p class="control">
                             <s:if test="%{#session.user != null}">

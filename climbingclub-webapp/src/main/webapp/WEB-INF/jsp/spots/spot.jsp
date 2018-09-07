@@ -170,6 +170,7 @@
                                     <span class="is-bold"><s:property value="utilisateur.pseudo"/></span>
                                 </td>
                                 <td>
+                                    <p><em>Publié le : <s:property value="datePublication" /></em></p>
                                     <p><s:property value="contenu"/></p>
                                 </td>
                             </tr>

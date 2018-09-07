@@ -61,7 +61,9 @@
         <action name="doGetCommentaireToEdit"
                 class="com.antazri.climbingclub.webapp.action.CommenterAction"
                 method="doGetCommentaireToEdit">
-            <result name="input">/WEB-INF/jsp</result>
+            <result name="input">/WEB-INF/jsp/edit_commentaire.jsp</result>
+            <result name="success">/WEB-INF/jsp/edit_commentaire.jsp</result>
+            <result name="error" type="redirect">error.action</result>
         </action>
 
         <!-- Action EDIT SPOT COMMENTAIRE -->

@@ -6,8 +6,10 @@ import com.antazri.climbingclub.model.beans.Topo;
 import com.antazri.climbingclub.model.beans.Utilisateur;
 import org.springframework.jdbc.core.RowMapper;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 
 /**
  * Implémentation de RowMapper pour la création d'un objet Commentaire lors de la récupération des éléments depuis la base de données
@@ -26,6 +28,7 @@ public class CommentaireRM implements RowMapper {
 
         commentaire.setCommentaireId(rs.getInt("commentaire_id"));
         commentaire.setContenu(rs.getString("contenu"));
+        commentaire.setDatePublication(rs.getTimestamp("date_publication").toLocalDateTime());
 
 
         // Création et affectation d'un Auteur (Utilisateur)

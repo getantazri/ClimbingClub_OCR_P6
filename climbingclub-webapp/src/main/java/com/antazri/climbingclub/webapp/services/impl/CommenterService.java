@@ -11,6 +11,7 @@ import com.antazri.climbingclub.model.beans.Utilisateur;
 import com.antazri.climbingclub.webapp.services.contract.ICommenterService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -43,6 +44,14 @@ public class CommenterService implements ICommenterService {
     public Commentaire findCommentaireById(int pId) {
         Commentaire commentaire = commentaireBo.findById(pId);
         commentaire.setUtilisateur(utilisateurBo.findById(commentaire.getUtilisateur().getUtilisateurId()));
+
+        if (commentaire.getSpot().getSpotId() > 0) {
+            commentaire.setSpot(spotBo.findById(commentaire.getSpot().getSpotId()));
+        }
+
+        if (commentaire.getTopo().getTopoId() > 0) {
+            commentaire.setTopo(topoBo.findById(commentaire.getTopo().getTopoId()));
+        }
 
         return commentaire;
     }
@@ -138,9 +147,10 @@ public class CommenterService implements ICommenterService {
      * @param pTopoId est l'identifiant unique (Integer) de l'attribut Topo de Commentaire
      * @return un entier (1 ou 0) qui définira si une ligne a été ajoutée ou non
      */
-    public int publishCommentaire(int pUtilisateurId, String pContenu, int pSpotId, int pTopoId) {
+    public int publishCommentaire(int pUtilisateurId, String pContenu, int pSpotId, int pTopoId, LocalDateTime pDatePublication) {
         Commentaire commentaire = new Commentaire();
         commentaire.setContenu(pContenu);
+        commentaire.setDatePublication(pDatePublication);
         commentaire.setUtilisateur(utilisateurBo.findById(pUtilisateurId));
 
         if (pSpotId > 0) {

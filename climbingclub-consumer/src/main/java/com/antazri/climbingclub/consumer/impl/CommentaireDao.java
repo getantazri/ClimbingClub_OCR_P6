@@ -8,6 +8,8 @@ import com.antazri.climbingclub.model.beans.Topo;
 import com.antazri.climbingclub.model.beans.Utilisateur;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -47,7 +49,7 @@ public class CommentaireDao extends AbstractDao implements ICommentaireDao {
      */
     public List<Commentaire> findBySpot(Spot pSpot) {
         // Requête SQL
-        String vSql = "SELECT * FROM public.commentaire WHERE commentaire.spot_id = :id";
+        String vSql = "SELECT * FROM public.commentaire WHERE commentaire.spot_id = :id ORDER BY commentaire.date_publication DESC";
 
         // Définition des paramètres de la requêtes
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
@@ -66,7 +68,7 @@ public class CommentaireDao extends AbstractDao implements ICommentaireDao {
      */
     public List<Commentaire> findByTopo(Topo pTopo) {
         // Requête SQL
-        String vSql = "SELECT * FROM public.commentaire WHERE commentaire.topo_id = :id";
+        String vSql = "SELECT * FROM public.commentaire WHERE commentaire.topo_id = :id ORDER BY commentaire.date_publication DESC";
 
         // Définition des paramètres de la requêtes
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
@@ -85,7 +87,7 @@ public class CommentaireDao extends AbstractDao implements ICommentaireDao {
      */
     public List<Commentaire> findByUtilisateur(Utilisateur pUtilisateur) {
         // Requête SQL
-        String vSql = "SELECT * FROM public.commentaire WHERE commentaire.utilisateur_id = :id";
+        String vSql = "SELECT * FROM public.commentaire WHERE commentaire.utilisateur_id = :id ORDER BY commentaire.date_publication DESC";
 
         // Définition des paramètres de la requêtes
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
@@ -102,7 +104,7 @@ public class CommentaireDao extends AbstractDao implements ICommentaireDao {
      */
     public List<Commentaire> findAll() {
         // Requête SQL
-        String vSql = "SELECT * FROM public.commentaire";
+        String vSql = "SELECT * FROM public.commentaire ORDER BY commentaire.date_publication DESC";
 
         return getJdbcTemplate().query(vSql, new CommentaireRM());
     }
@@ -116,13 +118,14 @@ public class CommentaireDao extends AbstractDao implements ICommentaireDao {
      */
     public int create(Commentaire pCommentaire) {
         // Requête SQL
-        String vSql = "INSERT INTO public.commentaire (contenu, utilisateur_id, spot_id, topo_id) "
-                + "VALUES (?, ?, ?, ?)";
+        String vSql = "INSERT INTO public.commentaire (contenu, utilisateur_id, spot_id, topo_id, date_publication) "
+                + "VALUES (?, ?, ?, ?, ?)";
 
         return getJdbcTemplate().update(vSql, pCommentaire.getContenu(),
                                         pCommentaire.getUtilisateur().getUtilisateurId(),
                                         pCommentaire.getSpot().getSpotId(),
-                                        pCommentaire.getTopo().getTopoId());
+                                        pCommentaire.getTopo().getTopoId(),
+                                        Timestamp.valueOf(pCommentaire.getDatePublication()));
     }
 
     /**
@@ -138,7 +141,8 @@ public class CommentaireDao extends AbstractDao implements ICommentaireDao {
                 + "SET contenu = :contenu, "
                 + "utilisateur_id = :utilisateurId, "
                 + "spot_id = :spotId, "
-                + "topo_id = :topoId "
+                + "topo_id = :topoId,"
+                + "date_publication = :date "
                 + "WHERE commentaire.commentaire_id = :id";
 
         // Définition des paramètres de la requêtes
@@ -147,6 +151,7 @@ public class CommentaireDao extends AbstractDao implements ICommentaireDao {
         vSqlParameters.addValue("utilisateurId", pCommentaire.getUtilisateur().getUtilisateurId());
         vSqlParameters.addValue("spotId", pCommentaire.getSpot().getSpotId());
         vSqlParameters.addValue("topoId", pCommentaire.getTopo().getTopoId());
+        vSqlParameters.addValue("date", Timestamp.valueOf(pCommentaire.getDatePublication()));
         vSqlParameters.addValue("id", pCommentaire.getCommentaireId());
 
         return getNamedParameterJdbcTemplate().update(vSql, vSqlParameters);

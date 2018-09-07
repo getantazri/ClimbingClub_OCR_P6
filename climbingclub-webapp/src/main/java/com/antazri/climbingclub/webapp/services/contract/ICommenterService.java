@@ -4,6 +4,8 @@ import com.antazri.climbingclub.model.beans.Commentaire;
 import com.antazri.climbingclub.model.beans.Spot;
 import com.antazri.climbingclub.model.beans.Topo;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 public interface ICommenterService {
@@ -13,7 +15,7 @@ public interface ICommenterService {
     List<Commentaire> findCommentaireByTopo(Topo pTopo);
     List<Commentaire> findCommentaireByUtilisateur(String pName);
     List<Commentaire> findAllCommentaire();
-    int publishCommentaire(int pUtilisateurId, String pContenu, int pSpotId, int pTopoId);
+    int publishCommentaire(int pUtilisateurId, String pContenu, int pSpotId, int pTopoId, LocalDateTime pDatePublication);
     int editCommentaire(int pCommentaireId, String pContenu);
     int deleteCommentaire(int pId);
 }
