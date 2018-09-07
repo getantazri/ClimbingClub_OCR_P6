@@ -145,9 +145,6 @@
 
                         <thead>
                         <tr>
-                            <s:if test="%{#session.user.statut.statutId.equals(1) or #session.user.utilisateurId.equals(commentaire.utilisateur.utilisateurId)}">
-                                <td>Actions</td>
-                            </s:if>
                             <td>Utilisateur</td>
                             <td>Commentaire</td>
                         </tr>
@@ -157,21 +154,26 @@
                         <s:iterator value="commentaires">
                             <tr>
                                 <td>
-                                    <s:a action="doGetCommentaireToEdit">
-                                        <s:param name="commentaireId" value="commentaireId"/>
-                                        <i class="far fa-edit has-text-primary has-text-centered"></i>
-                                    </s:a>
-                                    <s:a action="doDeleteCommentaire">
-                                        <s:param name="commentaireId" value="commentaireId"/>
-                                        <i class="fas fa-times has-text-danger has-text-centered"></i>
-                                    </s:a>
-                                </td>
-                                <td>
                                     <span class="is-bold"><s:property value="utilisateur.pseudo"/></span>
                                 </td>
                                 <td>
-                                    <p><em>Publié le : <s:property value="datePublication" /></em></p>
+                                    <span class="is-small is-italic">Publié le : <s:property
+                                            value="datePublication"/></span>
                                     <p><s:property value="contenu"/></p>
+                                    <p>
+                                        <s:if test="%{#session.user.statut.statutId == 1 || #session.user.utilisateurId == utilisateur.utilisateurId}">
+                                            <s:a action="doGetCommentaireToEdit">
+                                                <s:param name="commentaireId" value="commentaireId"/>
+                                                <i class="far fa-edit has-text-primary has-text-centered"></i>
+                                                Modifier
+                                            </s:a> &nbsp; - &nbsp;
+                                            <s:a action="doDeleteCommentaire">
+                                                <s:param name="commentaireId" value="commentaireId"/>
+                                                <i class="fas fa-times has-text-danger has-text-centered"></i>
+                                                Supprimer
+                                            </s:a>
+                                        </s:if>
+                                    </p>
                                 </td>
                             </tr>
                         </s:iterator>
