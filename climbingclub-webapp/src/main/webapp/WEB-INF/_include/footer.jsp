@@ -7,6 +7,9 @@
             <s:a action="doToposList" cssClass="navbar-item" namespace="/topos">Topos</s:a>
             <s:a action="doRegions" cssClass="navbar-item" namespace="/regions">En région</s:a>
             <s:a action="doReservations" cssClass="navbar-item" namespace="/reservations">Mes réservations</s:a>
+            <s:if test="%{#session.user.utilisateurId == 1}">
+                <s:a action="doLoginAdmin" cssClass="navbar-item" namespace="/admin">Administration</s:a>
+            </s:if>
             <a class="navbar-item" href="#"><i class="fab fa-facebook-square"></i></a>
             <a class="navbar-item" href="#"><i class="fab fa-twitter"></i></a>
             <a class="navbar-item" href="#"><i class="fab fa-instagram"></i></a>

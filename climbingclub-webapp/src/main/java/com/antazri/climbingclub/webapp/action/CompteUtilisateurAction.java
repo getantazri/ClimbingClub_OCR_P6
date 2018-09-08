@@ -3,6 +3,7 @@ package com.antazri.climbingclub.webapp.action;
 import com.antazri.climbingclub.model.beans.Utilisateur;
 import com.antazri.climbingclub.webapp.services.contract.ICompteUtilisateurService;
 import com.opensymphony.xwork2.ActionSupport;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class CompteUtilisateurAction extends ActionSupport {
@@ -13,6 +14,7 @@ public class CompteUtilisateurAction extends ActionSupport {
     // =======================================================================
     // Attributs de l'action
     // =======================================================================
+    private int utilisateurId;
     private String nom;
     private String prenom;
     private String pseudo;
@@ -25,6 +27,14 @@ public class CompteUtilisateurAction extends ActionSupport {
     // =======================================================================
     // Getters et Setters des attributs de l'action
     // =======================================================================
+    public int getUtilisateurId() {
+        return utilisateurId;
+    }
+
+    public void setUtilisateurId(int utilisateurId) {
+        this.utilisateurId = utilisateurId;
+    }
+
     public String getNom() {
         return nom;
     }
@@ -111,6 +121,42 @@ public class CompteUtilisateurAction extends ActionSupport {
                 vResult = ActionSupport.SUCCESS;
                 addActionMessage("Inscription validée : bienvenue !");
             }
+        }
+
+        return vResult;
+    }
+
+    public String doEditProfile() {
+
+        if (utilisateurId > 0) {
+            utilisateur = compteUtilisateurService.findUtilisateurById(utilisateurId);
+        }
+
+        return ActionSupport.INPUT;
+    }
+
+    public String doUpdateProfile() {
+        String vResult = ActionSupport.INPUT;
+
+        try {
+            if (StringUtils.isAnyBlank(utilisateur.getNom(), utilisateur.getPrenom(), utilisateur.getPseudo(), utilisateur.getEmail(), utilisateur.getTelephone())) {
+                addActionError("Il manque des informations requises");
+                vResult = ActionSupport.INPUT;
+            } else {
+                int row = compteUtilisateurService.updateUtilisateur(utilisateurId, utilisateur.getNom(), utilisateur.getPrenom(),
+                        utilisateur.getPseudo(), utilisateur.getEmail(), utilisateur.getTelephone(), utilisateur.getStatut().getStatutId());
+
+                if (row > 0) {
+                    utilisateur = compteUtilisateurService.findUtilisateurByPseudo(utilisateur.getPseudo());
+                    vResult = ActionSupport.SUCCESS;
+                } else {
+                    addActionError("Le profil n'a pas pu être mis à jour");
+                    vResult = ActionSupport.ERROR;
+                }
+            }
+        } catch (Exception pE) {
+            addActionError("Une erreur est survenue lors du chargement de votre profile");
+            vResult = ActionSupport.ERROR;
         }
 
         return vResult;

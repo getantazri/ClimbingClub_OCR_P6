@@ -19,7 +19,10 @@
 
                     <div class="control add-space-top-bottom-10">
                         <a href="">
-                            <button class="button is-primary">Mettre à jour mes informations</button>
+                            <s:a action="doEditProfile">
+                                <s:param name="utilisateurId" value="%{#session.user.utilisateurId}" />
+                                <button class="button is-primary">Mettre à jour mes informations</button>
+                            </s:a>
                         </a>
                     </div>
 
@@ -32,7 +35,8 @@
             </div>
 
             <div class="columns">
-                <div class="column"><s:actionerror/></div>
+                <div class="column"><s:actionerror /></div>
+                <div class="column"><s:actionmessage /></div>
             </div>
 
             <div class="columns">
