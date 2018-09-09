@@ -108,6 +108,24 @@ public class UtilisateurDao extends AbstractDao implements IUtilisateurDao {
     }
 
     /**
+     * La méthode updatePassword permet de mettre à jour l'attribut password de l'objet Utilisateur.
+     * @param pPassword est un String correspondant au mot de passe à enregistrer dans la base de données
+     * @return
+     */
+    @Override
+    public int updatePassword(Utilisateur pUtilisateur, String pPassword) {
+        // Requête SQL
+        String vSql = "UPDATE public.utilisateur SET password = :password WHERE utilisateur.utilisateur_id = :id";
+
+        // Définition des paramètres de la requête
+        MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
+        vSqlParameters.addValue("password", pPassword);
+        vSqlParameters.addValue("id", pUtilisateur.getUtilisateurId());
+
+        return getNamedParameterJdbcTemplate().update(vSql, vSqlParameters);
+    }
+
+    /**
      * La méthode create permet de créer une nouvelle instance de Utilisateur dans la base de données
      *
      * @param pUtilisateur est un objet Utilisateur passé et configuré depuis la couche Business

@@ -25,6 +25,14 @@
                             </s:a>
                         </a>
                     </div>
+                    <div class="control add-space-top-bottom-10">
+                        <a href="">
+                            <s:a action="doEditPassword">
+                                <s:param name="utilisateurId" value="%{#session.user.utilisateurId}" />
+                                <button class="button is-danger">Changer mon mot de passe</button>
+                            </s:a>
+                        </a>
+                    </div>
 
                 </div>
 

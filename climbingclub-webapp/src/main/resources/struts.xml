@@ -558,6 +558,12 @@
                 class="com.antazri.climbingclub.webapp.action.LoginAction"
                 method="doGetCompte">
 
+            <interceptor-ref name="store">
+                <param name="operationMode">RETRIEVE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack" />
+
+            <result name="input">/WEB-INF/jsp/user/compte.jsp</result>
             <result name="success">/WEB-INF/jsp/user/compte.jsp</result>
             <result name="error" type="redirectAction">/login/doLogin</result>
         </action>
@@ -593,6 +599,33 @@
             <interceptor-ref name="defaultStack" />
 
             <result name="input">/WEB-INF/jsp/user/edit_profile.jsp</result>
+            <result name="success" type="redirect">doGetCompte.action</result>
+            <result name="error" type="redirect">doGetCompte.action</result>
+        </action>
+
+        <!-- Action EDIT PASSWORD -->
+        <action name="doEditPassword"
+                class="com.antazri.climbingclub.webapp.action.CompteUtilisateurAction"
+                method="doEditPassword">
+            <result name="input">
+                <param name="location">/WEB-INF/jsp/user/edit_password.jsp</param>
+                <param name="utilisateurId">${utilisateurId}</param>
+            </result>
+            <result name="success" type="redirect">doGetCompte.action</result>
+            <result name="error" type="redirect">doGetCompte.action</result>
+        </action>
+
+        <!-- Action UPDATE PASSWORD -->
+        <action name="doUpdatePassword"
+                class="com.antazri.climbingclub.webapp.action.CompteUtilisateurAction"
+                method="doUpdatePassword">
+
+            <interceptor-ref name="store">
+                <param name="operationMode">STORE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack" />
+
+            <result name="input">/WEB-INF/jsp/user/edit_password.jsp</result>
             <result name="success" type="redirect">doGetCompte.action</result>
             <result name="error" type="redirect">doGetCompte.action</result>
         </action>

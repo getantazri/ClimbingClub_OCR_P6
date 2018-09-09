@@ -207,4 +207,32 @@ public class CompteUtilisateurService implements ICompteUtilisateurService {
         }
 
     }
+
+    /**
+     * La méthode updatePassword permet à l'utilisateur connecté de changer son mot de passe. La méthode vérifie la concordance de l'ancien mot de passe en utilisant la méthode
+     * verifyPassword puis le remplace dans la base de données après avoir vérifier le nouveau mot de passe puis de le hacher l'enregistrer.
+     * @param pNewPassword est un String correspondant au nouveau mot de passe spécifié
+     * @param pConfirmedNewPassword est un String correspondant à la confirmation renseignée dans le formulaire
+     * @param pOldPassword est un String correspondant à l'ancien mot de passe renseigné dans le formulaire
+     * @param pHashedPassword est un String récupéré dans la base de données correspondant à la version hachée du mot de passe par BCrypt
+     * @return un Integer pour renseigné le nombre de lignes modifiées dans la base de données
+     */
+    @Override
+    public int updatePassword(int pUtilisateurId, String pNewPassword, String pConfirmedNewPassword, String pOldPassword, String pHashedPassword) {
+        Utilisateur vUtilisateur = utilisateurBo.findById(pUtilisateurId);
+
+        if (!StringUtils.isAnyBlank(pNewPassword, pConfirmedNewPassword, pOldPassword, pHashedPassword)) {
+            if (verifyPassword(pOldPassword, pHashedPassword)) {
+                if (pNewPassword.equals(pConfirmedNewPassword)) {
+                    return utilisateurBo.updatePassword(vUtilisateur, hashPassword(pNewPassword));
+                } else {
+                    return 0;
+                }
+            } else {
+                return 0;
+            }
+        } else {
+            return 0;
+        }
+    }
 }

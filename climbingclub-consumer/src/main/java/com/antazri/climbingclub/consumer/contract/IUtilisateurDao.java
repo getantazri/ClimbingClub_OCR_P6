@@ -12,6 +12,7 @@ public interface IUtilisateurDao {
     Utilisateur findByName(String pName);
     Utilisateur findByPseudo(String pPseudo);
     List<Utilisateur> findAll();
+    public int updatePassword(Utilisateur pUtilisateur, String pPassword);
     int create(Utilisateur pUtilisateur);
     int update(Utilisateur pUtilisateur);
     void delete(Utilisateur pUtilisateur);

@@ -22,6 +22,7 @@ public class CompteUtilisateurAction extends ActionSupport {
     private String telephone;
     private String password;
     private String passwordConfirmed;
+    private String oldPassword;
     private Utilisateur utilisateur;
 
     // =======================================================================
@@ -91,6 +92,14 @@ public class CompteUtilisateurAction extends ActionSupport {
         this.passwordConfirmed = passwordConfirmed;
     }
 
+    public String getOldPassword() {
+        return oldPassword;
+    }
+
+    public void setOldPassword(String oldPassword) {
+        this.oldPassword = oldPassword;
+    }
+
     public Utilisateur getUtilisateur() {
         return utilisateur;
     }
@@ -156,6 +165,38 @@ public class CompteUtilisateurAction extends ActionSupport {
             }
         } catch (Exception pE) {
             addActionError("Une erreur est survenue lors du chargement de votre profile");
+            vResult = ActionSupport.ERROR;
+        }
+
+        return vResult;
+    }
+
+    public String doEditPassword() {
+
+        if (utilisateurId > 0) {
+            return ActionSupport.INPUT;
+        } else {
+            addActionError("Vous n'êtes pas connecté");
+            return ActionSupport.ERROR;
+        }
+    }
+
+    public String doUpdatePassword() {
+        String vResult = ActionSupport.INPUT;
+        utilisateur = compteUtilisateurService.findUtilisateurById(utilisateurId);
+
+        try {
+            int row = compteUtilisateurService.updatePassword(utilisateur.getUtilisateurId(), password, passwordConfirmed, oldPassword, utilisateur.getPassword());
+
+            if (row > 0) {
+                addActionMessage("Le mot de passe a été mis à jour");
+                vResult = ActionSupport.SUCCESS;
+            } else {
+                addActionError("Le mot de passe n'a pas été mis à jour");
+                vResult = ActionSupport.ERROR;
+            }
+        } catch (Exception pE) {
+            addActionError("Le mot de passe n'a pas pu être changé");
             vResult = ActionSupport.ERROR;
         }
 

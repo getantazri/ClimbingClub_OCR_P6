@@ -18,4 +18,5 @@ public interface ICompteUtilisateurService {
     boolean updateStatut(int pUtilisateurId, int pStatutId);
     String hashPassword(String pPlainPassword);
     boolean verifyPassword(String pPlainPassword, String pHashedPassword);
+    int updatePassword(int pUtilisateurId, String pNewPassword, String pConfirmedNewPassword, String pOldPassword, String pHashedPassword);
 }

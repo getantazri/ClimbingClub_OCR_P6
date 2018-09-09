@@ -51,6 +51,16 @@ public class UtilisateurBo extends AbstractBo implements IUtilisateurBo {
     }
 
     @Transactional
+    public int updatePassword(Utilisateur pUtilisateur, String pPassword) {
+        TransactionTemplate vTransactionTemplate = new TransactionTemplate(getTransactionManager());
+        return vTransactionTemplate.execute(new TransactionCallback<Integer>() {
+            public Integer doInTransaction(TransactionStatus status) {
+                return utilisateurDao.updatePassword(pUtilisateur, pPassword);
+            }
+        });
+    }
+
+    @Transactional
     public int create(final Utilisateur pUtilisateur) {
         TransactionTemplate vTransactionTemplate = new TransactionTemplate(getTransactionManager());
         return vTransactionTemplate.execute(new TransactionCallback<Integer>() {
