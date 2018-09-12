@@ -24,12 +24,8 @@ import java.util.List;
  */
 public class CommentaireBo extends AbstractBo implements ICommentaireBo {
 
-    private ICommentaireDao commentaireDao;
-
     @Autowired
-    public void setCommentaireDao(ICommentaireDao commentaireDao) {
-        this.commentaireDao = commentaireDao;
-    }
+    private ICommentaireDao commentaireDao;
 
     /**
      * La méthode findById permet de récupérer un objet Commentaire via le CommentaireDao affecté via @Autowired. L'annotation @Transactionnel permet de spécifié à Spring que des
@@ -40,28 +36,6 @@ public class CommentaireBo extends AbstractBo implements ICommentaireBo {
     @Transactional
     public Commentaire findById(int pId) {
         return commentaireDao.findById(pId);
-    }
-
-    /**
-     * La méthode findBySpot permet de récupérer des objets Commentaire via le CommentaireDao affecté via @Autowired. L'annotation @Transactionnel permet de spécifié à Spring que des
-     * données seront transférées dans et depuis la base de données
-     * @param pSpot est un objet Spot qui permet de filtrer les éléments que l'on souhaite récupérer dans la base de données
-     * @return une List d'objets Commentaire retournée par la couche DAO
-     */
-    @Transactional
-    public List<Commentaire> findBySpot(Spot pSpot) {
-        return commentaireDao.findBySpot(pSpot);
-    }
-
-    /**
-     * La méthode findByTopo permet de récupérer des objets Commentaire via le CommentaireDao affecté via @Autowired. L'annotation @Transactionnel permet de spécifié à Spring que des
-     * données seront transférées dans et depuis la base de données
-     * @param pTopo est un objet Topo qui permet de filtrer les éléments que l'on souhaite récupérer dans la base de données
-     * @return une List d'objets Commentaire retournée par la couche DAO
-     */
-    @Transactional
-    public List<Commentaire> findByTopo(Topo pTopo) {
-        return commentaireDao.findByTopo(pTopo);
     }
 
     /**

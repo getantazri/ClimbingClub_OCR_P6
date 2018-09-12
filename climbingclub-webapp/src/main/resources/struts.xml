@@ -492,9 +492,37 @@
     <!-- Package SEARCH -->
     <!-- =============================================================== -->
     <package name="search" extends="cclub-default" namespace="/search">
-        <!-- Action GET SEARCH -->
-        <action name="doSearch">
-            <result>/WEB-INF/jsp/search.jsp</result>
+        <!-- Action DO SEARCH -->
+        <action name="doSearch"
+                class="com.antazri.climbingclub.webapp.action.MoteurRechercheAction"
+                method="doSearch">
+
+            <interceptor-ref name="store">
+                <param name="operationMode">STORE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack" />
+
+            <result name="input">/WEB-INF/jsp/search.jsp</result>
+            <result name="success">/WEB-INF/jsp/search.jsp</result>
+            <result name="error">/WEB-INF/jsp/search.jsp</result>
+        </action>
+
+        <!-- Action SEARCH REQUEST -->
+        <action name="doSearchRequest"
+                class="com.antazri.climbingclub.webapp.action.MoteurRechercheAction"
+                method="doSearchRequest">
+
+            <interceptor-ref name="store">
+                <param name="operationMode">RETRIEVE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack" />
+
+            <result name="input">
+                <param name="location">/WEB-INF/jsp/search_results.jsp</param>
+                <param name="resultatRecherche">${resultatRecherche}</param>
+            </result>
+            <result name="success">/WEB-INF/jsp/search_results.jsp</result>
+            <result name="error">/WEB-INF/jsp/search_results.jsp</result>
         </action>
     </package>
 

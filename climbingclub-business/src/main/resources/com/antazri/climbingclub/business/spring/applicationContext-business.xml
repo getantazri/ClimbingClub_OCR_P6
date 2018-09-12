@@ -16,6 +16,8 @@
     <!-- Configuration des beans Bo -->
     <!-- =============================================================== -->
     <bean id="commentaireBo" class="com.antazri.climbingclub.business.impl.CommentaireBo" />
+    <bean id="commentaireByTopoBo" class="com.antazri.climbingclub.business.impl.CommentaireByTopoBo" />
+    <bean id="commentaireBySpot" class="com.antazri.climbingclub.business.impl.CommentaireBySpotBo" />
     <bean id="cotationBo" class="com.antazri.climbingclub.business.impl.CotationBo" />
     <bean id="empruntBo" class="com.antazri.climbingclub.business.impl.EmpruntBo" />
     <bean id="rechercheBo" class="com.antazri.climbingclub.business.impl.RechercheBo" />

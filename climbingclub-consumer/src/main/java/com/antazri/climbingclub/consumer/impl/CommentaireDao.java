@@ -40,44 +40,6 @@ public class CommentaireDao extends AbstractDao implements ICommentaireDao {
     }
 
     /**
-     * La méthode findBySpot permet de rechercher un (ou plusieurs) objet Commentaire dans la base de données selon le Spot
-     * auquel il est rattaché
-     *
-     * @param pSpot est un objet Spot permettant l'identification de Commentaire dans la base de données via "spot_id"
-     * @return une List d'objets Commentaire configurés via le RowMapper "CommentaireRM"
-     * @see com.antazri.climbingclub.consumer.rowmapper.CommentaireRM
-     */
-    public List<Commentaire> findBySpot(Spot pSpot) {
-        // Requête SQL
-        String vSql = "SELECT * FROM public.commentaire WHERE commentaire.spot_id = :id ORDER BY commentaire.date_publication DESC";
-
-        // Définition des paramètres de la requêtes
-        MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
-        vSqlParameters.addValue("id", pSpot.getSpotId());
-
-        return getNamedParameterJdbcTemplate().query(vSql, vSqlParameters, new CommentaireRM());
-    }
-
-    /**
-     * La méthode findByTopo permet de rechercher un (ou plusieurs) objet Commentaire dans la base de données selon le Topo
-     * auquel il est rattaché
-     *
-     * @param pTopo est un objet Topo permettant l'identification de Commentaire dans la base de données via "topo_id"
-     * @return une List d'objets Commentaire configurés via le RowMapper "CommentaireRM"
-     * @see com.antazri.climbingclub.consumer.rowmapper.CommentaireRM
-     */
-    public List<Commentaire> findByTopo(Topo pTopo) {
-        // Requête SQL
-        String vSql = "SELECT * FROM public.commentaire WHERE commentaire.topo_id = :id ORDER BY commentaire.date_publication DESC";
-
-        // Définition des paramètres de la requêtes
-        MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
-        vSqlParameters.addValue("id", pTopo.getTopoId());
-
-        return getNamedParameterJdbcTemplate().query(vSql, vSqlParameters, new CommentaireRM());
-    }
-
-    /**
      * La méthode findByUtilisateur permet de rechercher un (ou plusieurs) objet Commentaire dans la base de données selon l'Utilisateur
      * auquel il est rattaché
      *
@@ -118,13 +80,11 @@ public class CommentaireDao extends AbstractDao implements ICommentaireDao {
      */
     public int create(Commentaire pCommentaire) {
         // Requête SQL
-        String vSql = "INSERT INTO public.commentaire (contenu, utilisateur_id, spot_id, topo_id, date_publication) "
-                + "VALUES (?, ?, ?, ?, ?)";
+        String vSql = "INSERT INTO public.commentaire (contenu, utilisateur_id, date_publication) "
+                + "VALUES (?, ?, ?)";
 
         return getJdbcTemplate().update(vSql, pCommentaire.getContenu(),
                                         pCommentaire.getUtilisateur().getUtilisateurId(),
-                                        pCommentaire.getSpot().getSpotId(),
-                                        pCommentaire.getTopo().getTopoId(),
                                         Timestamp.valueOf(pCommentaire.getDatePublication()));
     }
 
@@ -140,8 +100,6 @@ public class CommentaireDao extends AbstractDao implements ICommentaireDao {
         String vSql = "UPDATE public.commentaire "
                 + "SET contenu = :contenu, "
                 + "utilisateur_id = :utilisateurId, "
-                + "spot_id = :spotId, "
-                + "topo_id = :topoId,"
                 + "date_publication = :date "
                 + "WHERE commentaire.commentaire_id = :id";
 
@@ -149,8 +107,6 @@ public class CommentaireDao extends AbstractDao implements ICommentaireDao {
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
         vSqlParameters.addValue("contenu", pCommentaire.getContenu());
         vSqlParameters.addValue("utilisateurId", pCommentaire.getUtilisateur().getUtilisateurId());
-        vSqlParameters.addValue("spotId", pCommentaire.getSpot().getSpotId());
-        vSqlParameters.addValue("topoId", pCommentaire.getTopo().getTopoId());
         vSqlParameters.addValue("date", Timestamp.valueOf(pCommentaire.getDatePublication()));
         vSqlParameters.addValue("id", pCommentaire.getCommentaireId());
 
@@ -158,7 +114,7 @@ public class CommentaireDao extends AbstractDao implements ICommentaireDao {
     }
 
     /**
-     * La méthode create permet de supprimer une instance de Commentaire dans la base de données
+     * La méthode delete permet de supprimer une instance de Commentaire dans la base de données
      *
      * @param pCommentaire est un objet Commentaire passé et configuré depuis la couche Business
      * @see com.antazri.climbingclub.consumer.rowmapper.CommentaireRM

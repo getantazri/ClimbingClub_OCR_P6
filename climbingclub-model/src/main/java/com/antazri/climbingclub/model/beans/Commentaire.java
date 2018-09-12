@@ -6,8 +6,6 @@ import java.util.Date;
 public class Commentaire {
 
     private int commentaireId;
-    private Spot spot;
-    private Topo topo;
     private Utilisateur utilisateur;
     private String contenu;
     private LocalDateTime datePublication;
@@ -18,22 +16,6 @@ public class Commentaire {
 
     public void setCommentaireId(int commentaireId) {
         this.commentaireId = commentaireId;
-    }
-
-    public Spot getSpot() {
-        return spot;
-    }
-
-    public void setSpot(Spot spot) {
-        this.spot = spot;
-    }
-
-    public Topo getTopo() {
-        return topo;
-    }
-
-    public void setTopo(Topo topo) {
-        this.topo = topo;
     }
 
     public Utilisateur getUtilisateur() {

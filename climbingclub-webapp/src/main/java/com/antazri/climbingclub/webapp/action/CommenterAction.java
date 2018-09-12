@@ -1,5 +1,6 @@
 package com.antazri.climbingclub.webapp.action;
 
+import com.antazri.climbingclub.business.contract.ICommentaireByObjectBo;
 import com.antazri.climbingclub.model.beans.Commentaire;
 import com.antazri.climbingclub.model.beans.Spot;
 import com.antazri.climbingclub.model.beans.Topo;
@@ -29,6 +30,12 @@ public class CommenterAction extends ActionSupport {
 
     @Autowired
     private ICompteUtilisateurService compteUtilisateurService;
+
+    @Autowired
+    private ICommentaireByObjectBo<Topo> commentaireByTopoBo;
+
+    @Autowired
+    private ICommentaireByObjectBo<Spot> commentaireBySpotBo;
 
     // =======================================================================
     // Attributs de l'action
@@ -122,11 +129,11 @@ public class CommenterAction extends ActionSupport {
     // Méthodes / Actions
     // =======================================================================
     public String doPostSpotCommentaire() {
-        return doPublishCommentaire(commenterService.publishCommentaire(utilisateur.getUtilisateurId(), commentaire.getContenu(), spotId, 0, LocalDateTime.now()));
+        return doPublishCommentaire(commenterService.publishCommentaire(utilisateur.getUtilisateurId(), commentaire.getContenu(), LocalDateTime.now()));
     }
 
     public String doPostTopoCommentaire() {
-        return doPublishCommentaire(commenterService.publishCommentaire(utilisateur.getUtilisateurId(), commentaire.getContenu(), 0, topoId, LocalDateTime.now()));
+        return doPublishCommentaire(commenterService.publishCommentaire(utilisateur.getUtilisateurId(), commentaire.getContenu(), LocalDateTime.now()));
     }
 
     public String doGetCommentaireToEdit() {
@@ -180,6 +187,13 @@ public class CommenterAction extends ActionSupport {
 
                     if (row > 0) {
                         addActionMessage("Le commentaire a été publié");
+
+                        if (spotId > 0) {
+                            commentaireBySpotBo.addCommentaire(spotId, commentaire.getCommentaireId());
+                        } else {
+                            commentaireByTopoBo.addCommentaire(topoId, commentaire.getCommentaireId());
+                        }
+
                         return ActionSupport.SUCCESS;
                     } else {
                         addActionError("Le commentaire n'a pas été publié");

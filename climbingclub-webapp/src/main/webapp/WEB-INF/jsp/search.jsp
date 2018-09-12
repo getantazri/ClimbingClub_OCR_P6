@@ -9,23 +9,69 @@
 
         <section class="section">
 
-            <h1 class="title">Recherche</h1>
+            <h1 class="title">Moteur de recherche</h1>
+
+            <h2><span class="is-bold has-text-danger"><s:actionerror /></span></h2>
 
             <div class="columns">
 
                 <div class="column">
 
-                    <h2 class="subtitle">Filtrer la recherche</h2>
+                    <s:form action="doSearchRequest" method="POST">
+                        <div class="field">
+                            <div class="control">
+                                <s:textfield name="request" value="" requiredLabel="true" cssClass="input is-medium is-fullwidth" label="Que recherchez-vous ?" />
+                            </div>
+                        </div>
 
-                </div>
+                        <div class="field">
+                            <div class="control">
+                                    <s:select name="type" label="Type" list="types" emptyOption="false" requiredLabel="true" cssClass="select" />
+                            </div>
+                        </div>
 
-            </div>
+                        <div class="field">
+                            <div class="control">
+                                    <s:select name="nomRegion" label="Région"
+                                              list="regions" listKey="regionNom" listValue="regionNom"
+                                              emptyOption="false"
+                                              requiredLabel="true"
+                                              cssClass="select"
+                                    />
+                            </div>
+                        </div>
 
-            <div class="columns">
+                        <div class="field">
+                            <div class="control">
+                                    <s:select name="nomCotation" label="Cotation"
+                                              list="cotations" listKey="cotationNom" listValue="cotationNom"
+                                              emptyOption="false"
+                                              requiredLabel="true"
+                                              cssClass="select"
+                                    />
+                            </div>
+                        </div>
 
-                <div class="column">
+                        <div class="field">
+                            <p class="control">
+                                <s:textfield name="hauteurMin" label="Hauteur minimale du Spot" requiredLabel="true" cssClass="input" />
+                            </p>
+                        </div>
+
+                        <div class="field">
+                            <p class="control">
+                                <s:textfield name="hauteurMax" label="Hauteur maximale du Spot" requiredLabel="true" cssClass="input" />
+                            </p>
+                        </div>
 
 
+                        <div class="field">
+                            <div class="control">
+                                <s:submit value="Rechercher"  cssClass="button is-primary" />
+                            </div>
+                        </div>
+
+                    </s:form>
 
                 </div>
 
@@ -38,5 +84,3 @@
 </div>
 
 <%@include file="../_include/footer.jsp" %>
-
-

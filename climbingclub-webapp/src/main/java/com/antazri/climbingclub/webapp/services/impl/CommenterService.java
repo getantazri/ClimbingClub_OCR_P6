@@ -4,6 +4,8 @@ import com.antazri.climbingclub.business.contract.ICommentaireBo;
 import com.antazri.climbingclub.business.contract.ISpotBo;
 import com.antazri.climbingclub.business.contract.ITopoBo;
 import com.antazri.climbingclub.business.contract.IUtilisateurBo;
+import com.antazri.climbingclub.business.impl.CommentaireBySpotBo;
+import com.antazri.climbingclub.business.impl.CommentaireByTopoBo;
 import com.antazri.climbingclub.model.beans.Commentaire;
 import com.antazri.climbingclub.model.beans.Spot;
 import com.antazri.climbingclub.model.beans.Topo;
@@ -27,6 +29,12 @@ public class CommenterService implements ICommenterService {
     private ICommentaireBo commentaireBo;
 
     @Autowired
+    private CommentaireBySpotBo commentaireBySpot;
+
+    @Autowired
+    private CommentaireByTopoBo commentaireByTopo;
+
+    @Autowired
     private IUtilisateurBo utilisateurBo;
 
     @Autowired
@@ -45,14 +53,6 @@ public class CommenterService implements ICommenterService {
         Commentaire commentaire = commentaireBo.findById(pId);
         commentaire.setUtilisateur(utilisateurBo.findById(commentaire.getUtilisateur().getUtilisateurId()));
 
-        if (commentaire.getSpot().getSpotId() > 0) {
-            commentaire.setSpot(spotBo.findById(commentaire.getSpot().getSpotId()));
-        }
-
-        if (commentaire.getTopo().getTopoId() > 0) {
-            commentaire.setTopo(topoBo.findById(commentaire.getTopo().getTopoId()));
-        }
-
         return commentaire;
     }
 
@@ -63,11 +63,11 @@ public class CommenterService implements ICommenterService {
      * @return une List d'objets Commentaire depuis la couche Business
      */
     public List<Commentaire> findCommentaireBySpot(Spot pSpot) {
-        List<Commentaire> commentaires = commentaireBo.findBySpot(pSpot);
+        List<Commentaire> commentaires = commentaireBySpot.findByObject(pSpot);
 
         for (Commentaire commentaire : commentaires) {
+            commentaire = commentaireBo.findById(commentaire.getCommentaireId());
             commentaire.setUtilisateur(utilisateurBo.findById(commentaire.getUtilisateur().getUtilisateurId()));
-            commentaire.setSpot(spotBo.findById(pSpot.getSpotId()));
         }
 
         return commentaires;
@@ -80,11 +80,11 @@ public class CommenterService implements ICommenterService {
      * @return une List d'objets Commentaire depuis la couche Business
      */
     public List<Commentaire> findCommentaireByTopo(Topo pTopo) {
-        List<Commentaire> commentaires = commentaireBo.findByTopo(pTopo);
+        List<Commentaire> commentaires = commentaireByTopo.findByObject(pTopo);
 
         for (Commentaire commentaire : commentaires) {
+            commentaire = commentaireBo.findById(commentaire.getCommentaireId());
             commentaire.setUtilisateur(utilisateurBo.findById(commentaire.getUtilisateur().getUtilisateurId()));
-            commentaire.setTopo(topoBo.findById(pTopo.getTopoId()));
         }
 
         return commentaires;
@@ -100,18 +100,6 @@ public class CommenterService implements ICommenterService {
         Utilisateur utilisateur = utilisateurBo.findByName(pName);
         List<Commentaire> commentaires = commentaireBo.findByUtilisateur(utilisateur);
 
-        for (Commentaire commentaire : commentaires) {
-            commentaire.setUtilisateur(utilisateur);
-
-            if (commentaire.getSpot().getSpotId() > 0) {
-                commentaire.setSpot(spotBo.findById(commentaire.getSpot().getSpotId()));
-            }
-
-            if (commentaire.getTopo().getTopoId() > 0) {
-                commentaire.setTopo(topoBo.findById(commentaire.getTopo().getTopoId()));
-            }
-        }
-
         return commentaires;
     }
 
@@ -123,18 +111,6 @@ public class CommenterService implements ICommenterService {
     public List<Commentaire> findAllCommentaire() {
         List<Commentaire> commentaires = commentaireBo.findAll();
 
-        for (Commentaire commentaire : commentaires) {
-            commentaire.setUtilisateur(utilisateurBo.findById(commentaire.getUtilisateur().getUtilisateurId()));
-
-            if (commentaire.getSpot().getSpotId() > 0) {
-                commentaire.setSpot(spotBo.findById(commentaire.getSpot().getSpotId()));
-            }
-
-            if (commentaire.getTopo().getTopoId() > 0) {
-                commentaire.setTopo(topoBo.findById(commentaire.getTopo().getTopoId()));
-            }
-        }
-
         return commentaires;
     }
 
@@ -143,31 +119,13 @@ public class CommenterService implements ICommenterService {
      *  automatiquement par Spring grâce à l'annotation @Autowired.
      * @param pUtilisateurId est l'identifiant unique (Integer) de l'attribut Utilisateur de Commentaire
      * @param pContenu est un String définissant l'attribut Contenu de Commentaire
-     * @param pSpotId est l'identifiant unique (Integer) de l'attribut Spot de Commentaire
-     * @param pTopoId est l'identifiant unique (Integer) de l'attribut Topo de Commentaire
      * @return un entier (1 ou 0) qui définira si une ligne a été ajoutée ou non
      */
-    public int publishCommentaire(int pUtilisateurId, String pContenu, int pSpotId, int pTopoId, LocalDateTime pDatePublication) {
+    public int publishCommentaire(int pUtilisateurId, String pContenu, LocalDateTime pDatePublication) {
         Commentaire commentaire = new Commentaire();
         commentaire.setContenu(pContenu);
         commentaire.setDatePublication(pDatePublication);
         commentaire.setUtilisateur(utilisateurBo.findById(pUtilisateurId));
-
-        if (pSpotId > 0) {
-            commentaire.setSpot(spotBo.findById(pSpotId));
-        } else {
-            Spot spot = new Spot();
-            spot.setSpotId(0);
-            commentaire.setSpot(spot);
-        }
-
-        if (pTopoId > 0) {
-            commentaire.setTopo(topoBo.findById(pTopoId));
-        } else {
-            Topo topo = new Topo();
-            topo.setTopoId(0);
-            commentaire.setTopo(topo);
-        }
 
         return commentaireBo.create(commentaire);
     }

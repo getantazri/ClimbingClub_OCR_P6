@@ -37,20 +37,10 @@ public class RechercheDao extends AbstractDao implements IRechercheDao {
                 "INNER JOIN public.cotation ON voie.cotation_id = cotation.cotation_id " +
                 "WHERE topo.topo_nom LIKE :nom ";
 
-        if (!allAnswers.equals(pNomRegion)) {
-            vSql += " AND region.region_nom = :region ";
-        }
-
-        if (pHauteurMax > 0 && pHauteurMax > pHauteurMin) {
-            vSql += " AND spot.hauteur >= :hauteurMin " +
-                    " AND spot.hauteur <= :hauteurMax ";
-        }
-
-        if (!allAnswers.equals(pNomCotation)) {
-            vSql += " AND cotation.cotation_nom = :cotation ";
-        }
-
-
+        // Ajout des conditions complémentaires pour filter la requête
+        addRegionCondition(vSql, pNomRegion);
+        addHauteurCondition(vSql, pHauteurMin, pHauteurMax);
+        addCotationCondition(vSql, pNomCotation);
 
         // Définition des paramètres de la requêtes
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
@@ -80,18 +70,10 @@ public class RechercheDao extends AbstractDao implements IRechercheDao {
                 "INNER JOIN public.cotation ON voie.cotation_id = cotation.cotation_id " +
                 "WHERE spot.spot_nom LIKE :nom ";
 
-        if (!allAnswers.equals(pNomRegion)) {
-            vSql += " AND region.region_nom LIKE :region ";
-        }
-
-        if (pHauteurMax > 0 && pHauteurMax > pHauteurMin) {
-            vSql += " AND spot.hauteur >= :hauteurMin " +
-                    " AND spot.hauteur <= :hauteurMax ";
-        }
-
-        if (!allAnswers.equals(pNomCotation)) {
-            vSql += " AND cotation.cotation_nom = :cotation ";
-        }
+        // Ajout des conditions complémentaires pour filter la requête
+        addRegionCondition(vSql, pNomRegion);
+        addHauteurCondition(vSql, pHauteurMin, pHauteurMax);
+        addCotationCondition(vSql, pNomCotation);
 
         // Définition des paramètres de la requêtes
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
@@ -121,18 +103,10 @@ public class RechercheDao extends AbstractDao implements IRechercheDao {
                 "INNER JOIN public.region ON topo.region_id = region.region_id " +
                 "WHERE secteur.secteur_nom LIKE :nom";
 
-        if (!allAnswers.equals(pNomRegion)) {
-            vSql += " AND region.region_nom LIKE :region ";
-        }
-
-        if (pHauteurMax > 0 && pHauteurMax > pHauteurMin) {
-            vSql += " AND spot.hauteur >= :hauteurMin " +
-                    " AND spot.hauteur <= :hauteurMax ";
-        }
-
-        if (!allAnswers.equals(pNomCotation)) {
-            vSql += " AND cotation.cotation_nom = :cotation ";
-        }
+        // Ajout des conditions complémentaires pour filter la requête
+        addRegionCondition(vSql, pNomRegion);
+        addHauteurCondition(vSql, pHauteurMin, pHauteurMax);
+        addCotationCondition(vSql, pNomCotation);
 
         // Définition des paramètres de la requêtes
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
@@ -163,18 +137,10 @@ public class RechercheDao extends AbstractDao implements IRechercheDao {
                 "INNER JOIN public.region ON topo.region_id = region.region_id " +
                 "WHERE voie.voie_nom LIKE :nom ";
 
-        if (!allAnswers.equals(pNomRegion)) {
-            vSql += " AND region.region_nom LIKE :region ";
-        }
-
-        if (pHauteurMax > 0 && pHauteurMax > pHauteurMin) {
-            vSql += " AND spot.hauteur >= :hauteurMin " +
-                    " AND spot.hauteur <= :hauteurMax ";
-        }
-
-        if (!allAnswers.equals(pNomCotation)) {
-            vSql += " AND cotation.cotation_nom = :cotation ";
-        }
+        // Ajout des conditions complémentaires pour filter la requête
+        addRegionCondition(vSql, pNomRegion);
+        addHauteurCondition(vSql, pHauteurMin, pHauteurMax);
+        addCotationCondition(vSql, pNomCotation);
 
         // Définition des paramètres de la requêtes
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
@@ -202,5 +168,30 @@ public class RechercheDao extends AbstractDao implements IRechercheDao {
         vSqlParameters.addValue("pseudo", "%" + pPseudo + "%");
 
         return getNamedParameterJdbcTemplate().query(vSql, vSqlParameters, new UtilisateurRM());
+    }
+
+    public String addRegionCondition(String vSql, String pNomRegion) {
+        if (!allAnswers.equals(pNomRegion)) {
+            return vSql += " AND region.region_nom = :region ";
+        }
+
+        return vSql;
+    }
+
+    public String addHauteurCondition(String vSql, int pHauteurMin, int pHauteurMax) {
+        if (pHauteurMax > 0 && pHauteurMax > pHauteurMin) {
+            return vSql += " AND spot.hauteur >= :hauteurMin " +
+                    " AND spot.hauteur <= :hauteurMax ";
+        }
+
+        return vSql;
+    }
+
+    public String addCotationCondition(String vSql, String pNomCotation) {
+        if (!allAnswers.equals(pNomCotation)) {
+            return vSql += " AND cotation.cotation_nom = :cotation ";
+        }
+
+        return vSql;
     }
 }

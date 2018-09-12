@@ -10,8 +10,6 @@ import java.util.List;
 public interface ICommentaireDao {
 
     Commentaire findById(int pId);
-    List<Commentaire> findBySpot(Spot pSpot);
-    List<Commentaire> findByTopo(Topo pTopo);
     List<Commentaire> findByUtilisateur(Utilisateur pUtilisateur);
     List<Commentaire> findAll();
     int create(Commentaire pCommentaire);

@@ -36,16 +36,6 @@ public class CommentaireRM implements RowMapper {
         utilisateur.setUtilisateurId(rs.getInt("utilisateur_id"));
         commentaire.setUtilisateur(utilisateur);
 
-        // Création et affectation d'un Topo
-        Topo topo = new Topo();
-        topo.setTopoId(rs.getInt("topo_id"));
-        commentaire.setTopo(topo);
-
-        // Création et affectation d'un Topo
-        Spot spot = new Spot();
-        spot.setSpotId(rs.getInt("spot_id"));
-        commentaire.setSpot(spot);
-
         return commentaire;
     }
 }
