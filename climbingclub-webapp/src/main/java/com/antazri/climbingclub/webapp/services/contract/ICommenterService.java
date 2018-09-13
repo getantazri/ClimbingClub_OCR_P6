@@ -3,6 +3,7 @@ package com.antazri.climbingclub.webapp.services.contract;
 import com.antazri.climbingclub.model.beans.Commentaire;
 import com.antazri.climbingclub.model.beans.Spot;
 import com.antazri.climbingclub.model.beans.Topo;
+import com.antazri.climbingclub.model.beans.Utilisateur;
 
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -17,5 +18,6 @@ public interface ICommenterService {
     List<Commentaire> findAllCommentaire();
     int publishCommentaire(int pUtilisateurId, String pContenu, LocalDateTime pDatePublication);
     int editCommentaire(int pCommentaireId, String pContenu);
-    int deleteCommentaire(int pId);
+    public int deleteCommentaire(int spotId, int topoId, int pId);
+    int getLastCommentaireIdFromUser(Utilisateur pUtilisateur);
 }

@@ -44,7 +44,7 @@
     <!-- =============================================================== -->
     <bean id="commentaireDao" class="com.antazri.climbingclub.consumer.impl.CommentaireDao">
     </bean>
-    <bean id="commentairebyTopoDao" class="com.antazri.climbingclub.consumer.impl.CommentaireByTopoDao">
+    <bean id="commentaireByTopoDao" class="com.antazri.climbingclub.consumer.impl.CommentaireByTopoDao">
     </bean>
     <bean id="commentaireBySpotDao" class="com.antazri.climbingclub.consumer.impl.CommentaireBySpotDao">
     </bean>

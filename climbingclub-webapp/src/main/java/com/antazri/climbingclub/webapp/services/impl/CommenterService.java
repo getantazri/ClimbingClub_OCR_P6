@@ -1,19 +1,15 @@
 package com.antazri.climbingclub.webapp.services.impl;
 
-import com.antazri.climbingclub.business.contract.ICommentaireBo;
-import com.antazri.climbingclub.business.contract.ISpotBo;
-import com.antazri.climbingclub.business.contract.ITopoBo;
-import com.antazri.climbingclub.business.contract.IUtilisateurBo;
+import com.antazri.climbingclub.business.contract.*;
 import com.antazri.climbingclub.business.impl.CommentaireBySpotBo;
 import com.antazri.climbingclub.business.impl.CommentaireByTopoBo;
-import com.antazri.climbingclub.model.beans.Commentaire;
-import com.antazri.climbingclub.model.beans.Spot;
-import com.antazri.climbingclub.model.beans.Topo;
-import com.antazri.climbingclub.model.beans.Utilisateur;
+import com.antazri.climbingclub.model.beans.*;
 import com.antazri.climbingclub.webapp.services.contract.ICommenterService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,10 +25,12 @@ public class CommenterService implements ICommenterService {
     private ICommentaireBo commentaireBo;
 
     @Autowired
-    private CommentaireBySpotBo commentaireBySpot;
+    @Qualifier("commentaireBySpotBo")
+    private ICommentaireByObjectBo<Spot, CommentaireSpot> commentaireBySpotBo;
 
     @Autowired
-    private CommentaireByTopoBo commentaireByTopo;
+    @Qualifier("commentaireByTopoBo")
+    private ICommentaireByObjectBo<Topo, CommentaireTopo> commentaireByTopoBo;
 
     @Autowired
     private IUtilisateurBo utilisateurBo;
@@ -63,7 +61,12 @@ public class CommenterService implements ICommenterService {
      * @return une List d'objets Commentaire depuis la couche Business
      */
     public List<Commentaire> findCommentaireBySpot(Spot pSpot) {
-        List<Commentaire> commentaires = commentaireBySpot.findByObject(pSpot);
+        List<CommentaireSpot> commentairesSpot = commentaireBySpotBo.findByObject(pSpot);
+        List<Commentaire> commentaires = new ArrayList<>();
+
+        for (CommentaireSpot commentaireSpot : commentairesSpot) {
+            commentaires.add(findCommentaireById(commentaireSpot.getCommentaire().getCommentaireId()));
+        }
 
         for (Commentaire commentaire : commentaires) {
             commentaire = commentaireBo.findById(commentaire.getCommentaireId());
@@ -80,7 +83,12 @@ public class CommenterService implements ICommenterService {
      * @return une List d'objets Commentaire depuis la couche Business
      */
     public List<Commentaire> findCommentaireByTopo(Topo pTopo) {
-        List<Commentaire> commentaires = commentaireByTopo.findByObject(pTopo);
+        List<CommentaireTopo> commentairesTopo = commentaireByTopoBo.findByObject(pTopo);
+        List<Commentaire> commentaires = new ArrayList<>();
+
+        for (CommentaireTopo commentaireTopo : commentairesTopo) {
+            commentaires.add(findCommentaireById(commentaireTopo.getCommentaire().getCommentaireId()));
+        }
 
         for (Commentaire commentaire : commentaires) {
             commentaire = commentaireBo.findById(commentaire.getCommentaireId());
@@ -150,12 +158,26 @@ public class CommenterService implements ICommenterService {
      * @param pId est l'identifiant unique (Integer) de l'objet Commentaire à supprimer
      * @return un entier (1 ou 0) qui définira si une ligne a été supprimée ou non
      */
-    public int deleteCommentaire(int pId) {
+    public int deleteCommentaire(int spotId, int topoId, int pId) {
         try {
+            if (spotId > 0) {
+                commentaireBySpotBo.deleteCommentaire(spotId, pId);
+            } else {
+                commentaireByTopoBo.deleteCommentaire(topoId, pId);
+            }
+
             commentaireBo.delete(commentaireBo.findById(pId));
             return 1;
         } catch (Exception pE) {
             return 0;
         }
+    }
+
+    public int getLastCommentaireIdFromUser(Utilisateur pUtilisateur) {
+        List<Commentaire> commentaires = commentaireBo.findByUtilisateur(pUtilisateur);
+
+        Commentaire commentaire = commentaires.get(commentaires.size() - 1);
+
+        return commentaire.getCommentaireId();
     }
 }

@@ -4,8 +4,10 @@ import com.antazri.climbingclub.business.contract.ICommentaireByObjectBo;
 import com.antazri.climbingclub.consumer.contract.ICommentaireByObjectDao;
 import com.antazri.climbingclub.consumer.impl.CommentaireBySpotDao;
 import com.antazri.climbingclub.model.beans.Commentaire;
+import com.antazri.climbingclub.model.beans.CommentaireSpot;
 import com.antazri.climbingclub.model.beans.Spot;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionCallback;
@@ -14,10 +16,11 @@ import org.springframework.transaction.support.TransactionTemplate;
 
 import java.util.List;
 
-public class CommentaireBySpotBo extends AbstractBo implements ICommentaireByObjectBo<Spot> {
+public class CommentaireBySpotBo extends AbstractBo implements ICommentaireByObjectBo<Spot, CommentaireSpot> {
 
     @Autowired
-    private CommentaireBySpotDao commentaireBySpotDao;
+    @Qualifier("commentaireBySpotDao")
+    private ICommentaireByObjectDao<Spot, CommentaireSpot> commentaireBySpotDao;
 
     /**
      * La méthode findBySpot permet de récupérer des objets Commentaire via le CommentaireDao affecté via @Autowired. L'annotation @Transactionnel permet de spécifié à Spring que des
@@ -26,7 +29,7 @@ public class CommentaireBySpotBo extends AbstractBo implements ICommentaireByObj
      * @return une List d'objets Commentaire retournée par la couche DAO
      */
     @Transactional
-    public List<Commentaire> findByObject(Spot pSpot) {
+    public List<CommentaireSpot> findByObject(Spot pSpot) {
         return commentaireBySpotDao.findByObject(pSpot);
     }
 

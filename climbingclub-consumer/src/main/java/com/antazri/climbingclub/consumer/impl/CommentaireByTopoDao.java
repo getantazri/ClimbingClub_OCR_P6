@@ -3,12 +3,13 @@ package com.antazri.climbingclub.consumer.impl;
 import com.antazri.climbingclub.consumer.contract.ICommentaireByObjectDao;
 import com.antazri.climbingclub.consumer.rowmapper.CommentaireTopoRM;
 import com.antazri.climbingclub.model.beans.Commentaire;
+import com.antazri.climbingclub.model.beans.CommentaireTopo;
 import com.antazri.climbingclub.model.beans.Topo;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 
 import java.util.List;
 
-public class CommentaireByTopoDao extends AbstractDao implements ICommentaireByObjectDao<Topo> {
+public class CommentaireByTopoDao extends AbstractDao implements ICommentaireByObjectDao<Topo, CommentaireTopo> {
 
     /**
      * La méthode findByObject permet de rechercher un (ou plusieurs) objet Commentaire dans la base de données selon le Topo
@@ -19,12 +20,11 @@ public class CommentaireByTopoDao extends AbstractDao implements ICommentaireByO
      * @see com.antazri.climbingclub.consumer.rowmapper.CommentaireTopoRM
      */
     @Override
-    public List<Commentaire> findByObject(Topo pTopo) {
-
+    public List<CommentaireTopo> findByObject(Topo pTopo) {
         // Requête SQL
         String vSql = "SELECT * FROM public.commentaire_topo "
-                        + "JOIN public.commentaire WHERE commentaire_topo.commentaire_id = commentaire.commentaire_id "
-                        + "WHERE topo_id = :id ORDER BY commentaire.date_publication DESC";
+                        + "JOIN public.commentaire ON commentaire_topo.commentaire_id = commentaire.commentaire_id "
+                        + "WHERE commentaire_topo.topo_id = :id ORDER BY commentaire.date_publication DESC";
 
         // Définition des paramètres de la requêtes
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
@@ -44,10 +44,10 @@ public class CommentaireByTopoDao extends AbstractDao implements ICommentaireByO
     @Override
     public int addCommentaire(int pTopoId, int pCommentaireId) {
         // Requête SQL
-        String vSql = "INSERT INTO public.commentaire_topo (topo_id, commentaire_id) "
+        String vSql = "INSERT INTO public.commentaire_topo (commentaire_id, topo_id) "
                 + "VALUES (?, ?)";
 
-        return getJdbcTemplate().update(vSql, pTopoId, pCommentaireId);
+        return getJdbcTemplate().update(vSql, pCommentaireId, pTopoId);
     }
 
     /**

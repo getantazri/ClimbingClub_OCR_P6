@@ -1,10 +1,7 @@
 package com.antazri.climbingclub.webapp.action;
 
 import com.antazri.climbingclub.business.contract.ICommentaireByObjectBo;
-import com.antazri.climbingclub.model.beans.Commentaire;
-import com.antazri.climbingclub.model.beans.Spot;
-import com.antazri.climbingclub.model.beans.Topo;
-import com.antazri.climbingclub.model.beans.Utilisateur;
+import com.antazri.climbingclub.model.beans.*;
 import com.antazri.climbingclub.webapp.services.contract.ICommenterService;
 import com.antazri.climbingclub.webapp.services.contract.ICompteUtilisateurService;
 import com.antazri.climbingclub.webapp.services.contract.IGestionSpotService;
@@ -32,10 +29,10 @@ public class CommenterAction extends ActionSupport {
     private ICompteUtilisateurService compteUtilisateurService;
 
     @Autowired
-    private ICommentaireByObjectBo<Topo> commentaireByTopoBo;
+    private ICommentaireByObjectBo<Topo, CommentaireTopo> commentaireByTopoBo;
 
     @Autowired
-    private ICommentaireByObjectBo<Spot> commentaireBySpotBo;
+    private ICommentaireByObjectBo<Spot, CommentaireSpot> commentaireBySpotBo;
 
     // =======================================================================
     // Attributs de l'action
@@ -160,7 +157,13 @@ public class CommenterAction extends ActionSupport {
         int delete;
 
         if (commentaireId > 0) {
-            delete = commenterService.deleteCommentaire(commentaireId);
+
+            if (spotId > 0) {
+                delete = commenterService.deleteCommentaire(spotId, 0, commentaireId);
+            } else {
+                delete = commenterService.deleteCommentaire(0, topoId, commentaireId);
+            }
+
 
             if (delete > 0) {
                 this.addActionMessage("Commentaire supprimé");
@@ -176,7 +179,7 @@ public class CommenterAction extends ActionSupport {
     }
 
     private String doPublishCommentaire(int pRequest) {
-
+        utilisateur = compteUtilisateurService.findUtilisateurById(utilisateur.getUtilisateurId());
         if (commentaire != null) {
             try {
                 if (commentaire.getContenu().replace(" ", "").length() < 3 || commentaire.getContenu() == null) {
@@ -189,9 +192,9 @@ public class CommenterAction extends ActionSupport {
                         addActionMessage("Le commentaire a été publié");
 
                         if (spotId > 0) {
-                            commentaireBySpotBo.addCommentaire(spotId, commentaire.getCommentaireId());
+                            commentaireBySpotBo.addCommentaire(spotId, commenterService.getLastCommentaireIdFromUser(utilisateur));
                         } else {
-                            commentaireByTopoBo.addCommentaire(topoId, commentaire.getCommentaireId());
+                            commentaireByTopoBo.addCommentaire(topoId, commenterService.getLastCommentaireIdFromUser(utilisateur));
                         }
 
                         return ActionSupport.SUCCESS;
@@ -231,4 +234,6 @@ public class CommenterAction extends ActionSupport {
             return ActionSupport.ERROR;
         }
     }
+
+
 }
