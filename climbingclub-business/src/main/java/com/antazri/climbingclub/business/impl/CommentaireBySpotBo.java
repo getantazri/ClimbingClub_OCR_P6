@@ -45,11 +45,7 @@ public class CommentaireBySpotBo extends AbstractBo implements ICommentaireByObj
     @Transactional
     public int addCommentaire(int pSpotId, int pCommentaireId) {
         TransactionTemplate vTransactionTemplate = new TransactionTemplate(getTransactionManager());
-        return vTransactionTemplate.execute(new TransactionCallback<Integer>() {
-            public Integer doInTransaction(TransactionStatus status) {
-                return commentaireBySpotDao.addCommentaire(pSpotId, pCommentaireId);
-            }
-        });
+        return vTransactionTemplate.execute(status -> commentaireBySpotDao.addCommentaire(pSpotId, pCommentaireId));
     }
 
     /**

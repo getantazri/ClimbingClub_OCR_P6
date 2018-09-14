@@ -4,6 +4,7 @@ import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 
 public abstract class AbstractDao {
 
@@ -16,6 +17,9 @@ public abstract class AbstractDao {
 
     @Autowired
     private BasicDataSource dataSource;
+
+    @Autowired
+    private SimpleJdbcInsert simpleJdbcInsert;
 
     public NamedParameterJdbcTemplate getNamedParameterJdbcTemplate() {
         return namedParameterJdbcTemplate;
@@ -39,5 +43,13 @@ public abstract class AbstractDao {
 
     public void setDataSource(BasicDataSource dataSource) {
         this.dataSource = dataSource;
+    }
+
+    public SimpleJdbcInsert getSimpleJdbcInsert() {
+        return simpleJdbcInsert;
+    }
+
+    public void setSimpleJdbcInsert(SimpleJdbcInsert simpleJdbcInsert) {
+        this.simpleJdbcInsert = simpleJdbcInsert;
     }
 }

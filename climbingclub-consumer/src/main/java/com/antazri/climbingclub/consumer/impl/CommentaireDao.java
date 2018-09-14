@@ -6,9 +6,14 @@ import com.antazri.climbingclub.model.beans.Commentaire;
 import com.antazri.climbingclub.model.beans.Spot;
 import com.antazri.climbingclub.model.beans.Topo;
 import com.antazri.climbingclub.model.beans.Utilisateur;
+import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsertOperations;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 
-import java.sql.Timestamp;
+import java.sql.*;
 import java.util.Date;
 import java.util.List;
 
@@ -79,13 +84,25 @@ public class CommentaireDao extends AbstractDao implements ICommentaireDao {
      * @see com.antazri.climbingclub.consumer.rowmapper.CommentaireRM
      */
     public int create(Commentaire pCommentaire) {
-        // Requête SQL
-        String vSql = "INSERT INTO public.commentaire (contenu, utilisateur_id, date_publication) "
-                + "VALUES (?, ?, ?)";
+        KeyHolder vKeyHolder = new GeneratedKeyHolder();
 
-        return getJdbcTemplate().update(vSql, pCommentaire.getContenu(),
-                                        pCommentaire.getUtilisateur().getUtilisateurId(),
-                                        Timestamp.valueOf(pCommentaire.getDatePublication()));
+        // Requête SQL
+        String vSql = "INSERT INTO public.commentaire (contenu, utilisateur_id, date_publication) VALUES (?, ?, ?)";
+
+        getJdbcTemplate().update(new PreparedStatementCreator() {
+            @Override
+            public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+                PreparedStatement vPreparedStatement = con.prepareStatement(vSql, Statement.RETURN_GENERATED_KEYS);
+                vPreparedStatement.setString(1, pCommentaire.getContenu());
+                vPreparedStatement.setInt(2, pCommentaire.getUtilisateur().getUtilisateurId());
+                vPreparedStatement.setTimestamp(3, Timestamp.valueOf(pCommentaire.getDatePublication()));
+                return vPreparedStatement;
+            }
+        }, vKeyHolder);
+
+        pCommentaire.setCommentaireId((int) vKeyHolder.getKeys().get("commentaire_id"));
+
+        return pCommentaire.getCommentaireId();
     }
 
     /**

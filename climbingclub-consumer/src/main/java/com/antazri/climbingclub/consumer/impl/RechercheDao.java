@@ -44,7 +44,7 @@ public class RechercheDao extends AbstractDao implements IRechercheDao {
 
         // Définition des paramètres de la requêtes
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
-        vSqlParameters.addValue("nom", "%" + pNom + "%");
+        vSqlParameters.addValue("nom", "'_" + pNom + "_'");
         vSqlParameters.addValue("region", pNomRegion);
         vSqlParameters.addValue("hauteurMin", pHauteurMin);
         vSqlParameters.addValue("hauteurMax", pHauteurMax);
@@ -71,7 +71,7 @@ public class RechercheDao extends AbstractDao implements IRechercheDao {
                 "WHERE spot.spot_nom LIKE :nom ";
 
         // Ajout des conditions complémentaires pour filter la requête
-        addRegionCondition(vSql, pNomRegion);
+        vSql = addRegionCondition(vSql, pNomRegion);
         addHauteurCondition(vSql, pHauteurMin, pHauteurMax);
         addCotationCondition(vSql, pNomCotation);
 
@@ -172,7 +172,7 @@ public class RechercheDao extends AbstractDao implements IRechercheDao {
 
     public String addRegionCondition(String vSql, String pNomRegion) {
         if (!allAnswers.equals(pNomRegion)) {
-            return vSql += " AND region.region_nom = :region ";
+            return vSql + " AND region.region_nom = :region ";
         }
 
         return vSql;
@@ -180,7 +180,7 @@ public class RechercheDao extends AbstractDao implements IRechercheDao {
 
     public String addHauteurCondition(String vSql, int pHauteurMin, int pHauteurMax) {
         if (pHauteurMax > 0 && pHauteurMax > pHauteurMin) {
-            return vSql += " AND spot.hauteur >= :hauteurMin " +
+            return vSql + " AND spot.hauteur >= :hauteurMin " +
                     " AND spot.hauteur <= :hauteurMax ";
         }
 
@@ -189,7 +189,7 @@ public class RechercheDao extends AbstractDao implements IRechercheDao {
 
     public String addCotationCondition(String vSql, String pNomCotation) {
         if (!allAnswers.equals(pNomCotation)) {
-            return vSql += " AND cotation.cotation_nom = :cotation ";
+            return vSql + " AND cotation.cotation_nom = :cotation ";
         }
 
         return vSql;

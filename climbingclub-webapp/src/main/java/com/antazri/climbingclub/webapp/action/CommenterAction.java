@@ -46,6 +46,8 @@ public class CommenterAction extends ActionSupport {
     private Topo topo;
     private Utilisateur utilisateur;
     private List<Commentaire> commentaires;
+    private CommentaireSpot commentaireSpot;
+    private CommentaireTopo commentaireTopo;
 
     // =======================================================================
     // Getters et Setters des attributs de l'action
@@ -122,6 +124,22 @@ public class CommenterAction extends ActionSupport {
         this.commentaires = commentaires;
     }
 
+    public CommentaireSpot getCommentaireSpot() {
+        return commentaireSpot;
+    }
+
+    public void setCommentaireSpot(CommentaireSpot commentaireSpot) {
+        this.commentaireSpot = commentaireSpot;
+    }
+
+    public CommentaireTopo getCommentaireTopo() {
+        return commentaireTopo;
+    }
+
+    public void setCommentaireTopo(CommentaireTopo commentaireTopo) {
+        this.commentaireTopo = commentaireTopo;
+    }
+
     // =======================================================================
     // Méthodes / Actions
     // =======================================================================
@@ -186,15 +204,15 @@ public class CommenterAction extends ActionSupport {
                     addActionError("Le contenu n'est pas valide");
                     return ActionSupport.ERROR;
                 } else {
-                    int row = pRequest;
+                    int vId = pRequest;
 
-                    if (row > 0) {
+                    if (vId > 0) {
                         addActionMessage("Le commentaire a été publié");
 
                         if (spotId > 0) {
-                            commentaireBySpotBo.addCommentaire(spotId, commenterService.getLastCommentaireIdFromUser(utilisateur));
+                            commentaireBySpotBo.addCommentaire(spotId, vId);
                         } else {
-                            commentaireByTopoBo.addCommentaire(topoId, commenterService.getLastCommentaireIdFromUser(utilisateur));
+                            commentaireByTopoBo.addCommentaire(topoId, vId);
                         }
 
                         return ActionSupport.SUCCESS;

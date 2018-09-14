@@ -22,11 +22,11 @@
 
                 <div class="column">
 
-                    <s:if test="%{commentaire.topo.topoId > 0}">
+                    <s:if test="%{commentaireTopo.topoId > 0}">
                         <s:form action="doEditTopoCommentaire" method="POST">
-                            <s:hidden name="commentaire.commentaireId" value="%{commentaire.commentaireId}"/>
-                            <s:hidden name="topoId" value="%{commentaire.topo.topoId}"/>
-                            <s:hidden name="spotId" value="%{commentaire.spot.spotId}"/>
+                            <s:hidden name="commentaire.commentaireId" value="%{commentaireTop.commentaireId}"/>
+                            <s:hidden name="topoId" value="%{commentaireTopo.topoId}"/>
+                            <s:hidden name="spotId" value="%{commentaireSpot.spotId}"/>
                             <s:hidden name="commentaire.utilisateur.utilisateurId" value="%{commentaire.utilisateur.utilisateurId}"/>
 
                             <div class="field">
