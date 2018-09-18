@@ -174,28 +174,20 @@ public class CommenterAction extends ActionSupport {
         return doEditCommentaire(commenterService.editCommentaire(commentaire.getCommentaireId(), commentaire.getContenu()));
     }
 
-    public String doDeleteCommentaire() {
-        int delete;
+    public String doDeleteTopoCommentaire() {
+        commentaireTopo = commenterService.findCommentaireTopoByCommentaire(doGetCommentaireToEdit(commentaireId));
+        topo = gestionTopoService.findTopoById(commentaireTopo.getTopo().getTopoId());
+        commentaire = commenterService.findCommentaireById(commentaireTopo.getCommentaire().getCommentaireId());
 
-        if (commentaireId > 0) {
+        return doDeleteCommentaire(commenterService.deleteCommentaire(0, topo.getTopoId(), commentaire.getCommentaireId()));
+    }
 
-            if (spotId > 0) {
-                delete = commenterService.deleteCommentaire(spotId, 0, commentaireId);
-            } else {
-                delete = commenterService.deleteCommentaire(0, topoId, commentaireId);
-            }
+    public String doDeleteSpotCommentaire() {
+        commentaireSpot = commenterService.findCommentaireSpotByCommentaire(doGetCommentaireToEdit(commentaireId));
+        spot = gestionSpotService.findSpotById(commentaireSpot.getSpot().getSpotId());
+        commentaire = commenterService.findCommentaireById(commentaireSpot.getCommentaire().getCommentaireId());
 
-            if (delete > 0) {
-                this.addActionMessage("Commentaire supprimé");
-                return ActionSupport.SUCCESS;
-            } else {
-                this.addActionError("Le commentaire n'existe pas ou a déjà été supprimé");
-                return Action.ERROR;
-            }
-        } else {
-            this.addActionError("Le commentaire n'existe pas ou a déjà été supprimé");
-            return Action.ERROR;
-        }
+        return doDeleteCommentaire(commenterService.deleteCommentaire(spot.getSpotId(), 0, commentaire.getCommentaireId()));
     }
 
     private String doPublishCommentaire(int pRequest) {
@@ -268,5 +260,16 @@ public class CommenterAction extends ActionSupport {
         }
     }
 
+    private String doDeleteCommentaire(int pRequest) {
+        int delete = pRequest;
+
+        if (delete > 0) {
+            this.addActionMessage("Commentaire supprimé");
+            return ActionSupport.SUCCESS;
+        } else {
+            this.addActionError("Le commentaire n'existe pas ou a déjà été supprimé");
+            return Action.ERROR;
+        }
+    }
 
 }

@@ -163,7 +163,7 @@
                                                 <i class="far fa-edit has-text-primary has-text-centered"></i>
                                                 Modifier
                                             </s:a> &nbsp; - &nbsp;
-                                            <s:a action="doDeleteCommentaire">
+                                            <s:a action="doDeleteTopoCommentaire">
                                                 <s:param name="commentaireId" value="commentaireId"/>
                                                 <i class="fas fa-times has-text-danger has-text-centered"></i>
                                                 Supprimer

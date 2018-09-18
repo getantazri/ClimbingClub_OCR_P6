@@ -137,13 +137,42 @@
             </result>
         </action>
 
-        <!-- Action DELETE COMMENTAIRE -->
-        <action name="doDeleteCommentaire"
+        <!-- Action DELETE SPOT COMMENTAIRE -->
+        <action name="doDeleteSpotCommentaire"
                 class="com.antazri.climbingclub.webapp.action.CommenterAction"
-                method="doDeleteCommentaire">
+                method="doDeleteSpotCommentaire">
 
-            <result name="success" type="redirect">/compte/doGetCompte.action</result>
-            <result name="error" type="redirect">error.action</result>
+            <result name="input" type="redirectAction">
+                <param name="actionName">doSpotDetails</param>
+                <param name="spotId">${spot.spotId}</param>
+            </result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">doSpotDetails</param>
+                <param name="spotId">${spot.spotId}</param>
+            </result>
+            <result name="error" type="redirectAction">
+                <param name="actionName">doSpotDetails</param>
+                <param name="spotId">${spot.spotId}</param>
+            </result>
+        </action>
+
+        <!-- Action DELETE TOPO COMMENTAIRE -->
+        <action name="doDeleteTopoCommentaire"
+                class="com.antazri.climbingclub.webapp.action.CommenterAction"
+                method="doDeleteTopoCommentaire">
+
+            <result name="input" type="redirectAction">
+                <param name="actionName">doTopoDetails</param>
+                <param name="topoId">${topo.topoId}</param>
+            </result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">doTopoDetails</param>
+                <param name="topoId">${topo.topoId}</param>
+            </result>
+            <result name="error" type="redirectAction">
+                <param name="actionName">doTopoDetails</param>
+                <param name="topoId">${topo.topoId}</param>
+            </result>
         </action>
     </package>
 
