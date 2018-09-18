@@ -1,8 +1,10 @@
 package com.antazri.climbingclub.consumer.impl;
 
 import com.antazri.climbingclub.consumer.contract.ICommentaireByObjectDao;
+import com.antazri.climbingclub.consumer.rowmapper.CommentaireSpotRM;
 import com.antazri.climbingclub.consumer.rowmapper.CommentaireTopoRM;
 import com.antazri.climbingclub.model.beans.Commentaire;
+import com.antazri.climbingclub.model.beans.CommentaireSpot;
 import com.antazri.climbingclub.model.beans.CommentaireTopo;
 import com.antazri.climbingclub.model.beans.Topo;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -10,6 +12,26 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import java.util.List;
 
 public class CommentaireByTopoDao extends AbstractDao implements ICommentaireByObjectDao<Topo, CommentaireTopo> {
+
+    /**
+     * La méthode findByCommentaire permet de rechercher un objet CommentaireTopo dans la base de données selon le Commentaire
+     * auquel il est rattaché
+     *
+     * @param pCommentaire est un objet Commentaire permettant l'identification de CommentaireTopo dans la base de données via "commentaire_id"
+     * @return un objet CommentaireTopo
+     * @see com.antazri.climbingclub.consumer.rowmapper.CommentaireTopoRM
+     */
+    @Override
+    public CommentaireTopo findByCommentaire(Commentaire pCommentaire) {
+        // Requête SQL
+        String vSql = "SELECT * FROM public.commentaire_topo JOIN public.commentaire ON commentaire_topo.commentaire_id = commentaire.commentaire_id WHERE commentaire_topo.commentaire_id = :id";
+
+        // Définition des paramètres de la requêtes
+        MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
+        vSqlParameters.addValue("id", pCommentaire.getCommentaireId());
+
+        return (CommentaireTopo) getNamedParameterJdbcTemplate().queryForObject(vSql, vSqlParameters, new CommentaireTopoRM());
+    }
 
     /**
      * La méthode findByObject permet de rechercher un (ou plusieurs) objet Commentaire dans la base de données selon le Topo

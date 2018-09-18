@@ -22,6 +22,11 @@ public class CommentaireByTopoBo extends AbstractBo implements ICommentaireByObj
     @Qualifier("commentaireByTopoDao")
     private ICommentaireByObjectDao<Topo, CommentaireTopo> commentaireByTopoDao;
 
+    @Transactional
+    public CommentaireTopo findByCommentaire(Commentaire pCommentaire) {
+        return commentaireByTopoDao.findByCommentaire(pCommentaire);
+    }
+
     /**
      * La méthode findByObject permet de récupérer des objets Commentaire via le CommentaireDao affecté via @Autowired. L'annotation @Transactionnel permet de spécifié à Spring que des
      * données seront transférées dans et depuis la base de données

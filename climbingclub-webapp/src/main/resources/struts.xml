@@ -71,10 +71,19 @@
             </result>
         </action>
 
-        <!-- Action GET COMMENTAIRE TO EDIT -->
-        <action name="doGetCommentaireToEdit"
+        <!-- Action GET SPOT COMMENTAIRE TO EDIT -->
+        <action name="doGetSpotCommentaireToEdit"
                 class="com.antazri.climbingclub.webapp.action.CommenterAction"
-                method="doGetCommentaireToEdit">
+                method="doGetSpotCommentaireToEdit">
+            <result name="input">/WEB-INF/jsp/edit_commentaire.jsp</result>
+            <result name="success">/WEB-INF/jsp/edit_commentaire.jsp</result>
+            <result name="error" type="redirect">error.action</result>
+        </action>
+
+        <!-- Action GET TOPO COMMENTAIRE TO EDIT -->
+        <action name="doGetTopoCommentaireToEdit"
+                class="com.antazri.climbingclub.webapp.action.CommenterAction"
+                method="doGetTopoCommentaireToEdit">
             <result name="input">/WEB-INF/jsp/edit_commentaire.jsp</result>
             <result name="success">/WEB-INF/jsp/edit_commentaire.jsp</result>
             <result name="error" type="redirect">error.action</result>

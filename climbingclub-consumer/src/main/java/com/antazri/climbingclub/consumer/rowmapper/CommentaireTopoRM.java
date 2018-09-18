@@ -17,7 +17,6 @@ public class CommentaireTopoRM implements RowMapper {
         // Création et affectation d'un Commentaire
         Commentaire commentaire = new Commentaire();
         commentaire.setCommentaireId(rs.getInt("commentaire_id"));
-        commentaire.setDatePublication(rs.getTimestamp("date_publication").toLocalDateTime());
         commentaireTopo.setCommentaire(commentaire);
 
         // Création et affectation d'un Topo

@@ -13,11 +13,31 @@ import java.util.List;
 public class CommentaireBySpotDao extends AbstractDao implements ICommentaireByObjectDao<Spot, CommentaireSpot> {
 
     /**
-     * La méthode findByObject permet de rechercher un (ou plusieurs) objet Commentaire dans la base de données selon le Spot
+     * La méthode findByCommentaire permet de rechercher un objet CommentaireSpot dans la base de données selon le Commentaire
+     * auquel il est rattaché
+     *
+     * @param pCommentaire est un objet Commentaire permettant l'identification de CommentaireSpot dans la base de données via "commentaire_id"
+     * @return un objet CommentaireSpot
+     * @see com.antazri.climbingclub.consumer.rowmapper.CommentaireSpotRM
+     */
+    @Override
+    public CommentaireSpot findByCommentaire(Commentaire pCommentaire) {
+        // Requête SQL
+        String vSql = "SELECT * FROM public.commentaire_spot JOIN public.commentaire ON commentaire_spot.commentaire_id = commentaire.commentaire_id WHERE commentaire_spot.commentaire_id = :id";
+
+        // Définition des paramètres de la requêtes
+        MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
+        vSqlParameters.addValue("id", pCommentaire.getCommentaireId());
+
+        return (CommentaireSpot) getNamedParameterJdbcTemplate().queryForObject(vSql, vSqlParameters, new CommentaireSpotRM());
+    }
+
+    /**
+     * La méthode findByObject permet de rechercher un (ou plusieurs) objet CommentaireSpot dans la base de données selon le Spot
      * auquel il est rattaché
      *
      * @param pSpot est un objet Spot permettant l'identification de Commentaire dans la base de données via "spot_id"
-     * @return une List d'objets Commentaire configurés via le RowMapper "CommentaireRM"
+     * @return une List d'objets CommentaireSpot configurés via le RowMapper "CommentaireSpotRM"
      * @see com.antazri.climbingclub.consumer.rowmapper.CommentaireSpotRM
      */
     @Override

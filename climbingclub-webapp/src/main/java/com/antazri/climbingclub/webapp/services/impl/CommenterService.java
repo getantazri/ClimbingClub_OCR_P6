@@ -111,6 +111,16 @@ public class CommenterService implements ICommenterService {
         return commentaires;
     }
 
+    @Override
+    public CommentaireSpot findCommentaireSpotByCommentaire(Commentaire pCommentaire) {
+        return commentaireBySpotBo.findByCommentaire(pCommentaire);
+    }
+
+    @Override
+    public CommentaireTopo findCommentaireTopoByCommentaire(Commentaire pCommentaire) {
+        return commentaireByTopoBo.findByCommentaire(pCommentaire);
+    }
+
     /**
      * La méthode findAllCommentaire permet de récupérer l'ensemble des instances de Commentaire via l'objet CommentaireBo. Cette objet est instancié automatiquement
      * par Spring grâce à l'annotation @Autowired.
@@ -171,13 +181,5 @@ public class CommenterService implements ICommenterService {
         } catch (Exception pE) {
             return 0;
         }
-    }
-
-    public int getLastCommentaireIdFromUser(Utilisateur pUtilisateur) {
-        List<Commentaire> commentaires = commentaireBo.findByUtilisateur(pUtilisateur);
-
-        Commentaire commentaire = commentaires.get(commentaires.size() - 1);
-
-        return commentaire.getCommentaireId();
     }
 }

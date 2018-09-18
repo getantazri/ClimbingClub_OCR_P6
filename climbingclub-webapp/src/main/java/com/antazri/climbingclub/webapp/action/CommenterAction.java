@@ -11,7 +11,6 @@ import com.opensymphony.xwork2.ActionSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 public class CommenterAction extends ActionSupport {
@@ -151,14 +150,18 @@ public class CommenterAction extends ActionSupport {
         return doPublishCommentaire(commenterService.publishCommentaire(utilisateur.getUtilisateurId(), commentaire.getContenu(), LocalDateTime.now()));
     }
 
-    public String doGetCommentaireToEdit() {
+    public String doGetSpotCommentaireToEdit() {
+        commentaireSpot = commenterService.findCommentaireSpotByCommentaire(doGetCommentaireToEdit(commentaireId));
+        spot = gestionSpotService.findSpotById(commentaireSpot.getSpot().getSpotId());
+        commentaire = commenterService.findCommentaireById(commentaireSpot.getCommentaire().getCommentaireId());
 
-        if (commentaireId > 0) {
-            commentaire = commenterService.findCommentaireById(commentaireId);
-        } else {
-            addActionError("Spot introuvable");
-            return ActionSupport.ERROR;
-        }
+        return ActionSupport.INPUT;
+    }
+
+    public String doGetTopoCommentaireToEdit() {
+        commentaireTopo = commenterService.findCommentaireTopoByCommentaire(doGetCommentaireToEdit(commentaireId));
+        topo = gestionTopoService.findTopoById(commentaireTopo.getTopo().getTopoId());
+        commentaire = commenterService.findCommentaireById(commentaireTopo.getCommentaire().getCommentaireId());
 
         return ActionSupport.INPUT;
     }
@@ -181,7 +184,6 @@ public class CommenterAction extends ActionSupport {
             } else {
                 delete = commenterService.deleteCommentaire(0, topoId, commentaireId);
             }
-
 
             if (delete > 0) {
                 this.addActionMessage("Commentaire supprimé");
@@ -229,6 +231,19 @@ public class CommenterAction extends ActionSupport {
 
         addActionError("Votre commentaire n'a pas été publié : il manque des éléments requis");
         return ActionSupport.ERROR;
+    }
+
+    private Commentaire doGetCommentaireToEdit(int pCommentaireId) {
+
+        try {
+            if (pCommentaireId > 0) {
+                commentaire = commenterService.findCommentaireById(pCommentaireId);
+            }
+        } catch (NullPointerException pE) {
+            addActionError("Commentaire introuvable");
+        }
+
+        return commentaire;
     }
 
     private String doEditCommentaire(int pRequest) {

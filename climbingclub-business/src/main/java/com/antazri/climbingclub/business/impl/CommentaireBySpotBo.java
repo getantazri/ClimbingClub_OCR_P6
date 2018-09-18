@@ -23,7 +23,18 @@ public class CommentaireBySpotBo extends AbstractBo implements ICommentaireByObj
     private ICommentaireByObjectDao<Spot, CommentaireSpot> commentaireBySpotDao;
 
     /**
-     * La méthode findBySpot permet de récupérer des objets Commentaire via le CommentaireDao affecté via @Autowired. L'annotation @Transactionnel permet de spécifié à Spring que des
+     * La méthode findByCommentaure permet de récupérer un objet CommentaireSpot via le commentaireBySpotDao affecté via @Autowired. L'annotation @Transactionnel permet de spécifié à Spring que des
+     * données seront transférées dans et depuis la base de données
+     * @param pCommentaire est un objet Commentaire qui permet de filtrer les éléments que l'on souhaite récupérer dans la base de données
+     * @return un objet CommentaireSpot retourné par la couche DAO
+     */
+    @Transactional
+    public CommentaireSpot findByCommentaire(Commentaire pCommentaire) {
+        return commentaireBySpotDao.findByCommentaire(pCommentaire);
+    }
+
+    /**
+     * La méthode findBySpot permet de récupérer des objets Commentaire via le commentaireBySpotDao affecté via @Autowired. L'annotation @Transactionnel permet de spécifié à Spring que des
      * données seront transférées dans et depuis la base de données
      * @param pSpot est un objet Spot qui permet de filtrer les éléments que l'on souhaite récupérer dans la base de données
      * @return une List d'objets Commentaire retournée par la couche DAO

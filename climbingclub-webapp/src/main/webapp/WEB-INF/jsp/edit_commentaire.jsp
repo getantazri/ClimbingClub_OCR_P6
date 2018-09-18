@@ -11,22 +11,21 @@
 
             <h1 class="title">Modifier le commentaire</h1>
 
-            <s:if test="%{commentaire.topo.topoId > 0}">
-                <h2 class="subtitle">pour le topo "<s:property value="commentaire.topo.topoNom"/>"</h2>
+            <s:if test="%{topo.topoId > 0}">
+                <h2 class="subtitle">pour le topo "<s:property value="topo.topoNom"/>"</h2>
             </s:if>
             <s:else>
-                <h2 class="subtitle">pour le spot "<s:property value="commentaire.spot.spotNom"/>"</h2>
+                <h2 class="subtitle">pour le spot "<s:property value="spot.spotNom"/>"</h2>
             </s:else>
 
             <div class="columns">
 
                 <div class="column">
 
-                    <s:if test="%{commentaireTopo.topoId > 0}">
+                    <s:if test="%{topo.topoId > 0}">
                         <s:form action="doEditTopoCommentaire" method="POST">
-                            <s:hidden name="commentaire.commentaireId" value="%{commentaireTop.commentaireId}"/>
-                            <s:hidden name="topoId" value="%{commentaireTopo.topoId}"/>
-                            <s:hidden name="spotId" value="%{commentaireSpot.spotId}"/>
+                            <s:hidden name="commentaire.commentaireId" value="%{commentaire.commentaireId}"/>
+                            <s:hidden name="topoId" value="%{topo.topoId}"/>
                             <s:hidden name="commentaire.utilisateur.utilisateurId" value="%{commentaire.utilisateur.utilisateurId}"/>
 
                             <div class="field">
@@ -44,8 +43,7 @@
                     <s:else>
                         <s:form action="doEditSpotCommentaire" method="POST">
                             <s:hidden name="commentaire.commentaireId" value="%{commentaire.commentaireId}"/>
-                            <s:hidden name="topoId" value="%{commentaire.topo.topoId}"/>
-                            <s:hidden name="spotId" value="%{commentaire.spot.spotId}"/>
+                            <s:hidden name="spotId" value="%{spot.spotId}"/>
                             <s:hidden name="commentaire.utilisateur.utilisateurId" value="%{commentaire.utilisateur.utilisateurId}"/>
 
                             <div class="field">

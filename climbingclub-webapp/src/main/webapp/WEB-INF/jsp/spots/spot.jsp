@@ -162,8 +162,9 @@
                                     <p><s:property value="contenu"/></p>
                                     <p>
                                         <s:if test="%{#session.user.statut.statutId == 1 || #session.user.utilisateurId == utilisateur.utilisateurId}">
-                                            <s:a action="doGetCommentaireToEdit">
+                                            <s:a action="doGetSpotCommentaireToEdit">
                                                 <s:param name="commentaireId" value="commentaireId"/>
+                                                <s:param name="spotId" value="spotId" />
                                                 <i class="far fa-edit has-text-primary has-text-centered"></i>
                                                 Modifier
                                             </s:a> &nbsp; - &nbsp;
