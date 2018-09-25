@@ -101,7 +101,7 @@
                         </tr>
                         </thead>
 
-                        <s:if test="%{topos != null}">
+                        <s:if test="%{!topos.isEmpty()}">
                             <tbody>
                             <s:iterator value="topos">
                                 <tr>
@@ -133,7 +133,7 @@
                         </tr>
                         </thead>
 
-                        <s:if test="%{spots != null}">
+                        <s:if test="%{!spots.isEmpty()}">
                             <tbody>
                             <s:iterator value="spots">
                                 <tr>
@@ -165,7 +165,7 @@
                         </tr>
                         </thead>
 
-                        <s:if test="%{secteurs != null}">
+                        <s:if test="%{!secteurs.isEmpty()}">
                             <tbody>
                             <s:iterator value="secteurs">
                                 <tr>
@@ -198,7 +198,7 @@
                         </tr>
                         </thead>
 
-                        <s:if test="%{voies != null}">
+                        <s:if test="%{!voies.isEmpty()}">
                             <tbody>
                             <s:iterator value="voies">
                                 <tr>

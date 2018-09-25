@@ -31,20 +31,20 @@ public class RechercheDao extends AbstractDao implements IRechercheDao {
         // Requête SQL
         String vSql = "SELECT DISTINCT ON (topo.topo_id) * FROM public.topo " +
                 "INNER JOIN public.region ON topo.region_id = region.region_id " +
-                "INNER JOIN public.spot ON spot.topo_id = topo.topo_id " +
-                "INNER JOIN public.secteur ON secteur.spot_id = spot.spot_id " +
+                "INNER JOIN public.spot ON topo.topo_id = spot.topo_id " +
+                "INNER JOIN public.secteur ON spot.spot_id = secteur.spot_id " +
                 "INNER JOIN public.voie ON voie.secteur_id = secteur.secteur_id " +
                 "INNER JOIN public.cotation ON voie.cotation_id = cotation.cotation_id " +
-                "WHERE topo.topo_nom LIKE :nom ";
+                "WHERE topo.topo_nom ILIKE :nom";
 
         // Ajout des conditions complémentaires pour filter la requête
-        addRegionCondition(vSql, pNomRegion);
-        addHauteurCondition(vSql, pHauteurMin, pHauteurMax);
-        addCotationCondition(vSql, pNomCotation);
+        vSql = addRegionCondition(vSql, pNomRegion);
+        vSql = addHauteurCondition(vSql, pHauteurMin, pHauteurMax);
+        vSql = addCotationCondition(vSql, pNomCotation);
 
         // Définition des paramètres de la requêtes
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
-        vSqlParameters.addValue("nom", "'_" + pNom + "_'");
+        vSqlParameters.addValue("nom", '%' + pNom + '%');
         vSqlParameters.addValue("region", pNomRegion);
         vSqlParameters.addValue("hauteurMin", pHauteurMin);
         vSqlParameters.addValue("hauteurMax", pHauteurMax);
@@ -68,16 +68,16 @@ public class RechercheDao extends AbstractDao implements IRechercheDao {
                 "INNER JOIN public.secteur ON spot.spot_id = secteur.spot_id " +
                 "INNER JOIN public.voie ON voie.secteur_id = secteur.secteur_id " +
                 "INNER JOIN public.cotation ON voie.cotation_id = cotation.cotation_id " +
-                "WHERE spot.spot_nom LIKE :nom ";
+                "WHERE spot.spot_nom ILIKE :nom ";
 
         // Ajout des conditions complémentaires pour filter la requête
         vSql = addRegionCondition(vSql, pNomRegion);
-        addHauteurCondition(vSql, pHauteurMin, pHauteurMax);
-        addCotationCondition(vSql, pNomCotation);
+        vSql = addHauteurCondition(vSql, pHauteurMin, pHauteurMax);
+        vSql = addCotationCondition(vSql, pNomCotation);
 
         // Définition des paramètres de la requêtes
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
-        vSqlParameters.addValue("nom", "%" + pNom + "%");
+        vSqlParameters.addValue("nom", '%' + pNom + '%');
         vSqlParameters.addValue("region", pNomRegion);
         vSqlParameters.addValue("hauteurMin", pHauteurMin);
         vSqlParameters.addValue("hauteurMax", pHauteurMax);
@@ -101,16 +101,16 @@ public class RechercheDao extends AbstractDao implements IRechercheDao {
                 "INNER JOIN public.spot ON secteur.spot_id = spot.spot_id " +
                 "INNER JOIN public.topo ON spot.topo_id = topo.topo_id " +
                 "INNER JOIN public.region ON topo.region_id = region.region_id " +
-                "WHERE secteur.secteur_nom LIKE :nom";
+                "WHERE secteur.secteur_nom ILIKE :nom";
 
         // Ajout des conditions complémentaires pour filter la requête
-        addRegionCondition(vSql, pNomRegion);
-        addHauteurCondition(vSql, pHauteurMin, pHauteurMax);
-        addCotationCondition(vSql, pNomCotation);
+        vSql = addRegionCondition(vSql, pNomRegion);
+        vSql = addHauteurCondition(vSql, pHauteurMin, pHauteurMax);
+        vSql = addCotationCondition(vSql, pNomCotation);
 
         // Définition des paramètres de la requêtes
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
-        vSqlParameters.addValue("nom", "%" + pNom + "%");
+        vSqlParameters.addValue("nom", '%' + pNom + '%');
         vSqlParameters.addValue("region", pNomRegion);
         vSqlParameters.addValue("hauteurMin", pHauteurMin);
         vSqlParameters.addValue("hauteurMax", pHauteurMax);
@@ -135,16 +135,16 @@ public class RechercheDao extends AbstractDao implements IRechercheDao {
                 "INNER JOIN public.spot ON secteur.spot_id = spot.spot_id " +
                 "INNER JOIN public.topo ON spot.topo_id = topo.topo_id " +
                 "INNER JOIN public.region ON topo.region_id = region.region_id " +
-                "WHERE voie.voie_nom LIKE :nom ";
+                "WHERE voie.voie_nom ILIKE :nom";
 
         // Ajout des conditions complémentaires pour filter la requête
-        addRegionCondition(vSql, pNomRegion);
-        addHauteurCondition(vSql, pHauteurMin, pHauteurMax);
-        addCotationCondition(vSql, pNomCotation);
+        vSql = addRegionCondition(vSql, pNomRegion);
+        vSql = addHauteurCondition(vSql, pHauteurMin, pHauteurMax);
+        vSql = addCotationCondition(vSql, pNomCotation);
 
         // Définition des paramètres de la requêtes
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
-        vSqlParameters.addValue("nom", "%" + pNom + "%");
+        vSqlParameters.addValue("nom", '%' + pNom + '%');
         vSqlParameters.addValue("region", pNomRegion);
         vSqlParameters.addValue("hauteurMin", pHauteurMin);
         vSqlParameters.addValue("hauteurMax", pHauteurMax);
@@ -161,11 +161,11 @@ public class RechercheDao extends AbstractDao implements IRechercheDao {
      */
     public List<Utilisateur> rechercherUtilisateur(String pPseudo) {
         // Requête SQL
-        String vSql = "SELECT * FROM public.utilisateur WHERE utilisateur.pseudo LIKE :pseudo";
+        String vSql = "SELECT * FROM public.utilisateur WHERE utilisateur.pseudo ILIKE :pseudo";
 
         // Définition des paramètres de la requêtes
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
-        vSqlParameters.addValue("pseudo", "%" + pPseudo + "%");
+        vSqlParameters.addValue("pseudo", "'%" + pPseudo + "%'");
 
         return getNamedParameterJdbcTemplate().query(vSql, vSqlParameters, new UtilisateurRM());
     }

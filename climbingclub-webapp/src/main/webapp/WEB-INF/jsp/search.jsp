@@ -26,29 +26,29 @@
 
                         <div class="field">
                             <div class="control">
-                                    <s:select name="type" label="Type" list="types" emptyOption="false" requiredLabel="true" cssClass="select" />
+                                <s:select name="type" label="Type" list="types" emptyOption="false" requiredLabel="true" cssClass="select" />
                             </div>
                         </div>
 
                         <div class="field">
                             <div class="control">
-                                    <s:select name="nomRegion" label="Région"
-                                              list="regions" listKey="regionNom" listValue="regionNom"
-                                              emptyOption="false"
-                                              requiredLabel="true"
-                                              cssClass="select"
-                                    />
+                                <s:select name="nomRegion" label="Région"
+                                          list="regions" listKey="regionNom" listValue="regionNom"
+                                          emptyOption="false"
+                                          requiredLabel="true"
+                                          cssClass="select"
+                                />
                             </div>
                         </div>
 
                         <div class="field">
                             <div class="control">
-                                    <s:select name="nomCotation" label="Cotation"
-                                              list="cotations" listKey="cotationNom" listValue="cotationNom"
-                                              emptyOption="false"
-                                              requiredLabel="true"
-                                              cssClass="select"
-                                    />
+                                <s:select name="nomCotation" label="Cotation"
+                                          list="cotations" listKey="cotationNom" listValue="cotationNom"
+                                          emptyOption="false"
+                                          requiredLabel="true"
+                                          cssClass="select"
+                                />
                             </div>
                         </div>
 

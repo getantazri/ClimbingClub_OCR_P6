@@ -6,6 +6,7 @@ import com.antazri.climbingclub.model.beans.*;
 import com.antazri.climbingclub.webapp.services.contract.IMoteurRechercheService;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
@@ -189,6 +190,7 @@ public class MoteurRechercheAction extends ActionSupport {
             }
         } catch (Exception pE) {
             addActionError("Il y a eu un problème lors de la requête !");
+            pE.printStackTrace();
             vResult =  ActionSupport.ERROR;
         }
 
