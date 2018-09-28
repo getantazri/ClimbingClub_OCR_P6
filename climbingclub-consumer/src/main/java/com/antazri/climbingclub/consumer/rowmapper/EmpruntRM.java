@@ -24,8 +24,8 @@ public class EmpruntRM implements RowMapper {
         Emprunt emprunt = new Emprunt();
 
         emprunt.setEmpruntId(rs.getInt("emprunt_id"));
-        emprunt.setDateDebut(rs.getDate("date_debut"));
-        emprunt.setDateFin(rs.getDate("date_fin"));
+        emprunt.setDateDebut(rs.getDate("date_debut").toLocalDate());
+        emprunt.setDateFin(rs.getDate("date_fin").toLocalDate());
 
         // Création et affectation d'un objet Utilisateur
         Utilisateur utilisateur = new Utilisateur();

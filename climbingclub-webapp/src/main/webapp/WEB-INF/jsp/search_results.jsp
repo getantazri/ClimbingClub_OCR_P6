@@ -20,7 +20,7 @@
                     <s:form action="doSearchRequest" method="POST">
                         <div class="field">
                             <div class="control">
-                                <s:textfield name="request" value="" requiredLabel="true" cssClass="input is-medium is-fullwidth" label="Que recherchez-vous ?" />
+                                <s:textfield name="request" value="%{request}" requiredLabel="true" cssClass="input is-medium is-fullwidth" label="Que recherchez-vous ?" />
                             </div>
                         </div>
 

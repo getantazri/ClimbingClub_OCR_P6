@@ -568,9 +568,76 @@
     <!-- Package RESERVATIONS -->
     <!-- =============================================================== -->
     <package name="reservations" extends="cclub-default" namespace="/reservations">
-        <!-- Action GET RSERVATIONS -->
+        <!-- Action RESERVATIONS -->
         <action name="doReservations">
             <result>/WEB-INF/jsp/reservations/reservations.jsp</result>
+        </action>
+
+        <!-- Action LIST RESERVATIONS -->
+        <action name="doListReservations"
+                class="com.antazri.climbingclub.webapp.action.ReservationAction"
+                method="doList">
+            <result name="success">/WEB-INF/jsp/reservations/reservations.jsp</result>
+        </action>
+
+        <!-- Action DETAILS RESERVATION -->
+        <action name="doReservationDetails"
+                class="com.antazri.climbingclub.webapp.action.ReservationAction"
+                method="doDetails">
+
+            <result name="success">/WEB-INF/jsp/reservations/reservation.jsp</result>
+            <result name="error">/WEB-INF/jsp/reservations/reservations.jsp</result>
+        </action>
+
+        <!-- Action ADD RESERVATION -->
+        <action name="doAddReservation"
+                class="com.antazri.climbingclub.webapp.action.ReservationAction"
+                method="doAddReservation">
+
+            <result name="input">/WEB-INF/jsp/reservations/add_reservation.jsp</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">doReservationDetails</param>
+                <param name="empruntId">${empruntId}</param>
+            </result>
+            <result name="error">/WEB-INF/jsp/reservations/add_reservation.jsp</result>
+        </action>
+
+        <!-- Action GET RESERVATION TO UPDATE -->
+        <action name="doGetReservationToUpdate"
+                class="com.antazri.climbingclub.webapp.action.ReservationAction"
+                method="doGetReservationToUpdate">
+
+            <result name="input">/WEB-INF/jsp/reservations/update_reservation.jsp</result>
+            <result name="success">/WEB-INF/jsp/reservations/update_reservation.jsp</result>
+            <result name="error" type="redirectAction">
+                <param name="actionName">doReservationDetails</param>
+                <param name="empruntId">${empruntId}</param>
+            </result>
+        </action>
+
+        <!-- Action UPDATE RESERVATION -->
+        <action name="doUpdateReservation"
+                class="com.antazri.climbingclub.webapp.action.ReservationAction"
+                method="doUpdateReservation">
+
+            <result name="input">/WEB-INF/jsp/reservations/update_reservation.jsp</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">doReservationDetails</param>
+                <param name="empruntId">${empruntId}</param>
+            </result>
+            <result name="error" type="redirectAction">
+                <param name="actionName">doReservationDetails</param>
+                <param name="empruntId">${empruntId}</param>
+            </result>
+        </action>
+
+        <!-- Action DELETE RESERVATION -->
+        <action name="doDeleteReservations"
+                class="com.antazri.climbingclub.webapp.action.ReservationAction"
+                method="doDeleteReservation">
+
+            <result name="success">/WEB-INF/jsp/reservations/reservations.jsp</result>
+            <result name="error">/WEB-INF/jsp/reservations/reservations.jsp</result>
         </action>
     </package>
 

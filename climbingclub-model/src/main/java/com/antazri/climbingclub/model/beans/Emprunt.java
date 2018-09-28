@@ -1,12 +1,12 @@
 package com.antazri.climbingclub.model.beans;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Emprunt {
 
     private int empruntId;
-    private Date dateDebut;
-    private Date dateFin;
+    private LocalDate dateDebut;
+    private LocalDate dateFin;
     private Utilisateur utilisateur;
     private Topo topo;
 
@@ -18,19 +18,19 @@ public class Emprunt {
         this.empruntId = empruntId;
     }
 
-    public Date getDateDebut() {
+    public LocalDate getDateDebut() {
         return dateDebut;
     }
 
-    public void setDateDebut(Date dateDebut) {
+    public void setDateDebut(LocalDate dateDebut) {
         this.dateDebut = dateDebut;
     }
 
-    public Date getDateFin() {
+    public LocalDate getDateFin() {
         return dateFin;
     }
 
-    public void setDateFin(Date dateFin) {
+    public void setDateFin(LocalDate dateFin) {
         this.dateFin = dateFin;
     }
 

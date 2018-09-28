@@ -160,6 +160,13 @@
                 <version>4.11</version>
                 <scope>test</scope>
             </dependency>
+
+            <!-- JODA dependecies -->
+            <dependency>
+                <groupId>joda-time</groupId>
+                <artifactId>joda-time</artifactId>
+                <version>2.10</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

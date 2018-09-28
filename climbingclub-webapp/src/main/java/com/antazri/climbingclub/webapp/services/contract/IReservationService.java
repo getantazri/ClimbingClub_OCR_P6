@@ -4,6 +4,7 @@ import com.antazri.climbingclub.model.beans.Emprunt;
 import com.antazri.climbingclub.model.beans.Topo;
 import com.antazri.climbingclub.model.beans.Utilisateur;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -13,7 +14,7 @@ public interface IReservationService {
     List<Emprunt> findReservationByUtilisateur(Utilisateur pUtilisateur);
     List<Emprunt> findReservationByTopo(Topo pTopo);
     List<Emprunt> findAllReservations();
-    int addReservation(Date pDateDebut, Date pDateFin, int pUtilisateurId, int pTopoId);
-    int updateReservation(int pEmpruntId, Date pDateDebut, Date pDateFin);
-    void deleteReservation(int pEmpruntId);
+    int addReservation(LocalDate pDateDebut, LocalDate pDateFin, int pUtilisateurId, int pTopoId);
+    int updateReservation(int pEmpruntId, LocalDate pDateDebut, LocalDate pDateFin);
+    int deleteReservation(int pEmpruntId);
 }

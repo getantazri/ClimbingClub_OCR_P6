@@ -65,11 +65,11 @@
                         <table class="table is-striped is-hoverable is-fullwidth topo-list">
 
                             <thead>
-                            <tr>
-                                <th>Nom</th>
-                                <th>Modifier</th>
-                                <th>Supprimer</th>
-                            </tr>
+                                <tr>
+                                    <th>Nom</th>
+                                    <th>Modifier</th>
+                                    <th>Supprimer</th>
+                                </tr>
                             </thead>
 
                             <tbody>

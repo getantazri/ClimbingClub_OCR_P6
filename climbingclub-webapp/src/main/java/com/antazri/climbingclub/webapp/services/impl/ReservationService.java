@@ -9,6 +9,8 @@ import com.antazri.climbingclub.model.beans.Utilisateur;
 import com.antazri.climbingclub.webapp.services.contract.IReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -77,7 +79,7 @@ public class ReservationService implements IReservationService {
      * @param pTopoId est un Integer spécifiant l'identifiant unique du Topo concerné
      * @return un Integer (1 ou 0) permettant de définir si une ligne a été ajoutée ou non
      */
-    public int addReservation(Date pDateDebut, Date pDateFin, int pUtilisateurId, int pTopoId) {
+    public int addReservation(LocalDate pDateDebut, LocalDate pDateFin, int pUtilisateurId, int pTopoId) {
         Emprunt emprunt = new Emprunt();
         emprunt.setDateDebut(pDateDebut);
         emprunt.setDateFin(pDateFin);
@@ -94,7 +96,7 @@ public class ReservationService implements IReservationService {
      * @param pDateFin est un objet Date pour fixer une date de fin de réservation
      * @return un Integer (1 ou 0) permettant de définir si une ligne a été modifiée ou non
      */
-    public int updateReservation(int pEmpruntId, Date pDateDebut, Date pDateFin) {
+    public int updateReservation(int pEmpruntId, LocalDate pDateDebut, LocalDate pDateFin) {
         Emprunt emprunt = empruntBo.findById(pEmpruntId);
         emprunt.setDateDebut(pDateDebut);
         emprunt.setDateFin(pDateFin);
@@ -107,7 +109,39 @@ public class ReservationService implements IReservationService {
      * affecté par Spring avec l'annotation @Autowired.
      * @param pEmpruntId est l'identifiant unique de l'instance de Emprunt à supprimer
      */
-    public void deleteReservation(int pEmpruntId) {
-        empruntBo.delete(empruntBo.findById(pEmpruntId));
+    public int deleteReservation(int pEmpruntId) {
+        try {
+            empruntBo.delete(empruntBo.findById(pEmpruntId));
+            return 1;
+        } catch (Exception pE) {
+            return 0;
+        }
+    }
+
+    public boolean isPassedReservation(Emprunt pEmprunt) {
+        if (pEmprunt.getDateFin().isBefore(LocalDate.now())) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean hasOnGoingReservation(Utilisateur pUtilisateur) {
+        List<Emprunt> emprunts = new ArrayList<>();
+
+        try {
+            emprunts = findReservationByUtilisateur(pUtilisateur);
+
+            for (Emprunt emprunt : emprunts) {
+                if (emprunt.getDateFin().isAfter(LocalDate.now())) {
+                    return true;
+                }
+            }
+        } catch (NullPointerException pE) {
+            return false;
+        }
+
+        return false;
+
     }
 }
