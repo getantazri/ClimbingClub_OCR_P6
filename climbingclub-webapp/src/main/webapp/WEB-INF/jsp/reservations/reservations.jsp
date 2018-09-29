@@ -60,20 +60,20 @@
                             </thead>
 
                             <tbody>
-                            <s:iterator value="topos">
+                            <s:iterator value="emprunts">
                                 <tr>
                                     <td>
-                                        <s:a action="doReservationDetails" namespace="/reservations">
-                                            <s:param name="empruntId" value="empruntId"/>
-                                            <s:property value="topo.topoNom"/>
+                                        <s:a action="doTopoDetails" namespace="/topos">
+                                            <s:param name="topo.topoId" value="topo.topoId" />
+                                            <s:property value="topo.topoNom" />
                                         </s:a>
 
                                     </td>
                                     <td>
-                                        <s:property value="emprunt.dateDebut" />
+                                        <s:property value="dateDebut" />
                                     </td>
                                     <td>
-                                        <s:property value="emprunt.dateFin" />
+                                        <s:property value="dateFin" />
                                     </td>
                                     <td>
                                         <s:a action="doGetReservationToUpdate" namespace="/reservations">

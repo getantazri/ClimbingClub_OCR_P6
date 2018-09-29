@@ -194,7 +194,9 @@
                 method="doTopoDetails">
 
             <result name="success">/WEB-INF/jsp/topos/topo.jsp</result>
-            <result name="error">/WEB-INF/jsp/error.jsp</result>
+            <result name="error" type="redirectAction">
+                <param name="actionName">error</param>
+            </result>
 
         </action>
 
@@ -580,12 +582,14 @@
             <result name="success">/WEB-INF/jsp/reservations/reservations.jsp</result>
         </action>
 
-        <!-- Action DETAILS RESERVATION -->
-        <action name="doReservationDetails"
+        <!-- Action LIST BY UTILISATEUR -->
+        <action name="doListByUtilisateur"
                 class="com.antazri.climbingclub.webapp.action.ReservationAction"
-                method="doDetails">
-
-            <result name="success">/WEB-INF/jsp/reservations/reservation.jsp</result>
+                method="doListByUtilisateur">
+            <result name="success">
+                <param name="location">/WEB-INF/jsp/reservations/reservations.jsp</param>
+                <param name="utilisateurId">${utilisateurId}</param>
+            </result>
             <result name="error">/WEB-INF/jsp/reservations/reservations.jsp</result>
         </action>
 
@@ -596,8 +600,7 @@
 
             <result name="input">/WEB-INF/jsp/reservations/add_reservation.jsp</result>
             <result name="success" type="redirectAction">
-                <param name="actionName">doReservationDetails</param>
-                <param name="empruntId">${empruntId}</param>
+                <param name="actionName">doListByUtilisateur</param>
             </result>
             <result name="error">/WEB-INF/jsp/reservations/add_reservation.jsp</result>
         </action>

@@ -18,4 +18,5 @@ public interface IGestionTopoService {
     int updateTopo(int pId, String pName, int pRegionId, int pUtilisateurId);
     int deleteTopo(int pTopoId);
     List<Spot> hasSpots(Topo pTopo);
+    List<Topo> getAvailableToposList(List<Topo> pTopos);
 }

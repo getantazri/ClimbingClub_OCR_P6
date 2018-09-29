@@ -17,4 +17,6 @@ public interface IReservationService {
     int addReservation(LocalDate pDateDebut, LocalDate pDateFin, int pUtilisateurId, int pTopoId);
     int updateReservation(int pEmpruntId, LocalDate pDateDebut, LocalDate pDateFin);
     int deleteReservation(int pEmpruntId);
+    boolean isPassedReservation(Emprunt pEmprunt);
+    boolean hasOnGoingReservation(Utilisateur pUtilisateur);
 }

@@ -9,6 +9,7 @@ import com.antazri.climbingclub.webapp.services.contract.IGestionTopoService;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 
 import java.util.List;
 
@@ -112,13 +113,22 @@ public class GestionTopoAction extends ActionSupport {
     // Méthodes / Actions
     // =======================================================================
     public String doListAllTopos() {
+        clearErrorsAndMessages();
+        
         this.setTopos(gestionTopoService.findAllTopo());
 
         return ActionSupport.SUCCESS;
     }
 
     public String doTopoDetails() {
-        this.setTopo(gestionTopoService.findTopoById(topoId));
+        clearErrorsAndMessages();
+
+        try {
+            this.setTopo(gestionTopoService.findTopoById(topoId));
+        } catch (EmptyResultDataAccessException pE) {
+            addActionError("Topo introuvable !");
+            return ActionSupport.ERROR;
+        }
 
         if (topo == null || topo.getTopoId() == 0) {
             addActionError("Vous devez spécifié un ID existant");
@@ -142,6 +152,7 @@ public class GestionTopoAction extends ActionSupport {
     }
 
     public String doAddTopo() {
+        clearErrorsAndMessages();
         String vResult = ActionSupport.INPUT;
 
         if (vResult.equals(ActionSupport.INPUT)) {
@@ -151,6 +162,7 @@ public class GestionTopoAction extends ActionSupport {
         if (this.topo != null) {
             try {
                 if (topo.getTopoNom().replace(" ", "").length() < 3) {
+                    clearActionErrors();
                     addActionError("Le nom de votre topo n'est pas valide");
                     vResult = ActionSupport.INPUT;
                 } else {
@@ -176,6 +188,7 @@ public class GestionTopoAction extends ActionSupport {
     }
 
     public String doGetTopoToUpdate() {
+        clearErrorsAndMessages();
 
         regions = regionBo.findAll();
 
@@ -187,6 +200,7 @@ public class GestionTopoAction extends ActionSupport {
     }
 
     public String doUpdateTopo() {
+        clearErrorsAndMessages();
         String vResult;
 
         regions = regionBo.findAll();
@@ -217,6 +231,7 @@ public class GestionTopoAction extends ActionSupport {
     }
 
     public String doDeleteTopo() {
+        clearErrorsAndMessages();
         String vResult;
         int delete;
 

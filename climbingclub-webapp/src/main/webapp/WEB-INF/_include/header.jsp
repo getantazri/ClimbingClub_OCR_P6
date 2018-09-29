@@ -46,7 +46,10 @@
                     <s:a action="doToposList" cssClass="navbar-item" namespace="/topos">Topos</s:a>
                     <s:a action="doRegions" cssClass="navbar-item" namespace="/regions">En région</s:a>
                     <s:if test="%{#session.user != null}">
-                        <s:a action="doReservations" cssClass="navbar-item" namespace="/reservations">Mes réservations</s:a>
+                        <s:a action="doListByUtilisateur" cssClass="navbar-item" namespace="/reservations">
+                            <s:param name="utilisateurId" value="%{#session.user.utilisateurId}" />
+                            Mes réservations
+                        </s:a>
                     </s:if>
                     <a class="navbar-item" href="#"><i class="fab fa-facebook-square"></i></a>
                     <a class="navbar-item" href="#"><i class="fab fa-twitter"></i></a>

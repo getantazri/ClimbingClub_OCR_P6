@@ -145,40 +145,28 @@ public class ReservationAction extends ActionSupport {
             }
     }
 
-    public String doDetails() {
-        if (empruntId > 0) {
-            try {
-                emprunt = reservationService.findReservationById(empruntId);
-                emprunt.setUtilisateur(compteUtilisateurService.findUtilisateurById(emprunt.getUtilisateur().getUtilisateurId()));
-                emprunt.setTopo(gestionTopoService.findTopoById(emprunt.getTopo().getTopoId()));
-
-                return ActionSupport.SUCCESS;
-
-            } catch (NullPointerException pE) {
-                addActionError("Une erreur est survenue");
-                return ActionSupport.ERROR;
-            }
-
-        } else {
-            addActionError("La réservation n'a pas été trouvée !");
-            return ActionSupport.ERROR;
-        }
-    }
-
     public String doAddReservation() {
         String vResult = ActionSupport.INPUT;
 
-        topos = gestionTopoService.findAllTopo();
+        if (vResult.equals(ActionSupport.INPUT)) {
+            topos = gestionTopoService.findAllTopo();
+        }
 
         if (emprunt != null) {
             try {
                 if (dateFin.compareTo(dateDebut) > 0) {
-                    reservationService.addReservation(emprunt.getDateDebut(), emprunt.getDateFin(), utilisateurId, emprunt.getTopo().getTopoId());
-                    addActionMessage("Réservation validée");
-                    vResult = ActionSupport.SUCCESS;
+                    int row = reservationService.addReservation(emprunt.getDateDebut(), emprunt.getDateFin(), utilisateurId, emprunt.getTopo().getTopoId());
+
+                    if (row > 0) {
+                        addActionMessage("Réservation validée");
+                        vResult = ActionSupport.SUCCESS;
+                    } else {
+                        addActionError("Les dates indiquées ne sont pas valides");
+                        vResult = ActionSupport.INPUT;
+                    }
                 } else {
-                    addActionError("Les dates indiquées ne sont pas valides");
-                    vResult = ActionSupport.ERROR;
+                    addActionError("Les dates de la réservation ne sont pas valides");
+                    vResult = ActionSupport.INPUT;
                 }
             } catch (Exception pE) {
                 addActionError("La réservation n'a pas pu être validée");

@@ -177,4 +177,24 @@ public class GestionTopoService implements IGestionTopoService {
     public List<Spot> hasSpots(Topo pTopo) {
         return spotBo.findByTopo(pTopo);
     }
+
+    /**
+     * La méthode getAvailableToposList permet de retourner une liste des topos disponibles pour l'emprunt. La méthode va vérifier l'attribut Disponible de
+     * chaque objet Topo de la List passée en paramètre de la méthode
+     * @param pTopos est une List de Topo
+     * @return une List d'objets Topos dont l'attribut Disponible est à True
+     */
+    @Override
+    public List<Topo> getAvailableToposList(List<Topo> pTopos) {
+        List<Topo> topos = new ArrayList<>();
+
+        for (Topo topo : pTopos) {
+            if (topo.isDisponible()) {
+                topos.add(topo);
+            } else {
+                continue;
+            }
+        }
+        return topos;
+    }
 }

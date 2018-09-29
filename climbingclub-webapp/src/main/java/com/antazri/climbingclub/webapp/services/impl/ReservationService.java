@@ -38,7 +38,11 @@ public class ReservationService implements IReservationService {
      * @return un objet Emprunt
      */
     public Emprunt findReservationById(int pId) {
-        return empruntBo.findById(pId);
+        Emprunt emprunt = empruntBo.findById(pId);
+        emprunt.setTopo(topoBo.findById(emprunt.getTopo().getTopoId()));
+        emprunt.setUtilisateur(utilisateurBo.findById(emprunt.getUtilisateur().getUtilisateurId()));
+
+        return emprunt;
     }
 
     /**
@@ -48,7 +52,14 @@ public class ReservationService implements IReservationService {
      * @return une List d'objets Emprunt
      */
     public List<Emprunt> findReservationByUtilisateur(Utilisateur pUtilisateur) {
-        return empruntBo.findByUtilisateur(pUtilisateur);
+        List<Emprunt> emprunts = empruntBo.findByUtilisateur(pUtilisateur);
+
+        for (Emprunt emprunt : emprunts) {
+            emprunt.setTopo(topoBo.findById(emprunt.getTopo().getTopoId()));
+            emprunt.setUtilisateur(utilisateurBo.findById(emprunt.getUtilisateur().getUtilisateurId()));
+        }
+
+        return emprunts;
     }
 
     /**
@@ -58,7 +69,14 @@ public class ReservationService implements IReservationService {
      * @return une List d'objets Emprunt
      */
     public List<Emprunt> findReservationByTopo(Topo pTopo) {
-        return empruntBo.findByTopo(pTopo);
+        List<Emprunt> emprunts = empruntBo.findByTopo(pTopo);
+
+        for (Emprunt emprunt : emprunts) {
+            emprunt.setTopo(topoBo.findById(emprunt.getTopo().getTopoId()));
+            emprunt.setUtilisateur(utilisateurBo.findById(emprunt.getUtilisateur().getUtilisateurId()));
+        }
+
+        return emprunts;
     }
 
     /**
@@ -67,7 +85,14 @@ public class ReservationService implements IReservationService {
      * @return une List d'objets Emprunt
      */
     public List<Emprunt> findAllReservations() {
-        return empruntBo.findAll();
+        List<Emprunt> emprunts = empruntBo.findAll();
+
+        for (Emprunt emprunt : emprunts) {
+            emprunt.setTopo(topoBo.findById(emprunt.getTopo().getTopoId()));
+            emprunt.setUtilisateur(utilisateurBo.findById(emprunt.getUtilisateur().getUtilisateurId()));
+        }
+
+        return emprunts;
     }
 
     /**
@@ -118,6 +143,13 @@ public class ReservationService implements IReservationService {
         }
     }
 
+    /**
+     * La méthode isPassedReservation permet de vérifier si un objet Emprunt est considéré comme passé : la méthode vérifie l'attribut DateFin et le compare à
+     * la date du jour avec la méthode isBefore de la classe LocalDate du package java.time.
+     * @param pEmprunt est un objet Emprunt que l'on souhaite analyser
+     * @return un booléen qui indique si l'événement est encore en cours (false) ou passé (true)
+     */
+    @Override
     public boolean isPassedReservation(Emprunt pEmprunt) {
         if (pEmprunt.getDateFin().isBefore(LocalDate.now())) {
             return true;
@@ -126,6 +158,13 @@ public class ReservationService implements IReservationService {
         }
     }
 
+    /**
+     * La méthode hasOnGoingReservation vérifie si un Utilisateur a déjà un objet Emprunt qui lui est attribué dans la base de données. La méthode va vérifier l'attribut DateFin
+     * de tous les objets Emprunt récupéré depuis la table emprunt avec l'identifiant unique de l'objet Utilisateur.
+     * @param pUtilisateur est un objet Utilisateur correspondant à l'utilisateur auquel la méthode vérifie les emprunts liés dans la base de données
+     * @return un booléen qui sera à True très que la boucle aura
+     */
+    @Override
     public boolean hasOnGoingReservation(Utilisateur pUtilisateur) {
         List<Emprunt> emprunts = new ArrayList<>();
 

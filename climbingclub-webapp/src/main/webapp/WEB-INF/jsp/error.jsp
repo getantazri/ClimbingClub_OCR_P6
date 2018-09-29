@@ -17,9 +17,13 @@
 
                 <div class="column">
 
-                    <div class="notification is-danger"><s:actionerror /></div>
+                    <s:if test="%{this.hasActionErrors()}">
+                        <div class="notification is-danger"><s:actionerror /></div>
+                    </s:if>
 
-                    <div class="notification is-light"><s:actionmessage /></div>
+                    <s:if test="%{this.hasActionMessages()}">
+                        <div class="notification is-danger"><s:actionmessage /></div>
+                    </s:if>
 
                 </div>
 
