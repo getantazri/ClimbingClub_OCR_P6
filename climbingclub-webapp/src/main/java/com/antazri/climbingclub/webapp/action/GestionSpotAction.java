@@ -102,6 +102,7 @@ public class GestionSpotAction extends ActionSupport {
     // Méthodes de l'action
     // =======================================================================
     public String doSpotDetails() {
+        clearErrorsAndMessages();
         this.setSpot(gestionSpotService.findSpotById(spotId));
 
         if (spot == null || spot.getSpotId() == 0) {
@@ -126,7 +127,7 @@ public class GestionSpotAction extends ActionSupport {
     }
 
     public String doAddSpot() {
-
+        clearErrorsAndMessages();
         topo = gestionTopoService.findTopoById(topoId);
 
         if (spot != null) {
@@ -157,6 +158,7 @@ public class GestionSpotAction extends ActionSupport {
     }
 
     public String doGetSpotToUpdate() {
+        clearErrorsAndMessages();
 
         if (spotId > 0) {
             spot = gestionSpotService.findSpotById(spotId);
@@ -170,6 +172,7 @@ public class GestionSpotAction extends ActionSupport {
     }
 
     public String doUpdateSpot() {
+        clearErrorsAndMessages();
         String vResult;
 
         try {
@@ -198,6 +201,7 @@ public class GestionSpotAction extends ActionSupport {
     }
 
     public String doDeleteSpot() {
+        clearErrorsAndMessages();
         String vResult;
         int delete;
 

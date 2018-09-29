@@ -127,6 +127,37 @@
                 <div class="column"></div>
             </div>
 
+            <s:if test="%{topo.disponible == true}">
+                <div class="columns">
+                    <div class="column">
+                        <nav class="level is-mobile">
+                            <div class="level-item has-text-centered">
+                                <div>
+                                    <p class="heading">Ce topo est disponible à la réservation !</p>
+                                    <p class="title">
+                                        <s:if test="%{#session.user != null}">
+                                            <s:a action="doAddReservation" namespace="/reservations" cssClass="button is-primary is-medium">
+                                                <s:param name="topoId" value="topo.topoId"/>
+                                                <span><b>Je le réserve !</b></span>
+                                            </s:a>
+                                        </s:if>
+                                        <s:else>
+                                            <s:a action="doGetCompte" namespace="/compte" cssClass="button is-light is-medium">
+                                                <span><b>Connectez-vous pour le réserver</b></span>
+                                            </s:a>
+                                        </s:else>
+                                    </p>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+
+                <div class="columns">
+                    <div class="column"></div>
+                </div>
+            </s:if>
+
             <div class="columns">
 
                 <em class="column">

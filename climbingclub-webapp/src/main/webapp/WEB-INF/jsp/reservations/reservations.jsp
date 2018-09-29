@@ -25,13 +25,17 @@
 
                 <div class="column">
 
-                    <div class="control add-space-top-bottom-10">
-                        <a href="">
-                            <s:a action="doAddReservation">
-                                <button class="button is-primary">Créer une réservation</button>
-                            </s:a>
-                        </a>
-                    </div>
+                    <s:if test="%{this.hasActionMessages()}">
+                        <div class="control add-space-top-bottom-10">
+                            <span class="notification is-info is-medium"><b><s:actionmessage /></b></span>
+                        </div>
+                    </s:if>
+
+                    <s:if test="%{this.hasActionErrors()}">
+                        <div class="control add-space-top-bottom-10">
+                            <span class="notification is-danger is-medium"><b><s:actionmessage /></b></span>
+                        </div>
+                    </s:if>
 
                 </div>
 
@@ -64,7 +68,7 @@
                                 <tr>
                                     <td>
                                         <s:a action="doTopoDetails" namespace="/topos">
-                                            <s:param name="topo.topoId" value="topo.topoId" />
+                                            <s:param name="topoId" value="topo.topoId" />
                                             <s:property value="topo.topoNom" />
                                         </s:a>
 

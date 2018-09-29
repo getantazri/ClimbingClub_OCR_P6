@@ -10,7 +10,8 @@ import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.sql.Date;
 import java.util.List;
 
 public class ReservationAction extends ActionSupport {
@@ -30,8 +31,8 @@ public class ReservationAction extends ActionSupport {
     private int empruntId;
     private int utilisateurId;
     private int topoId;
-    private Date dateDebut;
-    private Date dateFin;
+    private String dateDebut;
+    private String dateFin;
     private Emprunt emprunt;
     private Utilisateur utilisateur;
     private Topo topo;
@@ -65,19 +66,19 @@ public class ReservationAction extends ActionSupport {
         this.topoId = topoId;
     }
 
-    public Date getDateDebut() {
+    public String getDateDebut() {
         return dateDebut;
     }
 
-    public void setDateDebut(Date dateDebut) {
+    public void setDateDebut(String dateDebut) {
         this.dateDebut = dateDebut;
     }
 
-    public Date getDateFin() {
+    public String getDateFin() {
         return dateFin;
     }
 
-    public void setDateFin(Date dateFin) {
+    public void setDateFin(String dateFin) {
         this.dateFin = dateFin;
     }
 
@@ -146,22 +147,23 @@ public class ReservationAction extends ActionSupport {
     }
 
     public String doAddReservation() {
+        clearActionErrors();
         String vResult = ActionSupport.INPUT;
 
-        if (vResult.equals(ActionSupport.INPUT)) {
-            topos = gestionTopoService.findAllTopo();
+        if (topoId > 0) {
+            topo = gestionTopoService.findTopoById(topoId);
         }
 
-        if (emprunt != null) {
+        if (dateDebut != null && dateFin != null) {
             try {
                 if (dateFin.compareTo(dateDebut) > 0) {
-                    int row = reservationService.addReservation(emprunt.getDateDebut(), emprunt.getDateFin(), utilisateurId, emprunt.getTopo().getTopoId());
+                    int row = reservationService.addReservation(LocalDate.parse(dateDebut), LocalDate.parse(dateFin), utilisateurId, topoId);
 
                     if (row > 0) {
-                        addActionMessage("Réservation validée");
+                        addActionMessage("Le topo " + topo.getTopoNom() + " a été réservé !");
                         vResult = ActionSupport.SUCCESS;
                     } else {
-                        addActionError("Les dates indiquées ne sont pas valides");
+                        addActionError("Erreur : votre réservation n'a pas pu être enregistrée");
                         vResult = ActionSupport.INPUT;
                     }
                 } else {
@@ -178,6 +180,8 @@ public class ReservationAction extends ActionSupport {
     }
 
     public String doGetReservationToUpdate() {
+        clearActionErrors();
+
         if (empruntId > 0) {
             emprunt = reservationService.findReservationById(empruntId);
         } else {
@@ -189,6 +193,8 @@ public class ReservationAction extends ActionSupport {
     }
 
     public String doUpdateReservation() {
+        clearActionErrors();
+
         if (emprunt != null) {
             try {
                 if (dateFin.compareTo(dateDebut) > 0) {
@@ -210,6 +216,7 @@ public class ReservationAction extends ActionSupport {
     }
 
     public String doDeleteReservation() {
+        clearActionErrors();
         String vResult;
         int delete;
 

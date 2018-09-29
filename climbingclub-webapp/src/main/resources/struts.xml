@@ -570,11 +570,6 @@
     <!-- Package RESERVATIONS -->
     <!-- =============================================================== -->
     <package name="reservations" extends="cclub-default" namespace="/reservations">
-        <!-- Action RESERVATIONS -->
-        <action name="doReservations">
-            <result>/WEB-INF/jsp/reservations/reservations.jsp</result>
-        </action>
-
         <!-- Action LIST RESERVATIONS -->
         <action name="doListReservations"
                 class="com.antazri.climbingclub.webapp.action.ReservationAction"
@@ -586,6 +581,12 @@
         <action name="doListByUtilisateur"
                 class="com.antazri.climbingclub.webapp.action.ReservationAction"
                 method="doListByUtilisateur">
+
+            <interceptor-ref name="store">
+                <param name="operationMode">RETRIEVE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack" />
+
             <result name="success">
                 <param name="location">/WEB-INF/jsp/reservations/reservations.jsp</param>
                 <param name="utilisateurId">${utilisateurId}</param>
@@ -598,11 +599,23 @@
                 class="com.antazri.climbingclub.webapp.action.ReservationAction"
                 method="doAddReservation">
 
-            <result name="input">/WEB-INF/jsp/reservations/add_reservation.jsp</result>
+            <interceptor-ref name="store">
+                <param name="operationMode">STORE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack" />
+
+            <result name="input">
+                <param name="location">/WEB-INF/jsp/reservations/add_reservation.jsp</param>
+                <param name="topoId">${topoId}</param>
+            </result>
             <result name="success" type="redirectAction">
                 <param name="actionName">doListByUtilisateur</param>
+                <param name="utilisateurId">${utilisateurId}</param>
             </result>
-            <result name="error">/WEB-INF/jsp/reservations/add_reservation.jsp</result>
+            <result name="error">
+                <param name="location">/WEB-INF/jsp/reservations/add_reservation.jsp</param>
+                <param name="topoId">${topoId}</param>
+            </result>
         </action>
 
         <!-- Action GET RESERVATION TO UPDATE -->
@@ -613,8 +626,8 @@
             <result name="input">/WEB-INF/jsp/reservations/update_reservation.jsp</result>
             <result name="success">/WEB-INF/jsp/reservations/update_reservation.jsp</result>
             <result name="error" type="redirectAction">
-                <param name="actionName">doReservationDetails</param>
-                <param name="empruntId">${empruntId}</param>
+                <param name="actionName">doListByUtilisateur</param>
+                <param name="utilisateurId">${utilisateurId}</param>
             </result>
         </action>
 
@@ -625,12 +638,12 @@
 
             <result name="input">/WEB-INF/jsp/reservations/update_reservation.jsp</result>
             <result name="success" type="redirectAction">
-                <param name="actionName">doReservationDetails</param>
-                <param name="empruntId">${empruntId}</param>
+                <param name="actionName">doListByUtilisateur</param>
+                <param name="utilisateurId">${utilisateurId}</param>
             </result>
             <result name="error" type="redirectAction">
-                <param name="actionName">doReservationDetails</param>
-                <param name="empruntId">${empruntId}</param>
+                <param name="actionName">doListByUtilisateur</param>
+                <param name="utilisateurId">${utilisateurId}</param>
             </result>
         </action>
 

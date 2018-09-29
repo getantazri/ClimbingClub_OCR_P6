@@ -96,7 +96,7 @@ public class EmpruntDao extends AbstractDao implements IEmpruntDao {
      */
     public int create(Emprunt pEmprunt) {
         // Requête SQL
-        String vSql = "INSERT INTO public.voie (date_debut, date_fin, utilisateur_id, topo_id) VALUES (?, ?, ?, ?)";
+        String vSql = "INSERT INTO public.emprunt (date_debut, date_fin, utilisateur_id, topo_id) VALUES (?, ?, ?, ?)";
 
         return getJdbcTemplate().update(vSql, pEmprunt.getDateDebut(), pEmprunt.getDateFin(), pEmprunt.getUtilisateur().getUtilisateurId(), pEmprunt.getTopo().getTopoId());
     }
@@ -109,7 +109,7 @@ public class EmpruntDao extends AbstractDao implements IEmpruntDao {
      */
     public int update(Emprunt pEmprunt) {
         //Requête SQL
-        String vSql = "UPDATE public.voie "
+        String vSql = "UPDATE public.emprunt "
                 + "SET date_debut = :dateDebut, "
                 + "date_fin = :dateFin, "
                 + "utilisateur_id = :utilisateurId, "
