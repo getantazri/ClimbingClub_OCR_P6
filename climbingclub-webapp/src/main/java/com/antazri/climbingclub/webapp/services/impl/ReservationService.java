@@ -196,9 +196,11 @@ public class ReservationService implements IReservationService {
         List<Emprunt> emprunts = findReservationByTopo(pTopo);
 
         for (Emprunt emprunt : emprunts) {
-            if (pDatedebut.isAfter(emprunt.getDateDebut()) || pDatedebut.isEqual(emprunt.getDateDebut())) {
+            if (pDatedebut.compareTo(emprunt.getDateDebut()) >= 0 && pDatedebut.compareTo(emprunt.getDateFin()) <= 0) {
                 return true;
-            } else if (pDateFin.isBefore(emprunt.getDateFin()) || pDateFin.isEqual(emprunt.getDateFin())) {
+            }
+
+            if (pDateFin.compareTo(emprunt.getDateDebut()) >= 0 && pDateFin.compareTo(emprunt.getDateFin()) <= 0) {
                 return true;
             }
         }

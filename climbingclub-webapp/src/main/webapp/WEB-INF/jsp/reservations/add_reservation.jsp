@@ -16,12 +16,24 @@
 
                 <div class="column">
 
+                    <s:if test="%{this.hasActionMessages()}">
+                        <div class="control add-space-top-bottom-10">
+                            <span class="notification is-info is-medium"><b><s:actionmessage /></b></span>
+                        </div>
+                    </s:if>
+
+                    <s:if test="%{this.hasActionErrors()}">
+                        <div class="control add-space-top-bottom-10">
+                            <span class="notification is-danger is-medium"><b><s:actionmessage /></b></span>
+                        </div>
+                    </s:if>
+
+                    <br />
+
                     <s:form action="doAddReservation" method="POST">
                         <s:hidden name="utilisateurId" value="%{#session.user.utilisateurId}" />
                         <s:hidden name="topoId" value="%{topo.topoId}" />
-                        <div class="field">
 
-                        </div>
                         <div class="field">
                             <div class="control">
                                 <s:textfield label="Date de début" type="date" name="dateDebut" requiredLabel="true" />
@@ -41,7 +53,34 @@
                 </div>
 
                 <div class="column">
-                    <s:actionerror cssClass="is-bold has-text-danger"/>
+                    <s:if test="%{emprunts == null}">
+                        <div class="notification is-info">Vous n'avez aucune réservation de topo en cours</div>
+                    </s:if>
+                    <s:else>
+                        <h2 class="subtitle">Périodes réservées :</h2>
+                        <table class="table is-striped is-hoverable is-fullwidth topo-list">
+
+                            <thead>
+                                <tr>
+                                    <th>Date de début</th>
+                                    <th>Date de fin</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <s:iterator value="emprunts">
+                                    <tr>
+                                        <td>
+                                            <s:property value="dateDebut" />
+                                        </td>
+                                        <td>
+                                            <s:property value="dateFin" />
+                                        </td>
+                                    </tr>
+                                </s:iterator>
+                            </tbody>
+                        </table>
+                    </s:else>
                 </div>
 
             </div>

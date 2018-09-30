@@ -9,7 +9,8 @@
 
         <section class="section">
 
-            <h1 class="title">Modifier une réservation</h1>
+            <h1 class="title">Modifier votre réservation</h1>
+            <h2 class="subtitle">pour le topo "<s:property value="%{topo.topoNom}" />"</h2>
 
             <div class="columns">
 
@@ -17,15 +18,7 @@
 
                     <s:form action="doUpdateReservation" method="POST">
                         <s:hidden name="utilisateurId" value="%{#session.user.utilisateurId}" />
-                        <div class="field">
-                            <div class="control">
-                                <s:select name="emprunt.topo.topoId" label="Topo"
-                                          list="topos" listKey="topoId" listValue="topoNom"
-                                          emptyOption="false"
-                                          requiredLabel="true"
-                                          cssClass="select" />
-                            </div>
-                        </div>
+
                         <div class="field">
                             <div class="control">
                                 <s:textfield label="Date de début" type="date" name="%{emprunt.dateDebut}" format="dd-MM-yyyy" requiredLabel="true" />

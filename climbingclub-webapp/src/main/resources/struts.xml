@@ -16,10 +16,6 @@
         </action>
 
         <action name="error">
-            <interceptor-ref name="store">
-                <param name="operationMode">RETRIEVE</param>
-            </interceptor-ref>
-            <interceptor-ref name="defaultStack" />
             <result>/WEB-INF/jsp/error.jsp</result>
         </action>
 
@@ -27,11 +23,6 @@
         <action name="doPostSpotCommentaire"
                 class="com.antazri.climbingclub.webapp.action.CommenterAction"
                 method="doPostSpotCommentaire">
-
-            <interceptor-ref name="store">
-                <param name="operationMode">STORE</param>
-            </interceptor-ref>
-            <interceptor-ref name="defaultStack" />
 
             <result name="input" type="redirectAction">
                 <param name="actionName">doSpotDetails</param>
@@ -51,11 +42,6 @@
         <action name="doPostTopoCommentaire"
                 class="com.antazri.climbingclub.webapp.action.CommenterAction"
                 method="doPostTopoCommentaire">
-
-            <interceptor-ref name="store">
-                <param name="operationMode">STORE</param>
-            </interceptor-ref>
-            <interceptor-ref name="defaultStack" />
 
             <result name="input" type="redirectAction">
                 <param name="actionName">doTopoDetails</param>
@@ -94,11 +80,6 @@
                 class="com.antazri.climbingclub.webapp.action.CommenterAction"
                 method="doEditSpotCommentaire">
 
-            <interceptor-ref name="store">
-                <param name="operationMode">STORE</param>
-            </interceptor-ref>
-            <interceptor-ref name="defaultStack" />
-
             <result name="input" type="redirectAction">
                 <param name="actionName">doSpotDetails</param>
                 <param name="spotId">${spotId}</param>
@@ -117,12 +98,6 @@
         <action name="doEditTopoCommentaire"
                 class="com.antazri.climbingclub.webapp.action.CommenterAction"
                 method="doEditTopoCommentaire">
-
-            <interceptor-ref name="store">
-                <param name="operationMode">STORE</param>
-            </interceptor-ref>
-            <interceptor-ref name="defaultStack" />
-
             <result name="input" type="redirectAction">
                 <param name="actionName">doTopoDetails</param>
                 <param name="topoId">${topoId}</param>
@@ -205,11 +180,6 @@
                 class="com.antazri.climbingclub.webapp.action.GestionTopoAction"
                 method="doAddTopo">
 
-            <interceptor-ref name="store">
-                <param name="operationMode">STORE</param>
-            </interceptor-ref>
-            <interceptor-ref name="defaultStack" />
-
             <result name="input">/WEB-INF/jsp/topos/add_topo.jsp</result>
             <result name="success" type="redirectAction">
                 <param name="actionName">doTopoDetails</param>
@@ -223,11 +193,6 @@
                 class="com.antazri.climbingclub.webapp.action.GestionTopoAction"
                 method="doGetTopoToUpdate">
 
-            <interceptor-ref name="store">
-                <param name="operationMode">STORE</param>
-            </interceptor-ref>
-            <interceptor-ref name="defaultStack" />
-
             <result name="input">/WEB-INF/jsp/topos/update_topo.jsp</result>
             <result name="error" type="redirectAction">
                 <param name="actionName">doTopoDetails</param>
@@ -239,11 +204,6 @@
         <action name="doUpdateTopo"
                 class="com.antazri.climbingclub.webapp.action.GestionTopoAction"
                 method="doUpdateTopo">
-
-            <interceptor-ref name="store">
-                <param name="operationMode">STORE</param>
-            </interceptor-ref>
-            <interceptor-ref name="defaultStack" />
 
             <result name="input">/WEB-INF/jsp/topos/update_topo.jsp</result>
             <result name="success" type="redirectAction">
@@ -284,11 +244,6 @@
                 class="com.antazri.climbingclub.webapp.action.GestionSpotAction"
                 method="doAddSpot">
 
-            <interceptor-ref name="store">
-                <param name="operationMode">STORE</param>
-            </interceptor-ref>
-            <interceptor-ref name="defaultStack" />
-
             <result name="input">/WEB-INF/jsp/spots/add_spot.jsp</result>
             <result name="success" type="redirectAction">
                 <param name="actionName">doSpotDetails</param>
@@ -303,11 +258,6 @@
                 class="com.antazri.climbingclub.webapp.action.GestionSpotAction"
                 method="doGetSpotToUpdate">
 
-            <interceptor-ref name="store">
-                <param name="operationMode">STORE</param>
-            </interceptor-ref>
-            <interceptor-ref name="defaultStack" />
-
             <result name="input">/WEB-INF/jsp/spots/update_spot.jsp</result>
             <result name="error" type="redirectAction">
                 <param name="actionName">doSpotDetails</param>
@@ -320,11 +270,6 @@
         <action name="doUpdateSpot"
                 class="com.antazri.climbingclub.webapp.action.GestionSpotAction"
                 method="doUpdateSpot">
-
-            <interceptor-ref name="store">
-                <param name="operationMode">STORE</param>
-            </interceptor-ref>
-            <interceptor-ref name="defaultStack" />
 
             <result name="input">/WEB-INF/jsp/spots/update_spot.jsp</result>
             <result name="success" type="redirectAction">
@@ -367,11 +312,6 @@
                 class="com.antazri.climbingclub.webapp.action.GestionSecteurAction"
                 method="doAddSecteur">
 
-            <interceptor-ref name="store">
-                <param name="operationMode">STORE</param>
-            </interceptor-ref>
-            <interceptor-ref name="defaultStack" />
-
             <result name="input">/WEB-INF/jsp/secteurs/add_secteur.jsp</result>
             <result name="success" type="redirectAction">
                 <param name="actionName">doSecteurDetails</param>
@@ -385,11 +325,6 @@
                 class="com.antazri.climbingclub.webapp.action.GestionSecteurAction"
                 method="doGetSecteurToUpdate">
 
-            <interceptor-ref name="store">
-                <param name="operationMode">STORE</param>
-            </interceptor-ref>
-            <interceptor-ref name="defaultStack" />
-
             <result name="input">/WEB-INF/jsp/secteurs/update_secteur.jsp</result>
             <result name="error" type="redirectAction">
                 <param name="actionName">doSecteurDetails</param>
@@ -401,11 +336,6 @@
         <action name="doUpdateSecteur"
                 class="com.antazri.climbingclub.webapp.action.GestionSecteurAction"
                 method="doUpdateSecteur">
-
-            <interceptor-ref name="store">
-                <param name="operationMode">STORE</param>
-            </interceptor-ref>
-            <interceptor-ref name="defaultStack" />
 
             <result name="input">/WEB-INF/jsp/secteurs/update_secteur.jsp</result>
             <result name="success" type="redirectAction">
@@ -437,11 +367,6 @@
                 class="com.antazri.climbingclub.webapp.action.GestionVoieAction"
                 method="doVoieDetails">
 
-            <interceptor-ref name="store">
-                <param name="operationMode">STORE</param>
-            </interceptor-ref>
-            <interceptor-ref name="defaultStack" />
-
             <result name="success">/WEB-INF/jsp/voies/voie.jsp</result>
             <result name="error">/WEB-INF/jsp/error.jsp</result>
         </action>
@@ -464,11 +389,6 @@
                 class="com.antazri.climbingclub.webapp.action.GestionVoieAction"
                 method="doGetVoieToUpdate">
 
-            <interceptor-ref name="store">
-                <param name="operationMode">STORE</param>
-            </interceptor-ref>
-            <interceptor-ref name="defaultStack" />
-
             <result name="input">/WEB-INF/jsp/voies/update_voie.jsp</result>
             <result name="success">/WEB-INF/jsp/voies/update_voie.jsp</result>
             <result name="error" type="redirectAction">
@@ -481,11 +401,6 @@
         <action name="doUpdateVoie"
                 class="com.antazri.climbingclub.webapp.action.GestionVoieAction"
                 method="doUpdateVoie">
-
-            <interceptor-ref name="store">
-                <param name="operationMode">STORE</param>
-            </interceptor-ref>
-            <interceptor-ref name="defaultStack" />
 
             <result name="input">/WEB-INF/jsp/voies/update_voie.jsp</result>
             <result name="success" type="redirectAction">
@@ -537,11 +452,6 @@
                 class="com.antazri.climbingclub.webapp.action.MoteurRechercheAction"
                 method="doSearch">
 
-            <interceptor-ref name="store">
-                <param name="operationMode">STORE</param>
-            </interceptor-ref>
-            <interceptor-ref name="defaultStack" />
-
             <result name="input">/WEB-INF/jsp/search.jsp</result>
             <result name="success">/WEB-INF/jsp/search.jsp</result>
             <result name="error">/WEB-INF/jsp/search.jsp</result>
@@ -551,11 +461,6 @@
         <action name="doSearchRequest"
                 class="com.antazri.climbingclub.webapp.action.MoteurRechercheAction"
                 method="doSearchRequest">
-
-            <interceptor-ref name="store">
-                <param name="operationMode">RETRIEVE</param>
-            </interceptor-ref>
-            <interceptor-ref name="defaultStack" />
 
             <result name="input">
                 <param name="location">/WEB-INF/jsp/search_results.jsp</param>
@@ -582,27 +487,17 @@
                 class="com.antazri.climbingclub.webapp.action.ReservationAction"
                 method="doListByUtilisateur">
 
-            <interceptor-ref name="store">
-                <param name="operationMode">RETRIEVE</param>
-            </interceptor-ref>
-            <interceptor-ref name="defaultStack" />
-
             <result name="success">
                 <param name="location">/WEB-INF/jsp/reservations/reservations.jsp</param>
                 <param name="utilisateurId">${utilisateurId}</param>
             </result>
-            <result name="error">/WEB-INF/jsp/reservations/reservations.jsp</result>
+            <result name="error">/WEB-INF/jsp/error.jsp</result>
         </action>
 
         <!-- Action ADD RESERVATION -->
         <action name="doAddReservation"
                 class="com.antazri.climbingclub.webapp.action.ReservationAction"
                 method="doAddReservation">
-
-            <interceptor-ref name="store">
-                <param name="operationMode">RETRIEVE</param>
-            </interceptor-ref>
-            <interceptor-ref name="defaultStack" />
 
             <result name="input">
                 <param name="location">/WEB-INF/jsp/reservations/add_reservation.jsp</param>
@@ -612,10 +507,8 @@
                 <param name="actionName">doListByUtilisateur</param>
                 <param name="utilisateurId">${utilisateurId}</param>
             </result>
-            <result name="error">
-                <param name="location">/WEB-INF/jsp/reservations/add_reservation.jsp</param>
-                <param name="topoId">${topoId}</param>
-            </result>
+            <result name="error">/WEB-INF/jsp/error.jsp</result>
+
         </action>
 
         <!-- Action GET RESERVATION TO UPDATE -->
@@ -625,10 +518,8 @@
 
             <result name="input">/WEB-INF/jsp/reservations/update_reservation.jsp</result>
             <result name="success">/WEB-INF/jsp/reservations/update_reservation.jsp</result>
-            <result name="error" type="redirectAction">
-                <param name="actionName">doListByUtilisateur</param>
-                <param name="utilisateurId">${utilisateurId}</param>
-            </result>
+            <result name="error">/WEB-INF/jsp/error.jsp</result>
+
         </action>
 
         <!-- Action UPDATE RESERVATION -->
@@ -641,10 +532,8 @@
                 <param name="actionName">doListByUtilisateur</param>
                 <param name="utilisateurId">${utilisateurId}</param>
             </result>
-            <result name="error" type="redirectAction">
-                <param name="actionName">doListByUtilisateur</param>
-                <param name="utilisateurId">${utilisateurId}</param>
-            </result>
+            <result name="error">/WEB-INF/jsp/error.jsp</result>
+
         </action>
 
         <!-- Action DELETE RESERVATION -->
@@ -656,10 +545,8 @@
                 <param name="actionName">doListByUtilisateur</param>
                 <param name="utilisateurId">${utilisateurId}</param>
             </result>
-            <result name="error" type="redirectAction">
-                <param name="actionName">doListByUtilisateur</param>
-                <param name="utilisateurId">${utilisateurId}</param>
-            </result>
+            <result name="error">/WEB-INF/jsp/error.jsp</result>
+
         </action>
     </package>
 
@@ -713,11 +600,6 @@
                 class="com.antazri.climbingclub.webapp.action.LoginAction"
                 method="doGetCompte">
 
-            <interceptor-ref name="store">
-                <param name="operationMode">RETRIEVE</param>
-            </interceptor-ref>
-            <interceptor-ref name="defaultStack" />
-
             <result name="input">/WEB-INF/jsp/user/compte.jsp</result>
             <result name="success">/WEB-INF/jsp/user/compte.jsp</result>
             <result name="error" type="redirectAction">/login/doLogin</result>
@@ -727,11 +609,6 @@
         <action name="doEditProfile"
                 class="com.antazri.climbingclub.webapp.action.CompteUtilisateurAction"
                 method="doEditProfile">
-
-            <interceptor-ref name="store">
-                <param name="operationMode">STORE</param>
-            </interceptor-ref>
-            <interceptor-ref name="defaultStack" />
 
             <result name="input">
                 <param name="location">/WEB-INF/jsp/user/edit_profile.jsp</param>
@@ -747,11 +624,6 @@
         <action name="doUpdateProfile"
                 class="com.antazri.climbingclub.webapp.action.CompteUtilisateurAction"
                 method="doUpdateProfile">
-
-            <interceptor-ref name="store">
-                <param name="operationMode">STORE</param>
-            </interceptor-ref>
-            <interceptor-ref name="defaultStack" />
 
             <result name="input">/WEB-INF/jsp/user/edit_profile.jsp</result>
             <result name="success" type="redirect">doGetCompte.action</result>
@@ -774,11 +646,6 @@
         <action name="doUpdatePassword"
                 class="com.antazri.climbingclub.webapp.action.CompteUtilisateurAction"
                 method="doUpdatePassword">
-
-            <interceptor-ref name="store">
-                <param name="operationMode">STORE</param>
-            </interceptor-ref>
-            <interceptor-ref name="defaultStack" />
 
             <result name="input">/WEB-INF/jsp/user/edit_password.jsp</result>
             <result name="success" type="redirect">doGetCompte.action</result>
