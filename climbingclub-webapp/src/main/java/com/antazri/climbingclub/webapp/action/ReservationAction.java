@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
 import java.sql.Date;
+import java.util.Iterator;
 import java.util.List;
 
 public class ReservationAction extends ActionSupport {
@@ -149,14 +150,15 @@ public class ReservationAction extends ActionSupport {
     public String doAddReservation() {
         if (topoId > 0) {
             topo = gestionTopoService.findTopoById(topoId);
-            emprunts = reservationService.findReservationByTopo(topo);
+            emprunts = reservationService.getUpcomingReservations(reservationService.findReservationByTopo(topo));
+
         }
 
         if (dateDebut != null && dateFin != null) {
             try {
                 if (dateFin.compareTo(dateDebut) > 0 && LocalDate.parse(dateDebut).compareTo(LocalDate.now()) > 0) {
 
-                    if(!reservationService.isBooked(topo, LocalDate.parse(dateDebut), LocalDate.parse(dateFin))) {
+                    if(!reservationService.isBooked(emprunts, LocalDate.parse(dateDebut), LocalDate.parse(dateFin))) {
                         int row = reservationService.addReservation(LocalDate.parse(dateDebut), LocalDate.parse(dateFin), utilisateurId, topoId);
 
                         if (row > 0) {
@@ -184,10 +186,17 @@ public class ReservationAction extends ActionSupport {
     }
 
     public String doGetReservationToUpdate() {
-
         if (empruntId > 0) {
             emprunt = reservationService.findReservationById(empruntId);
             topo = gestionTopoService.findTopoById(emprunt.getTopo().getTopoId());
+            emprunts = reservationService.getUpcomingReservations(reservationService.findReservationByTopo(topo));
+
+            for (Iterator<Emprunt> iterator = emprunts.iterator(); iterator.hasNext(); ) {
+                Emprunt item = iterator.next();
+                if (emprunt.getEmpruntId() == item.getEmpruntId()) {
+                    iterator.remove();
+                }
+            }
         } else {
             addActionError("La réservation n'a pas été trouvée !");
             return ActionSupport.ERROR;
@@ -197,24 +206,48 @@ public class ReservationAction extends ActionSupport {
     }
 
     public String doUpdateReservation() {
-        if (emprunt != null) {
+        if (empruntId > 0) {
+            emprunt = reservationService.findReservationById(empruntId);
+            topo = gestionTopoService.findTopoById(topoId);
+            emprunts = reservationService.getUpcomingReservations(reservationService.findReservationByTopo(topo));
+
+            for (Iterator<Emprunt> iterator = emprunts.iterator(); iterator.hasNext(); ) {
+                Emprunt item = iterator.next();
+                if (emprunt.getEmpruntId() == item.getEmpruntId()) {
+                    iterator.remove();
+                }
+            }
+        }
+
+        if (dateDebut != null && dateFin != null) {
             try {
-                if (dateFin.compareTo(dateDebut) > 0) {
-                    reservationService.updateReservation(emprunt.getEmpruntId(), emprunt.getDateDebut(), emprunt.getDateFin());
-                    addActionMessage("Réservation modifiée");
-                    return ActionSupport.SUCCESS;
+                if (dateFin.compareTo(dateDebut) > 0 && LocalDate.parse(dateDebut).compareTo(LocalDate.now()) > 0) {
+
+                    if(!reservationService.isBooked(emprunts, LocalDate.parse(dateDebut), LocalDate.parse(dateFin))) {
+                        int row = reservationService.updateReservation(emprunt.getEmpruntId(), LocalDate.parse(dateDebut), LocalDate.parse(dateFin));
+
+                        if (row > 0) {
+                            addActionMessage("La réservation pour le topo " + topo.getTopoNom() + " a été modifiée !");
+                            return ActionSupport.SUCCESS;
+                        } else {
+                            addActionError("Erreur : votre modification de réservation n'a pas pu être enregistrée");
+                            return ActionSupport.ERROR;
+                        }
+                    } else {
+                        addActionError("Le topo n'est pas disponible dans cette période");
+                        return ActionSupport.ERROR;
+                    }
                 } else {
-                    addActionError("Les dates indiquées ne sont pas valides");
+                    addActionError("Les dates de la réservation ne sont pas valides");
                     return ActionSupport.ERROR;
                 }
             } catch (Exception pE) {
-                addActionError("La réservation n'a pas pu être modifiée");
+                addActionError("La réservation n'a pas pu être validée");
                 return ActionSupport.ERROR;
             }
-        } else {
-            addActionError("La réservation n'a pas été trouvée !");
-            return ActionSupport.ERROR;
         }
+
+        return ActionSupport.INPUT;
     }
 
     public String doDeleteReservation() {

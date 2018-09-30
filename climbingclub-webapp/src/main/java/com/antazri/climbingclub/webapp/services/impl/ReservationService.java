@@ -180,22 +180,19 @@ public class ReservationService implements IReservationService {
         }
 
         return false;
-
     }
 
     /**
      * La méthode is Booked va vérifier si l'objet Topo en paramètre est déjà réservé en comparant les dates indiquées par l'utilisateurs passées en paramètre et celles des réservations
      * effectuées pour le Topo.
-     * @param pTopo est un objet Topo qui permettra de récupérer l'ensemble des objets Emprunt
+     * @param pEmprunts est une liste d'objets Emprunt
      * @param pDatedebut est un objet LocalDate récupéré puis comparé aux dates de pTopo
      * @param pDateFin est un objet LocalDate récupéré puis comparé aux dates de pTopo
      * @return un booléen qui sera à True si les dates indiquées croisent des périodes d'autres Emprunt du même topo
      */
     @Override
-    public boolean isBooked(Topo pTopo, LocalDate pDatedebut, LocalDate pDateFin) {
-        List<Emprunt> emprunts = findReservationByTopo(pTopo);
-
-        for (Emprunt emprunt : emprunts) {
+    public boolean isBooked(List<Emprunt> pEmprunts, LocalDate pDatedebut, LocalDate pDateFin) {
+        for (Emprunt emprunt : pEmprunts) {
             if (pDatedebut.compareTo(emprunt.getDateDebut()) >= 0 && pDatedebut.compareTo(emprunt.getDateFin()) <= 0) {
                 return true;
             }
@@ -206,5 +203,24 @@ public class ReservationService implements IReservationService {
         }
 
         return false;
+    }
+
+    /**
+     * La méthode getUpcomingReservations va filter la List d'objets Emprunt passée en paramètre pour en ressortir les Emprunt dont l'attributs DateFin n'est pas une date antérieure à
+     * l'actuelle lors de l'appel de la méthode
+     * @param pEmprunts est une List d'objets Emprunt
+     * @return une List d'objets Emprunt
+     */
+    @Override
+    public List<Emprunt> getUpcomingReservations(List<Emprunt> pEmprunts) {
+        List<Emprunt> emprunts = new ArrayList<>();
+
+        for (Emprunt emprunt : pEmprunts) {
+            if (!isPassedReservation(emprunt)) {
+                emprunts.add(emprunt);
+            }
+        }
+
+        return emprunts;
     }
 }

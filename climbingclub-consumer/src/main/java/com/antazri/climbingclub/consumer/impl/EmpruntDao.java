@@ -46,7 +46,7 @@ public class EmpruntDao extends AbstractDao implements IEmpruntDao {
      */
     public List<Emprunt> findByUtilisateur(Utilisateur pUtilisateur) {
         // Requête SQL
-        String vSql = "SELECT * FROM public.emprunt WHERE emprunt.utilisateur_id = :id";
+        String vSql = "SELECT * FROM public.emprunt WHERE emprunt.utilisateur_id = :id ORDER BY emprunt.date_debut DESC";
 
         // Définition des paramètres de la requêtes
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
@@ -65,7 +65,7 @@ public class EmpruntDao extends AbstractDao implements IEmpruntDao {
      */
     public List<Emprunt> findByTopo(Topo pTopo) {
         // Requête SQL
-        String vSql = "SELECT * FROM public.emprunt WHERE emprunt.topo_id = :id";
+        String vSql = "SELECT * FROM public.emprunt WHERE emprunt.topo_id = :id ORDER BY emprunt.date_debut DESC";
 
         // Définition des paramètres de la requêtes
         MapSqlParameterSource vSqlParameters = new MapSqlParameterSource();
@@ -82,7 +82,7 @@ public class EmpruntDao extends AbstractDao implements IEmpruntDao {
      */
     public List<Emprunt> findAll() {
         //Requête SQL
-        String vSql = "SELECT * FROM public.emprunt";
+        String vSql = "SELECT * FROM public.emprunt ORDER BY emprunt.date_debut DESC";
 
         // Retourne une List<Emprunt> contenant toutes les réservations effectuées
         return getJdbcTemplate().query(vSql, new EmpruntRM());

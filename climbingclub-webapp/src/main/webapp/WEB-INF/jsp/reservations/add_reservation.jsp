@@ -54,10 +54,10 @@
 
                 <div class="column">
                     <s:if test="%{emprunts == null}">
-                        <div class="notification is-info">Vous n'avez aucune réservation de topo en cours</div>
+                        <div class="notification is-info">Aucune réservation à venir ou en cours pour ce topo</div>
                     </s:if>
                     <s:else>
-                        <h2 class="subtitle">Périodes réservées :</h2>
+                        <h2 class="subtitle">Périodes réservées en cours ou à venir :</h2>
                         <table class="table is-striped is-hoverable is-fullwidth topo-list">
 
                             <thead>
