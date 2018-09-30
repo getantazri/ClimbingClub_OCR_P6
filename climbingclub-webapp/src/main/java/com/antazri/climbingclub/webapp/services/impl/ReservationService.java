@@ -171,7 +171,7 @@ public class ReservationService implements IReservationService {
             emprunts = findReservationByUtilisateur(pUtilisateur);
 
             for (Emprunt emprunt : emprunts) {
-                if (emprunt.getDateFin().isAfter(LocalDate.now())) {
+                if (emprunt.getDateFin().isAfter(LocalDate.now()) && emprunt.getDateDebut().isBefore(LocalDate.now())) {
                     return true;
                 }
             }
@@ -183,4 +183,26 @@ public class ReservationService implements IReservationService {
 
     }
 
+    /**
+     * La méthode is Booked va vérifier si l'objet Topo en paramètre est déjà réservé en comparant les dates indiquées par l'utilisateurs passées en paramètre et celles des réservations
+     * effectuées pour le Topo.
+     * @param pTopo est un objet Topo qui permettra de récupérer l'ensemble des objets Emprunt
+     * @param pDatedebut est un objet LocalDate récupéré puis comparé aux dates de pTopo
+     * @param pDateFin est un objet LocalDate récupéré puis comparé aux dates de pTopo
+     * @return un booléen qui sera à True si les dates indiquées croisent des périodes d'autres Emprunt du même topo
+     */
+    @Override
+    public boolean isBooked(Topo pTopo, LocalDate pDatedebut, LocalDate pDateFin) {
+        List<Emprunt> emprunts = findReservationByTopo(pTopo);
+
+        for (Emprunt emprunt : emprunts) {
+            if (pDatedebut.isAfter(emprunt.getDateDebut()) || pDatedebut.isEqual(emprunt.getDateDebut())) {
+                return true;
+            } else if (pDateFin.isBefore(emprunt.getDateFin()) || pDateFin.isEqual(emprunt.getDateFin())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

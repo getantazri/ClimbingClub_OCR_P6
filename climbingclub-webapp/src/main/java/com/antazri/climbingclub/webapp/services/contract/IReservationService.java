@@ -18,4 +18,5 @@ public interface IReservationService {
     int deleteReservation(int pEmpruntId);
     boolean isPassedReservation(Emprunt pEmprunt);
     boolean hasOnGoingReservation(Utilisateur pUtilisateur);
+    boolean isBooked(Topo pTopo, LocalDate pDatedebut, LocalDate pDateFin);
 }

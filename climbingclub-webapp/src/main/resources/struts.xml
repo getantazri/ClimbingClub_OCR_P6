@@ -600,7 +600,7 @@
                 method="doAddReservation">
 
             <interceptor-ref name="store">
-                <param name="operationMode">STORE</param>
+                <param name="operationMode">RETRIEVE</param>
             </interceptor-ref>
             <interceptor-ref name="defaultStack" />
 
@@ -652,8 +652,14 @@
                 class="com.antazri.climbingclub.webapp.action.ReservationAction"
                 method="doDeleteReservation">
 
-            <result name="success">/WEB-INF/jsp/reservations/reservations.jsp</result>
-            <result name="error">/WEB-INF/jsp/reservations/reservations.jsp</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">doListByUtilisateur</param>
+                <param name="utilisateurId">${utilisateurId}</param>
+            </result>
+            <result name="error" type="redirectAction">
+                <param name="actionName">doListByUtilisateur</param>
+                <param name="utilisateurId">${utilisateurId}</param>
+            </result>
         </action>
     </package>
 

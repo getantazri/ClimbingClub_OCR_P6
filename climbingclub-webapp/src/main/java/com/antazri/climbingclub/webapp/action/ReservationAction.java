@@ -147,30 +147,37 @@ public class ReservationAction extends ActionSupport {
     }
 
     public String doAddReservation() {
-        clearActionErrors();
         String vResult = ActionSupport.INPUT;
 
         if (topoId > 0) {
             topo = gestionTopoService.findTopoById(topoId);
+            emprunts = reservationService.findReservationByTopo(topo);
         }
 
         if (dateDebut != null && dateFin != null) {
             try {
                 if (dateFin.compareTo(dateDebut) > 0) {
-                    int row = reservationService.addReservation(LocalDate.parse(dateDebut), LocalDate.parse(dateFin), utilisateurId, topoId);
 
-                    if (row > 0) {
-                        addActionMessage("Le topo " + topo.getTopoNom() + " a été réservé !");
-                        vResult = ActionSupport.SUCCESS;
+
+                        int row = reservationService.addReservation(LocalDate.parse(dateDebut), LocalDate.parse(dateFin), utilisateurId, topoId);
+
+                        if (row > 0) {
+                            clearActionErrors();
+                            addActionMessage("Le topo " + topo.getTopoNom() + " a été réservé !");
+                            vResult = ActionSupport.SUCCESS;
+                        } else {
+                            clearActionErrors();
+                            addActionError("Erreur : votre réservation n'a pas pu être enregistrée");
+                            vResult = ActionSupport.INPUT;
+                        }
                     } else {
-                        addActionError("Erreur : votre réservation n'a pas pu être enregistrée");
+                        clearActionErrors();
+                        addActionError("Le topo n'est pas disponible dans cette période");
                         vResult = ActionSupport.INPUT;
                     }
-                } else {
-                    addActionError("Les dates de la réservation ne sont pas valides");
-                    vResult = ActionSupport.INPUT;
-                }
+
             } catch (Exception pE) {
+                clearActionErrors();
                 addActionError("La réservation n'a pas pu être validée");
                 vResult = ActionSupport.ERROR;
             }
@@ -180,11 +187,12 @@ public class ReservationAction extends ActionSupport {
     }
 
     public String doGetReservationToUpdate() {
-        clearActionErrors();
 
         if (empruntId > 0) {
             emprunt = reservationService.findReservationById(empruntId);
+            topo = gestionTopoService.findTopoById(emprunt.getTopo().getTopoId());
         } else {
+            clearActionErrors();
             addActionError("La réservation n'a pas été trouvée !");
             return ActionSupport.ERROR;
         }
@@ -193,8 +201,6 @@ public class ReservationAction extends ActionSupport {
     }
 
     public String doUpdateReservation() {
-        clearActionErrors();
-
         if (emprunt != null) {
             try {
                 if (dateFin.compareTo(dateDebut) > 0) {
@@ -216,7 +222,6 @@ public class ReservationAction extends ActionSupport {
     }
 
     public String doDeleteReservation() {
-        clearActionErrors();
         String vResult;
         int delete;
 

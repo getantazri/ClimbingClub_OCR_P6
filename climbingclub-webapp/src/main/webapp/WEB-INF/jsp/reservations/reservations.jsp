@@ -88,6 +88,7 @@
                                     <td>
                                         <s:a action="doDeleteReservations" namespace="/reservations">
                                             <s:param name="empruntId" value="empruntId"/>
+                                            <s:param name="utilisateurId" value="%{#session.user.utilisateurId}" />
                                             <i class="fas fa-times has-text-danger has-text-centered"></i>
                                         </s:a>
                                     </td>
