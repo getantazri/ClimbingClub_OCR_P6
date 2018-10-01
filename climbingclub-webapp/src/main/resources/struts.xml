@@ -735,7 +735,7 @@
                 class="com.antazri.climbingclub.webapp.action.AdminAction"
                 method="doUpdateUtilisateur">
             <result name="input">/WEB-INF/jsp/admin/update_utilisateur.jsp</result>
-            <result name="success">/WEB-INF/jsp/admin/update_utilisateur.jsp</result>
+            <result name="success" type="redirect">doLoginAdmin.action</result>
             <result name="error" type="redirect">doLoginAdmin.action</result>
         </action>
 

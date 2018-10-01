@@ -36,7 +36,7 @@
                         <s:iterator value="utilisateurs">
                             <tr>
                                 <td>
-                                    <s:property value="utilisateur.pseudo"/>
+                                    <s:property value="pseudo"/>
                                 </td>
                                 <td>
                                     <s:a action="doGetUtilisateurToUpdate" namespace="/admin">

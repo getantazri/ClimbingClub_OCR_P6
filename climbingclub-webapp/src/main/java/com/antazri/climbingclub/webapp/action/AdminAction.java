@@ -347,14 +347,55 @@ public class AdminAction extends ActionSupport {
     public String doGetUtilisateurToUpdate() {
         statuts = statutBo.findAll();
 
+        if (utilisateurId > 0) {
+            utilisateur = compteUtilisateurService.findUtilisateurById(utilisateurId);
+        } else {
+            return ActionSupport.ERROR;
+        }
+
         return ActionSupport.SUCCESS;
     }
 
     public String doUpdateUtilisateur() {
-        return ActionSupport.SUCCESS;
+        String vResult = ActionSupport.INPUT;
+        statuts = statutBo.findAll();
+
+        try {
+            if (StringUtils.isAnyBlank(utilisateur.getNom(), utilisateur.getPrenom(), utilisateur.getPseudo(), utilisateur.getEmail(), utilisateur.getTelephone())) {
+                addActionError("Il manque des informations requises");
+                vResult = ActionSupport.INPUT;
+            } else {
+                int row = compteUtilisateurService.updateUtilisateur(utilisateurId, utilisateur.getNom(), utilisateur.getPrenom(),
+                        utilisateur.getPseudo(), utilisateur.getEmail(), utilisateur.getTelephone(), utilisateur.getStatut().getStatutId());
+
+                if (row > 0) {
+                    utilisateur = compteUtilisateurService.findUtilisateurByPseudo(utilisateur.getPseudo());
+                    vResult = ActionSupport.SUCCESS;
+                } else {
+                    addActionError("Le profil n'a pas pu être mis à jour");
+                    vResult = ActionSupport.ERROR;
+                }
+            }
+        } catch (Exception pE) {
+            addActionError("Une erreur est survenue lors du chargement de votre profile");
+            vResult = ActionSupport.ERROR;
+        }
+
+        return vResult;
     }
 
     public String doDeleteUtilisateur() {
-        return ActionSupport.SUCCESS;
+        if (utilisateurId > 0) {
+
+            try {
+                compteUtilisateurService.deleteUtilisateur(utilisateurId);
+                return ActionSupport.SUCCESS;
+            } catch (Exception pE) {
+                addActionError("Le compte est introuvable ou a déjà été supprimé");
+                return ActionSupport.ERROR;
+            }
+        }
+
+        return ActionSupport.ERROR;
     }
 }

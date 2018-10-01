@@ -96,34 +96,20 @@
 
                 <div class="column">
 
+                    <s:a action="doListUtilisateurs" namespace="/admin" cssClass="button is-light is-small">
+                        <span><b>Afficher tous les utilisateur</b></span>
+                    </s:a>
+
+                </div>
+
+            </div>
+
+            <div class="columns">
+
+                <div class="column">
+
                     <s:a action="doAddUtilisateur" namespace="/admin" cssClass="button is-primary is-small">
                         <span><b>Ajouter un utilisateur</b></span>
-                    </s:a>
-
-                </div>
-
-            </div>
-
-            <div class="columns">
-
-                <div class="column">
-
-                    <s:a action="doGetUtilisateurToUpdate" namespace="/admin" cssClass="button is-info is-small">
-                        <s:param name="utilisateurId" value="utilisateurId" />
-                        <span><b>Modifier un utilisateur</b></span>
-                    </s:a>
-
-                </div>
-
-            </div>
-
-            <div class="columns">
-
-                <div class="column">
-
-                    <s:a action="doDeleteUtilisateur" namespace="/admin" cssClass="button is-danger is-small">
-                        <s:param name="utilisateurId" value="utilisateurId" />
-                        <span><b>Supprimer un utilisateur</b></span>
                     </s:a>
 
                 </div>

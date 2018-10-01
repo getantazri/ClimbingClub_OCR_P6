@@ -11,54 +11,43 @@
 
             <h1 class="title">Administration</h1>
 
-            <h2 class="subtitle">Ajout d'un utilisateur</h2>
+            <h2 class="subtitle">Modification d'un d'un utilisateur</h2>
 
             <div class="columns">
 
                 <div class="column">
 
-                    <s:form action="doAddUtilisateur" namespace="/admin" method="POST">
+                    <s:form action="doUpdateUtilisateur" namespace="/admin" method="POST">
                         <span class="has-text-danger is-bold"><s:actionerror/></span>
+                        <s:hidden name="utilisateurId" value="%{utilisateur.utilisateurId}" />
 
                         <div class="field">
                             <p class="control">
-                                <s:textfield name="utilisateur.nom" label="Nom" requiredLabel="true" cssClass="input" type="text"/>
+                                <s:textfield name="utilisateur.nom" value="%{utilisateur.nom}" label="Nom" requiredLabel="true" cssClass="input" type="text"/>
                             </p>
                         </div>
                         <div class="field">
                             <p class="control">
-                                <s:textfield name="utilisateur.prenom" label="Prénom" requiredLabel="true" cssClass="input"
+                                <s:textfield name="utilisateur.prenom" value="%{utilisateur.prenom}" label="Prénom" requiredLabel="true" cssClass="input"
                                              type="text"/>
                             </p>
                         </div>
                         <div class="field">
                             <p class="control">
-                                <s:textfield name="utilisateur.pseudo" label="Pseudo" requiredLabel="true" cssClass="input"
+                                <s:textfield name="utilisateur.pseudo" value="%{utilisateur.pseudo}" label="Pseudo" requiredLabel="true" cssClass="input"
                                              type="text"/>
                             </p>
                         </div>
                         <div class="field">
                             <p class="control">
-                                <s:textfield name="utilisateur.email" label="Email" requiredLabel="true" cssClass="input"
+                                <s:textfield name="utilisateur.email" value="%{utilisateur.email}" label="Email" requiredLabel="true" cssClass="input"
                                              type="email"/>
                             </p>
                         </div>
                         <div class="field">
                             <p class="control">
-                                <s:textfield name="utilisateur.telephone" label="Téléphone" requiredLabel="true" cssClass="input"
+                                <s:textfield name="utilisateur.telephone" value="%{utilisateur.telephone}" label="Téléphone" requiredLabel="true" cssClass="input"
                                              type="text"/>
-                            </p>
-                        </div>
-                        <div class="field">
-                            <p class="control">
-                                <s:textfield name="password" label="Mot de passe" requiredLabel="true" cssClass="input"
-                                             type="password"/>
-                            </p>
-                        </div>
-                        <div class="field">
-                            <p class="control">
-                                <s:textfield name="passwordConfirmed" label="Confirmer" requiredLabel="true"
-                                             cssClass="input" type="password"/>
                             </p>
                         </div>
                         <div class="field">
@@ -68,7 +57,7 @@
                         </div>
                         <div class="field">
                             <p class="control add-space-top-bottom-10">
-                                <s:submit value="Ajouter" cssClass="button is-primary"/>
+                                <s:submit value="Enregistrer les modifications" cssClass="button is-primary"/>
                             </p>
                         </div>
 

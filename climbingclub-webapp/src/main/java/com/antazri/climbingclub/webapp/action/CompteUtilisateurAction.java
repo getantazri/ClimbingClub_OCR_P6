@@ -139,6 +139,8 @@ public class CompteUtilisateurAction extends ActionSupport {
 
         if (utilisateurId > 0) {
             utilisateur = compteUtilisateurService.findUtilisateurById(utilisateurId);
+        } else {
+            return ActionSupport.ERROR;
         }
 
         return ActionSupport.INPUT;
