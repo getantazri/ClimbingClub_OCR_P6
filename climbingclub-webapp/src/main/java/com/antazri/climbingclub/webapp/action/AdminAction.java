@@ -1,8 +1,10 @@
 package com.antazri.climbingclub.webapp.action;
 
+import com.antazri.climbingclub.business.contract.IStatutBo;
 import com.antazri.climbingclub.model.beans.*;
 import com.antazri.climbingclub.webapp.services.contract.*;
 import com.opensymphony.xwork2.ActionSupport;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -30,6 +32,9 @@ public class AdminAction extends ActionSupport {
     @Autowired
     private IReservationService reservationService;
 
+    @Autowired
+    private IStatutBo statutBo;
+
     // =======================================================================
     // Attributs de l'action
     // =======================================================================
@@ -56,6 +61,9 @@ public class AdminAction extends ActionSupport {
     private int empruntId;
     private Emprunt emprunt;
     private List<Emprunt> emprunts;
+    private List<Statut> statuts;
+    private String password;
+    private String passwordConfirmed;
 
     // =======================================================================
     // Getters et Setters des attributs de l'action
@@ -244,6 +252,30 @@ public class AdminAction extends ActionSupport {
         this.emprunts = emprunts;
     }
 
+    public List<Statut> getStatuts() {
+        return statuts;
+    }
+
+    public void setStatuts(List<Statut> statuts) {
+        this.statuts = statuts;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPasswordConfirmed() {
+        return passwordConfirmed;
+    }
+
+    public void setPasswordConfirmed(String passwordConfirmed) {
+        this.passwordConfirmed = passwordConfirmed;
+    }
+
     // =======================================================================
     // Méthodes de l'action
     // =======================================================================
@@ -284,10 +316,37 @@ public class AdminAction extends ActionSupport {
     }
 
     public String doAddUtilisateur() {
-        return ActionSupport.SUCCESS;
+        statuts = statutBo.findAll();
+
+        if (utilisateur != null) {
+            try {
+                int row = compteUtilisateurService.addUtilisateur(utilisateur.getNom(), utilisateur.getPrenom(),
+                        utilisateur.getPseudo(), password, utilisateur.getEmail(), utilisateur.getTelephone(), utilisateur.getStatut().getStatutId());
+
+                if (row < 0) {
+                    addActionError("Erreur : dans l'ajout de l'utilisateur");
+                    return ActionSupport.ERROR;
+                } else {
+                    if (!password.equals(passwordConfirmed)) {
+                        addActionError("Erreur : les mots de passe ne sont pas similaires");
+                        return ActionSupport.ERROR;
+                    } else {
+                        addActionMessage("Nouvel utilisateur ajouté !");
+                        return ActionSupport.SUCCESS;
+                    }
+                }
+            } catch (Exception pE) {
+                addActionError("Erreur dans les informations de l'utilisateur");
+                return ActionSupport.ERROR;
+            }
+        }
+
+        return ActionSupport.INPUT;
     }
 
     public String doGetUtilisateurToUpdate() {
+        statuts = statutBo.findAll();
+
         return ActionSupport.SUCCESS;
     }
 

@@ -716,36 +716,35 @@
         <action name="doAddUtilisateur"
                 class="com.antazri.climbingclub.webapp.action.AdminAction"
                 method="doAddUtilisateur">
-            <result name="input"></result>
-            <result name="success"></result>
-            <result name="error"></result>
+            <result name="input">/WEB-INF/jsp/admin/add_utilisateur.jsp</result>
+            <result name="success" type="redirect">doLoginAdmin.action</result>
+            <result name="error">/WEB-INF/jsp/admin/add_utilisateur.jsp</result>
         </action>
 
-        <!-- Action GET UTILISATEURS TO UPDATE -->
+        <!-- Action GET UTILISATEUR TO UPDATE -->
         <action name="doGetUtilisateurToUpdate"
                 class="com.antazri.climbingclub.webapp.action.AdminAction"
                 method="doGetUtilisateurToUpdate">
-            <result name="input"></result>
-            <result name="success"></result>
-            <result name="error"></result>
+            <result name="input">/WEB-INF/jsp/admin/update_utilisateur.jsp</result>
+            <result name="success">/WEB-INF/jsp/admin/update_utilisateur.jsp</result>
+            <result name="error" type="redirect">doLoginAdmin.action</result>
         </action>
 
         <!-- Action UPDATE UTILISATEURS -->
         <action name="doUpdateUtilisateur"
                 class="com.antazri.climbingclub.webapp.action.AdminAction"
                 method="doUpdateUtilisateur">
-            <result name="input"></result>
-            <result name="success"></result>
-            <result name="error"></result>
+            <result name="input">/WEB-INF/jsp/admin/update_utilisateur.jsp</result>
+            <result name="success">/WEB-INF/jsp/admin/update_utilisateur.jsp</result>
+            <result name="error" type="redirect">doLoginAdmin.action</result>
         </action>
 
         <!-- Action DELETE UTILISATEURS -->
         <action name="doDeleteUtilisateur"
                 class="com.antazri.climbingclub.webapp.action.AdminAction"
                 method="doDeleteUtilisateur">
-            <result name="input"></result>
-            <result name="success"></result>
-            <result name="error"></result>
+            <result name="success" type="redirect">doLoginAdmin.action</result>
+            <result name="error" type="redirect">doLoginAdmin.action</result>
         </action>
 
     </package>
