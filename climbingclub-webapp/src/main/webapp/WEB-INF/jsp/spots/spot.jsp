@@ -10,7 +10,7 @@
         <section class="section">
 
             <h1 class="title"><s:property value="spot.spotNom"/> &nbsp;
-                <s:if test="%{#session.user.utilisateurId == spot.topo.proprietaire.utilisateurId}">
+                <s:if test="%{#session.user.utilisateurId == spot.topo.proprietaire.utilisateurId || #session.user.utilisateurId == 1}">
                     <s:a action="doAddSecteur" namespace="/secteurs" cssClass="button is-primary is-small">
                         <s:param name="spot.spotId" value="spot.spotId"/>
                         <span><b>Ajouter un secteur</b></span>

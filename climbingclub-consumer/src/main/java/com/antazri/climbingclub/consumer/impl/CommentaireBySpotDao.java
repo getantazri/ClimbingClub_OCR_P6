@@ -55,6 +55,20 @@ public class CommentaireBySpotDao extends AbstractDao implements ICommentaireByO
     }
 
     /**
+     * La méthode findAll permet de retourner l'ensemble des instances de la table d'association commentaire_spot
+     * @return une List d'objets CommentaireSpot
+     */
+    @Override
+    public List<CommentaireSpot> findAll() {
+        // Requête SQL
+        String vSql = "SELECT * FROM public.commentaire_spot "
+                + "JOIN public.commentaire ON commentaire_spot.commentaire_id = commentaire.commentaire_id "
+                + "ORDER BY commentaire.date_publication DESC";
+
+        return getJdbcTemplate().query(vSql, new CommentaireSpotRM());
+    }
+
+    /**
      * La méthode addCommentaire permet de créer une nouvelle relation entre un Commentaire et un Spot dans la base de données
      *
      * @param pSpotId est l'identifiant unique d'un objet Spot

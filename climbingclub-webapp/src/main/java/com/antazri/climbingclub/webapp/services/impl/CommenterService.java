@@ -111,11 +111,21 @@ public class CommenterService implements ICommenterService {
         return commentaires;
     }
 
+    /**
+     * La méthode findCommentaireSpotByCommentaire permet de retourner un objet CommentaireSpot en fonction de l'identifiant unique de l'objet Commentaire passé en paramètre.
+     * @param pCommentaire est un objet Commentaire
+     * @return un objet CommentaireSpot permettant de retrouver le Spot lié au commentaire
+     */
     @Override
     public CommentaireSpot findCommentaireSpotByCommentaire(Commentaire pCommentaire) {
         return commentaireBySpotBo.findByCommentaire(pCommentaire);
     }
 
+    /**
+     * La méthode findCommentaireTopoByCommentaire permet de retourner un objet CommentaireTopo en fonction de l'identifiant unique de l'objet Commentaire passé en paramètre.
+     * @param pCommentaire est un objet Commentaire
+     * @return un objet CommentaireTopo permettant de retrouver le Topo lié au commentaire
+     */
     @Override
     public CommentaireTopo findCommentaireTopoByCommentaire(Commentaire pCommentaire) {
         return commentaireByTopoBo.findByCommentaire(pCommentaire);
@@ -128,6 +138,52 @@ public class CommenterService implements ICommenterService {
      */
     public List<Commentaire> findAllCommentaire() {
         List<Commentaire> commentaires = commentaireBo.findAll();
+
+        for (Commentaire commentaire : commentaires) {
+            commentaire.setUtilisateur(utilisateurBo.findById(commentaire.getUtilisateur().getUtilisateurId()));
+        }
+
+        return commentaires;
+    }
+
+    /**
+     * La méthode findAllCommentaireBySpot permet de récupérer l'ensemble des instances de Commentaire de la table commentaire_spot  via l'objet CommentaireBySpotBo.
+     * Cette objet est instancié automatiquement par Spring grâce à l'annotation @Autowired.
+     * @return une List d'objets Commentaire depuis la couche Business
+     */
+    public List<Commentaire> findAllCommentaireBySpot() {
+        List<CommentaireSpot> commentairesSpot = commentaireBySpotBo.findAll();
+        List<Commentaire> commentaires = new ArrayList<>();
+
+        for (CommentaireSpot commentaireSpot : commentairesSpot) {
+            commentaires.add(findCommentaireById(commentaireSpot.getCommentaire().getCommentaireId()));
+        }
+
+        for (Commentaire commentaire : commentaires) {
+            commentaire = commentaireBo.findById(commentaire.getCommentaireId());
+            commentaire.setUtilisateur(utilisateurBo.findById(commentaire.getUtilisateur().getUtilisateurId()));
+        }
+
+        return commentaires;
+    }
+
+    /**
+     * La méthode findAllCommentaireByTopo permet de récupérer l'ensemble des instances de Commentaire de la table commentaire_topo  via l'objet CommentaireByTopoBo.
+     * Cette objet est instancié automatiquement par Spring grâce à l'annotation @Autowired.
+     * @return une List d'objets Commentaire depuis la couche Business
+     */
+    public List<Commentaire> findAllCommentaireByTopo() {
+        List<CommentaireTopo> commentairesTopo = commentaireByTopoBo.findAll();
+        List<Commentaire> commentaires = new ArrayList<>();
+
+        for (CommentaireTopo commentaireTopo : commentairesTopo) {
+            commentaires.add(findCommentaireById(commentaireTopo.getCommentaire().getCommentaireId()));
+        }
+
+        for (Commentaire commentaire : commentaires) {
+            commentaire = commentaireBo.findById(commentaire.getCommentaireId());
+            commentaire.setUtilisateur(utilisateurBo.findById(commentaire.getUtilisateur().getUtilisateurId()));
+        }
 
         return commentaires;
     }

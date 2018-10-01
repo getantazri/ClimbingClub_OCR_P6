@@ -39,6 +39,15 @@ public class CommentaireByTopoBo extends AbstractBo implements ICommentaireByObj
     }
 
     /**
+     * La méthode findAll permet de retourner l'ensemble des instances de la table d'association commentaire_topo via la couche DAO
+     * @return une List d'objets CommentaireTopo
+     */
+    @Transactional
+    public List<CommentaireTopo> findAll() {
+        return commentaireByTopoDao.findAll();
+    }
+
+    /**
      * La méthode addCommentaire permet d'enregistrer une relation de Commentaire  et de Topo via le CommentaireByTopoDao
      * affecté via @Autowired. L'annotation @Transactionnel permet de spécifié à Spring que des données seront transférées dans la base de données
      *

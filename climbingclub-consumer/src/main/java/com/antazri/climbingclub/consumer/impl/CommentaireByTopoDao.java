@@ -56,6 +56,20 @@ public class CommentaireByTopoDao extends AbstractDao implements ICommentaireByO
     }
 
     /**
+     * La méthode findAll permet de retourner l'ensemble des instances de la table d'association commentaire_topo
+     * @return une List d'objets CommentaireTopo
+     */
+    @Override
+    public List<CommentaireTopo> findAll() {
+        // Requête SQL
+        String vSql = "SELECT * FROM public.commentaire_topo "
+                + "JOIN public.commentaire ON commentaire_topo.commentaire_id = commentaire.commentaire_id "
+                + "ORDER BY commentaire.date_publication DESC";
+
+        return getJdbcTemplate().query(vSql, new CommentaireTopoRM());
+    }
+
+    /**
      * La méthode addCommentaire permet de créer une nouvelle relation entre un Commentaire et un Topo dans la base de données
      *
      * @param pTopoId est l'identifiant d'un objet Topo

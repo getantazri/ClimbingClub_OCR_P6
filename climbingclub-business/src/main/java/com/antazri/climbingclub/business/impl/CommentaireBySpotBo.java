@@ -45,6 +45,15 @@ public class CommentaireBySpotBo extends AbstractBo implements ICommentaireByObj
     }
 
     /**
+     * La méthode findAll permet de retourner l'ensemble des instances de la table d'association commentaire_spot via la couche DAO
+     * @return une List d'objets CommentaireSpot
+     */
+    @Transactional
+    public List<CommentaireSpot> findAll() {
+        return commentaireBySpotDao.findAll();
+    }
+
+    /**
      * La méthode addCommentaire permet d'enregistrer une relation de Commentaire  et de Spot via le CommentaireBySpotDao
      * affecté via @Autowired. L'annotation @Transactionnel permet de spécifié à Spring que des données seront transférées dans la base de données
      *

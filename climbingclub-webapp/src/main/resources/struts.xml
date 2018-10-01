@@ -662,5 +662,91 @@
             <result name="success">/WEB-INF/jsp/admin/admin.jsp</result>
             <result name="error" type="redirectAction">/login/doLogin</result>
         </action>
+
+        <!-- Action LIST TOPOS -->
+        <action name="doListTopos"
+                class="com.antazri.climbingclub.webapp.action.AdminAction"
+                method="doListTopos">
+            <result>/WEB-INF/jsp/admin/admin_topos.jsp</result>
+        </action>
+
+        <!-- Action LIST SPOTS -->
+        <action name="doListSpots"
+                class="com.antazri.climbingclub.webapp.action.AdminAction"
+                method="doListSpots">
+            <result>/WEB-INF/jsp/admin/admin_spots.jsp</result>
+        </action>
+
+        <!-- Action LIST SECTEURS -->
+        <action name="doListSecteurs"
+                class="com.antazri.climbingclub.webapp.action.AdminAction"
+                method="doListSecteurs">
+            <result>/WEB-INF/jsp/admin/admin_secteurs.jsp</result>
+        </action>
+
+        <!-- Action LIST VOIES -->
+        <action name="doListVoies"
+                class="com.antazri.climbingclub.webapp.action.AdminAction"
+                method="doListVoies">
+            <result>/WEB-INF/jsp/admin/admin_voies.jsp</result>
+        </action>
+
+        <!-- Action LIST COMMENTAIRES -->
+        <action name="doListCommentaires"
+                class="com.antazri.climbingclub.webapp.action.AdminAction"
+                method="doListCommentaires">
+            <result>/WEB-INF/jsp/admin/admin_commentaires.jsp</result>
+        </action>
+
+        <!-- Action LIST RESERVATIONS -->
+        <action name="doListReservations"
+                class="com.antazri.climbingclub.webapp.action.AdminAction"
+                method="doListReservations">
+            <result>/WEB-INF/jsp/admin/admin_reservations.jsp</result>
+        </action>
+
+        <!-- Action LIST UTILISATEURS -->
+        <action name="doListUtilisateurs"
+                class="com.antazri.climbingclub.webapp.action.AdminAction"
+                method="doListUtilisateurs">
+            <result>/WEB-INF/jsp/admin/admin_utilisateurs.jsp</result>
+        </action>
+
+        <!-- Action ADD UTILISATEUR -->
+        <action name="doAddUtilisateur"
+                class="com.antazri.climbingclub.webapp.action.AdminAction"
+                method="doAddUtilisateur">
+            <result name="input"></result>
+            <result name="success"></result>
+            <result name="error"></result>
+        </action>
+
+        <!-- Action GET UTILISATEURS TO UPDATE -->
+        <action name="doGetUtilisateurToUpdate"
+                class="com.antazri.climbingclub.webapp.action.AdminAction"
+                method="doGetUtilisateurToUpdate">
+            <result name="input"></result>
+            <result name="success"></result>
+            <result name="error"></result>
+        </action>
+
+        <!-- Action UPDATE UTILISATEURS -->
+        <action name="doUpdateUtilisateur"
+                class="com.antazri.climbingclub.webapp.action.AdminAction"
+                method="doUpdateUtilisateur">
+            <result name="input"></result>
+            <result name="success"></result>
+            <result name="error"></result>
+        </action>
+
+        <!-- Action DELETE UTILISATEURS -->
+        <action name="doDeleteUtilisateur"
+                class="com.antazri.climbingclub.webapp.action.AdminAction"
+                method="doDeleteUtilisateur">
+            <result name="input"></result>
+            <result name="success"></result>
+            <result name="error"></result>
+        </action>
+
     </package>
 </struts>
