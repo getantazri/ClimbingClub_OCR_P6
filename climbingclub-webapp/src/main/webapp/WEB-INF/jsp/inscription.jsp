@@ -10,17 +10,23 @@
         <section class="section">
 
             <h1 class="title is-uppercase">Inscription</h1>
+            <h2 class="subtitle">Rejoignez la communauté ClimbingClub pour partager votre passion pour l'escalade.</h2>
+
+            <div class="columns">
+                <s:if test="hasActionErrors()">
+                    <span class="notification is-danger is-small"><s:actionerror /></span>
+                </s:if>
+                <br />
+                <s:if test="hasActionMessages()">
+                    <span class="notification is-info is-small"><s:actionmessage /></span>
+                </s:if>
+            </div>
 
             <div class="columns">
 
                 <div class="column">
 
-                    <h2 class="subtitle">Rejoignez la communauté ClimbingClub pour partager votre passion pour l'escalade.</h2>
-
-                    <p>Vous pourrez partager vos topos et réserver ceux des autres membres !</p>
-
                     <s:form action="doInscription" namespace="/login" method="POST">
-                        <span class="has-text-danger is-bold"><s:actionerror/></span>
 
                         <div class="field">
                             <p class="control">

@@ -23,6 +23,8 @@ public class MoteurRechercheAction extends ActionSupport {
     @Autowired
     private ICotationBo cotationBo;
 
+    Logger logger = LogManager.getLogger();
+
     // =======================================================================
     // Attributs de l'action
     // =======================================================================
@@ -160,6 +162,7 @@ public class MoteurRechercheAction extends ActionSupport {
     // Actions / Méthodes
     // =======================================================================
     public String doSearch() {
+        clearErrorsAndMessages();
         cotations = initCotations();
         regions = initRegions();
         types = initTypes();
@@ -168,6 +171,7 @@ public class MoteurRechercheAction extends ActionSupport {
     }
 
     public String doSearchRequest() {
+        clearErrorsAndMessages();
         String vResult = ActionSupport.INPUT;
 
         cotations = initCotations();
@@ -190,7 +194,7 @@ public class MoteurRechercheAction extends ActionSupport {
             }
         } catch (Exception pE) {
             addActionError("Il y a eu un problème lors de la requête !");
-            pE.printStackTrace();
+            logger.error("Informations renseignées pour la recherche invalides", pE);
             vResult =  ActionSupport.ERROR;
         }
 
@@ -198,6 +202,7 @@ public class MoteurRechercheAction extends ActionSupport {
     }
 
     private List<Region> initRegions() {
+        clearErrorsAndMessages();
         List<Region> regions = new ArrayList<>();
         Region toutes = new Region();
         toutes.setRegionId(99);
@@ -210,6 +215,7 @@ public class MoteurRechercheAction extends ActionSupport {
     }
 
     private List<Cotation> initCotations() {
+        clearErrorsAndMessages();
         List<Cotation> cotations = new ArrayList<>();
         Cotation toutes = new Cotation();
         toutes.setCotationId(99);
@@ -222,6 +228,7 @@ public class MoteurRechercheAction extends ActionSupport {
     }
 
     public List<String> initTypes() {
+        clearErrorsAndMessages();
         List<String> types = new ArrayList<>();
         types.add("Tous");
         types.add("Topo");

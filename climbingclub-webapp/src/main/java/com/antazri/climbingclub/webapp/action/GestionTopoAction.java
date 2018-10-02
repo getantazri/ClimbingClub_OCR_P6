@@ -8,6 +8,8 @@ import com.antazri.climbingclub.webapp.services.contract.IGestionSpotService;
 import com.antazri.climbingclub.webapp.services.contract.IGestionTopoService;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 
@@ -29,6 +31,8 @@ public class GestionTopoAction extends ActionSupport {
 
     @Autowired
     private ICommenterService commenterService;
+
+    Logger logger = LogManager.getLogger();
 
     // =======================================================================
     // Attributs et paramètres de l'action
@@ -114,7 +118,7 @@ public class GestionTopoAction extends ActionSupport {
     // =======================================================================
     public String doListAllTopos() {
         clearErrorsAndMessages();
-        
+
         this.setTopos(gestionTopoService.findAllTopo());
 
         return ActionSupport.SUCCESS;
@@ -122,33 +126,35 @@ public class GestionTopoAction extends ActionSupport {
 
     public String doTopoDetails() {
         clearErrorsAndMessages();
+         if (topoId > 0) {
+             try {
+                 this.setTopo(gestionTopoService.findTopoById(topoId));
+             } catch (Exception pE) {
+                 addActionError("Topo introuvable !");
+                 logger.error("identifiant topoId inexistant", pE);
+                 return ActionSupport.ERROR;
+             }
 
-        try {
-            this.setTopo(gestionTopoService.findTopoById(topoId));
-        } catch (EmptyResultDataAccessException pE) {
-            addActionError("Topo introuvable !");
-            return ActionSupport.ERROR;
-        }
+             this.setSpots(gestionSpotService.findSpotByTopo(topo));
 
-        if (topo == null || topo.getTopoId() == 0) {
+             if (spots.isEmpty()) {
+                 spots = null;
+                 addActionMessage("Aucun spot n'a été ajouté à ce topo");
+             }
+
+             this.setCommentaires(commenterService.findCommentaireByTopo(topo));
+
+             if (commentaires.isEmpty()) {
+                 commentaires = null;
+             }
+
+             return ActionSupport.SUCCESS;
+         }
+        else {
             addActionError("Vous devez spécifié un ID existant");
+             logger.error("identifiant topoId inexistant");
             return ActionSupport.ERROR;
         }
-
-        this.setSpots(gestionSpotService.findSpotByTopo(topo));
-
-        if (spots.isEmpty()) {
-            spots = null;
-            addActionMessage("Aucun spot n'a été ajouté à ce topo");
-        }
-
-        this.setCommentaires(commenterService.findCommentaireByTopo(topo));
-
-        if (commentaires.isEmpty()) {
-            commentaires = null;
-        }
-
-        return ActionSupport.SUCCESS;
     }
 
     public String doAddTopo() {
@@ -180,6 +186,7 @@ public class GestionTopoAction extends ActionSupport {
 
             } catch (Exception pE) {
                 this.addActionError("Erreur dans l'ajout de votre topo");
+                logger.error("Informations renseignées pour le topo invalides", pE);
                 vResult = ActionSupport.ERROR;
             }
         }
@@ -224,6 +231,7 @@ public class GestionTopoAction extends ActionSupport {
 
         } catch (Exception pE) {
             this.addActionError("Erreur dans la mise à jour de votre topo");
+            logger.error("Informations renseignées pour le topo invalides", pE);
             vResult = ActionSupport.ERROR;
         }
 

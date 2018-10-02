@@ -8,6 +8,8 @@ import com.antazri.climbingclub.webapp.services.contract.IGestionSpotService;
 import com.antazri.climbingclub.webapp.services.contract.IGestionTopoService;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
@@ -32,6 +34,8 @@ public class CommenterAction extends ActionSupport {
 
     @Autowired
     private ICommentaireByObjectBo<Spot, CommentaireSpot> commentaireBySpotBo;
+
+    Logger logger = LogManager.getLogger();
 
     // =======================================================================
     // Attributs de l'action
@@ -143,14 +147,17 @@ public class CommenterAction extends ActionSupport {
     // Méthodes / Actions
     // =======================================================================
     public String doPostSpotCommentaire() {
+        clearErrorsAndMessages();
         return doPublishCommentaire(commenterService.publishCommentaire(utilisateur.getUtilisateurId(), commentaire.getContenu(), LocalDateTime.now()));
     }
 
     public String doPostTopoCommentaire() {
+        clearErrorsAndMessages();
         return doPublishCommentaire(commenterService.publishCommentaire(utilisateur.getUtilisateurId(), commentaire.getContenu(), LocalDateTime.now()));
     }
 
     public String doGetSpotCommentaireToEdit() {
+        clearErrorsAndMessages();
         commentaireSpot = commenterService.findCommentaireSpotByCommentaire(doGetCommentaireToEdit(commentaireId));
         spot = gestionSpotService.findSpotById(commentaireSpot.getSpot().getSpotId());
         commentaire = commenterService.findCommentaireById(commentaireSpot.getCommentaire().getCommentaireId());
@@ -159,6 +166,7 @@ public class CommenterAction extends ActionSupport {
     }
 
     public String doGetTopoCommentaireToEdit() {
+        clearErrorsAndMessages();
         commentaireTopo = commenterService.findCommentaireTopoByCommentaire(doGetCommentaireToEdit(commentaireId));
         topo = gestionTopoService.findTopoById(commentaireTopo.getTopo().getTopoId());
         commentaire = commenterService.findCommentaireById(commentaireTopo.getCommentaire().getCommentaireId());
@@ -167,14 +175,17 @@ public class CommenterAction extends ActionSupport {
     }
 
     public String doEditSpotCommentaire() {
+        clearErrorsAndMessages();
         return doEditCommentaire(commenterService.editCommentaire(commentaire.getCommentaireId(), commentaire.getContenu()));
     }
 
     public String doEditTopoCommentaire() {
+        clearErrorsAndMessages();
         return doEditCommentaire(commenterService.editCommentaire(commentaire.getCommentaireId(), commentaire.getContenu()));
     }
 
     public String doDeleteTopoCommentaire() {
+        clearErrorsAndMessages();
         commentaireTopo = commenterService.findCommentaireTopoByCommentaire(doGetCommentaireToEdit(commentaireId));
         topo = gestionTopoService.findTopoById(commentaireTopo.getTopo().getTopoId());
         commentaire = commenterService.findCommentaireById(commentaireTopo.getCommentaire().getCommentaireId());
@@ -183,6 +194,7 @@ public class CommenterAction extends ActionSupport {
     }
 
     public String doDeleteSpotCommentaire() {
+        clearErrorsAndMessages();
         commentaireSpot = commenterService.findCommentaireSpotByCommentaire(doGetCommentaireToEdit(commentaireId));
         spot = gestionSpotService.findSpotById(commentaireSpot.getSpot().getSpotId());
         commentaire = commenterService.findCommentaireById(commentaireSpot.getCommentaire().getCommentaireId());
@@ -191,6 +203,7 @@ public class CommenterAction extends ActionSupport {
     }
 
     private String doPublishCommentaire(int pRequest) {
+        clearErrorsAndMessages();
         utilisateur = compteUtilisateurService.findUtilisateurById(utilisateur.getUtilisateurId());
         if (commentaire != null) {
             try {
@@ -217,6 +230,7 @@ public class CommenterAction extends ActionSupport {
                 }
             } catch (Exception pE) {
                 this.addActionError("Erreur dans la publication de votre commentaire");
+                logger.error("Informations renseignées pour la publication du commentaires invalides", pE);
                 return ActionSupport.ERROR;
             }
         }
@@ -226,6 +240,7 @@ public class CommenterAction extends ActionSupport {
     }
 
     private Commentaire doGetCommentaireToEdit(int pCommentaireId) {
+        clearErrorsAndMessages();
 
         try {
             if (pCommentaireId > 0) {
@@ -233,12 +248,14 @@ public class CommenterAction extends ActionSupport {
             }
         } catch (NullPointerException pE) {
             addActionError("Commentaire introuvable");
+            logger.error("Identifiant du commentaire inexistant", pE);
         }
 
         return commentaire;
     }
 
     private String doEditCommentaire(int pRequest) {
+        clearErrorsAndMessages();
         try {
             if (commentaire.getContenu().replace(" ", "").length() < 3 || commentaire.getContenu() == null) {
                 addActionError("Le contenu n'est pas valide");
@@ -256,11 +273,13 @@ public class CommenterAction extends ActionSupport {
             }
         } catch (Exception pE) {
             this.addActionError("Erreur dans la modification de votre commentaire");
+            logger.error("Informations renseignées pour la mise à jour du commentaire invalides", pE);
             return ActionSupport.ERROR;
         }
     }
 
     private String doDeleteCommentaire(int pRequest) {
+        clearErrorsAndMessages();
         int delete = pRequest;
 
         if (delete > 0) {

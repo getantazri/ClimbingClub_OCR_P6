@@ -10,6 +10,8 @@ import com.antazri.climbingclub.webapp.services.contract.IGestionTopoService;
 import com.antazri.climbingclub.webapp.services.contract.IGestionVoieService;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -27,6 +29,8 @@ public class GestionSecteurAction extends ActionSupport {
 
     @Autowired
     private IGestionTopoService gestionTopoService;
+
+    Logger logger = LogManager.getLogger();
 
     // =======================================================================
     // Attributs et paramètres de l'action
@@ -86,24 +90,32 @@ public class GestionSecteurAction extends ActionSupport {
     // Méthodes / Actions
     // =======================================================================
     public String doSecteurDetails() {
-        this.setSecteur(gestionSecteurService.findSecteurById(secteur.getSecteurId()));
-
+        clearErrorsAndMessages();
         if (secteur == null || secteur.getSecteurId() == 0) {
             addActionError("Vous devez spécifié un ID existant");
             return ActionSupport.ERROR;
+        } else {
+            try {
+                this.setSecteur(gestionSecteurService.findSecteurById(secteur.getSecteurId()));
+
+                this.setVoies(gestionVoieService.findVoieBySecteur(secteur));
+
+                if (voies.isEmpty()) {
+                    voies = null;
+                    addActionMessage("Aucune voie n'a été ajoutée à ce secteur");
+                }
+
+                return ActionSupport.SUCCESS;
+            } catch (Exception pE) {
+                addActionError("Secteur introuvable");
+                logger.error("Identifiant du Secteur introuvable", pE);
+                return ActionSupport.ERROR;
+            }
         }
-
-        this.setVoies(gestionVoieService.findVoieBySecteur(secteur));
-
-        if (voies.isEmpty()) {
-            voies = null;
-            addActionMessage("Aucune voie n'a été ajoutée à ce secteur");
-        }
-
-        return ActionSupport.SUCCESS;
     }
 
     public String doAddSecteur() {
+        clearErrorsAndMessages();
         spot = gestionSpotService.findSpotById(spot.getSpotId());
 
         if (this.secteur != null) {
@@ -125,6 +137,7 @@ public class GestionSecteurAction extends ActionSupport {
                 }
             } catch (Exception pE) {
                 this.addActionError("Erreur dans l'ajout de votre spot");
+                logger.error("Informations renseignées pour le secteur invalides", pE);
                 return ActionSupport.ERROR;
             }
         }
@@ -133,6 +146,7 @@ public class GestionSecteurAction extends ActionSupport {
     }
 
     public String doGetSecteurToUpdate() {
+        clearErrorsAndMessages();
 
         if (secteur.getSecteurId() > 0) {
             secteur = gestionSecteurService.findSecteurById(secteur.getSecteurId());
@@ -145,6 +159,7 @@ public class GestionSecteurAction extends ActionSupport {
     }
 
     public String doUpdateSecteur() {
+        clearErrorsAndMessages();
         String vResult;
 
         try {
@@ -166,6 +181,7 @@ public class GestionSecteurAction extends ActionSupport {
 
         } catch (Exception pE) {
             this.addActionError("Erreur dans la mise à jour de votre secteur");
+            logger.error("Informations renseignées pour la mise à jour du secteur invalides", pE);
             vResult = ActionSupport.ERROR;
         }
 
@@ -173,6 +189,7 @@ public class GestionSecteurAction extends ActionSupport {
     }
 
     public String doDeleteSecteur() {
+        clearErrorsAndMessages();
         String vResult;
         int delete;
 

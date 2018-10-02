@@ -8,6 +8,9 @@ import com.antazri.climbingclub.webapp.services.contract.IGestionSecteurService;
 import com.antazri.climbingclub.webapp.services.contract.IGestionVoieService;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -22,6 +25,8 @@ public class GestionVoieAction extends ActionSupport {
 
     @Autowired
     private ICotationBo cotationBo;
+
+    Logger logger = LogManager.getLogger();
 
     // =======================================================================
     // Attributs et paramètres de l'action
@@ -106,24 +111,31 @@ public class GestionVoieAction extends ActionSupport {
     // Méthodes / Actions
     // =======================================================================
     public String doVoieDetails() {
-        this.setVoie(gestionVoieService.findVoieById(voieId));
-
-        if (this.voie == null || voie.getVoieId() == 0) {
+        clearErrorsAndMessages();
+        if (voieId < 0) {
             addActionError("Vous devez spécifié un ID existant");
             return ActionSupport.ERROR;
+        } else {
+            try {
+                this.setVoie(gestionVoieService.findVoieById(voieId));
+                return ActionSupport.SUCCESS;
+            } catch (Exception pE) {
+                addActionError("Voie introuvable");
+                logger.error("Identifiant de la voie inexistant", pE);
+                return ActionSupport.ERROR;
+            }
         }
-
-        return ActionSupport.SUCCESS;
     }
 
     public String doAddVoie() {
+        clearErrorsAndMessages();
         secteur = gestionSecteurService.findSecteurById(secteurId);
         cotations = cotationBo.findAll();
 
         if (voie != null) {
             try {
-                if (voie.getVoieNom().replace(" ", "").length() < 3) {
-                    addActionError("Le nom de votre n'est pas valide");
+                if (voie.getVoieNom().replace(" ", "").length() < 3 || StringUtils.isAnyBlank(voie.getVoieNom(), voie.getVoieDescription())) {
+                    addActionError("Les informations de votre voie ne sont pas valides");
                     return ActionSupport.INPUT;
                 } else {
                     int row = gestionVoieService.addVoie(voie.getVoieNom(), voie.getNombrePoints(), voie.getVoieDescription(), secteurId, voie.getCotation().getCotationId());
@@ -140,6 +152,7 @@ public class GestionVoieAction extends ActionSupport {
                 }
             } catch (Exception pE) {
                 this.addActionError("Erreur dans l'ajout de votre voie");
+                logger.error("Informations renseignées pour la voie invalides", pE);
                 return ActionSupport.ERROR;
             }
         }
@@ -148,6 +161,7 @@ public class GestionVoieAction extends ActionSupport {
     }
 
     public String doGetVoieToUpdate() {
+        clearErrorsAndMessages();
         cotations = cotationBo.findAll();
 
         if (voieId > 0) {
@@ -161,8 +175,8 @@ public class GestionVoieAction extends ActionSupport {
     }
 
     public String doUpdateVoie() {
+        clearErrorsAndMessages();
         String vResult;
-
 
         try {
             if (voie.getVoieNom().replace(" ", "").length() < 3) {
@@ -183,6 +197,7 @@ public class GestionVoieAction extends ActionSupport {
 
         } catch (Exception pE) {
             this.addActionError("Erreur dans la mise à jour de votre voie");
+            logger.error("Informations renseignées pour la mise à jour de la voie invalides", pE);
             vResult = ActionSupport.ERROR;
         }
 
@@ -190,6 +205,7 @@ public class GestionVoieAction extends ActionSupport {
     }
 
     public String doDeleteVoie() {
+        clearErrorsAndMessages();
         String vResult;
         int delete;
 

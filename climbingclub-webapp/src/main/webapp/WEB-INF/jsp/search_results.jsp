@@ -11,7 +11,15 @@
 
             <h1 class="title">Moteur de recherche</h1>
 
-            <h2><span class="is-bold has-text-danger"><s:actionerror /></span></h2>
+            <div class="columns">
+                <s:if test="hasActionErrors()">
+                    <span class="notification is-danger is-small"><s:actionerror /></span>
+                </s:if>
+                <br />
+                <s:if test="hasActionMessages()">
+                    <span class="notification is-info is-small"><s:actionmessage /></span>
+                </s:if>
+            </div>
 
             <div class="columns">
 

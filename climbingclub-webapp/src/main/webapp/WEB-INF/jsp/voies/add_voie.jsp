@@ -14,10 +14,18 @@
             <h2 class="subtitle">pour le secteur "<s:property value="secteur.secteurNom" />"</h2>
 
             <div class="columns">
+                <s:if test="hasActionErrors()">
+                    <span class="notification is-danger is-small"><s:actionerror /></span>
+                </s:if>
+                <br />
+                <s:if test="hasActionMessages()">
+                    <span class="notification is-info is-small"><s:actionmessage /></span>
+                </s:if>
+            </div>
+
+            <div class="columns">
 
                 <div class="column">
-
-                    <span class="has-text-danger"><b><s:actionerror /></b></span>
 
                     <s:form action="doAddVoie" method="POST" namespace="/gestion/voies">
                         <s:hidden name="secteurId" value="%{secteur.secteurId}" />

@@ -14,6 +14,16 @@
             <h2 class="subtitle">Partagez-le avec la communauté !</h2>
 
             <div class="columns">
+                <s:if test="hasActionErrors()">
+                    <span class="notification is-danger is-small"><s:actionerror /></span>
+                </s:if>
+                <br />
+                <s:if test="hasActionMessages()">
+                    <span class="notification is-info is-small"><s:actionmessage /></span>
+                </s:if>
+            </div>
+
+            <div class="columns">
 
                 <div class="column">
 
@@ -21,7 +31,6 @@
                         <s:hidden name="topo.proprietaire.utilisateurId" value="%{#session.user.utilisateurId}" />
                         <div class="field">
                             <div class="control">
-                                <span class="has-text-danger"><b><s:actionerror /></b></span>
                                 <s:textfield name="topo.topoNom" label="Nom" requiredLabel="true" cssClass="input" type="text" />
                             </div>
                         </div>

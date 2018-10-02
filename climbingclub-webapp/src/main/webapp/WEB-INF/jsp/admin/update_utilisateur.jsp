@@ -14,11 +14,20 @@
             <h2 class="subtitle">Modification d'un d'un utilisateur</h2>
 
             <div class="columns">
+                <s:if test="hasActionErrors()">
+                    <span class="notification is-danger is-small"><s:actionerror /></span>
+                </s:if>
+                <br />
+                <s:if test="hasActionMessages()">
+                    <span class="notification is-info is-small"><s:actionmessage /></span>
+                </s:if>
+            </div>
+
+            <div class="columns">
 
                 <div class="column">
 
                     <s:form action="doUpdateUtilisateur" namespace="/admin" method="POST">
-                        <span class="has-text-danger is-bold"><s:actionerror/></span>
                         <s:hidden name="utilisateurId" value="%{utilisateur.utilisateurId}" />
 
                         <div class="field">

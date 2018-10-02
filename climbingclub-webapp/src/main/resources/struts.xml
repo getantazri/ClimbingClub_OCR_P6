@@ -6,9 +6,31 @@
 
 <struts>
     <!-- =============================================================== -->
+    <!-- Package CCLUB BASE -->
+    <!-- =============================================================== -->
+    <package name="cclub-base" extends="struts-default">
+        <interceptors>
+            <interceptor-stack name="applicationDefaultStack">
+                <interceptor-ref name="defaultStack">
+                    <param name="exception.logEnabled">true</param>
+                    <param name="exception.logLevel">ERROR</param>
+                    <param name="exception.logCategory">org.example.demo.ticket.webapp</param>
+                </interceptor-ref>
+            </interceptor-stack>
+
+            <interceptor-stack name="authenticatedStack">
+                <interceptor-ref name="store">
+                    <param name="operationMode">AUTOMATIC</param>
+                </interceptor-ref>
+                <interceptor-ref name="applicationDefaultStack" />
+            </interceptor-stack>
+        </interceptors>
+    </package>
+
+    <!-- =============================================================== -->
     <!-- Package CCLUB DEFAULT -->
     <!-- =============================================================== -->
-    <package name="cclub-default" extends="struts-default" namespace="/">
+    <package name="cclub-default" extends="cclub-base" namespace="/">
         <!-- Action INDEX par défaut -->
         <default-action-ref name="index" />
         <action name="index">
@@ -16,7 +38,7 @@
             <result name="error" type="redirectAction">error</result>
         </action>
 
-        <action name="error" >
+        <action name="error">
             <result name="error">/WEB-INF/jsp/error.jsp</result>
         </action>
 
@@ -154,6 +176,7 @@
     <!-- Package PUBLIC -->
     <!-- =============================================================== -->
     <package name="public" extends="cclub-default" namespace="/login">
+
         <!-- Action LOGIN -->
         <action name="doLogin"
                 class="com.antazri.climbingclub.webapp.action.LoginAction"
@@ -175,6 +198,7 @@
                 class="com.antazri.climbingclub.webapp.action.CompteUtilisateurAction"
                 method="doGetInscription">
             <result name="success">/WEB-INF/jsp/inscription.jsp</result>
+            <result name="error">/WEB-INF/jsp/error.jsp</result>
         </action>
 
         <action name="doInscription"
@@ -194,7 +218,15 @@
             <interceptor name="auth" class="com.antazri.climbingclub.webapp.interceptor.AuthInterceptor" />
 
             <interceptor-stack name="authenticatedStack">
+                <interceptor-ref name="defaultStack">
+                    <param name="exception.logEnabled">true</param>
+                    <param name="exception.logLevel">ERROR</param>
+                    <param name="exception.logCategory">org.example.demo.ticket.webapp</param>
+                </interceptor-ref>
                 <interceptor-ref name="auth" />
+                <interceptor-ref name="store">
+                    <param name="operationMode">AUTOMATIC</param>
+                </interceptor-ref>
                 <interceptor-ref name="defaultStack" />
             </interceptor-stack>
         </interceptors>
@@ -249,6 +281,7 @@
         <action name="doEditPassword"
                 class="com.antazri.climbingclub.webapp.action.CompteUtilisateurAction"
                 method="doEditPassword">
+
             <result name="input">
                 <param name="location">/WEB-INF/jsp/user/edit_password.jsp</param>
                 <param name="utilisateurId">${utilisateurId}</param>
@@ -271,7 +304,7 @@
     <!-- =============================================================== -->
     <!-- Package GESTION TOPOS -->
     <!-- =============================================================== -->
-    <package name="topos" extends="cclub-default" namespace="/topos">
+    <package name="topos" extends="public" namespace="/topos">
         <!-- Action TOPOS LIST -->
         <action name="doToposList"
                 class="com.antazri.climbingclub.webapp.action.GestionTopoAction"
@@ -286,10 +319,7 @@
                 method="doTopoDetails">
 
             <result name="success">/WEB-INF/jsp/topos/topo.jsp</result>
-            <result name="error" type="redirectAction">
-                <param name="actionName">error</param>
-            </result>
-
+            <result name="error">/WEB-INF/jsp/error.jsp</result>
         </action>
     </package>
 
@@ -297,26 +327,6 @@
     <!-- Package TOPOS -->
     <!-- =============================================================== -->
     <package name="gestion-topos" extends="private" namespace="/gestion/topos">
-        <!-- Action TOPOS LIST -->
-        <action name="doToposList"
-                class="com.antazri.climbingclub.webapp.action.GestionTopoAction"
-                method="doListAllTopos">
-
-            <result>/WEB-INF/jsp/topos/topos.jsp</result>
-        </action>
-
-        <!-- Action TOPO DETAILS -->
-        <action name="doTopoDetails"
-                class="com.antazri.climbingclub.webapp.action.GestionTopoAction"
-                method="doTopoDetails">
-
-            <result name="success">/WEB-INF/jsp/topos/topo.jsp</result>
-            <result name="error" type="redirectAction">
-                <param name="actionName">error</param>
-            </result>
-
-        </action>
-
         <!-- Action ADD TOPO -->
         <action name="doAddTopo"
                 class="com.antazri.climbingclub.webapp.action.GestionTopoAction"
@@ -326,6 +336,7 @@
             <result name="success" type="redirectAction">
                 <param name="actionName">doTopoDetails</param>
                 <param name="topoId">${topo.topoId}</param>
+                <param name="namespace">/topos</param>
             </result>
             <result name="error">/WEB-INF/jsp/topos/add_topo.jsp</result>
         </action>
@@ -339,6 +350,7 @@
             <result name="error" type="redirectAction">
                 <param name="actionName">doTopoDetails</param>
                 <param name="topoId">${topo.topoId}</param>
+                <param name="namespace">/topos</param>
             </result>
 
         </action>
@@ -351,11 +363,9 @@
             <result name="success" type="redirectAction">
                 <param name="actionName">doTopoDetails</param>
                 <param name="topoId">${topo.topoId}</param>
+                <param name="namespace">/topos</param>
             </result>
-            <result name="error" type="redirectAction">
-                <param name="actionName">doTopoDetails</param>
-                <param name="topoId">${topo.topoId}</param>
-            </result>
+            <result name="error">/WEB-INF/jsp/topos/update_topo.jsp</result>
         </action>
 
         <!-- Action DELETE TOPO -->
@@ -371,7 +381,7 @@
     <!-- =============================================================== -->
     <!-- Package SPOTS -->
     <!-- =============================================================== -->
-    <package name="spots" extends="cclub-default" namespace="/spots">
+    <package name="spots" extends="public" namespace="/spots">
         <!-- Action SPOT DETAILS -->
         <action name="doSpotDetails"
                 class="com.antazri.climbingclub.webapp.action.GestionSpotAction"
@@ -395,7 +405,7 @@
             <result name="success" type="redirectAction">
                 <param name="actionName">doSpotDetails</param>
                 <param name="spotId">${spot.spotId}</param>
-                <param name="topoId">${topoId}</param>
+                <param name="namespace">/spots</param>
             </result>
             <result name="error">/WEB-INF/jsp/spots/add_spot.jsp</result>
         </action>
@@ -409,7 +419,7 @@
             <result name="error" type="redirectAction">
                 <param name="actionName">doSpotDetails</param>
                 <param name="spotId">${spot.spotId}</param>
-                <param name="topoId">${topoId}</param>
+                <param name="namespace">/spots</param>
             </result>
         </action>
 
@@ -422,13 +432,9 @@
             <result name="success" type="redirectAction">
                 <param name="actionName">doSpotDetails</param>
                 <param name="spotId">${spot.spotId}</param>
-                <param name="topoId">${topo.topoId}</param>
+                <param name="namespace">/spots</param>
             </result>
-            <result name="error" type="redirectAction">
-                <param name="actionName">doSpotDetails</param>
-                <param name="spotId">${spot.spotId}</param>
-                <param name="topoId">${topo.topoId}</param>
-            </result>
+            <result name="error">/WEB-INF/jsp/spots/update_spot.jsp</result>
         </action>
 
         <!-- Action DELETE SPOT -->
@@ -444,7 +450,7 @@
     <!-- =============================================================== -->
     <!-- Package SECTEURS -->
     <!-- =============================================================== -->
-    <package name="secteurs" extends="private" namespace="/secteurs">
+    <package name="secteurs" extends="public" namespace="/secteurs">
         <!-- Action SECTEUR DETAILS -->
         <action name="doSecteurDetails"
                 class="com.antazri.climbingclub.webapp.action.GestionSecteurAction"
@@ -468,6 +474,7 @@
             <result name="success" type="redirectAction">
                 <param name="actionName">doSecteurDetails</param>
                 <param name="secteur.secteurId">${secteur.secteurId}</param>
+                <param name="namespace">/secteurs</param>
             </result>
             <result name="error">/WEB-INF/jsp/secteurs/add_secteur.jsp</result>
         </action>
@@ -481,6 +488,7 @@
             <result name="error" type="redirectAction">
                 <param name="actionName">doSecteurDetails</param>
                 <param name="secteur.secteurId">${secteur.secteurId}</param>
+                <param name="namespace">/secteurs</param>
             </result>
         </action>
 
@@ -493,11 +501,9 @@
             <result name="success" type="redirectAction">
                 <param name="actionName">doSecteurDetails</param>
                 <param name="secteur.secteurId">${secteur.secteurId}</param>
+                <param name="namespace">/secteurs</param>
             </result>
-            <result name="error" type="redirectAction">
-                <param name="actionName">doSecteurDetails</param>
-                <param name="secteur.secteurId">${secteur.secteurId}</param>
-            </result>
+            <result name="error">/WEB-INF/jsp/secteurs/update_secteur.jsp</result>
         </action>
 
         <!-- Action DELETE SECTEUR -->
@@ -513,7 +519,7 @@
     <!-- =============================================================== -->
     <!-- Package VOIES -->
     <!-- =============================================================== -->
-    <package name="voies" extends="private" namespace="/voies">
+    <package name="voies" extends="public" namespace="/voies">
         <!-- Action VOIE DETAILS -->
         <action name="doVoieDetails"
                 class="com.antazri.climbingclub.webapp.action.GestionVoieAction"
@@ -537,6 +543,7 @@
             <result name="success" type="redirectAction">
                 <param name="actionName">doVoieDetails</param>
                 <param name="voieId">${voie.voieId}</param>
+                <param name="namespace">/voies</param>
             </result>
             <result name="error">/WEB-INF/jsp/voies/add_voie.jsp</result>
         </action>
@@ -551,6 +558,7 @@
             <result name="error" type="redirectAction">
                 <param name="actionName">doVoieDetails</param>
                 <param name="voieId">${voie.voieId}</param>
+                <param name="namespace">/voies</param>
             </result>
         </action>
 
@@ -563,11 +571,9 @@
             <result name="success" type="redirectAction">
                 <param name="actionName">doVoieDetails</param>
                 <param name="voieId">${voie.voieId}</param>
+                <param name="namespace">/voies</param>
             </result>
-            <result name="error" type="redirectAction">
-                <param name="actionName">doVoieDetails</param>
-                <param name="voieId">${voie.voieId}</param>
-            </result>
+            <result name="error">/WEB-INF/jsp/voies/update_voie.jsp</result>
         </action>
 
         <!-- Action DELETE VOIE -->
@@ -583,7 +589,7 @@
     <!-- =============================================================== -->
     <!-- Package REGIONS -->
     <!-- =============================================================== -->
-    <package name="regions" extends="cclub-default" namespace="/regions">
+    <package name="regions" extends="public" namespace="/regions">
         <!-- Action EN REGION page access -->
         <action name="doRegions">
             <result>/WEB-INF/jsp/regions/regions.jsp</result>
@@ -603,7 +609,7 @@
     <!-- =============================================================== -->
     <!-- Package SEARCH -->
     <!-- =============================================================== -->
-    <package name="search" extends="cclub-default" namespace="/search">
+    <package name="search" extends="public" namespace="/search">
         <!-- Action DO SEARCH -->
         <action name="doSearch"
                 class="com.antazri.climbingclub.webapp.action.MoteurRechercheAction"
@@ -689,7 +695,7 @@
                 <param name="actionName">doListByUtilisateur</param>
                 <param name="utilisateurId">${utilisateurId}</param>
             </result>
-            <result name="error">/WEB-INF/jsp/error.jsp</result>
+            <result name="error">/WEB-INF/jsp/reservations/update_reservation.jsp</result>
 
         </action>
 
@@ -801,7 +807,7 @@
                 method="doUpdateUtilisateur">
             <result name="input">/WEB-INF/jsp/admin/update_utilisateur.jsp</result>
             <result name="success" type="redirect">doLoginAdmin.action</result>
-            <result name="error" type="redirect">doLoginAdmin.action</result>
+            <result name="error">/WEB-INF/jsp/admin/update_utilisateur.jsp</result>
         </action>
 
         <!-- Action DELETE UTILISATEURS -->

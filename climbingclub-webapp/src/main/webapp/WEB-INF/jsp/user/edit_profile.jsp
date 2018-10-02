@@ -22,10 +22,18 @@
             </div>
 
             <div class="columns">
+                <s:if test="hasActionErrors()">
+                    <span class="notification is-danger is-small"><s:actionerror /></span>
+                </s:if>
+                <br />
+                <s:if test="hasActionMessages()">
+                    <span class="notification is-info is-small"><s:actionmessage /></span>
+                </s:if>
+            </div>
+
+            <div class="columns">
 
                 <div class="column">
-
-                    <span class="has-text-danger is-bold"><s:actionerror/></span>
 
                     <s:form action="doUpdateProfile" namespace="/compte" method="POST">
                         <s:hidden name="utilisateurId" value="%{#session.user.utilisateurId}" />

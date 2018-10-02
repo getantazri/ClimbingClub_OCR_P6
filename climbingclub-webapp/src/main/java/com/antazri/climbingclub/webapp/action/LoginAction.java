@@ -4,6 +4,8 @@ import com.antazri.climbingclub.business.contract.IRegionBo;
 import com.antazri.climbingclub.model.beans.*;
 import com.antazri.climbingclub.webapp.services.contract.*;
 import com.opensymphony.xwork2.ActionSupport;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -30,6 +32,8 @@ public class LoginAction extends ActionSupport implements SessionAware {
 
     @Autowired
     private IRegionBo regionBo;
+
+    Logger logger = LogManager.getLogger();
 
     // =======================================================================
     // Attributs et paramètres de l'action
@@ -125,6 +129,7 @@ public class LoginAction extends ActionSupport implements SessionAware {
     // Méthodes de l'action
     // =======================================================================
     public String doLogin() {
+        clearErrorsAndMessages();
         String vResult = ActionSupport.INPUT;
 
         if (!getPseudo().isEmpty() && !getPassword().isEmpty()) {
@@ -149,12 +154,15 @@ public class LoginAction extends ActionSupport implements SessionAware {
     }
 
     public String doLogout() {
+        clearErrorsAndMessages();
         this.session.remove("user");
+        this.session.remove("admin");
 
         return ActionSupport.SUCCESS;
     }
 
     public String doGetCompte() {
+        clearErrorsAndMessages();
         try {
             utilisateur = (Utilisateur) session.get("user");
             topos = new ArrayList<>();
@@ -189,6 +197,7 @@ public class LoginAction extends ActionSupport implements SessionAware {
             }
         } catch(NullPointerException pE) {
             addActionError("Vous devez vous connecter pour accéder à votre compte");
+            logger.error("Utilisateur recherché inexistant dans la base de données", pE);
             return ActionSupport.ERROR;
         }
 

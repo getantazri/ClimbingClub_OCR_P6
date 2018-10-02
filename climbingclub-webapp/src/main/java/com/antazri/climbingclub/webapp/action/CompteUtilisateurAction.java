@@ -4,12 +4,16 @@ import com.antazri.climbingclub.model.beans.Utilisateur;
 import com.antazri.climbingclub.webapp.services.contract.ICompteUtilisateurService;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class CompteUtilisateurAction extends ActionSupport {
 
     @Autowired
     ICompteUtilisateurService compteUtilisateurService;
+
+    Logger logger = LogManager.getLogger();
 
     // =======================================================================
     // Attributs de l'action
@@ -111,31 +115,40 @@ public class CompteUtilisateurAction extends ActionSupport {
     // Méthodes de l'action
     // =======================================================================
     public String doGetInscription() {
+        clearErrorsAndMessages();
         return ActionSupport.SUCCESS;
     }
 
     public String doInscription() {
+        clearErrorsAndMessages();
         String vResult;
 
-        int row = compteUtilisateurService.addUtilisateur(nom, prenom, pseudo, password, email, telephone, 2);
+        try {
+            int row = compteUtilisateurService.addUtilisateur(nom, prenom, pseudo, password, email, telephone, 2);
 
-        if (row < 0) {
-            vResult = ActionSupport.ERROR;
-            addActionError("Erreur : l'inscription n'a pas été enregistrée");
-        } else {
-            if (!password.equals(passwordConfirmed)) {
+            if (row < 0) {
                 vResult = ActionSupport.ERROR;
-                addActionError("Erreur : les mots de passe ne sont pas similaires");
+                addActionError("Erreur : l'inscription n'a pas été enregistrée");
             } else {
-                vResult = ActionSupport.SUCCESS;
-                addActionMessage("Inscription validée : bienvenue !");
+                if (!password.equals(passwordConfirmed)) {
+                    vResult = ActionSupport.ERROR;
+                    addActionError("Erreur : les mots de passe ne sont pas similaires");
+                } else {
+                    vResult = ActionSupport.SUCCESS;
+                    addActionMessage("Inscription validée : bienvenue !");
+                }
             }
+        } catch (Exception pE) {
+            addActionError("Erreur dans vos informations pour l'inscription");
+            logger.error("Informations renseignées pour la création du profil invalides", pE);
+            vResult = ActionSupport.ERROR;
         }
 
         return vResult;
     }
 
     public String doEditProfile() {
+        clearErrorsAndMessages();
 
         if (utilisateurId > 0) {
             utilisateur = compteUtilisateurService.findUtilisateurById(utilisateurId);
@@ -147,6 +160,7 @@ public class CompteUtilisateurAction extends ActionSupport {
     }
 
     public String doUpdateProfile() {
+        clearErrorsAndMessages();
         String vResult = ActionSupport.INPUT;
 
         try {
@@ -167,6 +181,7 @@ public class CompteUtilisateurAction extends ActionSupport {
             }
         } catch (Exception pE) {
             addActionError("Une erreur est survenue lors du chargement de votre profile");
+            logger.error("Informations renseignées pour la mise à jour du profil invalides", pE);
             vResult = ActionSupport.ERROR;
         }
 
@@ -174,6 +189,7 @@ public class CompteUtilisateurAction extends ActionSupport {
     }
 
     public String doEditPassword() {
+        clearErrorsAndMessages();
 
         if (utilisateurId > 0) {
             return ActionSupport.INPUT;
@@ -184,6 +200,7 @@ public class CompteUtilisateurAction extends ActionSupport {
     }
 
     public String doUpdatePassword() {
+        clearErrorsAndMessages();
         String vResult = ActionSupport.INPUT;
         utilisateur = compteUtilisateurService.findUtilisateurById(utilisateurId);
 
@@ -199,6 +216,7 @@ public class CompteUtilisateurAction extends ActionSupport {
             }
         } catch (Exception pE) {
             addActionError("Le mot de passe n'a pas pu être changé");
+            logger.error("Les mots de passe à modifier sont différents ou invalides", pE);
             vResult = ActionSupport.ERROR;
         }
 

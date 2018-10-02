@@ -49,17 +49,15 @@
 
                 <div class="column">
 
-                    <s:if test="%{this.hasActionMessages()}">
-                        <div class="control add-space-top-bottom-10">
-                            <span class="notification is-info is-medium"><b><s:actionmessage /></b></span>
-                        </div>
-                    </s:if>
-
-                    <s:if test="%{this.hasActionErrors()}">
-                        <div class="control add-space-top-bottom-10">
-                            <span class="notification is-danger is-medium"><b><s:actionmessage /></b></span>
-                        </div>
-                    </s:if>
+                    <div class="columns">
+                        <s:if test="hasActionErrors()">
+                            <span class="notification is-danger is-small"><s:actionerror /></span>
+                        </s:if>
+                        <br />
+                        <s:if test="hasActionMessages()">
+                            <span class="notification is-info is-small"><s:actionmessage /></span>
+                        </s:if>
+                    </div>
 
                     <br />
 

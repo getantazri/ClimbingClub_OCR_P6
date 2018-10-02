@@ -320,6 +320,7 @@ public class AdminAction extends ActionSupport {
     }
 
     public String doAddUtilisateur() {
+        clearErrorsAndMessages();
         statuts = statutBo.findAll();
 
         if (utilisateur != null) {
@@ -352,6 +353,7 @@ public class AdminAction extends ActionSupport {
     }
 
     public String doGetUtilisateurToUpdate() {
+        clearErrorsAndMessages();
         statuts = statutBo.findAll();
 
         if (utilisateurId > 0) {
@@ -365,6 +367,7 @@ public class AdminAction extends ActionSupport {
     }
 
     public String doUpdateUtilisateur() {
+        clearErrorsAndMessages();
         String vResult = ActionSupport.INPUT;
         statuts = statutBo.findAll();
 
@@ -396,6 +399,7 @@ public class AdminAction extends ActionSupport {
     }
 
     public String doDeleteUtilisateur() {
+        clearErrorsAndMessages();
         if (utilisateurId > 0) {
             try {
                 compteUtilisateurService.deleteUtilisateur(utilisateurId);

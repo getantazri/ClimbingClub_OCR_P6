@@ -14,6 +14,16 @@
             <h2 class="subtitle">"<s:property value="topo.topoNom" />"</h2>
 
             <div class="columns">
+                <s:if test="hasActionErrors()">
+                    <span class="notification is-danger is-small"><s:actionerror /></span>
+                </s:if>
+                <br />
+                <s:if test="hasActionMessages()">
+                    <span class="notification is-info is-small"><s:actionmessage /></span>
+                </s:if>
+            </div>
+
+            <div class="columns">
 
                 <div class="column">
 

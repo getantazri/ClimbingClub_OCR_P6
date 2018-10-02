@@ -14,19 +14,13 @@
             <h2 class="subtitle">Il semble y avoir un problème !</h2>
 
             <div class="columns">
-
-                <div class="column">
-
-                    <s:if test="%{this.hasActionErrors()}">
-                        <div class="notification is-danger"><s:actionerror /></div>
-                    </s:if>
-
-                    <s:if test="%{this.hasActionMessages()}">
-                        <div class="notification is-danger"><s:actionmessage /></div>
-                    </s:if>
-
-                </div>
-
+                <s:if test="hasActionErrors()">
+                    <span class="notification is-danger is-small"><s:actionerror /></span>
+                </s:if>
+                <br />
+                <s:if test="hasActionMessages()">
+                    <span class="notification is-info is-small"><s:actionmessage /></span>
+                </s:if>
             </div>
 
         </section>

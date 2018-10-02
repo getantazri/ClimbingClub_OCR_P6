@@ -10,6 +10,9 @@ import com.antazri.climbingclub.webapp.services.contract.IGestionSpotService;
 import com.antazri.climbingclub.webapp.services.contract.IGestionTopoService;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -27,6 +30,8 @@ public class GestionSpotAction extends ActionSupport {
 
     @Autowired
     private ICommenterService commenterService;
+
+    Logger logger = LogManager.getLogger();
 
     // =======================================================================
     // Attributs et paramètres de l'action
@@ -103,27 +108,33 @@ public class GestionSpotAction extends ActionSupport {
     // =======================================================================
     public String doSpotDetails() {
         clearErrorsAndMessages();
-        this.setSpot(gestionSpotService.findSpotById(spotId));
-
-        if (spot == null || spot.getSpotId() == 0) {
+        if (spotId < 0) {
             addActionError("Vous devez spécifié un ID existant");
             return ActionSupport.ERROR;
+        } else {
+            try {
+                this.setSpot(gestionSpotService.findSpotById(spotId));
+            } catch (Exception pE) {
+                addActionError("Spot introuvable");
+                logger.error("Identifiant du Spot invalide", pE);
+                return ActionSupport.ERROR;
+            }
+
+            this.setSecteurs(gestionSecteurService.findSecteurBySpot(spot));
+
+            if (secteurs.isEmpty()) {
+                secteurs = null;
+                addActionMessage("Aucun secteur n'a été ajouté à ce spot");
+            }
+
+            this.setCommentaires(commenterService.findCommentaireBySpot(spot));
+
+            if (commentaires.isEmpty()) {
+                commentaires = null;
+            }
+
+            return ActionSupport.SUCCESS;
         }
-
-        this.setSecteurs(gestionSecteurService.findSecteurBySpot(spot));
-
-        if (secteurs.isEmpty()) {
-            secteurs = null;
-            addActionMessage("Aucun secteur n'a été ajouté à ce spot");
-        }
-
-        this.setCommentaires(commenterService.findCommentaireBySpot(spot));
-
-        if (commentaires.isEmpty()) {
-            commentaires = null;
-        }
-
-        return ActionSupport.SUCCESS;
     }
 
     public String doAddSpot() {
@@ -132,8 +143,8 @@ public class GestionSpotAction extends ActionSupport {
 
         if (spot != null) {
             try {
-                if (spot.getSpotNom().replace(" ", "").length() < 3) {
-                    addActionError("Le nom de votre spot n'est pas valide");
+                if (spot.getSpotNom().replace(" ", "").length() < 3 || StringUtils.isAnyBlank(spot.getSpotNom(), spot.getSpotDescription())) {
+                    addActionError("Les informations ne sont pas valides");
                     return ActionSupport.INPUT;
                 } else {
                     int row = gestionSpotService.addSpot(spot.getSpotNom(), spot.getSpotDescription(), spot.getHauteur(), topo.getTopoId());
@@ -150,6 +161,7 @@ public class GestionSpotAction extends ActionSupport {
 
             } catch (Exception pE) {
                 this.addActionError("Erreur dans l'ajout de votre spot");
+                logger.error("Informations renseignées pour le spot invalides", pE);
                 return ActionSupport.ERROR;
             }
         }
@@ -194,6 +206,7 @@ public class GestionSpotAction extends ActionSupport {
 
         } catch (Exception pE) {
             this.addActionError("Erreur dans la mise à jour de votre spot");
+            logger.error("Informations renseignées pour la mise à jour du spot invalides", pE);
             vResult = ActionSupport.ERROR;
         }
 

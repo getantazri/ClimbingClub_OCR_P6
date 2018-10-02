@@ -43,8 +43,13 @@
             </div>
 
             <div class="columns">
-                <div class="column"><s:actionerror /></div>
-                <div class="column"><s:actionmessage /></div>
+                <s:if test="hasActionErrors()">
+                    <span class="notification is-danger is-small"><s:actionerror /></span>
+                </s:if>
+                <br />
+                <s:if test="hasActionMessages()">
+                    <span class="notification is-info is-small"><s:actionmessage /></span>
+                </s:if>
             </div>
 
             <div class="columns">

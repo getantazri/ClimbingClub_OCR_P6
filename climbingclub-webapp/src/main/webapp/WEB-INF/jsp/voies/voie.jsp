@@ -27,6 +27,12 @@
             </div>
 
             <div class="columns">
+                <s:if test="hasActionErrors()">
+                    <span class="notification is-danger is-small"><s:actionerror /></span>
+                </s:if>
+            </div>
+
+            <div class="columns">
 
                 <div class="column">
 

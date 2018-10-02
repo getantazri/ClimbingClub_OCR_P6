@@ -13,14 +13,11 @@
 
             <div class="columns">
                 <s:if test="hasActionErrors()">
-                    <div class="welcome">
-                        <s:actionerror/>
-                    </div>
+                    <span class="notification is-danger is-small"><s:actionerror /></span>
                 </s:if>
+                <br />
                 <s:if test="hasActionMessages()">
-                    <div class="welcome">
-                        <s:actionmessage/>
-                    </div>
+                    <span class="notification is-info is-small"><s:actionmessage /></span>
                 </s:if>
             </div>
 

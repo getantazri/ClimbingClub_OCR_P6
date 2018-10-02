@@ -7,6 +7,8 @@ import com.antazri.climbingclub.webapp.services.contract.ICompteUtilisateurServi
 import com.antazri.climbingclub.webapp.services.contract.IGestionTopoService;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -21,6 +23,8 @@ public class RegionAction extends ActionSupport {
 
     @Autowired
     private IGestionTopoService gestionTopoService;
+
+    Logger logger = LogManager.getLogger();
 
     // =======================================================================
     // Attributs de l'action
@@ -78,12 +82,14 @@ public class RegionAction extends ActionSupport {
     // Méthodes
     // =======================================================================
     public String doRegions() {
+        clearErrorsAndMessages();
         regions = regionBo.findAll();
 
         return ActionSupport.SUCCESS;
     }
 
     public String doRegionDetails() {
+        clearErrorsAndMessages();
         this.setRegion(regionBo.findById(region.getRegionId()));
 
         if(region != null) {

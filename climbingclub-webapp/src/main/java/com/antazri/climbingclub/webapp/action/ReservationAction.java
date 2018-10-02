@@ -8,6 +8,8 @@ import com.antazri.climbingclub.webapp.services.contract.IGestionTopoService;
 import com.antazri.climbingclub.webapp.services.contract.IReservationService;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
@@ -25,6 +27,8 @@ public class ReservationAction extends ActionSupport {
 
     @Autowired
     private ICompteUtilisateurService compteUtilisateurService;
+
+    Logger logger = LogManager.getLogger();
 
     // =======================================================================
     // Attributs de l'action
@@ -127,18 +131,21 @@ public class ReservationAction extends ActionSupport {
     // Méthodes
     // =======================================================================
     public String doList() {
+        clearErrorsAndMessages();
         emprunts = reservationService.findAllReservations();
 
         return ActionSupport.SUCCESS;
     }
 
     public String doListByUtilisateur() {
+        clearErrorsAndMessages();
             if  (utilisateurId > 0) {
                 try {
                     emprunts = reservationService.findReservationByUtilisateur(compteUtilisateurService.findUtilisateurById(utilisateurId));
                     return ActionSupport.SUCCESS;
                 } catch (NullPointerException pE) {
                     addActionMessage("Vous n'avez aucune réservation");
+                    logger.info("Aucune donnée retrouvée dans la table réservation avec l'identifiant de l'utilisateur", pE);
                     return ActionSupport.SUCCESS;
                 }
             } else {
@@ -148,6 +155,7 @@ public class ReservationAction extends ActionSupport {
     }
 
     public String doAddReservation() {
+        clearErrorsAndMessages();
         if (topoId > 0) {
             topo = gestionTopoService.findTopoById(topoId);
             emprunts = reservationService.getUpcomingReservations(reservationService.findReservationByTopo(topo));
@@ -178,6 +186,7 @@ public class ReservationAction extends ActionSupport {
                 }
             } catch (Exception pE) {
                 addActionError("La réservation n'a pas pu être validée");
+                logger.error("Informations renseignées pour la réservation invalides", pE);
                 return ActionSupport.ERROR;
             }
         }
@@ -186,6 +195,7 @@ public class ReservationAction extends ActionSupport {
     }
 
     public String doGetReservationToUpdate() {
+        clearErrorsAndMessages();
         if (empruntId > 0) {
             emprunt = reservationService.findReservationById(empruntId);
             topo = gestionTopoService.findTopoById(emprunt.getTopo().getTopoId());
@@ -206,6 +216,7 @@ public class ReservationAction extends ActionSupport {
     }
 
     public String doUpdateReservation() {
+        clearErrorsAndMessages();
         if (empruntId > 0) {
             emprunt = reservationService.findReservationById(empruntId);
             topo = gestionTopoService.findTopoById(topoId);
@@ -251,6 +262,7 @@ public class ReservationAction extends ActionSupport {
     }
 
     public String doDeleteReservation() {
+        clearErrorsAndMessages();
         String vResult;
         int delete;
 
@@ -267,6 +279,7 @@ public class ReservationAction extends ActionSupport {
                 }
             } catch (Exception pE) {
                 this.addActionError("Erreur dans la suppression de la réservation");
+                logger.error("Réservation introuvable : erreur dans l'identifiant", pE);
                 vResult = Action.ERROR;
             }
         } else {

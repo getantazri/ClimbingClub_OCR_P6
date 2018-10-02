@@ -31,6 +31,14 @@
             </div>
 
             <div class="columns">
+                <s:if test="hasActionErrors()">
+                    <span class="notification is-danger is-small"><s:actionerror /></span>
+                </s:if>
+                <br />
+
+            </div>
+
+            <div class="columns">
 
                 <div class="column">
 
@@ -74,7 +82,7 @@
                     <h2 class="subtitle">Liste des voies</h2>
 
                     <s:if test="%{voies == null}">
-                        <div class="notification is-danger"><s:actionmessage/></div>
+                        <div class="notification is-info"><s:actionmessage/></div>
                     </s:if>
                     <s:else>
                         <table class="table is-striped is-hoverable is-fullwidth topo-list">

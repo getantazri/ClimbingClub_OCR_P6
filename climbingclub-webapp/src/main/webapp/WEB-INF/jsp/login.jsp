@@ -10,13 +10,21 @@
         <section class="section">
 
             <h1 class="title is-uppercase">Mon compte</h1>
+            <h2 class="subtitle">Se connecter</h2>
+
+            <div class="columns">
+                <s:if test="hasActionErrors()">
+                    <span class="notification is-danger is-small"><s:actionerror /></span>
+                </s:if>
+                <br />
+                <s:if test="hasActionMessages()">
+                    <span class="notification is-info is-small"><s:actionmessage /></span>
+                </s:if>
+            </div>
 
             <div class="columns">
 
                 <div class="column">
-
-                    <h2 class="subtitle">Se connecter</h2>
-                    <span class="has-text-danger is-bold"><s:actionerror /></span>
 
                     <s:form action="doLogin" namespace="/login" method="POST">
                         <div class="field">
