@@ -19,7 +19,7 @@
 
                     <span class="has-text-danger"><b><s:actionerror /></b></span>
 
-                    <s:form action="doAddSpot" method="POST">
+                    <s:form action="doAddSpot" method="POST" namespace="/gestion/spots">
                         <s:hidden name="topoId" value="%{topo.topoId}" />
                         <div class="field">
                             <div class="control">

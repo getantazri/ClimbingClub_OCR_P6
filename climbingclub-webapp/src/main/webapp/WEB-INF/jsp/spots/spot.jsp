@@ -11,15 +11,15 @@
 
             <h1 class="title"><s:property value="spot.spotNom"/> &nbsp;
                 <s:if test="%{#session.user.utilisateurId == spot.topo.proprietaire.utilisateurId || #session.user.utilisateurId == 1}">
-                    <s:a action="doAddSecteur" namespace="/secteurs" cssClass="button is-primary is-small">
+                    <s:a action="doAddSecteur" namespace="/gestion/secteurs" cssClass="button is-primary is-small">
                         <s:param name="spot.spotId" value="spot.spotId"/>
                         <span><b>Ajouter un secteur</b></span>
                     </s:a>
-                    <s:a action="doGetSpotToUpdate" namespace="/spots" cssClass="button is-info is-small">
+                    <s:a action="doGetSpotToUpdate" namespace="/gestion/spots" cssClass="button is-info is-small">
                         <s:param name="spotId" value="spot.spotId"/>
                         <span><b>Modifier le spot</b></span>
                     </s:a>
-                    <s:a action="doDeleteSpot" namespace="/spots" cssClass="button is-danger is-small">
+                    <s:a action="doDeleteSpot" namespace="/gestion/spots" cssClass="button is-danger is-small">
                         <s:param name="spotId" value="spot.spotId"/>
                         <span><b>Supprimer le spot</b></span>
                     </s:a>

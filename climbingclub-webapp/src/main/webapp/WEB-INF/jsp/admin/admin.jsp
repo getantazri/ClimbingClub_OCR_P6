@@ -12,8 +12,16 @@
             <h1 class="title">Administration</h1>
 
             <div class="columns">
-                <div class="column"><s:actionerror /></div>
-                <div class="column"><s:actionmessage /></div>
+                <s:if test="hasActionErrors()">
+                    <div class="welcome">
+                        <s:actionerror/>
+                    </div>
+                </s:if>
+                <s:if test="hasActionMessages()">
+                    <div class="welcome">
+                        <s:actionmessage/>
+                    </div>
+                </s:if>
             </div>
 
             <h2 class="subtitle">Gestion du contenu</h2>

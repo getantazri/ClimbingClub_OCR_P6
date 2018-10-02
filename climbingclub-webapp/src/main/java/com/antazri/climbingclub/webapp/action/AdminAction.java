@@ -5,6 +5,8 @@ import com.antazri.climbingclub.model.beans.*;
 import com.antazri.climbingclub.webapp.services.contract.*;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -34,6 +36,8 @@ public class AdminAction extends ActionSupport {
 
     @Autowired
     private IStatutBo statutBo;
+
+    Logger logger = LogManager.getLogger();
 
     // =======================================================================
     // Attributs de l'action
@@ -325,10 +329,12 @@ public class AdminAction extends ActionSupport {
 
                 if (row < 0) {
                     addActionError("Erreur : dans l'ajout de l'utilisateur");
+                    logger.warn("Erreur dans la requête SQL INSERT INTO (table 'utilisateur')");
                     return ActionSupport.ERROR;
                 } else {
                     if (!password.equals(passwordConfirmed)) {
                         addActionError("Erreur : les mots de passe ne sont pas similaires");
+                        logger.error("Erreur utilisateur dans les attributs 'password' et 'passwordConfirmed'");
                         return ActionSupport.ERROR;
                     } else {
                         addActionMessage("Nouvel utilisateur ajouté !");
@@ -337,6 +343,7 @@ public class AdminAction extends ActionSupport {
                 }
             } catch (Exception pE) {
                 addActionError("Erreur dans les informations de l'utilisateur");
+                logger.warn("Informations saisies non complètes ou éronnées par rapport aux attendus de la base de données", pE);
                 return ActionSupport.ERROR;
             }
         }
@@ -350,6 +357,7 @@ public class AdminAction extends ActionSupport {
         if (utilisateurId > 0) {
             utilisateur = compteUtilisateurService.findUtilisateurById(utilisateurId);
         } else {
+            logger.warn("Utilisateur introuvable (utilisateurId inexistant");
             return ActionSupport.ERROR;
         }
 
@@ -370,14 +378,17 @@ public class AdminAction extends ActionSupport {
 
                 if (row > 0) {
                     utilisateur = compteUtilisateurService.findUtilisateurByPseudo(utilisateur.getPseudo());
+                    addActionMessage("Profil mis à jour");
                     vResult = ActionSupport.SUCCESS;
                 } else {
                     addActionError("Le profil n'a pas pu être mis à jour");
+                    logger.warn("Erreur dans la requête SQL UPDATE (table 'utilisateur')");
                     vResult = ActionSupport.ERROR;
                 }
             }
         } catch (Exception pE) {
             addActionError("Une erreur est survenue lors du chargement de votre profile");
+            logger.error("le profil n'a pas été mis à jour : informations manquantes ou éronnées dans le formulaire", pE);
             vResult = ActionSupport.ERROR;
         }
 
@@ -386,12 +397,12 @@ public class AdminAction extends ActionSupport {
 
     public String doDeleteUtilisateur() {
         if (utilisateurId > 0) {
-
             try {
                 compteUtilisateurService.deleteUtilisateur(utilisateurId);
                 return ActionSupport.SUCCESS;
             } catch (Exception pE) {
                 addActionError("Le compte est introuvable ou a déjà été supprimé");
+                logger.error("Utilisateur introuvable dans la base de données", pE);
                 return ActionSupport.ERROR;
             }
         }

@@ -11,11 +11,11 @@
 
             <h1 class="title"><s:property value="voie.voieNom"/> &nbsp;
                 <s:if test="%{#session.user.utilisateurId == voie.secteur.spot.topo.proprietaire.utilisateurId || #session.user.utilisateurId == 1}">
-                    <s:a action="doGetVoieToUpdate" namespace="/voies" cssClass="button is-info is-small">
+                    <s:a action="doGetVoieToUpdate" namespace="/gestion/voies" cssClass="button is-info is-small">
                         <s:param name="voieId" value="voieId"/>
                         <span><b>Modifier la voie</b></span>
                     </s:a>
-                    <s:a action="doDeleteVoie" namespace="/voies" cssClass="button is-danger is-small">
+                    <s:a action="doDeleteVoie" namespace="/gestion/voies" cssClass="button is-danger is-small">
                         <s:param name="voieId" value="voieId"/>
                         <span><b>Supprimer la voie</b></span>
                     </s:a>

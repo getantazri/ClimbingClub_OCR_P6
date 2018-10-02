@@ -136,6 +136,11 @@ public class LoginAction extends ActionSupport implements SessionAware {
                 vResult = ActionSupport.ERROR;
             } else {
                 this.session.put("user", utilisateur);
+
+                if (utilisateur.getUtilisateurId() == 1) {
+                    this.session.put("admin", utilisateur);
+                }
+
                 vResult = ActionSupport.SUCCESS;
             }
         }

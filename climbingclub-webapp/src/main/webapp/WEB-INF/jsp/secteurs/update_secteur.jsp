@@ -19,7 +19,7 @@
 
                     <span class="has-text-danger"><b><s:actionerror /></b></span>
 
-                    <s:form action="doUpdateSecteur" method="POST">
+                    <s:form action="doUpdateSecteur" method="POST" namespace="/gestion/secteurs">
                         <s:hidden name="secteur.secteurId" value="%{secteur.secteurId}" />
                         <s:hidden name="secteur.spot.spotId" value="%{secteur.spot.spotId}" />
                         <div class="field">

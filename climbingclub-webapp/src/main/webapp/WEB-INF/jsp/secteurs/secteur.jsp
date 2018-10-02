@@ -11,15 +11,15 @@
 
             <h1 class="title"><s:property value="secteur.secteurNom"/> &nbsp;
                 <s:if test="%{#session.user.utilisateurId == secteur.spot.topo.proprietaire.utilisateurId || #session.user.utilisateurId == 1}">
-                    <s:a action="doAddVoie" namespace="/voies" cssClass="button is-primary is-small">
+                    <s:a action="doAddVoie" namespace="/gestion/voies" cssClass="button is-primary is-small">
                         <s:param name="secteurId" value="secteur.secteurId"/>
                         <span><b>Ajouter une voie</b></span>
                     </s:a>
-                    <s:a action="doGetSecteurToUpdate" namespace="/secteurs" cssClass="button is-info is-small">
+                    <s:a action="doGetSecteurToUpdate" namespace="/gestion/secteurs" cssClass="button is-info is-small">
                         <s:param name="secteur.secteurId" value="secteur.secteurId"/>
                         <span><b>Modifier le secteur</b></span>
                     </s:a>
-                    <s:a action="doDeleteSecteur" namespace="/secteurs" cssClass="button is-danger is-small">
+                    <s:a action="doDeleteSecteur" namespace="/gestion/secteurs" cssClass="button is-danger is-small">
                         <s:param name="secteur.secteurId" value="secteur.secteurId"/>
                         <span><b>Supprimer le secteur</b></span>
                     </s:a>

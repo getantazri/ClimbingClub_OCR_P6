@@ -57,7 +57,7 @@
 
                         <h2 class="subtitle">Mes topos
                             <s:a action="doAddTopo" cssClass="button is-info is-small" title="Créer un topo"
-                                 namespace="/topos">
+                                 namespace="/gestion/topos">
                                 <span><b>Créer un topo</b></span>
                             </s:a>
                         </h2>
@@ -83,13 +83,13 @@
 
                                     </td>
                                     <td>
-                                        <s:a action="doGetTopoToUpdate" namespace="/topos">
+                                        <s:a action="doGetTopoToUpdate" namespace="/gestion/topos">
                                             <s:param name="topoId" value="topoId"/>
                                             <i class="far fa-edit has-text-primary has-text-centered"></i>
                                         </s:a>
                                     </td>
                                     <td>
-                                        <s:a action="doDeleteTopo" namespace="/topos">
+                                        <s:a action="doDeleteTopo" namespace="/gestion/topos">
                                             <s:param name="topoId" value="topoId"/>
                                             <i class="fas fa-times has-text-danger has-text-centered"></i>
                                         </s:a>
@@ -128,13 +128,13 @@
                                         <s:property value="topo.topoNom"/>
                                     </td>
                                     <td>
-                                        <s:a action="doGetSpotToUpdate" namespace="/spots">
+                                        <s:a action="doGetSpotToUpdate" namespace="/gestion/spots">
                                             <s:param name="spotId" value="spotId"/>
                                             <i class="far fa-edit has-text-primary has-text-centered"></i>
                                         </s:a>
                                     </td>
                                     <td>
-                                        <s:a action="doDeleteSpot" namespace="/spots">
+                                        <s:a action="doDeleteSpot" namespace="/gestion/spots">
                                             <s:param name="spotId" value="spotId"/>
                                             <i class="fas fa-times has-text-danger has-text-centered"></i>
                                         </s:a>
@@ -173,13 +173,13 @@
                                         <s:property value="spot.spotNom" />
                                     </td>
                                     <td>
-                                        <s:a action="doGetSecteurToUpdate" namespace="/secteurs">
+                                        <s:a action="doGetSecteurToUpdate" namespace="/gestion/secteurs">
                                             <s:param name="secteur.secteurId" value="secteurId"/>
                                             <i class="far fa-edit has-text-primary has-text-centered"></i>
                                         </s:a>
                                     </td>
                                     <td>
-                                        <s:a action="doDeleteSecteur" namespace="/secteurs">
+                                        <s:a action="doDeleteSecteur" namespace="/gestion/secteurs">
                                             <s:param name="secteur.secteurId" value="secteurId"/>
                                             <i class="fas fa-times has-text-danger has-text-centered"></i>
                                         </s:a>
@@ -218,13 +218,13 @@
                                         <s:property value="secteur.secteurNom"/>
                                     </td>
                                     <td>
-                                        <s:a action="doGetVoieToUpdate" namespace="/voies">
+                                        <s:a action="doGetVoieToUpdate" namespace="/gestion/voies">
                                             <s:param name="voieId" value="voieId"/>
                                             <i class="far fa-edit has-text-primary has-text-centered"></i>
                                         </s:a>
                                     </td>
                                     <td>
-                                        <s:a action="doDeleteVoie" namespace="/voies">
+                                        <s:a action="doDeleteVoie" namespace="/gestion/voies">
                                             <s:param name="voieId" value="voieId"/>
                                             <i class="fas fa-times has-text-danger has-text-centered"></i>
                                         </s:a>

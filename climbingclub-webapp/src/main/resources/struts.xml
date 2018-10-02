@@ -12,11 +12,12 @@
         <!-- Action INDEX par défaut -->
         <default-action-ref name="index" />
         <action name="index">
-            <result>/WEB-INF/jsp/index.jsp</result>
+            <result name="success">/WEB-INF/jsp/index.jsp</result>
+            <result name="error" type="redirectAction">error</result>
         </action>
 
-        <action name="error">
-            <result>/WEB-INF/jsp/error.jsp</result>
+        <action name="error" >
+            <result name="error">/WEB-INF/jsp/error.jsp</result>
         </action>
 
         <!-- Action POST SPOT COMMENT -->
@@ -63,7 +64,6 @@
                 method="doGetSpotCommentaireToEdit">
             <result name="input">/WEB-INF/jsp/edit_commentaire.jsp</result>
             <result name="success">/WEB-INF/jsp/edit_commentaire.jsp</result>
-            <result name="error" type="redirect">error.action</result>
         </action>
 
         <!-- Action GET TOPO COMMENTAIRE TO EDIT -->
@@ -72,7 +72,6 @@
                 method="doGetTopoCommentaireToEdit">
             <result name="input">/WEB-INF/jsp/edit_commentaire.jsp</result>
             <result name="success">/WEB-INF/jsp/edit_commentaire.jsp</result>
-            <result name="error" type="redirect">error.action</result>
         </action>
 
         <!-- Action EDIT SPOT COMMENTAIRE -->
@@ -152,9 +151,152 @@
     </package>
 
     <!-- =============================================================== -->
-    <!-- Package TOPOS -->
+    <!-- Package PUBLIC -->
+    <!-- =============================================================== -->
+    <package name="public" extends="cclub-default" namespace="/login">
+        <!-- Action LOGIN -->
+        <action name="doLogin"
+                class="com.antazri.climbingclub.webapp.action.LoginAction"
+                method="doLogin">
+            <result name="input">/WEB-INF/jsp/login.jsp</result>
+            <result name="success" type="redirect">/compte/doGetCompte.action</result>
+            <result name="error">/WEB-INF/jsp/login.jsp</result>
+        </action>
+
+        <!-- Action LOGOUT -->
+        <action name="doLogout"
+                class="com.antazri.climbingclub.webapp.action.LoginAction"
+                method="doLogout">
+            <result type="redirectAction">/login/doLogin</result>
+        </action>
+
+        <!-- Action INSCRIPTION -->
+        <action name="doGetInscription"
+                class="com.antazri.climbingclub.webapp.action.CompteUtilisateurAction"
+                method="doGetInscription">
+            <result name="success">/WEB-INF/jsp/inscription.jsp</result>
+        </action>
+
+        <action name="doInscription"
+                class="com.antazri.climbingclub.webapp.action.CompteUtilisateurAction"
+                method="doInscription">
+
+            <result name="success" type="redirectAction">/compte/doGetCompte</result>
+            <result name="error">/WEB-INF/jsp/inscription.jsp</result>
+        </action>
+    </package>
+
+    <!-- =============================================================== -->
+    <!-- Package ABSTRACT PRIVATE -->
+    <!-- =============================================================== -->
+    <package name="private" abstract="true" extends="cclub-default">
+        <interceptors>
+            <interceptor name="auth" class="com.antazri.climbingclub.webapp.interceptor.AuthInterceptor" />
+
+            <interceptor-stack name="authenticatedStack">
+                <interceptor-ref name="auth" />
+                <interceptor-ref name="defaultStack" />
+            </interceptor-stack>
+        </interceptors>
+
+        <default-interceptor-ref name="authenticatedStack" />
+
+        <global-results>
+            <result name="error">error.action</result>
+        </global-results>
+    </package>
+
+    <!-- =============================================================== -->
+    <!-- Package USER -->
+    <!-- =============================================================== -->
+    <package name="user" extends="public" namespace="/compte">
+        <!-- Action ACCES COMPTE -->
+        <action name="doGetCompte"
+                class="com.antazri.climbingclub.webapp.action.LoginAction"
+                method="doGetCompte">
+
+            <result name="input">/WEB-INF/jsp/user/compte.jsp</result>
+            <result name="success">/WEB-INF/jsp/user/compte.jsp</result>
+            <result name="error" type="redirectAction">/login/doLogin</result>
+        </action>
+
+        <!-- Action EDIT PROFILE -->
+        <action name="doEditProfile"
+                class="com.antazri.climbingclub.webapp.action.CompteUtilisateurAction"
+                method="doEditProfile">
+
+            <result name="input">
+                <param name="location">/WEB-INF/jsp/user/edit_profile.jsp</param>
+                <param name="utilisateurId">${utilisateurId}</param>
+            </result>
+            <result name="success" type="redirect">doGetCompte.action</result>
+            <result name="error" type="redirectAction">
+                <param name="actionName">error</param>
+            </result>
+        </action>
+
+        <!-- Action UPDATE PROFILE -->
+        <action name="doUpdateProfile"
+                class="com.antazri.climbingclub.webapp.action.CompteUtilisateurAction"
+                method="doUpdateProfile">
+
+            <result name="input">/WEB-INF/jsp/user/edit_profile.jsp</result>
+            <result name="success" type="redirect">doGetCompte.action</result>
+            <result name="error" type="redirect">doGetCompte.action</result>
+        </action>
+
+        <!-- Action EDIT PASSWORD -->
+        <action name="doEditPassword"
+                class="com.antazri.climbingclub.webapp.action.CompteUtilisateurAction"
+                method="doEditPassword">
+            <result name="input">
+                <param name="location">/WEB-INF/jsp/user/edit_password.jsp</param>
+                <param name="utilisateurId">${utilisateurId}</param>
+            </result>
+            <result name="success" type="redirect">doGetCompte.action</result>
+            <result name="error" type="redirect">doGetCompte.action</result>
+        </action>
+
+        <!-- Action UPDATE PASSWORD -->
+        <action name="doUpdatePassword"
+                class="com.antazri.climbingclub.webapp.action.CompteUtilisateurAction"
+                method="doUpdatePassword">
+
+            <result name="input">/WEB-INF/jsp/user/edit_password.jsp</result>
+            <result name="success" type="redirect">doGetCompte.action</result>
+            <result name="error" type="redirect">doGetCompte.action</result>
+        </action>
+    </package>
+
+    <!-- =============================================================== -->
+    <!-- Package GESTION TOPOS -->
     <!-- =============================================================== -->
     <package name="topos" extends="cclub-default" namespace="/topos">
+        <!-- Action TOPOS LIST -->
+        <action name="doToposList"
+                class="com.antazri.climbingclub.webapp.action.GestionTopoAction"
+                method="doListAllTopos">
+
+            <result>/WEB-INF/jsp/topos/topos.jsp</result>
+        </action>
+
+        <!-- Action TOPO DETAILS -->
+        <action name="doTopoDetails"
+                class="com.antazri.climbingclub.webapp.action.GestionTopoAction"
+                method="doTopoDetails">
+
+            <result name="success">/WEB-INF/jsp/topos/topo.jsp</result>
+            <result name="error" type="redirectAction">
+                <param name="actionName">error</param>
+            </result>
+
+        </action>
+    </package>
+
+    <!-- =============================================================== -->
+    <!-- Package TOPOS -->
+    <!-- =============================================================== -->
+    <package name="gestion-topos" extends="private" namespace="/gestion/topos">
         <!-- Action TOPOS LIST -->
         <action name="doToposList"
                 class="com.antazri.climbingclub.webapp.action.GestionTopoAction"
@@ -238,7 +380,12 @@
             <result name="success">/WEB-INF/jsp/spots/spot.jsp</result>
             <result name="error">/WEB-INF/jsp/error.jsp</result>
         </action>
+    </package>
 
+    <!-- =============================================================== -->
+    <!-- Package GESTION SPOTS -->
+    <!-- =============================================================== -->
+    <package name="gestion-spots" extends="private" namespace="/gestion/spots">
         <!-- Action ADD SPOT -->
         <action name="doAddSpot"
                 class="com.antazri.climbingclub.webapp.action.GestionSpotAction"
@@ -297,7 +444,7 @@
     <!-- =============================================================== -->
     <!-- Package SECTEURS -->
     <!-- =============================================================== -->
-    <package name="secteurs" extends="cclub-default" namespace="/secteurs">
+    <package name="secteurs" extends="private" namespace="/secteurs">
         <!-- Action SECTEUR DETAILS -->
         <action name="doSecteurDetails"
                 class="com.antazri.climbingclub.webapp.action.GestionSecteurAction"
@@ -306,7 +453,12 @@
             <result name="success">/WEB-INF/jsp/secteurs/secteur.jsp</result>
             <result name="error">/WEB-INF/jsp/error.jsp</result>
         </action>
+    </package>
 
+    <!-- =============================================================== -->
+    <!-- Package GESTION SECTEURS -->
+    <!-- =============================================================== -->
+    <package name="gestion-secteurs" extends="private" namespace="/gestion/secteurs">
         <!-- Action ADD SECTEUR -->
         <action name="doAddSecteur"
                 class="com.antazri.climbingclub.webapp.action.GestionSecteurAction"
@@ -361,7 +513,7 @@
     <!-- =============================================================== -->
     <!-- Package VOIES -->
     <!-- =============================================================== -->
-    <package name="voies" extends="cclub-default" namespace="/voies">
+    <package name="voies" extends="private" namespace="/voies">
         <!-- Action VOIE DETAILS -->
         <action name="doVoieDetails"
                 class="com.antazri.climbingclub.webapp.action.GestionVoieAction"
@@ -370,7 +522,12 @@
             <result name="success">/WEB-INF/jsp/voies/voie.jsp</result>
             <result name="error">/WEB-INF/jsp/error.jsp</result>
         </action>
+    </package>
 
+    <!-- =============================================================== -->
+    <!-- Package GESTION VOIES -->
+    <!-- =============================================================== -->
+    <package name="gestion-voies" extends="private" namespace="/gestion/voies">
         <!-- Action ADD VOIE -->
         <action name="doAddVoie"
                 class="com.antazri.climbingclub.webapp.action.GestionVoieAction"
@@ -474,7 +631,7 @@
     <!-- =============================================================== -->
     <!-- Package RESERVATIONS -->
     <!-- =============================================================== -->
-    <package name="reservations" extends="cclub-default" namespace="/reservations">
+    <package name="reservations" extends="private" namespace="/reservations">
         <!-- Action LIST RESERVATIONS -->
         <action name="doListReservations"
                 class="com.antazri.climbingclub.webapp.action.ReservationAction"
@@ -551,112 +708,20 @@
     </package>
 
     <!-- =============================================================== -->
-    <!-- Package PUBLIC -->
-    <!-- =============================================================== -->
-    <package name="public" extends="cclub-default" namespace="/login">
-        <!-- Action LOGIN -->
-        <action name="doLogin"
-                class="com.antazri.climbingclub.webapp.action.LoginAction"
-                method="doLogin">
-            <result name="input">/WEB-INF/jsp/login.jsp</result>
-            <result name="success" type="redirect">/compte/doGetCompte.action</result>
-            <result name="error">/WEB-INF/jsp/login.jsp</result>
-        </action>
-
-        <!-- Action LOGOUT -->
-        <action name="doLogout"
-                class="com.antazri.climbingclub.webapp.action.LoginAction"
-                method="doLogout">
-            <result type="redirectAction">/login/doLogin</result>
-        </action>
-
-        <!-- Action INSCRIPTION -->
-        <action name="doGetInscription"
-                class="com.antazri.climbingclub.webapp.action.CompteUtilisateurAction"
-                method="doGetInscription">
-            <result name="success">/WEB-INF/jsp/inscription.jsp</result>
-        </action>
-
-        <action name="doInscription"
-                class="com.antazri.climbingclub.webapp.action.CompteUtilisateurAction"
-                method="doInscription">
-
-            <interceptor-ref name="store">
-                <param name="operationMode">STORE</param>
-            </interceptor-ref>
-            <interceptor-ref name="defaultStack" />
-
-            <result name="success" type="redirectAction">/compte/doGetCompte</result>
-            <result name="error">/WEB-INF/jsp/inscription.jsp</result>
-        </action>
-    </package>
-
-    <!-- =============================================================== -->
-    <!-- Package USER -->
-    <!-- =============================================================== -->
-    <package name="user" extends="public" namespace="/compte">
-        <!-- Action ACCES COMPTE -->
-        <action name="doGetCompte"
-                class="com.antazri.climbingclub.webapp.action.LoginAction"
-                method="doGetCompte">
-
-            <result name="input">/WEB-INF/jsp/user/compte.jsp</result>
-            <result name="success">/WEB-INF/jsp/user/compte.jsp</result>
-            <result name="error" type="redirectAction">/login/doLogin</result>
-        </action>
-
-        <!-- Action EDIT PROFILE -->
-        <action name="doEditProfile"
-                class="com.antazri.climbingclub.webapp.action.CompteUtilisateurAction"
-                method="doEditProfile">
-
-            <result name="input">
-                <param name="location">/WEB-INF/jsp/user/edit_profile.jsp</param>
-                <param name="utilisateurId">${utilisateurId}</param>
-            </result>
-            <result name="success" type="redirect">doGetCompte.action</result>
-            <result name="error" type="redirectAction">
-                <param name="actionName">error</param>
-            </result>
-        </action>
-
-        <!-- Action UPDATE PROFILE -->
-        <action name="doUpdateProfile"
-                class="com.antazri.climbingclub.webapp.action.CompteUtilisateurAction"
-                method="doUpdateProfile">
-
-            <result name="input">/WEB-INF/jsp/user/edit_profile.jsp</result>
-            <result name="success" type="redirect">doGetCompte.action</result>
-            <result name="error" type="redirect">doGetCompte.action</result>
-        </action>
-
-        <!-- Action EDIT PASSWORD -->
-        <action name="doEditPassword"
-                class="com.antazri.climbingclub.webapp.action.CompteUtilisateurAction"
-                method="doEditPassword">
-            <result name="input">
-                <param name="location">/WEB-INF/jsp/user/edit_password.jsp</param>
-                <param name="utilisateurId">${utilisateurId}</param>
-            </result>
-            <result name="success" type="redirect">doGetCompte.action</result>
-            <result name="error" type="redirect">doGetCompte.action</result>
-        </action>
-
-        <!-- Action UPDATE PASSWORD -->
-        <action name="doUpdatePassword"
-                class="com.antazri.climbingclub.webapp.action.CompteUtilisateurAction"
-                method="doUpdatePassword">
-
-            <result name="input">/WEB-INF/jsp/user/edit_password.jsp</result>
-            <result name="success" type="redirect">doGetCompte.action</result>
-            <result name="error" type="redirect">doGetCompte.action</result>
-        </action>
-    </package>
-
-    <!-- =============================================================== -->
     <!-- Package ADMIN -->
     <!-- =============================================================== -->
-    <package name="admin" extends="user" namespace="/admin">
+    <package name="admin" extends="private" namespace="/admin">
+        <interceptors>
+            <interceptor name="authAdmin" class="com.antazri.climbingclub.webapp.interceptor.AdminInterceptor" />
+
+            <interceptor-stack name="AdminStack">
+                <interceptor-ref name="authAdmin" />
+                <interceptor-ref name="defaultStack" />
+            </interceptor-stack>
+        </interceptors>
+
+        <default-interceptor-ref name="AdminStack" />
+
         <!-- Action ACCES ADMIN -->
         <action name="doLoginAdmin">
             <result name="success">/WEB-INF/jsp/admin/admin.jsp</result>

@@ -17,7 +17,7 @@
 
                 <div class="column">
 
-                    <s:form action="doAddTopo" method="POST">
+                    <s:form action="doAddTopo" method="POST" namespace="/gestion/topos">
                         <s:hidden name="topo.proprietaire.utilisateurId" value="%{#session.user.utilisateurId}" />
                         <div class="field">
                             <div class="control">
