@@ -100,7 +100,10 @@
                             <s:iterator value="voies">
                                 <tr>
                                     <td>
-                                        <s:property value="voieNom"/>
+                                        <s:a action="doVoieDetails" namespace="/voies" cssClass="no-color-change">
+                                            <s:param name="voieId" value="voieId"/>
+                                            <s:property value="voieNom"/>
+                                        </s:a>
                                     </td>
                                     <td>
                                         <s:property value="voieDescription"/>
