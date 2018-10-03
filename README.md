@@ -1,11 +1,13 @@
 # ClimbingClub_OCR_P6
 Projet 6 du Parcours Développeur d'Application Java @ Openclassrooms.com
 
+
 ## Présentation
 Cette application web est un site communautaire de partage de Topo d'escalade. Les utilisateurs sont invités à 
 s'inscrire pour partager leurs topos ou en réserver d'autres. 
 Un système d'administration permet aux administrateurs de gérer l'ensemble des contenus et des 
 utilisateurs en dehors de la partie privée destinée aux membres (et propriétaires de topos).
+
 
 ## Structure du projet
 Le projet se compose de plusieurs modules :
@@ -17,6 +19,7 @@ l'application
 - Technical : permet de gérer toute la partie technique, notamment les logs de l'application
 - Webapp : contient l'ensemble de la webapp dont les éléments Struts (fichier de configuration,
 Actions, Services, JSP)
+
 
 ## Technique
 Le projet utilise le JDK 8 de Java (version 1.8.171) avec :
@@ -33,6 +36,7 @@ dossier DOCS/DATA).
 Les mots de passe sont enregistré et hashé à l'aide BCrypt.
 
 L'application est à déployée avec Tomcat 9.0.12.
+
 
 ## Fonctionnalités
 - Créer un compte utilisateur
@@ -73,6 +77,7 @@ primaire étant automatiqué, le script 01B permet de redémarrer les séquences
 3 - Package
 2 Artifacts peuvent être construits pour son déploiement : WAR et WAR Exploded. Pour 
 une utilisation depuis l'IDE, préférer le WAR Exploded.
+
 
 ## Administration / Gestion des sources
 Un Administrateur est déjà enregistré dans la base de données avec le jeu de données 
