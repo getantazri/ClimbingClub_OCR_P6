@@ -1,0 +1,10 @@
+ALTER SEQUENCE public.cotation_cotation_id_seq RESTART WITH 1;
+ALTER SEQUENCE public.statut_statut_id_seq RESTART WITH 1;
+ALTER SEQUENCE public.utilisateur_utilisateur_id_seq RESTART WITH 1;
+ALTER SEQUENCE public.region_region_id_seq RESTART WITH 1;
+ALTER SEQUENCE public.topo_topo_id_seq RESTART WITH 1;
+ALTER SEQUENCE public.spot_spot_id_seq RESTART WITH 1;
+ALTER SEQUENCE public.secteur_secteur_id_seq RESTART WITH 1;
+ALTER SEQUENCE public.voie_voie_id_seq RESTART WITH 1;
+ALTER SEQUENCE public.emprunt_emprunt_id_seq RESTART WITH 1;
+ALTER SEQUENCE public.commentaire_commentaire_id_seq RESTART WITH 1;
