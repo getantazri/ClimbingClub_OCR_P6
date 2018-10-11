@@ -78,6 +78,14 @@ primaire étant automatiqué, le script 01B permet de redémarrer les séquences
 2 Artifacts peuvent être construits pour son déploiement : WAR et WAR Exploded. Pour 
 une utilisation depuis l'IDE, préférer le WAR Exploded.
 
+Pour packager l'application, utiliser l'outil de gestion du cycle Maven de l'IDE ou 
+lancer la ligne de commande dans un terminal
+
+```
+mvn package
+```
+
+Le fichier WAR sera généré dans le dossier "target" du module "climbingclub-webapp".
 
 ## Administration / Gestion des sources
 Un Administrateur est déjà enregistré dans la base de données avec le jeu de données 

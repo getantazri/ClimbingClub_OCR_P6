@@ -16,6 +16,7 @@
 
     <!-- Maven configuration -->
     <artifactId>climbingclub-webapp</artifactId>
+    <packaging>war</packaging>
 
     <!-- Global information -->
     <name>climbingclub-webapp</name>
@@ -100,4 +101,11 @@
             <artifactId>jbcrypt</artifactId>
         </dependency>
     </dependencies>
+
+    <!-- =============================================================== -->
+    <!-- Dependencies Management -->
+    <!-- =============================================================== -->
+    <build>
+        <finalName>ClimbingClub</finalName>
+    </build>
 </project>
