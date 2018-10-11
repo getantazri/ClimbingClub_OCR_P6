@@ -121,30 +121,32 @@ public class CompteUtilisateurAction extends ActionSupport {
 
     public String doInscription() {
         clearErrorsAndMessages();
-        String vResult;
 
-        try {
-            int row = compteUtilisateurService.addUtilisateur(nom, prenom, pseudo, password, email, telephone, 2);
-
-            if (row < 0) {
-                vResult = ActionSupport.ERROR;
-                addActionError("Erreur : l'inscription n'a pas été enregistrée");
+        if (!StringUtils.isAnyBlank(nom, prenom, pseudo, password, passwordConfirmed, email, telephone)) {
+            if (!password.equals(passwordConfirmed)) {
+                addActionError("Erreur : les mots de passe ne sont pas similaires");
+                return ActionSupport.ERROR;
             } else {
-                if (!password.equals(passwordConfirmed)) {
-                    vResult = ActionSupport.ERROR;
-                    addActionError("Erreur : les mots de passe ne sont pas similaires");
-                } else {
-                    vResult = ActionSupport.SUCCESS;
-                    addActionMessage("Inscription validée : bienvenue !");
+                try {
+                    int row = compteUtilisateurService.addUtilisateur(nom, prenom, pseudo, password, email, telephone, 2);
+
+                    if (row < 0) {
+                        addActionError("Erreur : l'inscription n'a pas été enregistrée");
+                        return ActionSupport.ERROR;
+                    } else {
+                        addActionMessage("Inscription validée : bienvenue !");
+                        return ActionSupport.SUCCESS;
+                    }
+                } catch (Exception pE) {
+                    addActionError("Erreur dans vos informations pour l'inscription");
+                    logger.error("Informations renseignées pour la création du profil invalides", pE);
+                    return ActionSupport.ERROR;
                 }
             }
-        } catch (Exception pE) {
-            addActionError("Erreur dans vos informations pour l'inscription");
-            logger.error("Informations renseignées pour la création du profil invalides", pE);
-            vResult = ActionSupport.ERROR;
         }
 
-        return vResult;
+        addActionError("Il manque des informations pour votre inscription");
+        return ActionSupport.ERROR;
     }
 
     public String doEditProfile() {
