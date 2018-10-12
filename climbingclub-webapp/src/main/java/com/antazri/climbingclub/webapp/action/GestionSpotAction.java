@@ -142,11 +142,13 @@ public class GestionSpotAction extends ActionSupport {
         topo = gestionTopoService.findTopoById(topoId);
 
         if (spot != null) {
-            try {
                 if (spot.getSpotNom().replace(" ", "").length() < 3 || StringUtils.isAnyBlank(spot.getSpotNom(), spot.getSpotDescription())) {
                     addActionError("Les informations ne sont pas valides");
                     return ActionSupport.INPUT;
                 } else {
+
+                    try {
+
                     int row = gestionSpotService.addSpot(spot.getSpotNom(), spot.getSpotDescription(), spot.getHauteur(), topo.getTopoId());
 
                     if (row > 0) {
@@ -157,12 +159,12 @@ public class GestionSpotAction extends ActionSupport {
                         addActionError("Votre spot n'a pas été ajouté");
                         return ActionSupport.ERROR;
                     }
-                }
+                } catch (Exception pE) {
+                        this.addActionError("Erreur dans l'ajout de votre spot");
+                        logger.error("Informations renseignées pour le spot invalides", pE);
+                        return ActionSupport.ERROR;
+                    }
 
-            } catch (Exception pE) {
-                this.addActionError("Erreur dans l'ajout de votre spot");
-                logger.error("Informations renseignées pour le spot invalides", pE);
-                return ActionSupport.ERROR;
             }
         }
 

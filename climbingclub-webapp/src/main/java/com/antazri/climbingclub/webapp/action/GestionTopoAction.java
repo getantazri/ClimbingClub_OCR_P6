@@ -172,7 +172,7 @@ public class GestionTopoAction extends ActionSupport {
                     addActionError("Le nom de votre topo n'est pas valide");
                     vResult = ActionSupport.INPUT;
                 } else {
-                    int row = gestionTopoService.addTopo(topo.getTopoNom(), topo.getRegion().getRegionId(), topo.getProprietaire().getUtilisateurId());
+                    int row = gestionTopoService.addTopo(topo.getTopoNom(), topo.getRegion().getRegionId(), topo.getProprietaire().getUtilisateurId(), topo.isDisponible());
 
                     if (row == 1) {
                         vResult = ActionSupport.SUCCESS;
@@ -217,7 +217,7 @@ public class GestionTopoAction extends ActionSupport {
                 addActionError("Le nom de votre topo n'est pas valide");
                 vResult = ActionSupport.INPUT;
             } else {
-                int row = gestionTopoService.updateTopo(topo.getTopoId(), topo.getTopoNom(), topo.getRegion().getRegionId(), topo.getProprietaire().getUtilisateurId());
+                int row = gestionTopoService.updateTopo(topo.getTopoId(), topo.getTopoNom(), topo.getRegion().getRegionId(), topo.getProprietaire().getUtilisateurId(), topo.isDisponible());
 
                 if (row > 0) {
                     vResult = ActionSupport.SUCCESS;

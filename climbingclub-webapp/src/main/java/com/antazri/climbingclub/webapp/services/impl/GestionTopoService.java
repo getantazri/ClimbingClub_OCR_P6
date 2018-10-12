@@ -121,9 +121,10 @@ public class GestionTopoService implements IGestionTopoService {
      * @param pUtilisateurId est un Integer définissant l'identifiant unique de l'objet et attribut Utilisateur/Proprietaire de l'objet TopoBo
      * @return un Integer spécifiant le nombre de lignes ajoutées dans la base de données
      */
-    public int addTopo(String pName, int pRegionId, int pUtilisateurId) {
+    public int addTopo(String pName, int pRegionId, int pUtilisateurId, boolean pDisponible) {
         Topo topo = new Topo();
         topo.setTopoNom(pName);
+        topo.setDisponible(pDisponible);
         topo.setRegion(regionBo.findById(pRegionId));
         topo.setProprietaire(utilisateurBo.findById(pUtilisateurId));
 
@@ -139,10 +140,11 @@ public class GestionTopoService implements IGestionTopoService {
      * @param pUtilisateurId est un Integer définissant l'identifiant unique de l'objet et attribut Utilisateur/Proprietaire de l'objet Topo
      * @return un Integer spécifiant le nombre de lignes modifiées dans la base de données
      */
-    public int updateTopo(int pId, String pName, int pRegionId, int pUtilisateurId) {
+    public int updateTopo(int pId, String pName, int pRegionId, int pUtilisateurId, boolean pDisponible) {
         Topo topo = new Topo();
         topo.setTopoId(pId);
         topo.setTopoNom(pName);
+        topo.setDisponible(pDisponible);
         topo.setRegion(regionBo.findById(pRegionId));
         topo.setProprietaire(utilisateurBo.findById(pUtilisateurId));
 
