@@ -149,7 +149,12 @@ public class GestionSecteurAction extends ActionSupport {
         clearErrorsAndMessages();
 
         if (secteur.getSecteurId() > 0) {
-            secteur = gestionSecteurService.findSecteurById(secteur.getSecteurId());
+            try {
+                secteur = gestionSecteurService.findSecteurById(secteur.getSecteurId());
+            } catch (Exception pE) {
+                addActionError("Secteur introuvable");
+                return ActionSupport.ERROR;
+            }
         } else {
             addActionError("Secteur introuvable");
             return ActionSupport.ERROR;

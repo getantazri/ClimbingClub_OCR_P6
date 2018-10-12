@@ -27,6 +27,10 @@
 
                 <div class="column">
 
+                    <s:if test="%{#session.user.utilisateurId != spot.topo.proprietaire.utilisateurId}">
+                        <span class="notification is-danger is-small">Vous n'êtes pas le propriétaire</span>
+                    </s:if>
+                    <s:else>
                     <s:form action="doUpdateSpot" method="POST" namespace="/gestion/spots">
                         <s:hidden name="spot.spotId" value="%{spot.spotId}" />
                         <s:hidden name="spot.topo.topoId" value="%{spot.topo.topoId}" />
@@ -50,6 +54,7 @@
                             <s:submit value="Enregistrer les modifications"  cssClass="button is-primary" />
                         </div>
                     </s:form>
+                    </s:else>
                 </div>
 
             </div>

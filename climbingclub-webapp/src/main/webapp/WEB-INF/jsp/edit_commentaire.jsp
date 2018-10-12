@@ -32,41 +32,46 @@
 
                 <div class="column">
 
-                    <s:if test="%{topo.topoId > 0}">
-                        <s:form action="doEditTopoCommentaire" method="POST">
-                            <s:hidden name="commentaire.commentaireId" value="%{commentaire.commentaireId}"/>
-                            <s:hidden name="topoId" value="%{topo.topoId}"/>
-                            <s:hidden name="commentaire.utilisateur.utilisateurId" value="%{commentaire.utilisateur.utilisateurId}"/>
-
-                            <div class="field">
-                                <div class="control">
-                                    <s:textarea name="commentaire.contenu" label="Commentaire" requiredLabel="true"
-                                                cssClass="textarea"/>
-                                </div>
-                            </div>
-                            <div class="control add-space-top-bottom-10">
-                                <s:submit value="Enregistrer les modifications" cssClass="button is-primary"/>
-                            </div>
-
-                        </s:form>
+                    <s:if test="%{#session.user.utilisateurId != commentaire.utilisateur.utilisateurId}">
+                        <span class="notification is-danger is-small">Vous n'êtes pas le propriétaire</span>
                     </s:if>
                     <s:else>
-                        <s:form action="doEditSpotCommentaire" method="POST">
-                            <s:hidden name="commentaire.commentaireId" value="%{commentaire.commentaireId}"/>
-                            <s:hidden name="spotId" value="%{spot.spotId}"/>
-                            <s:hidden name="commentaire.utilisateur.utilisateurId" value="%{commentaire.utilisateur.utilisateurId}"/>
+                        <s:if test="%{topo.topoId > 0}">
+                            <s:form action="doEditTopoCommentaire" method="POST">
+                                <s:hidden name="commentaire.commentaireId" value="%{commentaire.commentaireId}"/>
+                                <s:hidden name="topoId" value="%{topo.topoId}"/>
+                                <s:hidden name="commentaire.utilisateur.utilisateurId" value="%{commentaire.utilisateur.utilisateurId}"/>
 
-                            <div class="field">
-                                <div class="control">
-                                    <s:textarea name="commentaire.contenu" label="Commentaire" requiredLabel="true"
-                                                cssClass="textarea"/>
+                                <div class="field">
+                                    <div class="control">
+                                        <s:textarea name="commentaire.contenu" label="Commentaire" requiredLabel="true"
+                                                    cssClass="textarea"/>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="control add-space-top-bottom-10">
-                                <s:submit value="Enregistrer les modifications" cssClass="button is-primary"/>
-                            </div>
+                                <div class="control add-space-top-bottom-10">
+                                    <s:submit value="Enregistrer les modifications" cssClass="button is-primary"/>
+                                </div>
 
-                        </s:form>
+                            </s:form>
+                        </s:if>
+                        <s:else>
+                            <s:form action="doEditSpotCommentaire" method="POST">
+                                <s:hidden name="commentaire.commentaireId" value="%{commentaire.commentaireId}"/>
+                                <s:hidden name="spotId" value="%{spot.spotId}"/>
+                                <s:hidden name="commentaire.utilisateur.utilisateurId" value="%{commentaire.utilisateur.utilisateurId}"/>
+
+                                <div class="field">
+                                    <div class="control">
+                                        <s:textarea name="commentaire.contenu" label="Commentaire" requiredLabel="true"
+                                                    cssClass="textarea"/>
+                                    </div>
+                                </div>
+                                <div class="control add-space-top-bottom-10">
+                                    <s:submit value="Enregistrer les modifications" cssClass="button is-primary"/>
+                                </div>
+
+                            </s:form>
+                        </s:else>
                     </s:else>
                 </div>
 

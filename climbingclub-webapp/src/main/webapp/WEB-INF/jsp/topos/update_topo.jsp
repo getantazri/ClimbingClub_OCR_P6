@@ -27,6 +27,10 @@
 
                 <div class="column">
 
+                    <s:if test="%{#session.user.utilisateurId != topo.proprietaire.utilisateurId}">
+                        <span class="notification is-danger is-small">Vous n'êtes pas le propriétaire</span>
+                    </s:if>
+                    <s:else>
                     <s:form action="doUpdateTopo" method="POST" namespace="/gestion/topos">
                         <s:hidden name="topo.topoId" value="%{topo.topoId}" />
                         <s:hidden name="topo.proprietaire.utilisateurId" value="%{#session.user.utilisateurId}" />
@@ -54,6 +58,7 @@
                         </div>
 
                     </s:form>
+                    </s:else>
                 </div>
 
             </div>

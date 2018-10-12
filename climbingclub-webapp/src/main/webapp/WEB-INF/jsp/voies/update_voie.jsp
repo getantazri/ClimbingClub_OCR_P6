@@ -27,6 +27,10 @@
 
                 <div class="column">
 
+                    <s:if test="%{#session.user.utilisateurId != voie.secteur.spot.topo.proprietaire.utilisateurId}">
+                        <span class="notification is-danger is-small">Vous n'êtes pas le propriétaire</span>
+                    </s:if>
+                    <s:else>
                     <s:form action="doUpdateVoie" method="POST" namespace="/gestion/voies">
                         <s:hidden name="voie.voieId" value="%{voie.voieId}" />
                         <s:hidden name="voie.secteur.secteurId" value="%{voie.secteur.secteurId}" />
@@ -59,6 +63,7 @@
                             <s:submit value="Enregistrer les modifications"  cssClass="button is-primary" />
                         </div>
                     </s:form>
+                    </s:else>
                 </div>
 
             </div>

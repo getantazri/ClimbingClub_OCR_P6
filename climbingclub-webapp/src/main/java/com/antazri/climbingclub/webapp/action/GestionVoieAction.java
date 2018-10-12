@@ -165,7 +165,12 @@ public class GestionVoieAction extends ActionSupport {
         cotations = cotationBo.findAll();
 
         if (voieId > 0) {
-            voie = gestionVoieService.findVoieById(voieId);
+            try {
+                voie = gestionVoieService.findVoieById(voieId);
+            } catch (Exception pE) {
+                addActionError("Voie introuvable");
+                return ActionSupport.ERROR;
+            }
         } else {
             addActionError("Voie introuvable");
             return ActionSupport.ERROR;

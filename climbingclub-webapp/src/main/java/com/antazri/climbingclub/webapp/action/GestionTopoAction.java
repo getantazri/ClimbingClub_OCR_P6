@@ -200,7 +200,12 @@ public class GestionTopoAction extends ActionSupport {
         regions = regionBo.findAll();
 
         if (topoId > 0) {
-            topo = gestionTopoService.findTopoById(topoId);
+            try {
+                topo = gestionTopoService.findTopoById(topoId);
+            } catch (Exception pE) {
+                addActionError("Topo introuvable");
+                return ActionSupport.ERROR;
+            }
         }
 
         return ActionSupport.INPUT;

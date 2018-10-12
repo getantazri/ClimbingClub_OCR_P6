@@ -175,8 +175,13 @@ public class GestionSpotAction extends ActionSupport {
         clearErrorsAndMessages();
 
         if (spotId > 0) {
-            spot = gestionSpotService.findSpotById(spotId);
-            topo = gestionTopoService.findTopoById(spot.getTopo().getTopoId());
+            try {
+                spot = gestionSpotService.findSpotById(spotId);
+                topo = gestionTopoService.findTopoById(spot.getTopo().getTopoId());
+            } catch (Exception pE) {
+                addActionError("Spot introuvable");
+                return ActionSupport.ERROR;
+            }
         } else {
             addActionError("Spot introuvable");
             return ActionSupport.ERROR;
